@@ -608,7 +608,7 @@
 
 
 <div class="viewcode-block" id="des_a"><a class="viewcode-back" href="../../../fci.html#pyscf.fci.addons.des_a">[docs]</a><span class="k">def</span> <span class="nf">des_a</span><span class="p">(</span><span class="n">ci0</span><span class="p">,</span> <span class="n">norb</span><span class="p">,</span> <span class="n">neleca_nelecb</span><span class="p">,</span> <span class="n">ap_id</span><span class="p">):</span>
-    <span class="sd">r&#39;&#39;&#39;Construct (N-1)-electron wavefunction by removing an alpha electron from</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Construct (N-1)-electron wavefunction by removing an alpha electron from</span>
 <span class="sd">    the N-electron wavefunction.</span>
 
 <span class="sd">    ... math::</span>
@@ -649,7 +649,7 @@
     <span class="k">return</span> <span class="n">ci1</span></div>
 
 <div class="viewcode-block" id="des_b"><a class="viewcode-back" href="../../../fci.html#pyscf.fci.addons.des_b">[docs]</a><span class="k">def</span> <span class="nf">des_b</span><span class="p">(</span><span class="n">ci0</span><span class="p">,</span> <span class="n">norb</span><span class="p">,</span> <span class="n">neleca_nelecb</span><span class="p">,</span> <span class="n">ap_id</span><span class="p">):</span>
-    <span class="sd">r&#39;&#39;&#39;Construct (N-1)-electron wavefunction by removing a beta electron from</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Construct (N-1)-electron wavefunction by removing a beta electron from</span>
 <span class="sd">    N-electron wavefunction.</span>
 
 <span class="sd">    Args:</span>
@@ -687,7 +687,7 @@
     <span class="k">return</span> <span class="n">ci1</span></div>
 
 <div class="viewcode-block" id="cre_a"><a class="viewcode-back" href="../../../fci.html#pyscf.fci.addons.cre_a">[docs]</a><span class="k">def</span> <span class="nf">cre_a</span><span class="p">(</span><span class="n">ci0</span><span class="p">,</span> <span class="n">norb</span><span class="p">,</span> <span class="n">neleca_nelecb</span><span class="p">,</span> <span class="n">ap_id</span><span class="p">):</span>
-    <span class="sd">r&#39;&#39;&#39;Construct (N+1)-electron wavefunction by adding an alpha electron in</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Construct (N+1)-electron wavefunction by adding an alpha electron in</span>
 <span class="sd">    the N-electron wavefunction.</span>
 
 <span class="sd">    ... math::</span>
@@ -728,7 +728,7 @@
 <span class="c1"># construct (N+1)-electron wavefunction by adding a beta electron to</span>
 <span class="c1"># N-electron wavefunction:</span>
 <div class="viewcode-block" id="cre_b"><a class="viewcode-back" href="../../../fci.html#pyscf.fci.addons.cre_b">[docs]</a><span class="k">def</span> <span class="nf">cre_b</span><span class="p">(</span><span class="n">ci0</span><span class="p">,</span> <span class="n">norb</span><span class="p">,</span> <span class="n">neleca_nelecb</span><span class="p">,</span> <span class="n">ap_id</span><span class="p">):</span>
-    <span class="sd">r&#39;&#39;&#39;Construct (N+1)-electron wavefunction by adding a beta electron in</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Construct (N+1)-electron wavefunction by adding a beta electron in</span>
 <span class="sd">    the N-electron wavefunction.</span>
 
 <span class="sd">    Args:</span>
@@ -827,7 +827,7 @@
     <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">bra</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">conj</span><span class="p">(),</span> <span class="n">ket</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span></div>
 
 <div class="viewcode-block" id="fix_spin_"><a class="viewcode-back" href="../../../fci.html#pyscf.fci.addons.fix_spin_">[docs]</a><span class="k">def</span> <span class="nf">fix_spin_</span><span class="p">(</span><span class="n">fciobj</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="n">PENALTY</span><span class="p">,</span> <span class="n">ss</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">r&#39;&#39;&#39;If FCI solver cannot stay on spin eigenfunction, this function can</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;If FCI solver cannot stay on spin eigenfunction, this function can</span>
 <span class="sd">    add a shift to the states which have wrong spin.</span>
 
 <span class="sd">    .. math::</span>
@@ -974,7 +974,7 @@
 <span class="k">del</span><span class="p">(</span><span class="n">LARGE_CI_TOL</span><span class="p">,</span> <span class="n">RETURN_STRS</span><span class="p">,</span> <span class="n">PENALTY</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">a4</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="p">)[:,</span><span class="kc">None</span><span class="p">]</span>
     <span class="n">a6</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)[:,</span><span class="kc">None</span><span class="p">]</span>
     <span class="n">b4</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>

@@ -206,7 +206,7 @@ have minimal effects on the other modules.</li>
 </ul>
 </li>
 <li>Not enforced but recommended
-- Compatibile with Python 2.6, 2.7, 3.2, 3.3, 3.4;
+- Compatible with Python 2.6, 2.7, 3.2, 3.3, 3.4;
 - Following C89 (gnu89) standard for C code;
 - Using ctypes to bridge C/python functions</li>
 </ul>
@@ -238,7 +238,7 @@ other classes.</p>
 three attributes <code class="docutils literal"><span class="pre">verbose</span></code>, <code class="docutils literal"><span class="pre">stdout</span></code> and <code class="docutils literal"><span class="pre">max_memory</span></code> from
 <code class="xref py py-class docutils literal"><span class="pre">gto.Mole</span></code>.  Overwriting them only affects the behavior of the
 local instance for that method class.  In the following example,
-<code class="docutils literal"><span class="pre">mf.verbose</span></code> screens out the noises produced by <code class="xref py py-class docutils literal"><span class="pre">RHF</span></code>
+<code class="docutils literal"><span class="pre">mf.verbose</span></code> mutes the noises produced by <code class="xref py py-class docutils literal"><span class="pre">RHF</span></code>
 method, and the output of <code class="xref py py-class docutils literal"><span class="pre">MP2</span></code> is written in the log file
 <code class="docutils literal"><span class="pre">example.log</span></code>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mp</span>
@@ -252,7 +252,7 @@ method, and the output of <code class="xref py py-class docutils literal"><span 
 </pre></div>
 </div>
 </li>
-<li><p class="first">Method class are only to hold the options or enviroments (like
+<li><p class="first">Method class are only to hold the options or environments (like
 convergence threshold, max iterations, ...) to control the
 behavior/convergence of the method.  The intermediate status are
 <strong>not</strong> supposed to be saved in the method class (during the
@@ -263,17 +263,18 @@ many class member functions take them as the default arguments if the
 caller didn&#8217;t provide enough parameters.</p>
 </li>
 <li><p class="first">In __init__ function, initialize/define the problem size.  The
-problem size parameters (like num orbitals etc) can be considered as
-enviroments.  They are not supposed to be changed by other functions.</p>
+problem size parameters (like num_orbitals etc) can be considered as
+environments.  They are not supposed to be changed by other functions.</p>
 </li>
 <li><p class="first">Kernel functions
-Although the method classes have various entrance/main funtion, many
+Although the method classes have various entrance/main function, many
 of them provide an entrance function called <code class="docutils literal"><span class="pre">kernel</span></code>.  You can
 simply call the <code class="docutils literal"><span class="pre">kernel</span></code> function and it will guide the program
 flow to the right main function.</p>
 </li>
-<li><p class="first">Default value of the class member functions&#8217; arguments.  Many member
-functions can take the results of their class as the default arguments.</p>
+<li><p class="first">Default value of class methods&#8217; arguments.  Many class methods
+can take the results of the calculations which were held in the class as the
+default arguments.</p>
 </li>
 </ul>
 </li>

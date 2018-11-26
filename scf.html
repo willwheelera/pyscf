@@ -741,8 +741,8 @@ to get_fock function during the SCF iteration)</p>
 <dt>hermi</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd><p class="first">Whether J, K matrix is hermitian</p>
 <div class="last line-block">
-<div class="line">0 : no hermitian or symmetric</div>
-<div class="line">1 : hermitian</div>
+<div class="line">0 : not hermitian and not symmetric</div>
+<div class="line">1 : hermitian or symmetric</div>
 <div class="line">2 : anti-hermitian</div>
 </div>
 </dd>
@@ -904,9 +904,10 @@ the density matrix to the basis set defined by <code class="docutils literal"><s
 
 <dl class="method">
 <dt id="pyscf.scf.hf.SCF.kernel">
-<code class="descname">kernel</code><span class="sig-paren">(</span><em>dm0=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.kernel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.SCF.kernel" title="Permalink to this definition">¶</a></dt>
-<dd><p>main routine for SCF</p>
-<dl class="docutils">
+<code class="descname">kernel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.hf.SCF.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>SCF main driver</p>
+<blockquote>
+<div><dl class="docutils">
 <dt>Kwargs:</dt>
 <dd><dl class="first last docutils">
 <dt>dm0</dt>
@@ -925,11 +926,12 @@ the density matrix to the basis set defined by <code class="docutils literal"><s
 <span class="go">-98.552190448282104</span>
 </pre></div>
 </div>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyscf.scf.hf.SCF.make_rdm1">
-<code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff=None</em>, <em>mo_occ=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.SCF.make_rdm1" title="Permalink to this definition">¶</a></dt>
+<code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff=None</em>, <em>mo_occ=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.SCF.make_rdm1" title="Permalink to this definition">¶</a></dt>
 <dd><p>One-particle density matrix in AO representation</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -1059,7 +1061,7 @@ three methods</p>
 <dl class="method">
 <dt id="pyscf.scf.hf.SCF.scf">
 <code class="descname">scf</code><span class="sig-paren">(</span><em>dm0=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.scf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.SCF.scf" title="Permalink to this definition">¶</a></dt>
-<dd><p>main routine for SCF</p>
+<dd><p>SCF main driver</p>
 <dl class="docutils">
 <dt>Kwargs:</dt>
 <dd><dl class="first last docutils">
@@ -1217,8 +1219,8 @@ envrionment.</dd>
 <dt>hermi</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd><p class="first">Whether J, K matrix is hermitian</p>
 <div class="last line-block">
-<div class="line">0 : no hermitian or symmetric</div>
-<div class="line">1 : hermitian</div>
+<div class="line">0 : not hermitian and not symmetric</div>
+<div class="line">1 : hermitian or symmetric</div>
 <div class="line">2 : anti-hermitian</div>
 </div>
 </dd>
@@ -1483,7 +1485,7 @@ can be a list matrices, corresponding to the input density matrices.</dd>
 
 <dl class="method">
 <dt id="pyscf.scf.rohf.ROHF.make_rdm1">
-<code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff=None</em>, <em>mo_occ=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/rohf.html#ROHF.make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.rohf.ROHF.make_rdm1" title="Permalink to this definition">¶</a></dt>
+<code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff=None</em>, <em>mo_occ=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/rohf.html#ROHF.make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.rohf.ROHF.make_rdm1" title="Permalink to this definition">¶</a></dt>
 <dd><p>One-particle densit matrix.  mo_occ is a 1D array, with occupancy 1 or 2.</p>
 </dd></dl>
 
@@ -1786,7 +1788,7 @@ See also <code class="xref py py-func docutils literal"><span class="pre">det_ov
 
 <dl class="method">
 <dt id="pyscf.scf.uhf.UHF.make_rdm1">
-<code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff=None</em>, <em>mo_occ=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/uhf.html#UHF.make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.uhf.UHF.make_rdm1" title="Permalink to this definition">¶</a></dt>
+<code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff=None</em>, <em>mo_occ=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/uhf.html#UHF.make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.uhf.UHF.make_rdm1" title="Permalink to this definition">¶</a></dt>
 <dd><p>One-particle density matrix</p>
 <dl class="docutils">
 <dt>Returns:</dt>
@@ -2032,8 +2034,8 @@ envrionment.</dd>
 <dt>hermi</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd><p class="first">Whether J, K matrix is hermitian</p>
 <div class="last line-block">
-<div class="line">0 : no hermitian or symmetric</div>
-<div class="line">1 : hermitian</div>
+<div class="line">0 : not hermitian and not symmetric</div>
+<div class="line">1 : hermitian or symmetric</div>
 <div class="line">2 : anti-hermitian</div>
 </div>
 </dd>
@@ -2367,8 +2369,8 @@ to get_fock function during the SCF iteration)</p>
 <dt>hermi</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd><p class="first">Whether J, K matrix is hermitian</p>
 <div class="last line-block">
-<div class="line">0 : no hermitian or symmetric</div>
-<div class="line">1 : hermitian</div>
+<div class="line">0 : not hermitian and not symmetric</div>
+<div class="line">1 : hermitian or symmetric</div>
 <div class="line">2 : anti-hermitian</div>
 </div>
 </dd>
@@ -2530,9 +2532,10 @@ the density matrix to the basis set defined by <code class="docutils literal"><s
 
 <dl class="method">
 <dt>
-<code class="descname">kernel</code><span class="sig-paren">(</span><em>dm0=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.kernel"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>main routine for SCF</p>
-<dl class="docutils">
+<code class="descname">kernel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><p>SCF main driver</p>
+<blockquote>
+<div><dl class="docutils">
 <dt>Kwargs:</dt>
 <dd><dl class="first last docutils">
 <dt>dm0</dt>
@@ -2551,11 +2554,12 @@ the density matrix to the basis set defined by <code class="docutils literal"><s
 <span class="go">-98.552190448282104</span>
 </pre></div>
 </div>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt>
-<code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff=None</em>, <em>mo_occ=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.make_rdm1"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff=None</em>, <em>mo_occ=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.make_rdm1"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>One-particle density matrix in AO representation</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -2685,7 +2689,7 @@ three methods</p>
 <dl class="method">
 <dt>
 <code class="descname">scf</code><span class="sig-paren">(</span><em>dm0=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.scf"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>main routine for SCF</p>
+<dd><p>SCF main driver</p>
 <dl class="docutils">
 <dt>Kwargs:</dt>
 <dd><dl class="first last docutils">
@@ -2991,8 +2995,8 @@ to get_fock function during the SCF iteration)</p>
 <dt>hermi</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd><p class="first">Whether J, K matrix is hermitian</p>
 <div class="last line-block">
-<div class="line">0 : no hermitian or symmetric</div>
-<div class="line">1 : hermitian</div>
+<div class="line">0 : not hermitian and not symmetric</div>
+<div class="line">1 : hermitian or symmetric</div>
 <div class="line">2 : anti-hermitian</div>
 </div>
 </dd>
@@ -3246,7 +3250,7 @@ to small.</dd>
 
 <dl class="function">
 <dt id="pyscf.scf.hf.make_rdm1">
-<code class="descclassname">pyscf.scf.hf.</code><code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff</em>, <em>mo_occ</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.make_rdm1" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyscf.scf.hf.</code><code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff</em>, <em>mo_occ</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.make_rdm1" title="Permalink to this definition">¶</a></dt>
 <dd><p>One-particle density matrix in AO representation</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -3627,7 +3631,7 @@ See also <a class="reference internal" href="#pyscf.scf.uhf.det_ovlp" title="pys
 
 <dl class="method">
 <dt>
-<code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff=None</em>, <em>mo_occ=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/uhf.html#UHF.make_rdm1"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff=None</em>, <em>mo_occ=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/uhf.html#UHF.make_rdm1"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>One-particle density matrix</p>
 <dl class="docutils">
 <dt>Returns:</dt>
@@ -3957,7 +3961,7 @@ See also <a class="reference internal" href="#pyscf.scf.uhf.det_ovlp" title="pys
 
 <dl class="function">
 <dt id="pyscf.scf.uhf.make_rdm1">
-<code class="descclassname">pyscf.scf.uhf.</code><code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff</em>, <em>mo_occ</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/uhf.html#make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.uhf.make_rdm1" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyscf.scf.uhf.</code><code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff</em>, <em>mo_occ</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/uhf.html#make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.uhf.make_rdm1" title="Permalink to this definition">¶</a></dt>
 <dd><p>One-particle density matrix</p>
 <dl class="docutils">
 <dt>Returns:</dt>
@@ -4701,7 +4705,7 @@ subspaces separatedly (without change occupancy).</p>
 <dd><p>Dirac-RHF</p>
 <dl class="method">
 <dt id="pyscf.scf.dhf.RHF.make_rdm1">
-<code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff=None</em>, <em>mo_occ=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/dhf.html#RHF.make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.dhf.RHF.make_rdm1" title="Permalink to this definition">¶</a></dt>
+<code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff=None</em>, <em>mo_occ=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/dhf.html#RHF.make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.dhf.RHF.make_rdm1" title="Permalink to this definition">¶</a></dt>
 <dd><p>D/2 = psi_i^dagpsi_i = psi_{Ti}^dagpsi_{Ti}
 D(UHF) = psi_i^dagpsi_i + psi_{Ti}^dagpsi_{Ti}
 RHF average the density of spin up and spin down:

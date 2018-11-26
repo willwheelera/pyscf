@@ -239,9 +239,9 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s1">&#39;Unknown platform&#39;</span><span class="p">)</span>
         <span class="n">libname_so</span> <span class="o">=</span> <span class="n">libname</span> <span class="o">+</span> <span class="n">so_ext</span>
-        <span class="k">return</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">CDLL</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="n">libname_so</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">CDLL</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="n">libname_so</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">_loaderpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
+        <span class="n">_loaderpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ctypeslib</span><span class="o">.</span><span class="n">load_library</span><span class="p">(</span><span class="n">libname</span><span class="p">,</span> <span class="n">_loaderpath</span><span class="p">)</span>
 
 <span class="c1">#Fixme, the standard resouce module gives wrong number when objects are released</span>
@@ -256,7 +256,7 @@
     <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;linux&#39;</span><span class="p">):</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;/proc/</span><span class="si">%s</span><span class="s2">/statm&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">vms</span><span class="p">,</span> <span class="n">rss</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">PAGESIZE</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()[:</span><span class="mi">2</span><span class="p">]]</span>
-            <span class="k">return</span> <span class="n">rss</span><span class="o">/</span><span class="mi">1</span><span class="n">e6</span><span class="p">,</span> <span class="n">vms</span><span class="o">/</span><span class="mi">1</span><span class="n">e6</span>
+            <span class="k">return</span> <span class="n">rss</span><span class="o">/</span><span class="mf">1e6</span><span class="p">,</span> <span class="n">vms</span><span class="o">/</span><span class="mf">1e6</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
 
@@ -444,7 +444,7 @@
     <span class="sd">&#39;&#39;&#39;Given tril-index ij, compute the pair indices (i,j) which satisfy</span>
 <span class="sd">    ij = i * (i+1) / 2 + j</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">ij</span><span class="o">+.</span><span class="mi">25</span><span class="p">)</span> <span class="o">-</span> <span class="o">.</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">ij</span><span class="o">+.</span><span class="mi">25</span><span class="p">)</span> <span class="o">-</span> <span class="o">.</span><span class="mi">5</span> <span class="o">+</span> <span class="mf">1e-7</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
     <span class="n">j</span> <span class="o">=</span> <span class="n">ij</span> <span class="o">-</span> <span class="n">i</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span>
     <span class="k">return</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span>
 
@@ -691,10 +691,10 @@
             <span class="n">check_sanity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cls</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;New view of object with the same attributes.&#39;&#39;&#39;</span>
-        <span class="n">obj</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span>
-        <span class="n">obj</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="n">obj</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">obj</span>
 
 <span class="n">_warn_once_registry</span> <span class="o">=</span> <span class="p">{}</span>
@@ -703,14 +703,14 @@
 <span class="sd">    overwritten.  It does not check the attributes which are prefixed with</span>
 <span class="sd">    &quot;_&quot;.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">objkeys</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">__dict__</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)]</span>
+    <span class="n">objkeys</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__dict__</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)]</span>
     <span class="n">keysub</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">objkeys</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">keysref</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">keysub</span><span class="p">:</span>
-        <span class="n">class_attr</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">__class__</span><span class="p">))</span>
+        <span class="n">class_attr</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span><span class="p">))</span>
         <span class="n">keyin</span> <span class="o">=</span> <span class="n">keysub</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">class_attr</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">keyin</span><span class="p">:</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Overwritten attributes  </span><span class="si">%s</span><span class="s1">  of </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span>
-                   <span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">keyin</span><span class="p">),</span> <span class="n">obj</span><span class="o">.</span><span class="n">__class__</span><span class="p">))</span>
+                   <span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">keyin</span><span class="p">),</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">msg</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_warn_once_registry</span><span class="p">:</span>
                 <span class="n">_warn_once_registry</span><span class="p">[</span><span class="n">msg</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
@@ -719,7 +719,7 @@
         <span class="n">keydiff</span> <span class="o">=</span> <span class="n">keysub</span> <span class="o">-</span> <span class="n">class_attr</span>
         <span class="k">if</span> <span class="n">keydiff</span><span class="p">:</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> does not have attributes  </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span>
-                   <span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">keydiff</span><span class="p">)))</span>
+                   <span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">keydiff</span><span class="p">)))</span>
             <span class="k">if</span> <span class="n">msg</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_warn_once_registry</span><span class="p">:</span>
                 <span class="n">_warn_once_registry</span><span class="p">[</span><span class="n">msg</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
@@ -738,10 +738,45 @@
 
 <span class="sd">        fn.__doc__ = doc</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="nf">make_fn</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
-        <span class="n">fn</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">=</span> <span class="n">doc</span>
+    <span class="k">def</span> <span class="nf">fn_with_doc</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+        <span class="n">fn</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">doc</span>
         <span class="k">return</span> <span class="n">fn</span>
-    <span class="k">return</span> <span class="n">make_fn</span>
+    <span class="k">return</span> <span class="n">fn_with_doc</span>
+
+<span class="k">def</span> <span class="nf">alias</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">alias_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    The statement &quot;fn1 = alias(fn)&quot; in a class is equivalent to define the</span>
+<span class="sd">    following method in the class:</span>
+
+<span class="sd">    .. code-block:: python</span>
+<span class="sd">        def fn1(self, *args, **kwargs):</span>
+<span class="sd">            return self.fn(*args, **kwargs)</span>
+
+<span class="sd">    Using alias function instead of fn1 = fn because some methods may be</span>
+<span class="sd">    overloaded in the child class. Using &quot;alias&quot; can make sure that the</span>
+<span class="sd">    overloaded mehods were called when calling the aliased method.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">aliased_fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">alias_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">aliased_fn</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">alias_name</span>
+
+    <span class="n">doc_str</span> <span class="o">=</span> <span class="s1">&#39;An alias to method </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
+        <span class="kn">from</span> <span class="nn">inspect</span> <span class="k">import</span> <span class="n">signature</span>
+        <span class="n">sig</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">signature</span><span class="p">(</span><span class="n">fn</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">alias_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">doc_str</span> <span class="o">+=</span> <span class="s1">&#39;Function Signature: </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">sig</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">doc_str</span> <span class="o">+=</span> <span class="s1">&#39;Function Signature: </span><span class="si">%s%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">alias_name</span><span class="p">,</span> <span class="n">sig</span><span class="p">)</span>
+    <span class="n">doc_str</span> <span class="o">+=</span> <span class="s1">&#39;----------------------------------------</span><span class="se">\n\n</span><span class="s1">&#39;</span>
+
+    <span class="k">if</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__doc__</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">doc_str</span> <span class="o">+=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__doc__</span>
+
+    <span class="n">aliased_fn</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">doc_str</span>
+    <span class="k">return</span> <span class="n">aliased_fn</span>
 
 <span class="k">def</span> <span class="nf">import_as_method</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">default_keys</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
@@ -754,7 +789,7 @@
 <span class="sd">            if b is None: b = self.b</span>
 <span class="sd">            return fn(..., a, b, ...)</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">code_obj</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="n">__code__</span>
+    <span class="n">code_obj</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__code__</span>
 <span class="c1"># Add the default_keys as kwargs in CodeType is very complicated</span>
 <span class="c1">#    new_code_obj = types.CodeType(code_obj.co_argcount+1,</span>
 <span class="c1">#                                  code_obj.co_nlocals,</span>
@@ -778,7 +813,7 @@
     <span class="c1"># implement this for now.</span>
     <span class="n">nargs</span> <span class="o">=</span> <span class="n">code_obj</span><span class="o">.</span><span class="n">co_argcount</span>
     <span class="n">argnames</span> <span class="o">=</span> <span class="n">code_obj</span><span class="o">.</span><span class="n">co_varnames</span><span class="p">[:</span><span class="n">nargs</span><span class="p">]</span>
-    <span class="n">defaults</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="n">__defaults__</span>
+    <span class="n">defaults</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__defaults__</span>
     <span class="n">new_code_str</span> <span class="o">=</span> <span class="s1">&#39;def clsmethod(self, </span><span class="si">%s</span><span class="s1">):</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">argnames</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">default_keys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">default_keys</span><span class="p">:</span>
@@ -787,11 +822,11 @@
             <span class="n">defaults</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,)</span> <span class="o">*</span> <span class="n">nargs</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">defaults</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,)</span> <span class="o">*</span> <span class="p">(</span><span class="n">nargs</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">defaults</span><span class="p">))</span> <span class="o">+</span> <span class="n">defaults</span>
-    <span class="n">new_code_str</span> <span class="o">+=</span> <span class="s1">&#39;    return </span><span class="si">%s</span><span class="s1">(</span><span class="si">%s</span><span class="s1">)</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">argnames</span><span class="p">))</span>
-    <span class="n">exec</span><span class="p">(</span><span class="n">new_code_str</span><span class="p">,</span> <span class="n">fn</span><span class="o">.</span><span class="n">__globals__</span><span class="p">,</span> <span class="nb">locals</span><span class="p">())</span>
+    <span class="n">new_code_str</span> <span class="o">+=</span> <span class="s1">&#39;    return </span><span class="si">%s</span><span class="s1">(</span><span class="si">%s</span><span class="s1">)</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">argnames</span><span class="p">))</span>
+    <span class="n">exec</span><span class="p">(</span><span class="n">new_code_str</span><span class="p">,</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">,</span> <span class="nb">locals</span><span class="p">())</span>
 
-    <span class="n">clsmethod</span><span class="o">.</span><span class="n">__name__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="n">__name__</span>
-    <span class="n">clsmethod</span><span class="o">.</span><span class="n">__defaults__</span> <span class="o">=</span> <span class="n">defaults</span>
+    <span class="n">clsmethod</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="n">clsmethod</span><span class="o">.</span><span class="vm">__defaults__</span> <span class="o">=</span> <span class="n">defaults</span>
     <span class="k">return</span> <span class="n">clsmethod</span>
 
 <span class="k">def</span> <span class="nf">overwrite_mro</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">mro</span><span class="p">):</span>
@@ -806,7 +841,7 @@
     <span class="c1">#else:</span>
     <span class="c1">#    class Temp(obj.__class__, metaclass=HackMRO):</span>
     <span class="c1">#        pass</span>
-    <span class="n">Temp</span> <span class="o">=</span> <span class="n">HackMRO</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__bases__</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
+    <span class="n">Temp</span> <span class="o">=</span> <span class="n">HackMRO</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__bases__</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
     <span class="n">obj</span> <span class="o">=</span> <span class="n">Temp</span><span class="p">()</span>
 <span class="c1"># Delete mro function otherwise all subclass of Temp are not able to</span>
 <span class="c1"># resolve the right mro</span>
@@ -833,7 +868,7 @@
             <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_e</span> <span class="o">=</span> <span class="n">e</span>
                 <span class="k">raise</span> <span class="n">e</span>
-        <span class="n">Process</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">qwrap</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">Process</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">qwrap</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ProcessRuntimeError</span><span class="p">(</span><span class="s1">&#39;Error on process </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="p">)</span>
@@ -856,7 +891,7 @@
             <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_e</span> <span class="o">=</span> <span class="n">e</span>
                 <span class="k">raise</span> <span class="n">e</span>
-        <span class="n">Thread</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">qwrap</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">Thread</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">qwrap</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ThreadRuntimeError</span><span class="p">(</span><span class="s1">&#39;Error on thread </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="p">)</span>
@@ -879,7 +914,7 @@
             <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_e</span> <span class="o">=</span> <span class="n">e</span>
                 <span class="k">raise</span> <span class="n">e</span>
-        <span class="n">Thread</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">qwrap</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">Thread</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">qwrap</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ThreadRuntimeError</span><span class="p">(</span><span class="s1">&#39;Error on thread </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="p">)</span>
@@ -999,7 +1034,7 @@
         <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">tmpfile</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">param</span><span class="o">.</span><span class="n">TMPDIR</span><span class="p">)</span>
             <span class="n">filename</span> <span class="o">=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span>
-        <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 <span class="c1">#FIXME: Does GC flush/close the HDF5 file when releasing the resource?</span>
 <span class="c1"># To make HDF5 file reusable, file has to be closed or flushed</span>
     <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1019,18 +1054,18 @@
     <span class="n">base</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ctypeslib</span><span class="o">.</span><span class="n">ndpointer</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_param</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">from_param</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">obj</span>
         <span class="k">return</span> <span class="n">base</span><span class="o">.</span><span class="n">from_param</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="p">(</span><span class="n">base</span><span class="p">,),</span> <span class="p">{</span><span class="s1">&#39;from_param&#39;</span><span class="p">:</span> <span class="n">from_param</span><span class="p">})</span>
+    <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="p">(</span><span class="n">base</span><span class="p">,),</span> <span class="p">{</span><span class="s1">&#39;from_param&#39;</span><span class="p">:</span> <span class="n">from_param</span><span class="p">})</span>
 
 
 <span class="c1"># A tag to label the derived Scanner class</span>
 <span class="k">class</span> <span class="nc">SinglePointScanner</span><span class="p">:</span> <span class="k">pass</span>
 <span class="k">class</span> <span class="nc">GradScanner</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">base</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">as_scanner</span><span class="p">()</span>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">e_tot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1056,12 +1091,20 @@
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span>
-        <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">key</span><span class="p">)]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">env_bak</span> <span class="o">=</span> <span class="p">[(</span><span class="n">key</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="s1">&#39;TO_DEL&#39;</span><span class="p">))</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">env_new</span> <span class="o">=</span> <span class="p">[(</span><span class="n">key</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">]</span>
+
+        <span class="c1"># Should I skip the keys which are not presented in obj?</span>
+        <span class="c1">#keys = [key for key in kwargs.keys() if hasattr(obj, key)]</span>
+        <span class="c1">#self.env_bak = [(key, getattr(obj, key, &#39;TO_DEL&#39;)) for key in keys]</span>
+        <span class="c1">#self.env_new = [(key, kwargs[key]) for key in keys]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">env_bak</span> <span class="o">=</span> <span class="p">[(</span><span class="n">key</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="s1">&#39;TO_DEL&#39;</span><span class="p">))</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env_new</span> <span class="o">=</span> <span class="p">[(</span><span class="n">key</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">]</span>
+
     <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">env_new</span><span class="p">:</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
     <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">env_bak</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">v</span> <span class="o">==</span> <span class="s1">&#39;TO_DEL&#39;</span><span class="p">:</span>
@@ -1082,14 +1125,14 @@
 <span class="sd">    137.03599967994</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
-        <span class="n">temporary_env</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">LIGHT_SPEED</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">temporary_env</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">LIGHT_SPEED</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">c</span>
     <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">temporary_env</span><span class="o">.</span><span class="n">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">temporary_env</span><span class="o">.</span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span></div>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">prange_tril</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">300</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">j</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="o">-</span><span class="n">i</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>

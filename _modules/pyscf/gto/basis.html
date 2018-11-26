@@ -467,7 +467,7 @@
             <span class="n">basis</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;321&#39;</span><span class="p">)</span> <span class="ow">or</span>
             <span class="n">basis</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;431&#39;</span><span class="p">))</span>
 
-<span class="n">_BASIS_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
+<span class="n">_BASIS_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">_parse_pople_basis</span><span class="p">(</span><span class="n">basis</span><span class="p">,</span> <span class="n">symb</span><span class="p">):</span>
     <span class="k">if</span> <span class="s1">&#39;(&#39;</span> <span class="ow">in</span> <span class="n">basis</span><span class="p">:</span>
@@ -501,12 +501,12 @@
         <span class="k">return</span> <span class="n">parse_nwchem</span><span class="o">.</span><span class="n">parse_ecp</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">symb</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">parse_nwchem</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">symb</span><span class="p">,</span> <span class="n">optimize</span><span class="p">)</span></div>
-<span class="n">parse</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">=</span> <span class="n">parse_nwchem</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">__doc__</span>
+<span class="n">parse</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">parse_nwchem</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="vm">__doc__</span>
 
 <span class="k">def</span> <span class="nf">parse_ecp</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">symb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="c1"># TODO: catch KeyError and provide suggestion for the possible keys</span>
     <span class="k">return</span> <span class="n">parse_nwchem</span><span class="o">.</span><span class="n">parse_ecp</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">symb</span><span class="p">)</span>
-<span class="n">parse_ecp</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">=</span> <span class="n">parse_nwchem</span><span class="o">.</span><span class="n">parse_ecp</span><span class="o">.</span><span class="n">__doc__</span>
+<span class="n">parse_ecp</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">parse_nwchem</span><span class="o">.</span><span class="n">parse_ecp</span><span class="o">.</span><span class="vm">__doc__</span>
 
 <div class="viewcode-block" id="load"><a class="viewcode-back" href="../../../gto.html#pyscf.gto.basis.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">filename_or_basisname</span><span class="p">,</span> <span class="n">symb</span><span class="p">,</span> <span class="n">optimize</span><span class="o">=</span><span class="n">OPTIMIZE_CONTRACTION</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Convert the basis of the given symbol to internal format</span>
@@ -562,11 +562,11 @@
         <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">):</span>
             <span class="n">fp</span><span class="p">,</span> <span class="n">pathname</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">find_module</span><span class="p">(</span><span class="n">basmod</span><span class="p">,</span> <span class="n">__path__</span><span class="p">)</span>
             <span class="n">mod</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">load_module</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">pathname</span><span class="p">,</span> <span class="n">description</span><span class="p">)</span>
-            <span class="n">b</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">__getattribute__</span><span class="p">(</span><span class="n">symb</span><span class="p">)</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">symb</span><span class="p">)</span>
             <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">mod</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="o">+</span><span class="n">basmod</span><span class="p">,</span> <span class="n">__package__</span><span class="p">)</span>
-            <span class="n">b</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">__getattribute__</span><span class="p">(</span><span class="n">symb</span><span class="p">)</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">symb</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">b</span></div>
 
 <div class="viewcode-block" id="load_ecp"><a class="viewcode-back" href="../../../gto.html#pyscf.gto.basis.load_ecp">[docs]</a><span class="k">def</span> <span class="nf">load_ecp</span><span class="p">(</span><span class="n">filename_or_basisname</span><span class="p">,</span> <span class="n">symb</span><span class="p">):</span>

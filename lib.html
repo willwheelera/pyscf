@@ -1221,16 +1221,17 @@ seig is the eigenvalue vector of the metric s.</dd>
 
 <dl class="function">
 <dt id="lib.linalg_helper.krylov">
-<code class="descclassname">lib.linalg_helper.</code><code class="descname">krylov</code><span class="sig-paren">(</span><em>aop</em>, <em>b</em>, <em>x0=None</em>, <em>tol=1e-10</em>, <em>max_cycle=30</em>, <em>dot=&lt;built-in function dot&gt;</em>, <em>lindep=1e-15</em>, <em>callback=None</em>, <em>hermi=False</em>, <em>verbose=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#krylov"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.krylov" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">lib.linalg_helper.</code><code class="descname">krylov</code><span class="sig-paren">(</span><em>aop</em>, <em>b</em>, <em>x0=None</em>, <em>tol=1e-10</em>, <em>max_cycle=30</em>, <em>dot=&lt;built-in function dot&gt;</em>, <em>lindep=1e-15</em>, <em>callback=None</em>, <em>hermi=False</em>, <em>max_memory=2000</em>, <em>verbose=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#krylov"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.krylov" title="Permalink to this definition">¶</a></dt>
 <dd><p>Krylov subspace method to solve  (1+a) x = b.  Ref:
 J. A. Pople et al, Int. J.  Quantum. Chem.  Symp. 13, 225 (1979).</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd><dl class="first last docutils">
+<dd><dl class="first docutils">
 <dt>aop</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">function(x) =&gt; array_like_x</span><dd>aop(x) to mimic the matrix vector multiplication <span class="math">\(\sum_{j}a_{ij} x_j\)</span>.
 The argument is a 1D array.  The returned value is a 1D array.</dd>
 </dl>
+<p class="last">b : a vector or a list of vectors</p>
 </dd>
 <dt>Kwargs:</dt>
 <dd><dl class="first last docutils">
@@ -1254,11 +1255,11 @@ envrionment.</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
-<dd>x : 1D array like b</dd>
+<dd>x : ndarray like b</dd>
 </dl>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">lib</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span> <span class="o">*</span> <span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span> <span class="o">*</span> <span class="mf">1e-2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">aop</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">krylov</span><span class="p">(</span><span class="n">aop</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
@@ -1443,11 +1444,11 @@ objects using the python built in methods <code class="docutils literal"><span c
 
 <span class="c1"># load SCF results</span>
 <span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">chkfile</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;n2.chk&#39;</span><span class="p">,</span> <span class="s1">&#39;scf&#39;</span><span class="p">))</span>
+<span class="n">mf</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">chkfile</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;n2.chk&#39;</span><span class="p">,</span> <span class="s1">&#39;scf&#39;</span><span class="p">))</span>
 
 <span class="c1"># load MCSCF results</span>
 <span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASCI</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">mc</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">chkfile</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;n2.chk&#39;</span><span class="p">,</span> <span class="s1">&#39;mcscf&#39;</span><span class="p">))</span>
+<span class="n">mc</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">chkfile</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;n2.chk&#39;</span><span class="p">,</span> <span class="s1">&#39;mcscf&#39;</span><span class="p">))</span>
 <span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
 </pre></div>
 </div>

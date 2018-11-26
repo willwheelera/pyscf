@@ -972,7 +972,7 @@ in sequential patches of the 1D array</p>
 <dt>dm_kpts</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">(nkpts, nao, nao) ndarray or a list of (nkpts,nao,nao) ndarray</span><dd>Density matrix at each k-point.  If a list of k-point DMs, eg,
 UHF alpha and beta DM, the alpha and beta DMs are contracted
-separately.</dd>
+separately.  It needs to be Hermitian.</dd>
 </dl>
 </dd>
 <dt>Kwargs:</dt>
@@ -995,7 +995,7 @@ or list of vj if the input dm_kpts is a list of DMs</dd>
 <dt>Args:</dt>
 <dd><dl class="first last docutils">
 <dt>dm_kpts</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">(nkpts, nao, nao) ndarray</span><dd>Density matrix at each k-point</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">(nkpts, nao, nao) ndarray</span><dd>Density matrix at each k-point. It needs to be Hermitian.</dd>
 </dl>
 </dd>
 <dt>Kwargs:</dt>
@@ -1049,7 +1049,7 @@ basis defined by <code class="docutils literal"><span class="pre">cell</span></c
 
 <dl class="function">
 <dt id="pyscf.pbc.scf.khf.make_rdm1">
-<code class="descclassname">pyscf.pbc.scf.khf.</code><code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff_kpts</em>, <em>mo_occ_kpts</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/khf.html#make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.khf.make_rdm1" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyscf.pbc.scf.khf.</code><code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff_kpts</em>, <em>mo_occ_kpts</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/khf.html#make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.khf.make_rdm1" title="Permalink to this definition">¶</a></dt>
 <dd><p>One particle density matrices for all k-points.</p>
 <dl class="docutils">
 <dt>Returns:</dt>
@@ -1121,6 +1121,12 @@ virtual subspaces separatedly (without change occupancy).</p>
 </dl>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.pbc.scf.kuhf.KUHF.get_fermi">
+<code class="descname">get_fermi</code><span class="sig-paren">(</span><em>mf</em>, <em>mo_energy_kpts=None</em>, <em>mo_occ_kpts=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.pbc.scf.kuhf.KUHF.get_fermi" title="Permalink to this definition">¶</a></dt>
+<dd><p>A pair of Fermi level for spin-up and spin-down orbitals</p>
 </dd></dl>
 
 <dl class="method">
@@ -1295,6 +1301,12 @@ virtual subspaces separatedly (without change occupancy).</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyscf.pbc.scf.kuhf.get_fermi">
+<code class="descclassname">pyscf.pbc.scf.kuhf.</code><code class="descname">get_fermi</code><span class="sig-paren">(</span><em>mf</em>, <em>mo_energy_kpts=None</em>, <em>mo_occ_kpts=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/kuhf.html#get_fermi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.kuhf.get_fermi" title="Permalink to this definition">¶</a></dt>
+<dd><p>A pair of Fermi level for spin-up and spin-down orbitals</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyscf.pbc.scf.kuhf.get_occ">
 <code class="descclassname">pyscf.pbc.scf.kuhf.</code><code class="descname">get_occ</code><span class="sig-paren">(</span><em>mf</em>, <em>mo_energy_kpts=None</em>, <em>mo_coeff_kpts=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/kuhf.html#get_occ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.kuhf.get_occ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Label the occupancies for each orbital for sampled k-points.</p>
@@ -1320,7 +1332,7 @@ basis defined by <code class="docutils literal"><span class="pre">cell</span></c
 
 <dl class="function">
 <dt id="pyscf.pbc.scf.kuhf.make_rdm1">
-<code class="descclassname">pyscf.pbc.scf.kuhf.</code><code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff_kpts</em>, <em>mo_occ_kpts</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/kuhf.html#make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.kuhf.make_rdm1" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyscf.pbc.scf.kuhf.</code><code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff_kpts</em>, <em>mo_occ_kpts</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/kuhf.html#make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.kuhf.make_rdm1" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alpha and beta spin one particle density matrices for all k-points.</p>
 <dl class="docutils">
 <dt>Returns:</dt>

@@ -519,7 +519,14 @@ to perform tensor contraction for arbitrary high dimensional tensors. The native
 algorithm does not need to translate the tensors into matrices and call the BLAS
 libraries for the matrix contraction.  Tensor transposing and data moving are
 largely avoided in TBLIS tensor library.  The interface to TBLIS offers an
-efficient implementation for <code class="xref py py-func docutils literal"><span class="pre">numpy.einsum()</span></code> style tensor contraction.</p>
+efficient implementation for <code class="xref py py-func docutils literal"><span class="pre">numpy.einsum()</span></code> style tensor contraction.
+To enable the tlibs-einsum plugin, you can set the cmake flags
+<code class="docutils literal"><span class="pre">-DENABLE_TBLIS</span></code> when compiling the C extensions:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cmake -DENABLE_TBLIS=ON ..
+</pre></div>
+</div>
+<p>Note TBLIS library was implemented with C++11 standard. You need at least GCC
+5.2 to compile this plugin.</p>
 </div>
 <div class="section" id="pyberny">
 <h3>3.9.8. Pyberny<a class="headerlink" href="#pyberny" title="Permalink to this headline">¶</a></h3>
