@@ -101,6 +101,8 @@ def writeNEVPTIntegrals(mc, E1, E2, E1eff, aaavsplit, nfro, fully_ic=False, thir
 
     # CVCV
     eriscvcv = eris['cvcv']
+    #if (not hasattr(eriscvcv,'reshape')):
+    #if (not isinstance(eris['cvcv'], type(eris['hfinal']))):
     if (not isinstance(eris['hfinal'], type(eris['cvcv']))):
       eriscvcv = lib.chkfile.load(eris['cvcv'].name, "eri_mo")#h5py.File(eris['cvcv'].name,'r')["eri_mo"]
     eriscvcv = eriscvcv.reshape(ncor, nvir, ncor, nvir)
@@ -860,8 +862,8 @@ def write_ic_inputs(nelec, ncor, ncas, nfro, ms2, type, naux=0, memory=10,
         #f.write('E2  int/E2.npy\n')
         #f.write('E1  int/E1.npy\n')
         f.write('thr-den 1.000000e-05\n')
-        f.write('thr-var 1.000000e-05\n')
-        f.write('thr-trunc 1.000000e-04\n')
+        f.write('thr-var 1.000000e-05\n')      #TEST 5e-07
+        f.write('thr-trunc %6.3e\n'%(thrtrunc))#WATCHOUT
         f.write('max-iter 80\n')
         #if method=='_AAAV'or method=='_AAAC':
         #  f.write('max-iter 30\n')
