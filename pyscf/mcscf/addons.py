@@ -804,6 +804,11 @@ def state_average_mix_(casscf, fcisolvers, weights=(0.5,0.5)):
     class FakeCISolver(fcibase_class, StateAverageFCISolver):
         def kernel(self, h1, h2, norb, nelec, ci0=None, verbose=0, **kwargs):
 # Note self.orbsym is initialized lazily in mc1step_symm.kernel function
+            if fcibase_class.__name__=='SHCI':
+                prefixes=list(set([f.prefix for f in fcisolvers]))
+                if len(prefixes)!=len(fcisolvers):
+                  for i in range(len(fcisolvers)):
+                    fcisolvers[i].prefix=prefixes[0]+str(i)
             log = logger.new_logger(self, verbose)
             es = []
             cs = []

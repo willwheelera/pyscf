@@ -364,6 +364,7 @@ class SHCI(pyscf.lib.StreamObject):
         onepdm /= (nelectrons - 1)
         return onepdm, twopdm
 
+    ###CHECK###
     def make_rdm12_forSQA(self, state, norb, nelec, link_index=None, **kwargs):
         nelectrons = 0
         if isinstance(nelec, (int, numpy.integer)):
@@ -545,8 +546,8 @@ class SHCI(pyscf.lib.StreamObject):
         return E3
 
         #if (filetype == "binary") :
-        #    fname = os.path.join('%s/%s/'%(self.scratchDirectory,"node0"), "spatial_threepdm.%d.%d.bin" %(state, state))
-        #    fnameout = os.path.join('%s/%s/'%(self.scratchDirectory,"node0"), "spatial_threepdm.%d.%d.bin.unpack" %(state, state))
+        #    fname = os.path.join('%s/'%(self.scratchDirectory), "spatial_threepdm.%d.%d.bin" %(state, state))
+        #    fnameout = os.path.join('%s/'%(self.scratchDirectory), "spatial_threepdm.%d.%d.bin.unpack" %(state, state))
         #    libE3unpack.unpackE3(ctypes.c_char_p(fname.encode()),
         #                         ctypes.c_char_p(fnameout.encode()),
         #                         ctypes.c_int(norb))
@@ -642,6 +643,7 @@ class SHCI(pyscf.lib.StreamObject):
             updn = [up[i] for i in t] + [dn[i] for i in t]
             array[tuple(updn)] = value
 
+    ###CHECK###
     def unpackE2_DICE(self,fname,norb):
         # The 2RDMs written by "SHCIrdm::saveRDM" in DICE
         # are written as E2[i1,j2,k2,l2]
@@ -826,6 +828,10 @@ class SHCI(pyscf.lib.StreamObject):
                       fciRestart=None,
                       ecore=0,
                       **kwargs):
+        if self.nroots == 1:
+            roots = 0
+        else:
+            roots = range(self.nroots)
         fciRestart = True
 
         if 'orbsym' in kwargs:
@@ -842,10 +848,6 @@ class SHCI(pyscf.lib.StreamObject):
             logger.debug1(self, open(outFile).read())
         calc_e = readEnergy(self)
 
-        if self.nroots == 1:
-            roots = 0
-        else:
-            roots = range(self.nroots)
         return calc_e, roots
 
     def restart_scheduler_(self):
