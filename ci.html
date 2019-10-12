@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>15. ci — Configuration interaction &mdash; PySCF 1.7.0 documentation</title>
+  <title>15. ci — Configuration interaction &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
         <link rel="next" title="16. dmrgscf" href="dmrgscf.html"/>
         <link rel="prev" title="14. cc — Coupled cluster" href="cc.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -102,7 +102,17 @@
 <li class="toctree-l1"><a class="reference internal" href="dft.html">12. dft &#8212; Density functional theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tddft.html">13. tddft &#8212; Time dependent density functional theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cc.html">14. cc &#8212; Coupled cluster</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">15. ci &#8212; Configuration interaction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">15. ci &#8212; Configuration interaction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">15.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#program-reference">15.2. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.ci.cisd">15.2.1. ci.cisd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.ci.addons">15.2.2. ci.addons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.ci.gcisd">15.2.3. ci.gcisd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.ci.ucisd">15.2.4. ci.ucisd</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">17. fciqmcscf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tools.html">18. tools</a></li>
@@ -117,6 +127,14 @@
 <li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -182,7 +200,367 @@
             
   <div class="section" id="module-ci">
 <span id="ci-configuration-interaction"></span><h1>15. ci &#8212; Configuration interaction<a class="headerlink" href="#module-ci" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference internal" href="cc.html#module-cc" title="cc: Computing coupled cluster energies and properties"><code class="xref py py-mod docutils literal"><span class="pre">cc</span></code></a> module implements the truncated CI model to compute energy.</p>
+<p>The <a class="reference internal" href="cc.html#module-cc" title="cc: Computing coupled cluster energies and properties"><code class="xref py py-mod docutils literal"><span class="pre">cc</span></code></a> module implements the truncated CI model.</p>
+<div class="section" id="examples">
+<h2>15.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p><code class="file docutils literal"><span class="pre">00-simple_cisd.py</span></code>
+<code class="file docutils literal"><span class="pre">01-density_matrix.py</span></code>
+<code class="file docutils literal"><span class="pre">20-from_fci.py</span></code>
+<code class="file docutils literal"><span class="pre">32-wfn_overlap.py</span></code></p>
+</div>
+<div class="section" id="program-reference">
+<h2>15.2. Program reference<a class="headerlink" href="#program-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pyscf.ci.cisd">
+<span id="ci-cisd"></span><h3>15.2.1. ci.cisd<a class="headerlink" href="#module-pyscf.ci.cisd" title="Permalink to this headline">¶</a></h3>
+<p>Solve CISD equation  H C = C e  where e = E_HF + E_CORR</p>
+<dl class="class">
+<dt id="pyscf.ci.cisd.CISD">
+<em class="property">class </em><code class="descclassname">pyscf.ci.cisd.</code><code class="descname">CISD</code><span class="sig-paren">(</span><em>mf</em>, <em>frozen=0</em>, <em>mo_coeff=None</em>, <em>mo_occ=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/cisd.html#CISD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.cisd.CISD" title="Permalink to this definition">¶</a></dt>
+<dd><p>restricted CISD</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><dl class="first last docutils">
+<dt>verbose</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Print level.  Default value equals to <code class="xref py py-class docutils literal"><span class="pre">Mole.verbose</span></code></dd>
+<dt>max_memory</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float or int</span><dd>Allowed memory in MB.  Default value equals to <code class="xref py py-class docutils literal"><span class="pre">Mole.max_memory</span></code></dd>
+<dt>conv_tol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>converge threshold.  Default is 1e-9.</dd>
+<dt>max_cycle</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>max number of iterations.  Default is 50.</dd>
+<dt>max_space</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Davidson diagonalization space size.  Default is 12.</dd>
+<dt>direct</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>AO-direct CISD. Default is False.</dd>
+<dt>async_io</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Allow for asynchronous function execution. Default is True.</dd>
+<dt>frozen</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or list</span><dd><p class="first">If integer is given, the inner-most orbitals are frozen from CI
+amplitudes.  Given the orbital indices (0-based) in a list, both
+occupied and virtual orbitals can be frozen in CI calculation.</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;H 0 0 0; F 0 0 1.1&#39;</span><span class="p">,</span> <span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;ccpvdz&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># freeze 2 core orbitals</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myci</span> <span class="o">=</span> <span class="n">ci</span><span class="o">.</span><span class="n">CISD</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">frozen</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># freeze 2 core orbitals and 3 high lying unoccupied orbitals</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myci</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">frozen</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">18</span><span class="p">])</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Saved results</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>converged</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>CISD converged or not</dd>
+<dt>e_corr</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>CISD correlation correction</dd>
+<dt>e_tot</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Total CCSD energy (HF + correlation)</dd>
+<dt>ci :</dt>
+<dd>CI wavefunction coefficients</dd>
+</dl>
+</div></blockquote>
+<dl class="method">
+<dt id="pyscf.ci.cisd.CISD.as_scanner">
+<code class="descname">as_scanner</code><span class="sig-paren">(</span><em>ci</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.ci.cisd.CISD.as_scanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generating a scanner/solver for CISD PES.</p>
+<p>The returned solver is a function. This function requires one argument
+&#8220;mol&#8221; as input and returns total CISD energy.</p>
+<p>The solver will automatically use the results of last calculation as the
+initial guess of the new calculation.  All parameters assigned in the
+CISD and the underlying SCF objects (conv_tol, max_memory etc) are
+automatically applied in the solver.</p>
+<p>Note scanner has side effects.  It may change many underlying objects
+(_scf, with_df, with_x2c, ...) during calculation.</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">ci</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ci_scanner</span> <span class="o">=</span> <span class="n">ci</span><span class="o">.</span><span class="n">CISD</span><span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">))</span><span class="o">.</span><span class="n">as_scanner</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span> <span class="o">=</span> <span class="n">ci_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.1&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span> <span class="o">=</span> <span class="n">ci_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.5&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.ci.cisd.CISD.get_frozen_mask">
+<code class="descname">get_frozen_mask</code><span class="sig-paren">(</span><em>mp</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.ci.cisd.CISD.get_frozen_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get boolean mask for the restricted reference orbitals.</p>
+<p>In the returned boolean (mask) array of frozen orbital indices, the
+element is False if it corresonds to the frozen orbital.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.ci.cisd.CISD.make_rdm1">
+<code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>myci</em>, <em>civec=None</em>, <em>nmo=None</em>, <em>nocc=None</em>, <em>ao_repr=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.ci.cisd.CISD.make_rdm1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Spin-traced one-particle density matrix in MO basis (the occupied-virtual
+blocks from the orbital response contribution are not included).</p>
+<p>dm1[p,q] = &lt;q_alpha^dagger p_alpha&gt; + &lt;q_beta^dagger p_beta&gt;</p>
+<p>The convention of 1-pdm is based on McWeeney&#8217;s book, Eq (5.4.20).
+The contraction between 1-particle Hamiltonian and rdm1 is
+E = einsum(&#8216;pq,qp&#8217;, h1, rdm1)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.ci.cisd.CISD.make_rdm2">
+<code class="descname">make_rdm2</code><span class="sig-paren">(</span><em>myci</em>, <em>civec=None</em>, <em>nmo=None</em>, <em>nocc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.ci.cisd.CISD.make_rdm2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Spin-traced two-particle density matrix in MO basis</p>
+<p>dm2[p,q,r,s] = sum_{sigma,tau} &lt;p_sigma^dagger r_tau^dagger s_tau q_sigma&gt;</p>
+<p>Note the contraction between ERIs (in Chemist&#8217;s notation) and rdm2 is
+E = einsum(&#8216;pqrs,pqrs&#8217;, eri, rdm2)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.ci.cisd.CISD.trans_rdm1">
+<code class="descname">trans_rdm1</code><span class="sig-paren">(</span><em>myci</em>, <em>cibra</em>, <em>ciket</em>, <em>nmo=None</em>, <em>nocc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.ci.cisd.CISD.trans_rdm1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Spin-traced one-particle transition density matrix in MO basis.</p>
+<p>dm1[p,q] = &lt;q_alpha^dagger p_alpha&gt; + &lt;q_beta^dagger p_beta&gt;</p>
+<p>The convention of 1-pdm is based on McWeeney&#8217;s book, Eq (5.4.20).
+The contraction between 1-particle Hamiltonian and rdm1 is
+E = einsum(&#8216;pq,qp&#8217;, h1, rdm1)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.ci.cisd.CISD.vector_size">
+<code class="descname">vector_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/cisd.html#CISD.vector_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.cisd.CISD.vector_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>The size of the vector which was returned from
+<code class="xref py py-func docutils literal"><span class="pre">amplitudes_to_cisdvec()</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.cisd.as_scanner">
+<code class="descclassname">pyscf.ci.cisd.</code><code class="descname">as_scanner</code><span class="sig-paren">(</span><em>ci</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/cisd.html#as_scanner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.cisd.as_scanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generating a scanner/solver for CISD PES.</p>
+<p>The returned solver is a function. This function requires one argument
+&#8220;mol&#8221; as input and returns total CISD energy.</p>
+<p>The solver will automatically use the results of last calculation as the
+initial guess of the new calculation.  All parameters assigned in the
+CISD and the underlying SCF objects (conv_tol, max_memory etc) are
+automatically applied in the solver.</p>
+<p>Note scanner has side effects.  It may change many underlying objects
+(_scf, with_df, with_x2c, ...) during calculation.</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">ci</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ci_scanner</span> <span class="o">=</span> <span class="n">ci</span><span class="o">.</span><span class="n">CISD</span><span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">))</span><span class="o">.</span><span class="n">as_scanner</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span> <span class="o">=</span> <span class="n">ci_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.1&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span> <span class="o">=</span> <span class="n">ci_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.5&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.cisd.from_fcivec">
+<code class="descclassname">pyscf.ci.cisd.</code><code class="descname">from_fcivec</code><span class="sig-paren">(</span><em>ci0</em>, <em>norb</em>, <em>nelec</em>, <em>frozen=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/cisd.html#from_fcivec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.cisd.from_fcivec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract CISD coefficients from FCI coefficients</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.cisd.make_rdm1">
+<code class="descclassname">pyscf.ci.cisd.</code><code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>myci</em>, <em>civec=None</em>, <em>nmo=None</em>, <em>nocc=None</em>, <em>ao_repr=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/cisd.html#make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.cisd.make_rdm1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Spin-traced one-particle density matrix in MO basis (the occupied-virtual
+blocks from the orbital response contribution are not included).</p>
+<p>dm1[p,q] = &lt;q_alpha^dagger p_alpha&gt; + &lt;q_beta^dagger p_beta&gt;</p>
+<p>The convention of 1-pdm is based on McWeeney&#8217;s book, Eq (5.4.20).
+The contraction between 1-particle Hamiltonian and rdm1 is
+E = einsum(&#8216;pq,qp&#8217;, h1, rdm1)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.cisd.make_rdm2">
+<code class="descclassname">pyscf.ci.cisd.</code><code class="descname">make_rdm2</code><span class="sig-paren">(</span><em>myci</em>, <em>civec=None</em>, <em>nmo=None</em>, <em>nocc=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/cisd.html#make_rdm2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.cisd.make_rdm2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Spin-traced two-particle density matrix in MO basis</p>
+<p>dm2[p,q,r,s] = sum_{sigma,tau} &lt;p_sigma^dagger r_tau^dagger s_tau q_sigma&gt;</p>
+<p>Note the contraction between ERIs (in Chemist&#8217;s notation) and rdm2 is
+E = einsum(&#8216;pqrs,pqrs&#8217;, eri, rdm2)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.cisd.overlap">
+<code class="descclassname">pyscf.ci.cisd.</code><code class="descname">overlap</code><span class="sig-paren">(</span><em>cibra</em>, <em>ciket</em>, <em>nmo</em>, <em>nocc</em>, <em>s=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/cisd.html#overlap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.cisd.overlap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overlap between two CISD wavefunctions.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>s</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">2D array</span><dd>The overlap matrix of non-orthogonal one-particle basis</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.cisd.t1strs">
+<code class="descclassname">pyscf.ci.cisd.</code><code class="descname">t1strs</code><span class="sig-paren">(</span><em>norb</em>, <em>nelec</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/cisd.html#t1strs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.cisd.t1strs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the FCI strings (address) for CIS single-excitation amplitudes
+and the signs of the coefficients when transferring the reference from
+physics vacuum to HF vacuum.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.cisd.tn_addrs_signs">
+<code class="descclassname">pyscf.ci.cisd.</code><code class="descname">tn_addrs_signs</code><span class="sig-paren">(</span><em>norb</em>, <em>nelec</em>, <em>n_excite</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/cisd.html#tn_addrs_signs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.cisd.tn_addrs_signs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the FCI strings (address) for CIS n-excitation amplitudes and
+the signs of the coefficients when transferring the reference from physics
+vacuum to HF vacuum.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.cisd.to_fcivec">
+<code class="descclassname">pyscf.ci.cisd.</code><code class="descname">to_fcivec</code><span class="sig-paren">(</span><em>cisdvec</em>, <em>norb</em>, <em>nelec</em>, <em>frozen=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/cisd.html#to_fcivec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.cisd.to_fcivec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert CISD coefficients to FCI coefficients</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.cisd.trans_rdm1">
+<code class="descclassname">pyscf.ci.cisd.</code><code class="descname">trans_rdm1</code><span class="sig-paren">(</span><em>myci</em>, <em>cibra</em>, <em>ciket</em>, <em>nmo=None</em>, <em>nocc=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/cisd.html#trans_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.cisd.trans_rdm1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Spin-traced one-particle transition density matrix in MO basis.</p>
+<p>dm1[p,q] = &lt;q_alpha^dagger p_alpha&gt; + &lt;q_beta^dagger p_beta&gt;</p>
+<p>The convention of 1-pdm is based on McWeeney&#8217;s book, Eq (5.4.20).
+The contraction between 1-particle Hamiltonian and rdm1 is
+E = einsum(&#8216;pq,qp&#8217;, h1, rdm1)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyscf.ci.addons">
+<span id="ci-addons"></span><h3>15.2.2. ci.addons<a class="headerlink" href="#module-pyscf.ci.addons" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="module-pyscf.ci.gcisd">
+<span id="ci-gcisd"></span><h3>15.2.3. ci.gcisd<a class="headerlink" href="#module-pyscf.ci.gcisd" title="Permalink to this headline">¶</a></h3>
+<p>General spin-orbital CISD</p>
+<dl class="function">
+<dt id="pyscf.ci.gcisd.from_rcisdvec">
+<code class="descclassname">pyscf.ci.gcisd.</code><code class="descname">from_rcisdvec</code><span class="sig-paren">(</span><em>civec</em>, <em>nocc</em>, <em>orbspin</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.ci.gcisd.from_rcisdvec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the (spin-separated) CISD coefficient vector to GCISD
+coefficient vector</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.gcisd.from_ucisdvec">
+<code class="descclassname">pyscf.ci.gcisd.</code><code class="descname">from_ucisdvec</code><span class="sig-paren">(</span><em>civec</em>, <em>nocc</em>, <em>orbspin</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/gcisd.html#from_ucisdvec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.gcisd.from_ucisdvec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the (spin-separated) CISD coefficient vector to GCISD
+coefficient vector</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.gcisd.make_rdm1">
+<code class="descclassname">pyscf.ci.gcisd.</code><code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>myci</em>, <em>civec=None</em>, <em>nmo=None</em>, <em>nocc=None</em>, <em>ao_repr=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/gcisd.html#make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.gcisd.make_rdm1" title="Permalink to this definition">¶</a></dt>
+<dd><p>One-particle density matrix in the molecular spin-orbital representation
+(the occupied-virtual blocks from the orbital response contribution are
+not included).</p>
+<p>dm1[p,q] = &lt;q^dagger p&gt;  (p,q are spin-orbitals)</p>
+<p>The convention of 1-pdm is based on McWeeney&#8217;s book, Eq (5.4.20).
+The contraction between 1-particle Hamiltonian and rdm1 is
+E = einsum(&#8216;pq,qp&#8217;, h1, rdm1)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.gcisd.make_rdm2">
+<code class="descclassname">pyscf.ci.gcisd.</code><code class="descname">make_rdm2</code><span class="sig-paren">(</span><em>myci</em>, <em>civec=None</em>, <em>nmo=None</em>, <em>nocc=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/gcisd.html#make_rdm2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.gcisd.make_rdm2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Two-particle density matrix in the molecular spin-orbital representation</p>
+<p>dm2[p,q,r,s] = &lt;p^dagger r^dagger s q&gt;</p>
+<p>where p,q,r,s are spin-orbitals. p,q correspond to one particle and r,s
+correspond to another particle.  The contraction between ERIs (in
+Chemist&#8217;s notation) and rdm2 is
+E = einsum(&#8216;pqrs,pqrs&#8217;, eri, rdm2)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.gcisd.to_ucisdvec">
+<code class="descclassname">pyscf.ci.gcisd.</code><code class="descname">to_ucisdvec</code><span class="sig-paren">(</span><em>civec</em>, <em>nmo</em>, <em>nocc</em>, <em>orbspin</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/gcisd.html#to_ucisdvec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.gcisd.to_ucisdvec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the GCISD coefficient vector to UCISD coefficient vector</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.gcisd.trans_rdm1">
+<code class="descclassname">pyscf.ci.gcisd.</code><code class="descname">trans_rdm1</code><span class="sig-paren">(</span><em>myci</em>, <em>cibra</em>, <em>ciket</em>, <em>nmo=None</em>, <em>nocc=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/gcisd.html#trans_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.gcisd.trans_rdm1" title="Permalink to this definition">¶</a></dt>
+<dd><p>One-particle transition density matrix in the molecular spin-orbital
+representation.</p>
+<p>dm1[p,q] = &lt;q^dagger p&gt;  (p,q are spin-orbitals)</p>
+<p>The convention of 1-pdm is based on McWeeney&#8217;s book, Eq (5.4.20).
+The contraction between 1-particle Hamiltonian and rdm1 is
+E = einsum(&#8216;pq,qp&#8217;, h1, rdm1)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyscf.ci.ucisd">
+<span id="ci-ucisd"></span><h3>15.2.4. ci.ucisd<a class="headerlink" href="#module-pyscf.ci.ucisd" title="Permalink to this headline">¶</a></h3>
+<p>Unrestricted CISD</p>
+<dl class="function">
+<dt id="pyscf.ci.ucisd.from_fcivec">
+<code class="descclassname">pyscf.ci.ucisd.</code><code class="descname">from_fcivec</code><span class="sig-paren">(</span><em>ci0</em>, <em>norb</em>, <em>nelec</em>, <em>frozen=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/ucisd.html#from_fcivec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.ucisd.from_fcivec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract CISD coefficients from FCI coefficients</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.ucisd.make_rdm1">
+<code class="descclassname">pyscf.ci.ucisd.</code><code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>myci</em>, <em>civec=None</em>, <em>nmo=None</em>, <em>nocc=None</em>, <em>ao_repr=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/ucisd.html#make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.ucisd.make_rdm1" title="Permalink to this definition">¶</a></dt>
+<dd><p>One-particle spin density matrices dm1a, dm1b in MO basis (the
+occupied-virtual blocks due to the orbital response contribution are not
+included).</p>
+<p>dm1a[p,q] = &lt;q_alpha^dagger p_alpha&gt;
+dm1b[p,q] = &lt;q_beta^dagger p_beta&gt;</p>
+<p>The convention of 1-pdm is based on McWeeney&#8217;s book, Eq (5.4.20).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.ucisd.make_rdm2">
+<code class="descclassname">pyscf.ci.ucisd.</code><code class="descname">make_rdm2</code><span class="sig-paren">(</span><em>myci</em>, <em>civec=None</em>, <em>nmo=None</em>, <em>nocc=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/ucisd.html#make_rdm2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.ucisd.make_rdm2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Two-particle spin density matrices dm2aa, dm2ab, dm2bb in MO basis</p>
+<p>dm2aa[p,q,r,s] = &lt;q_alpha^dagger s_alpha^dagger r_alpha p_alpha&gt;
+dm2ab[p,q,r,s] = &lt;q_alpha^dagger s_beta^dagger r_beta p_alpha&gt;
+dm2bb[p,q,r,s] = &lt;q_beta^dagger s_beta^dagger r_beta p_beta&gt;</p>
+<p>(p,q correspond to one particle and r,s correspond to another particle)
+Two-particle density matrix should be contracted to integrals with the
+pattern below to compute energy</p>
+<p>E = numpy.einsum(&#8216;pqrs,pqrs&#8217;, eri_aa, dm2_aa)
+E+= numpy.einsum(&#8216;pqrs,pqrs&#8217;, eri_ab, dm2_ab)
+E+= numpy.einsum(&#8216;pqrs,rspq&#8217;, eri_ba, dm2_ab)
+E+= numpy.einsum(&#8216;pqrs,pqrs&#8217;, eri_bb, dm2_bb)</p>
+<p>where eri_aa[p,q,r,s] = (p_alpha q_alpha | r_alpha s_alpha )
+eri_ab[p,q,r,s] = ( p_alpha q_alpha | r_beta s_beta )
+eri_ba[p,q,r,s] = ( p_beta q_beta | r_alpha s_alpha )
+eri_bb[p,q,r,s] = ( p_beta q_beta | r_beta s_beta )</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.ucisd.overlap">
+<code class="descclassname">pyscf.ci.ucisd.</code><code class="descname">overlap</code><span class="sig-paren">(</span><em>cibra</em>, <em>ciket</em>, <em>nmo</em>, <em>nocc</em>, <em>s=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/ucisd.html#overlap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.ucisd.overlap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overlap between two CISD wavefunctions.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>s</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">a list of 2D arrays</span><dd>The overlap matrix of non-orthogonal one-particle basis</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.ucisd.to_fcivec">
+<code class="descclassname">pyscf.ci.ucisd.</code><code class="descname">to_fcivec</code><span class="sig-paren">(</span><em>cisdvec</em>, <em>norb</em>, <em>nelec</em>, <em>frozen=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/ucisd.html#to_fcivec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.ucisd.to_fcivec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert CISD coefficients to FCI coefficients</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.ci.ucisd.trans_rdm1">
+<code class="descclassname">pyscf.ci.ucisd.</code><code class="descname">trans_rdm1</code><span class="sig-paren">(</span><em>myci</em>, <em>cibra</em>, <em>ciket</em>, <em>nmo=None</em>, <em>nocc=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ci/ucisd.html#trans_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ci.ucisd.trans_rdm1" title="Permalink to this definition">¶</a></dt>
+<dd><p>One-particle spin density matrices dm1a, dm1b in MO basis (the
+occupied-virtual blocks due to the orbital response contribution are not
+included).</p>
+<p>dm1a[p,q] = &lt;q_alpha^dagger p_alpha&gt;
+dm1b[p,q] = &lt;q_beta^dagger p_beta&gt;</p>
+<p>The convention of 1-pdm is based on McWeeney&#8217;s book, Eq (5.4.20).</p>
+</dd></dl>
+
+</div>
+</div>
 </div>
 
 
@@ -229,7 +607,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

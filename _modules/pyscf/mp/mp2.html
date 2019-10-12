@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyscf.mp.mp2 &mdash; PySCF 1.7.0 documentation</title>
+  <title>pyscf.mp.mp2 &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -116,6 +116,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -250,7 +258,7 @@
 
     <span class="k">return</span> <span class="n">emp2</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">t2</span>
 
-<span class="k">def</span> <span class="nf">make_rdm1</span><span class="p">(</span><span class="n">mp</span><span class="p">,</span> <span class="n">t2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eris</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">logger</span><span class="o">.</span><span class="n">NOTE</span><span class="p">,</span> <span class="n">ao_repr</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="make_rdm1"><a class="viewcode-back" href="../../../mp.html#pyscf.cc.ccsd.make_rdm1">[docs]</a><span class="k">def</span> <span class="nf">make_rdm1</span><span class="p">(</span><span class="n">mp</span><span class="p">,</span> <span class="n">t2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eris</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">logger</span><span class="o">.</span><span class="n">NOTE</span><span class="p">,</span> <span class="n">ao_repr</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Spin-traced one-particle density matrix.</span>
 <span class="sd">    The occupied-virtual orbital response is not included.</span>
 
@@ -272,7 +280,7 @@
     <span class="n">dov</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nocc</span><span class="p">,</span><span class="n">nvir</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">doo</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
     <span class="n">dvo</span> <span class="o">=</span> <span class="n">dov</span><span class="o">.</span><span class="n">T</span>
     <span class="k">return</span> <span class="n">ccsd_rdm</span><span class="o">.</span><span class="n">_make_rdm1</span><span class="p">(</span><span class="n">mp</span><span class="p">,</span> <span class="p">(</span><span class="n">doo</span><span class="p">,</span> <span class="n">dov</span><span class="p">,</span> <span class="n">dvo</span><span class="p">,</span> <span class="n">dvv</span><span class="p">),</span> <span class="n">with_frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                               <span class="n">ao_repr</span><span class="o">=</span><span class="n">ao_repr</span><span class="p">)</span>
+                               <span class="n">ao_repr</span><span class="o">=</span><span class="n">ao_repr</span><span class="p">)</span></div>
 
 <span class="k">def</span> <span class="nf">_gamma1_intermediates</span><span class="p">(</span><span class="n">mp</span><span class="p">,</span> <span class="n">t2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eris</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">t2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">t2</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">t2</span>
@@ -304,7 +312,7 @@
     <span class="k">return</span> <span class="o">-</span><span class="n">dm1occ</span><span class="p">,</span> <span class="n">dm1vir</span>
 
 
-<span class="k">def</span> <span class="nf">make_rdm2</span><span class="p">(</span><span class="n">mp</span><span class="p">,</span> <span class="n">t2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eris</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">logger</span><span class="o">.</span><span class="n">NOTE</span><span class="p">):</span>
+<div class="viewcode-block" id="make_rdm2"><a class="viewcode-back" href="../../../mp.html#pyscf.cc.ccsd.make_rdm2">[docs]</a><span class="k">def</span> <span class="nf">make_rdm2</span><span class="p">(</span><span class="n">mp</span><span class="p">,</span> <span class="n">t2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eris</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">logger</span><span class="o">.</span><span class="n">NOTE</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Spin-traced two-particle density matrix in MO basis</span>
 
@@ -373,7 +381,7 @@
             <span class="n">dm2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">4</span>
             <span class="n">dm2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">2</span>
 
-    <span class="k">return</span> <span class="n">dm2</span><span class="c1">#.transpose(1,0,3,2)</span>
+    <span class="k">return</span> <span class="n">dm2</span><span class="c1">#.transpose(1,0,3,2)</span></div>
 
 
 <span class="k">def</span> <span class="nf">get_nocc</span><span class="p">(</span><span class="n">mp</span><span class="p">):</span>
@@ -408,7 +416,7 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-<span class="k">def</span> <span class="nf">get_frozen_mask</span><span class="p">(</span><span class="n">mp</span><span class="p">):</span>
+<div class="viewcode-block" id="get_frozen_mask"><a class="viewcode-back" href="../../../mp.html#pyscf.cc.ccsd.get_frozen_mask">[docs]</a><span class="k">def</span> <span class="nf">get_frozen_mask</span><span class="p">(</span><span class="n">mp</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Get boolean mask for the restricted reference orbitals.</span>
 
 <span class="sd">    In the returned boolean (mask) array of frozen orbital indices, the</span>
@@ -425,10 +433,10 @@
         <span class="n">moidx</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">frozen</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-    <span class="k">return</span> <span class="n">moidx</span>
+    <span class="k">return</span> <span class="n">moidx</span></div>
 
 
-<span class="k">def</span> <span class="nf">as_scanner</span><span class="p">(</span><span class="n">mp</span><span class="p">):</span>
+<div class="viewcode-block" id="as_scanner"><a class="viewcode-back" href="../../../mp.html#pyscf.cc.ccsd.as_scanner">[docs]</a><span class="k">def</span> <span class="nf">as_scanner</span><span class="p">(</span><span class="n">mp</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Generating a scanner/solver for MP2 PES.</span>
 
 <span class="sd">    The returned solver is a function. This function requires one argument</span>
@@ -478,7 +486,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">mo_occ</span> <span class="o">=</span> <span class="n">mf_scanner</span><span class="o">.</span><span class="n">mo_occ</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">e_tot</span>
-    <span class="k">return</span> <span class="n">MP2_Scanner</span><span class="p">(</span><span class="n">mp</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">MP2_Scanner</span><span class="p">(</span><span class="n">mp</span><span class="p">)</span></div>
 
 
 <span class="k">class</span> <span class="nc">MP2</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">StreamObject</span><span class="p">):</span>
@@ -819,7 +827,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

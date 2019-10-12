@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>21.2. pbc.scf — Mean-field with periodic boundary condition &mdash; PySCF 1.7.0 documentation</title>
+  <title>21.3. pbc.scf — Mean-field with periodic boundary condition &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,10 +32,10 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="../index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="../index.html"/>
         <link rel="up" title="21. pbc — Periodic boundary conditions" href="../pbc.html"/>
-        <link rel="next" title="21.3. pbc.dft" href="dft.html"/>
-        <link rel="prev" title="21.1. pbc.gto — Crystal cell structure" href="gto.html"/> 
+        <link rel="next" title="21.4. pbc.dft — PBC density functional theory" href="dft.html"/>
+        <link rel="prev" title="21.2. pbc.ao2mo — PBC integral transformation" href="ao2mo.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -111,27 +111,34 @@
 <li class="toctree-l1"><a class="reference internal" href="../hessian.html">20. hessian &#8212; Analytical nuclear Hessian</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../pbc.html">21. pbc &#8212; Periodic boundary conditions</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="gto.html">21.1. pbc.gto &#8212; Crystal cell structure</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">21.2. pbc.scf &#8212; Mean-field with periodic boundary condition</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gamma-point-and-single-k-point-calculation">21.2.1. Gamma point and single k-point calculation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mixing-with-molecular-program-for-post-hf-methods">21.2.1.1. Mixing with molecular program for post-HF methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ao2mo.html">21.2. pbc.ao2mo &#8212; PBC integral transformation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">21.3. pbc.scf &#8212; Mean-field with periodic boundary condition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gamma-point-and-single-k-point-calculation">21.3.1. Gamma point and single k-point calculation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mixing-with-molecular-program-for-post-hf-methods">21.3.1.1. Mixing with molecular program for post-HF methods</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#k-point-sampling">21.2.2. k-point sampling</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#newton-solver">21.2.2.1. Newton solver</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smearing">21.2.2.2. Smearing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#k-point-sampling">21.3.2. k-point sampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#newton-solver">21.3.2.1. Newton solver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smearing">21.3.2.2. Smearing</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#exchange-divergence-treatment">21.2.3. Exchange divergence treatment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#with-df-for-density-fitting">21.2.4. <code class="docutils literal"><span class="pre">with_df</span></code> for density fitting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#stability-analysis">21.2.5. Stability analysis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.pbc.scf.hf">21.2.6. Program reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exchange-divergence-treatment">21.3.3. Exchange divergence treatment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#with-df-for-density-fitting">21.3.4. <code class="docutils literal"><span class="pre">with_df</span></code> for density fitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stability-analysis">21.3.5. Stability analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.pbc.scf.hf">21.3.6. Program reference</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="dft.html">21.3. pbc.dft</a></li>
-<li class="toctree-l2"><a class="reference internal" href="df.html">21.4. pbc.df &#8212; PBC denisty fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc.html">21.5. pbc.cc &#8212; PBC coupled cluster</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tools.html">21.6. pbc.tools &#8212; PBC tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mix_mol.html">21.7. Mixing PBC and molecular modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dft.html">21.4. pbc.dft  &#8212; PBC density functional theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="df.html">21.5. pbc.df &#8212; PBC denisty fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tdscf.html">21.6. pbc.tdscf &#8212; PBC time dependent density functional theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mp.html">21.7. pbc.mp &#8212; PBC perturbation theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci.html">21.8. pbc.ci &#8212; PBC configuration interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc.html">21.9. pbc.cc &#8212; PBC coupled cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mpicc.html">21.10. pbc.mpicc &#8212; PBC coupled cluster for MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">21.11. pbc.tools &#8212; PBC tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mix_mol.html">21.12. Mixing PBC and molecular modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop.html">21.13. pbc.prop &#8212; PBC property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gw.html">21.14. pbc.gw &#8212; GW with PBC</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../nao.html">22. nao &#8212; Numerical Atomic Orbitals</a></li>
@@ -142,6 +149,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -188,7 +203,7 @@
         
           <li><a href="../pbc.html">21. pbc &#8212; Periodic boundary conditions</a> &raquo;</li>
         
-      <li>21.2. pbc.scf &#8212; Mean-field with periodic boundary condition</li>
+      <li>21.3. pbc.scf &#8212; Mean-field with periodic boundary condition</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -208,11 +223,11 @@
            <div itemprop="articleBody">
             
   <div class="section" id="pbc-scf-mean-field-with-periodic-boundary-condition">
-<span id="pbc-scf"></span><h1>21.2. pbc.scf &#8212; Mean-field with periodic boundary condition<a class="headerlink" href="#pbc-scf-mean-field-with-periodic-boundary-condition" title="Permalink to this headline">¶</a></h1>
+<span id="pbc-scf"></span><h1>21.3. pbc.scf &#8212; Mean-field with periodic boundary condition<a class="headerlink" href="#pbc-scf-mean-field-with-periodic-boundary-condition" title="Permalink to this headline">¶</a></h1>
 <p>This module is an analogy to molecular <a class="reference internal" href="../scf.html#module-pyscf.scf" title="pyscf.scf"><code class="xref py py-mod docutils literal"><span class="pre">pyscf.scf</span></code></a> module to handle
 mean-filed calculation with periodic boundary condition.</p>
 <div class="section" id="gamma-point-and-single-k-point-calculation">
-<h2>21.2.1. Gamma point and single k-point calculation<a class="headerlink" href="#gamma-point-and-single-k-point-calculation" title="Permalink to this headline">¶</a></h2>
+<h2>21.3.1. Gamma point and single k-point calculation<a class="headerlink" href="#gamma-point-and-single-k-point-calculation" title="Permalink to this headline">¶</a></h2>
 <p>The usage of gamma point Hartree-Fock program is very close to that of the
 molecular program.  In the PBC gamma point calculation, one needs intialize
 <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code> object and the corresponding <code class="xref py py-class docutils literal"><span class="pre">pyscf.pbc.scf.hf.RHF</span></code> class:</p>
@@ -261,84 +276,8 @@ the <code class="xref py py-attr docutils literal"><span class="pre">with_df</sp
 accuracy (see <a class="reference internal" href="#with-df"><span class="std std-ref">with_df for density fitting</span></a>).  Here is an example to update <code class="xref py py-attr docutils literal"><span class="pre">with_df</span></code></p>
 </li>
 </ul>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
-
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">Gamma point Hartree-Fock/DFT for all-electron calculation</span>
-
-<span class="sd">The default FFT-based 2-electron integrals may not be accurate enough for</span>
-<span class="sd">all-electron calculation.  It&#39;s recommended to use MDF (mixed density fitting)</span>
-<span class="sd">technique to improve the accuracy.</span>
-
-<span class="sd">See also</span>
-<span class="sd">examples/df/00-with_df.py</span>
-<span class="sd">examples/df/01-auxbasis.py</span>
-<span class="sd">examples/df/40-precomupte_df_ints.py</span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">pyscf.pbc</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">dft</span>
-
-<span class="n">cell</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mf">3.5668</span><span class="p">,</span>
-    <span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;C     0.      0.      0.    </span>
-<span class="s1">              C     0.8917  0.8917  0.8917</span>
-<span class="s1">              C     1.7834  1.7834  0.    </span>
-<span class="s1">              C     2.6751  2.6751  0.8917</span>
-<span class="s1">              C     1.7834  0.      1.7834</span>
-<span class="s1">              C     2.6751  0.8917  2.6751</span>
-<span class="s1">              C     0.      1.7834  1.7834</span>
-<span class="s1">              C     0.8917  2.6751  2.6751&#39;&#39;&#39;</span><span class="p">,</span>
-    <span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;6-31g&#39;</span><span class="p">,</span>
-    <span class="n">verbose</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="o">.</span><span class="n">density_fit</span><span class="p">()</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-
-<span class="c1"># Mixed density fitting is another option for all-electron calculations</span>
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="o">.</span><span class="n">mix_density_fit</span><span class="p">()</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">with_df</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>  <span class="c1"># Tune #PWs in MDF for performance/accuracy balance</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-
-<span class="c1"># Or use even-tempered Gaussian basis as auxiliary fitting functions.</span>
-<span class="c1"># The following auxbasis is generated based on the expression</span>
-<span class="c1">#    alpha = a * 1.7^i   i = 0..N</span>
-<span class="c1"># where a and N are determined by the smallest and largest exponents of AO basis.</span>
-<span class="kn">import</span> <span class="nn">pyscf.df</span>
-<span class="n">auxbasis</span> <span class="o">=</span> <span class="n">pyscf</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">aug_etb</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">1.7</span><span class="p">)</span>
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="o">.</span><span class="n">density_fit</span><span class="p">(</span><span class="n">auxbasis</span><span class="o">=</span><span class="n">auxbasis</span><span class="p">)</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-
-<span class="c1">#</span>
-<span class="c1"># Second order SCF solver can be used in the PBC SCF code the same way in the</span>
-<span class="c1"># molecular calculation</span>
-<span class="c1">#</span>
-<span class="n">mf</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="o">.</span><span class="n">density_fit</span><span class="p">(</span><span class="n">auxbasis</span><span class="o">=</span><span class="s1">&#39;weigend&#39;</span><span class="p">)</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="s1">&#39;bp86&#39;</span>
-<span class="c1"># You should first set mf.xc then apply newton method (see also</span>
-<span class="c1"># examples/scf/22-newton.py)</span>
-<span class="n">mf</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">newton</span><span class="p">()</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-
-<span class="c1">#</span>
-<span class="c1"># The computational costs to initialize PBC DF object is high.  The density</span>
-<span class="c1"># fitting integral tensor created in the initialization can be cached for</span>
-<span class="c1"># future use.  See also examples/df/40-precomupte_df_ints.py</span>
-<span class="c1">#</span>
-<span class="n">mf</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="o">.</span><span class="n">density_fit</span><span class="p">(</span><span class="n">auxbasis</span><span class="o">=</span><span class="s1">&#39;weigend&#39;</span><span class="p">)</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">with_df</span><span class="o">.</span><span class="n">_cderi_to_save</span> <span class="o">=</span> <span class="s1">&#39;df_ints.h5&#39;</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-<span class="c1">#</span>
-<span class="c1"># The DF integral tensor can be preloaded in an independent calculation.</span>
-<span class="c1">#</span>
-<span class="n">mf</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="o">.</span><span class="n">density_fit</span><span class="p">()</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">with_df</span><span class="o">.</span><span class="n">_cderi</span> <span class="o">=</span> <span class="s1">&#39;df_ints.h5&#39;</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-</pre></div>
-</div>
 <div class="section" id="mixing-with-molecular-program-for-post-hf-methods">
-<span id="mix-to-mol"></span><h3>21.2.1.1. Mixing with molecular program for post-HF methods<a class="headerlink" href="#mixing-with-molecular-program-for-post-hf-methods" title="Permalink to this headline">¶</a></h3>
+<span id="mix-to-mol"></span><h3>21.3.1.1. Mixing with molecular program for post-HF methods<a class="headerlink" href="#mixing-with-molecular-program-for-post-hf-methods" title="Permalink to this headline">¶</a></h3>
 <p>The gamma point HF code adopts the same code structure, the function and
 method names and the arguments&#8217; convention as the molecule SCF code.
 This desgin allows one mixing PBC HF object with the existed molecular post-HF
@@ -373,16 +312,16 @@ modules.</p>
 </div>
 </div>
 <div class="section" id="k-point-sampling">
-<h2>21.2.2. k-point sampling<a class="headerlink" href="#k-point-sampling" title="Permalink to this headline">¶</a></h2>
+<h2>21.3.2. k-point sampling<a class="headerlink" href="#k-point-sampling" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="newton-solver">
-<h3>21.2.2.1. Newton solver<a class="headerlink" href="#newton-solver" title="Permalink to this headline">¶</a></h3>
+<h3>21.3.2.1. Newton solver<a class="headerlink" href="#newton-solver" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="smearing">
-<h3>21.2.2.2. Smearing<a class="headerlink" href="#smearing" title="Permalink to this headline">¶</a></h3>
+<h3>21.3.2.2. Smearing<a class="headerlink" href="#smearing" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="exchange-divergence-treatment">
-<span id="exxdiv"></span><h2>21.2.3. Exchange divergence treatment<a class="headerlink" href="#exchange-divergence-treatment" title="Permalink to this headline">¶</a></h2>
+<span id="exxdiv"></span><h2>21.3.3. Exchange divergence treatment<a class="headerlink" href="#exchange-divergence-treatment" title="Permalink to this headline">¶</a></h2>
 <p>The PBC Hartree-Fock has slow convergence of exchange integral with respect to
 the number of k-points.  In the single k-point calculation,
 Generally, exxdiv leads to a shift in the total energy and the spectrum of
@@ -392,15 +331,15 @@ with molecular program eg the FCI solver, the exxdiv attribute may leads to
 inconsistency in the total energy.</p>
 </div>
 <div class="section" id="with-df-for-density-fitting">
-<span id="with-df"></span><h2>21.2.4. <code class="xref py py-attr docutils literal"><span class="pre">with_df</span></code> for density fitting<a class="headerlink" href="#with-df-for-density-fitting" title="Permalink to this headline">¶</a></h2>
+<span id="with-df"></span><h2>21.3.4. <code class="xref py py-attr docutils literal"><span class="pre">with_df</span></code> for density fitting<a class="headerlink" href="#with-df-for-density-fitting" title="Permalink to this headline">¶</a></h2>
 <p>Placing the <code class="xref py py-attr docutils literal"><span class="pre">with_df</span></code> attribute in SCF object to get the compatibility to
 molecule DF-SCF methods.</p>
 </div>
 <div class="section" id="stability-analysis">
-<h2>21.2.5. Stability analysis<a class="headerlink" href="#stability-analysis" title="Permalink to this headline">¶</a></h2>
+<h2>21.3.5. Stability analysis<a class="headerlink" href="#stability-analysis" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-pyscf.pbc.scf.hf">
-<span id="program-reference"></span><h2>21.2.6. Program reference<a class="headerlink" href="#module-pyscf.pbc.scf.hf" title="Permalink to this headline">¶</a></h2>
+<span id="program-reference"></span><h2>21.3.6. Program reference<a class="headerlink" href="#module-pyscf.pbc.scf.hf" title="Permalink to this headline">¶</a></h2>
 <p>Hartree-Fock for periodic systems at a single k-point</p>
 <dl class="docutils">
 <dt>See Also:</dt>
@@ -1434,10 +1373,10 @@ point density matrix.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="dft.html" class="btn btn-neutral float-right" title="21.3. pbc.dft" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dft.html" class="btn btn-neutral float-right" title="21.4. pbc.dft — PBC density functional theory" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="gto.html" class="btn btn-neutral" title="21.1. pbc.gto — Crystal cell structure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ao2mo.html" class="btn btn-neutral" title="21.2. pbc.ao2mo — PBC integral transformation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1468,7 +1407,7 @@ point density matrix.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

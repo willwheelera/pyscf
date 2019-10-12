@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>10. symm – Point group symmetry and spin symmetry &mdash; PySCF 1.7.0 documentation</title>
+  <title>10. symm – Point group symmetry and spin symmetry &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
         <link rel="next" title="11. df — Density fitting" href="df.html"/>
         <link rel="prev" title="9. fci — Full configuration interaction" href="fci.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -127,6 +127,14 @@
 <li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -811,67 +819,6 @@ e.g.:</p>
 particular irreps, e.g.</p>
 </li>
 </ul>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="c1">#</span>
-<span class="c1"># Author: Qiming Sun &lt;osirpt.sun@gmail.com&gt;</span>
-<span class="c1">#</span>
-
-<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span>
-<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">scf</span>
-
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">Specify irrep_nelec to control the wave function symmetry</span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-
-<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">Mole</span><span class="p">()</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
-    <span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
-<span class="s1">        C     0.   0.   0.625</span>
-<span class="s1">        C     0.   0.  -0.625 &#39;&#39;&#39;</span><span class="p">,</span>
-    <span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;cc-pVDZ&#39;</span><span class="p">,</span>
-    <span class="n">spin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">symmetry</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
-
-<span class="c1"># Frozen occupancy</span>
-<span class="c1"># &#39;A1g&#39;: 4 electrons</span>
-<span class="c1"># &#39;E1gx&#39;: 2 electrons</span>
-<span class="c1"># &#39;E1gy&#39;: 2 electrons</span>
-<span class="c1"># Rest 4 electrons are put in irreps A1u, E1ux, E1uy ... based on Aufbau principle</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">irrep_nelec</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;A1g&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;E1gx&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;E1gy&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
-<span class="n">e</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E = </span><span class="si">%.15g</span><span class="s1">  ref = -74.1112374269129&#39;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
-
-
-<span class="n">mol</span><span class="o">.</span><span class="n">symmetry</span> <span class="o">=</span> <span class="s1">&#39;D2h&#39;</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">charge</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">spin</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">dump_input</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parse_arg</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
-
-<span class="c1"># Frozen occupancy</span>
-<span class="c1"># &#39;Ag&#39;: 2 alpha, 1 beta electrons</span>
-<span class="c1"># &#39;B1u&#39;: 4 electrons</span>
-<span class="c1"># &#39;B2u&#39;: 2 electrons</span>
-<span class="c1"># &#39;B3u&#39;: 2 electrons</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">irrep_nelec</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Ag&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;B1u&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;B2u&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;B3u&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,}</span>
-<span class="n">e</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E = </span><span class="si">%.15g</span><span class="s1">  ref = -74.4026583773135&#39;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
-
-<span class="c1"># Frozen occupancy</span>
-<span class="c1"># &#39;Ag&#39;: 4 electrons</span>
-<span class="c1"># &#39;B1u&#39;: 2 alpha, 1 beta electrons</span>
-<span class="c1"># &#39;B2u&#39;: 2 electrons</span>
-<span class="c1"># &#39;B3u&#39;: 2 electrons</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">irrep_nelec</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Ag&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;B1u&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;B2u&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;B3u&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,}</span>
-<span class="n">e</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E = </span><span class="si">%.15g</span><span class="s1">  ref = -74.8971476600812&#39;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
-</pre></div>
-</div>
 <ul>
 <li><p class="first">FCI</p>
 <p>FCI wavefunction symmetry can be controlled by initial guess.  Function
@@ -882,58 +829,6 @@ right symmetry.</p>
 <p>The symmetry of active space in the CASCI/CASSCF calculations can controlled</p>
 </li>
 </ul>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="c1">#</span>
-<span class="c1"># Author: Qiming Sun &lt;osirpt.sun@gmail.com&gt;</span>
-<span class="c1">#</span>
-
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">Active space can be adjusted by specifing the number of orbitals for each irrep.</span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
-
-<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">Mole</span><span class="p">()</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
-    <span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;N  0  0  0; N  0  0  2&#39;</span><span class="p">,</span>
-    <span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;ccpvtz&#39;</span><span class="p">,</span>
-    <span class="n">symmetry</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">myhf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
-<span class="n">myhf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-
-<span class="n">mymc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">myhf</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<span class="c1"># Select active orbitals which have the specified symmetry</span>
-<span class="c1"># 2 E1gx orbitals, 2 E1gy orbitals, 2 E1ux orbitals, 2 E1uy orbitals</span>
-<span class="n">cas_space_symmetry</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;E1gx&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;E1gy&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;E1ux&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;E1uy&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">}</span>
-<span class="n">mo</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">sort_mo_by_irrep</span><span class="p">(</span><span class="n">mymc</span><span class="p">,</span> <span class="n">myhf</span><span class="o">.</span><span class="n">mo_coeff</span><span class="p">,</span> <span class="n">cas_space_symmetry</span><span class="p">)</span>
-<span class="n">mymc</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">mo</span><span class="p">)</span>
-
-
-<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">Mole</span><span class="p">()</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
-    <span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;Ti&#39;</span><span class="p">,</span>
-    <span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span>
-    <span class="n">symmetry</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">spin</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">myhf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
-<span class="n">myhf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-<span class="n">myhf</span><span class="o">.</span><span class="n">analyze</span><span class="p">()</span>
-
-<span class="n">mymc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">myhf</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="c1"># Put 3d, 4d, 4s, 4p orbtials in active space</span>
-<span class="n">cas_space_symmetry</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;A1g&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>  <span class="c1"># 4s, 3d(z^2), 4d(z^2)</span>
-                      <span class="s1">&#39;E2gx&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;E2gy&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;E1gx&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;E1gy&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>  <span class="c1"># 3d and 4d</span>
-                      <span class="s1">&#39;A1u&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;E1ux&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;E1uy&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># 4p</span>
-                     <span class="p">}</span>
-<span class="n">mo</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">sort_mo_by_irrep</span><span class="p">(</span><span class="n">mymc</span><span class="p">,</span> <span class="n">myhf</span><span class="o">.</span><span class="n">mo_coeff</span><span class="p">,</span> <span class="n">cas_space_symmetry</span><span class="p">)</span>
-<span class="n">mymc</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">mymc</span><span class="o">.</span><span class="n">fcisolver</span><span class="o">.</span><span class="n">wfnsym</span> <span class="o">=</span> <span class="s1">&#39;E3gx&#39;</span>
-<span class="n">mymc</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">mo</span><span class="p">)</span>
-<span class="n">mymc</span><span class="o">.</span><span class="n">analyze</span><span class="p">()</span>
-</pre></div>
-</div>
 <ul>
 <li><p class="first">MP2 and CCSD</p>
 <p>Point group symmetry are not supported in CCSD, MP2.</p>
@@ -1225,7 +1120,7 @@ projects out non-symmetric components for each orbital.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

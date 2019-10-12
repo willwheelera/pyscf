@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Overview: module code &mdash; PySCF 1.7.0 documentation</title>
+  <title>Overview: module code &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="../index.html"/> 
+    <link rel="top" title="PySCF 1.5.0 documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -115,6 +115,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -180,7 +188,6 @@
 <ul><li><a href="lib/chkfile.html">lib.chkfile</a></li>
 <li><a href="lib/diis.html">lib.diis</a></li>
 <li><a href="lib/linalg_helper.html">lib.linalg_helper</a></li>
-<li><a href="lib/logger.html">lib.logger</a></li>
 <li><a href="lib/misc.html">lib.misc</a></li>
 <li><a href="lib/numpy_helper.html">lib.numpy_helper</a></li>
 <li><a href="pyscf/ao2mo/addons.html">pyscf.ao2mo.addons</a></li>
@@ -192,8 +199,21 @@
 <li><a href="pyscf/cc/eom_rccsd.html">pyscf.cc.eom_rccsd</a></li>
 <li><a href="pyscf/cc/rccsd.html">pyscf.cc.rccsd</a></li>
 <li><a href="pyscf/cc/uccsd.html">pyscf.cc.uccsd</a></li>
+<li><a href="pyscf/ccn/cc.html">pyscf.ccn.cc</a></li>
+<li><a href="pyscf/ci/cisd.html">pyscf.ci.cisd</a></li>
+<li><a href="pyscf/ci/gcisd.html">pyscf.ci.gcisd</a></li>
+<li><a href="pyscf/ci/ucisd.html">pyscf.ci.ucisd</a></li>
 <li><a href="pyscf/df/addons.html">pyscf.df.addons</a></li>
 <li><a href="pyscf/df/df.html">pyscf.df.df</a></li>
+<li><a href="pyscf/df/df_jk.html">pyscf.df.df_jk</a></li>
+<li><a href="pyscf/df/grad/rhf.html">pyscf.df.grad.rhf</a></li>
+<li><a href="pyscf/df/grad/rks.html">pyscf.df.grad.rks</a></li>
+<li><a href="pyscf/df/grad/uhf.html">pyscf.df.grad.uhf</a></li>
+<li><a href="pyscf/df/grad/uks.html">pyscf.df.grad.uks</a></li>
+<li><a href="pyscf/df/hessian/rhf.html">pyscf.df.hessian.rhf</a></li>
+<li><a href="pyscf/df/hessian/rks.html">pyscf.df.hessian.rks</a></li>
+<li><a href="pyscf/df/hessian/uhf.html">pyscf.df.hessian.uhf</a></li>
+<li><a href="pyscf/df/hessian/uks.html">pyscf.df.hessian.uks</a></li>
 <li><a href="pyscf/df/incore.html">pyscf.df.incore</a></li>
 <li><a href="pyscf/df/outcore.html">pyscf.df.outcore</a></li>
 <li><a href="pyscf/dft/gen_grid.html">pyscf.dft.gen_grid</a></li>
@@ -201,38 +221,54 @@
 <li><a href="pyscf/dft/numint.html">pyscf.dft.numint</a></li>
 <li><a href="pyscf/dft/rks.html">pyscf.dft.rks</a></li>
 <li><a href="pyscf/dft/uks.html">pyscf.dft.uks</a></li>
+<li><a href="pyscf/dftd3/itrf.html">pyscf.dftd3.itrf</a></li>
+<li><a href="pyscf/doci/doci_mcscf.html">pyscf.doci.doci_mcscf</a></li>
+<li><a href="pyscf/doci/doci_slow.html">pyscf.doci.doci_slow</a></li>
 <li><a href="pyscf/fci/addons.html">pyscf.fci.addons</a></li>
 <li><a href="pyscf/fci/cistring.html">pyscf.fci.cistring</a></li>
 <li><a href="pyscf/fci/direct_spin0.html">pyscf.fci.direct_spin0</a></li>
 <li><a href="pyscf/fci/direct_spin1.html">pyscf.fci.direct_spin1</a></li>
 <li><a href="pyscf/fci/rdm.html">pyscf.fci.rdm</a></li>
 <li><a href="pyscf/fci/spin_op.html">pyscf.fci.spin_op</a></li>
+<li><a href="pyscf/geomopt/addons.html">pyscf.geomopt.addons</a></li>
+<li><a href="pyscf/geomopt/berny_solver.html">pyscf.geomopt.berny_solver</a></li>
 <li><a href="pyscf/grad/casci.html">pyscf.grad.casci</a></li>
 <li><a href="pyscf/grad/casscf.html">pyscf.grad.casscf</a></li>
+<li><a href="pyscf/grad/ccsd.html">pyscf.grad.ccsd</a></li>
+<li><a href="pyscf/grad/cisd.html">pyscf.grad.cisd</a></li>
 <li><a href="pyscf/grad/dhf.html">pyscf.grad.dhf</a></li>
+<li><a href="pyscf/grad/mp2.html">pyscf.grad.mp2</a></li>
 <li><a href="pyscf/grad/rhf.html">pyscf.grad.rhf</a></li>
+<li><a href="pyscf/grad/rks.html">pyscf.grad.rks</a></li>
 <li><a href="pyscf/grad/rohf.html">pyscf.grad.rohf</a></li>
+<li><a href="pyscf/grad/roks.html">pyscf.grad.roks</a></li>
+<li><a href="pyscf/grad/tdrhf.html">pyscf.grad.tdrhf</a></li>
 <li><a href="pyscf/grad/uhf.html">pyscf.grad.uhf</a></li>
 <li><a href="pyscf/gto/basis.html">pyscf.gto.basis</a></li>
 <li><a href="pyscf/gto/eval_gto.html">pyscf.gto.eval_gto</a></li>
 <li><a href="pyscf/gto/mole.html">pyscf.gto.mole</a></li>
 <li><a href="pyscf/gto/moleintor.html">pyscf.gto.moleintor</a></li>
+<li><a href="pyscf/gw/gw.html">pyscf.gw.gw</a></li>
+<li><a href="pyscf/gw/gw_slow.html">pyscf.gw.gw_slow</a></li>
+<li><a href="pyscf/hci/hci.html">pyscf.hci.hci</a></li>
 <li><a href="pyscf/hessian/rhf.html">pyscf.hessian.rhf</a></li>
+<li><a href="pyscf/hessian/rks.html">pyscf.hessian.rks</a></li>
 <li><a href="pyscf/hessian/uhf.html">pyscf.hessian.uhf</a></li>
-<li><a href="pyscf/lib/chkfile.html">pyscf.lib.chkfile</a></li>
-<li><a href="pyscf/lib/linalg_helper.html">pyscf.lib.linalg_helper</a></li>
+<li><a href="pyscf/hessian/uks.html">pyscf.hessian.uks</a></li>
 <li><a href="pyscf/lib/misc.html">pyscf.lib.misc</a></li>
-<li><a href="pyscf/lib/numpy_helper.html">pyscf.lib.numpy_helper</a></li>
 <li><a href="pyscf/lo/iao.html">pyscf.lo.iao</a></li>
+<li><a href="pyscf/lo/ibo.html">pyscf.lo.ibo</a></li>
 <li><a href="pyscf/lo/nao.html">pyscf.lo.nao</a></li>
+<li><a href="pyscf/lo/orth.html">pyscf.lo.orth</a></li>
 <li><a href="pyscf/lo/pipek.html">pyscf.lo.pipek</a></li>
 <li><a href="pyscf/mcscf/addons.html">pyscf.mcscf.addons</a></li>
 <li><a href="pyscf/mcscf/casci.html">pyscf.mcscf.casci</a></li>
-<li><a href="pyscf/mcscf/casci_uhf.html">pyscf.mcscf.casci_uhf</a></li>
 <li><a href="pyscf/mcscf/mc1step.html">pyscf.mcscf.mc1step</a></li>
 <li><a href="pyscf/mcscf/mc1step_symm.html">pyscf.mcscf.mc1step_symm</a></li>
 <li><a href="pyscf/mcscf/ucasci.html">pyscf.mcscf.ucasci</a></li>
+<li><a href="pyscf/mp/gmp2.html">pyscf.mp.gmp2</a></li>
 <li><a href="pyscf/mp/mp2.html">pyscf.mp.mp2</a></li>
+<li><a href="pyscf/mp/ump2.html">pyscf.mp.ump2</a></li>
 <li><a href="pyscf/mrpt/nevpt2.html">pyscf.mrpt.nevpt2</a></li>
 <li><a href="pyscf/pbc/df/aft.html">pyscf.pbc.df.aft</a></li>
 <li><a href="pyscf/pbc/df/df.html">pyscf.pbc.df.df</a></li>
@@ -244,6 +280,29 @@
 <li><a href="pyscf/pbc/scf/kuhf.html">pyscf.pbc.scf.kuhf</a></li>
 <li><a href="pyscf/pbc/scf/uhf.html">pyscf.pbc.scf.uhf</a></li>
 <li><a href="pyscf/pbc/tools/pbc.html">pyscf.pbc.tools.pbc</a></li>
+<li><a href="pyscf/pbc/x2c/sfx2c1e.html">pyscf.pbc.x2c.sfx2c1e</a></li>
+<li><a href="pyscf/prop/gtensor/uhf.html">pyscf.prop.gtensor.uhf</a></li>
+<li><a href="pyscf/prop/gtensor/uks.html">pyscf.prop.gtensor.uks</a></li>
+<li><a href="pyscf/prop/hfc/uhf.html">pyscf.prop.hfc.uhf</a></li>
+<li><a href="pyscf/prop/magnetizability/rhf.html">pyscf.prop.magnetizability.rhf</a></li>
+<li><a href="pyscf/prop/magnetizability/uhf.html">pyscf.prop.magnetizability.uhf</a></li>
+<li><a href="pyscf/prop/nmr/dhf.html">pyscf.prop.nmr.dhf</a></li>
+<li><a href="pyscf/prop/nmr/rhf.html">pyscf.prop.nmr.rhf</a></li>
+<li><a href="pyscf/prop/nmr/rks.html">pyscf.prop.nmr.rks</a></li>
+<li><a href="pyscf/prop/nmr/uhf.html">pyscf.prop.nmr.uhf</a></li>
+<li><a href="pyscf/prop/nmr/uks.html">pyscf.prop.nmr.uks</a></li>
+<li><a href="pyscf/prop/nsr/rhf.html">pyscf.prop.nsr.rhf</a></li>
+<li><a href="pyscf/prop/nsr/rks.html">pyscf.prop.nsr.rks</a></li>
+<li><a href="pyscf/prop/nsr/uhf.html">pyscf.prop.nsr.uhf</a></li>
+<li><a href="pyscf/prop/nsr/uks.html">pyscf.prop.nsr.uks</a></li>
+<li><a href="pyscf/prop/rotational_gtensor/rhf.html">pyscf.prop.rotational_gtensor.rhf</a></li>
+<li><a href="pyscf/prop/rotational_gtensor/rks.html">pyscf.prop.rotational_gtensor.rks</a></li>
+<li><a href="pyscf/prop/rotational_gtensor/uhf.html">pyscf.prop.rotational_gtensor.uhf</a></li>
+<li><a href="pyscf/prop/rotational_gtensor/uks.html">pyscf.prop.rotational_gtensor.uks</a></li>
+<li><a href="pyscf/prop/ssc/dhf.html">pyscf.prop.ssc.dhf</a></li>
+<li><a href="pyscf/prop/ssc/rhf.html">pyscf.prop.ssc.rhf</a></li>
+<li><a href="pyscf/prop/ssc/uhf.html">pyscf.prop.ssc.uhf</a></li>
+<li><a href="pyscf/prop/zfs/uhf.html">pyscf.prop.zfs.uhf</a></li>
 <li><a href="pyscf/qmmm/itrf.html">pyscf.qmmm.itrf</a></li>
 <li><a href="pyscf/scf/addons.html">pyscf.scf.addons</a></li>
 <li><a href="pyscf/scf/chkfile.html">pyscf.scf.chkfile</a></li>
@@ -254,14 +313,18 @@
 <li><a href="pyscf/scf/rohf.html">pyscf.scf.rohf</a></li>
 <li><a href="pyscf/scf/uhf.html">pyscf.scf.uhf</a></li>
 <li><a href="pyscf/scf/uhf_symm.html">pyscf.scf.uhf_symm</a></li>
+<li><a href="pyscf/semiempirical/mindo3.html">pyscf.semiempirical.mindo3</a></li>
+<li><a href="pyscf/sgx/sgx.html">pyscf.sgx.sgx</a></li>
+<li><a href="pyscf/solvent/ddcosmo.html">pyscf.solvent.ddcosmo</a></li>
+<li><a href="pyscf/solvent/ddpcm.html">pyscf.solvent.ddpcm</a></li>
+<li><a href="pyscf/soscf/newton_ah.html">pyscf.soscf.newton_ah</a></li>
 <li><a href="pyscf/symm/addons.html">pyscf.symm.addons</a></li>
 <li><a href="pyscf/symm/basis.html">pyscf.symm.basis</a></li>
 <li><a href="pyscf/symm/cg.html">pyscf.symm.cg</a></li>
 <li><a href="pyscf/symm/geom.html">pyscf.symm.geom</a></li>
-<li><a href="pyscf/tddft/rhf.html">pyscf.tddft.rhf</a></li>
-<li><a href="pyscf/tddft/rks.html">pyscf.tddft.rks</a></li>
 <li><a href="pyscf/tdscf/rhf.html">pyscf.tdscf.rhf</a></li>
 <li><a href="pyscf/tdscf/rks.html">pyscf.tdscf.rks</a></li>
+<li><a href="pyscf/tdscf/uks.html">pyscf.tdscf.uks</a></li>
 <li><a href="pyscf/tools/cubegen.html">pyscf.tools.cubegen</a></li>
 <li><a href="pyscf/tools/dump_mat.html">pyscf.tools.dump_mat</a></li>
 <li><a href="pyscf/tools/fcidump.html">pyscf.tools.fcidump</a></li>
@@ -302,7 +365,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>32. sgx — Pseudo-spectral methods (COSX, PS, SN-K) &mdash; PySCF 1.5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+        <link rel="next" title="33. semiempirical — Semiempirical methods" href="semiempirical.html"/>
+        <link rel="prev" title="31. hci — Interface to Heat-Bath selective CI" href="hci.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PySCF
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">1. An overview of PySCF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">2. Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">3. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gto.html">4. gto &#8212; Molecular structure and GTO basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.html">5. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scf.html">6. scf &#8212; Mean-field methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ao2mo.html">7. ao2mo &#8212; Integral transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcscf.html">8. mcscf &#8212; Multi-configurational self-consistent field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fci.html">9. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="symm.html">10. symm &#8211; Point group symmetry and spin symmetry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="df.html">11. df &#8212; Density fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dft.html">12. dft &#8212; Density functional theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tddft.html">13. tddft &#8212; Time dependent density functional theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cc.html">14. cc &#8212; Coupled cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ci.html">15. ci &#8212; Configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">17. fciqmcscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">18. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grad.html">19. grad &#8212; Analytical nuclear gradients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hessian.html">20. hessian &#8212; Analytical nuclear Hessian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc.html">21. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nao.html">22. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lo.html">23. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">24. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qmmm.html">25. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mrpt.html">26. mrpt &#8212; Multi-reference perturbation theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.sgx">32.1. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.sgx.sgx">32.1.1. Main class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.sgx.sgx_jk">32.1.2. Get JK</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PySCF</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/sgx.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sgx-pseudo-spectral-methods-cosx-ps-sn-k">
+<h1>32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)<a class="headerlink" href="#sgx-pseudo-spectral-methods-cosx-ps-sn-k" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-pyscf.sgx">
+<span id="program-reference"></span><h2>32.1. Program reference<a class="headerlink" href="#module-pyscf.sgx" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pyscf.sgx.sgx">
+<span id="main-class"></span><h3>32.1.1. Main class<a class="headerlink" href="#module-pyscf.sgx.sgx" title="Permalink to this headline">¶</a></h3>
+<p>Pseudo-spectral methods (COSX, PS, SN-K)</p>
+<dl class="function">
+<dt id="pyscf.sgx.sgx.sgx_fit">
+<code class="descclassname">pyscf.sgx.sgx.</code><code class="descname">sgx_fit</code><span class="sig-paren">(</span><em>mf</em>, <em>auxbasis=None</em>, <em>with_df=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/sgx/sgx.html#sgx_fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.sgx.sgx.sgx_fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>For the given SCF object, update the J, K matrix constructor with
+corresponding SGX or density fitting integrals.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>mf : an SCF object</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>auxbasis</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str or basis dict</span><dd>Same format to the input attribute mol.basis.  If auxbasis is
+None, optimal auxiliary basis based on AO basis (if possible) or
+even-tempered Gaussian basis will be used.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>An SCF object with a modified J, K matrix constructor which uses density
+fitting integrals to compute J and K</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">sgx_fit</span><span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">scf</span><span class="p">()</span>
+<span class="go">-100.00978770917165</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span><span class="o">.</span><span class="n">symmetry</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">sgx_fit</span><span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">UHF</span><span class="p">(</span><span class="n">mol</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">scf</span><span class="p">()</span>
+<span class="go">-100.00978770951018</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyscf.sgx.sgx_jk">
+<span id="get-jk"></span><h3>32.1.2. Get JK<a class="headerlink" href="#module-pyscf.sgx.sgx_jk" title="Permalink to this headline">¶</a></h3>
+<p>semi-grid Coulomb and eXchange without differencial density matrix</p>
+<p>To lower the scaling of coulomb and exchange matrix construction for large system, one 
+coordinate is analitical and the other is grid. The traditional two electron 
+integrals turn to analytical one electron integrals and numerical integration 
+based on grid.(see Friesner, R. A. Chem. Phys. Lett. 1985, 116, 39)</p>
+<p>Minimizing numerical errors using overlap fitting correction.(see 
+Lzsak, R. et. al. J. Chem. Phys. 2011, 135, 144105)
+Grid screening for weighted AO value and DktXkg. 
+Two SCF steps: coarse grid then fine grid. There are 5 parameters can be changed:
+# threshold for Xg and Fg screening
+gthrd = 1e-10
+# initial and final grids level
+grdlvl_i = 0
+grdlvl_f = 1
+# norm_ddm threshold for grids change
+thrd_nddm = 0.03
+# set block size to adapt memory 
+sblk = 200</p>
+<p>Set mf.direct_scf = False because no traditional 2e integrals</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="semiempirical.html" class="btn btn-neutral float-right" title="33. semiempirical — Semiempirical methods" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="hci.html" class="btn btn-neutral" title="31. hci — Interface to Heat-Bath selective CI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015-, Qiming Sun &lt;osirpt.sun@gmail.com&gt;.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

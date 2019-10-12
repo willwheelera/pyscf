@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyscf.lib.misc &mdash; PySCF 1.7.0 documentation</title>
+  <title>pyscf.lib.misc &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -116,6 +116,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -269,7 +277,7 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
 
-<div class="viewcode-block" id="num_threads"><a class="viewcode-back" href="../../../lib.html#lib.num_threads">[docs]</a><span class="k">def</span> <span class="nf">num_threads</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="num_threads"><a class="viewcode-back" href="../../../lib.html#pyscf.grad.rhf.num_threads">[docs]</a><span class="k">def</span> <span class="nf">num_threads</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Set the number of OMP threads.  If argument is not specified, the</span>
 <span class="sd">    function will return the total number of available OMP threads.</span>
 
@@ -300,7 +308,7 @@
         <span class="n">_np_helper</span><span class="o">.</span><span class="n">get_omp_threads</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span>
         <span class="k">return</span> <span class="n">_np_helper</span><span class="o">.</span><span class="n">get_omp_threads</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="with_omp_threads"><a class="viewcode-back" href="../../../lib.html#lib.with_omp_threads">[docs]</a><span class="k">class</span> <span class="nc">with_omp_threads</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="with_omp_threads"><a class="viewcode-back" href="../../../lib.html#pyscf.grad.rhf.with_omp_threads">[docs]</a><span class="k">class</span> <span class="nc">with_omp_threads</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Using this macro to create a temporary context in which the number of</span>
 <span class="sd">    OpenMP threads are set to the required value. When the program exits the</span>
 <span class="sd">    context, the number OpenMP threads will be restored.</span>
@@ -530,7 +538,7 @@
     <span class="n">tril2sq</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">idx</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">tril2sq</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">tril2sq</span>
 
-<div class="viewcode-block" id="capture_stdout"><a class="viewcode-back" href="../../../lib.html#lib.capture_stdout">[docs]</a><span class="k">class</span> <span class="nc">capture_stdout</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="capture_stdout"><a class="viewcode-back" href="../../../lib.html#pyscf.grad.rhf.capture_stdout">[docs]</a><span class="k">class</span> <span class="nc">capture_stdout</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;redirect all stdout (c printf &amp; python print) into a string</span>
 
 <span class="sd">    Examples:</span>
@@ -970,7 +978,7 @@
 <span class="n">bp</span> <span class="o">=</span> <span class="n">bg_process</span> <span class="o">=</span> <span class="n">background_process</span>
 
 <span class="n">ASYNC_IO</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">__config__</span><span class="p">,</span> <span class="s1">&#39;ASYNC_IO&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-<div class="viewcode-block" id="call_in_background"><a class="viewcode-back" href="../../../lib.html#lib.call_in_background">[docs]</a><span class="k">class</span> <span class="nc">call_in_background</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="call_in_background"><a class="viewcode-back" href="../../../lib.html#pyscf.grad.rhf.call_in_background">[docs]</a><span class="k">class</span> <span class="nc">call_in_background</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Within this macro, function(s) can be executed asynchronously (the</span>
 <span class="sd">    given functions are executed in background).</span>
 
@@ -1069,7 +1077,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="H5TmpFile"><a class="viewcode-back" href="../../../lib.html#lib.H5TmpFile">[docs]</a><span class="k">class</span> <span class="nc">H5TmpFile</span><span class="p">(</span><span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">):</span>
+<div class="viewcode-block" id="H5TmpFile"><a class="viewcode-back" href="../../../lib.html#pyscf.grad.rhf.H5TmpFile">[docs]</a><span class="k">class</span> <span class="nc">H5TmpFile</span><span class="p">(</span><span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Create and return an HDF5 temporary file.</span>
 
 <span class="sd">    Kwargs:</span>
@@ -1229,7 +1237,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

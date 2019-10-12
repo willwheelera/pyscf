@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>12. dft — Density functional theory &mdash; PySCF 1.7.0 documentation</title>
+  <title>12. dft — Density functional theory &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
         <link rel="next" title="13. tddft — Time dependent density functional theory" href="tddft.html"/>
         <link rel="prev" title="11. df — Density fitting" href="df.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -121,6 +121,14 @@
 <li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -493,6 +501,18 @@ this cutoff value.  Default is 1e-7.</dd>
 </div>
 </div></blockquote>
 <dl class="method">
+<dt id="pyscf.dft.rks.RKS.Hessian">
+<code class="descname">Hessian</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.dft.rks.RKS.Hessian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic RKS hessian</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.dft.rks.RKS.TDDFT">
+<code class="descname">TDDFT</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.dft.rks.RKS.TDDFT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Driver to create TDDFT or TDDFTNoHybrid object</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyscf.dft.rks.RKS.energy_elec">
 <code class="descname">energy_elec</code><span class="sig-paren">(</span><em>ks</em>, <em>dm=None</em>, <em>h1e=None</em>, <em>vhf=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.dft.rks.RKS.energy_elec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Electronic part of RKS energy.</p>
@@ -622,6 +642,18 @@ dm is a list of density matrices.</dd>
 <em class="property">class </em><code class="descclassname">pyscf.dft.uks.</code><code class="descname">UKS</code><span class="sig-paren">(</span><em>mol</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/dft/uks.html#UKS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.dft.uks.UKS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unrestricted Kohn-Sham
 See pyscf/dft/rks.py RKS class for document of the attributes</p>
+<dl class="method">
+<dt id="pyscf.dft.uks.UKS.Hessian">
+<code class="descname">Hessian</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.dft.uks.UKS.Hessian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic UKS hessian</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.dft.uks.UKS.TDDFT">
+<code class="descname">TDDFT</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.dft.uks.UKS.TDDFT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Driver to create TDDFT or TDDFTNoHybrid object</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyscf.dft.uks.UKS.get_veff">
 <code class="descname">get_veff</code><span class="sig-paren">(</span><em>ks</em>, <em>mol=None</em>, <em>dm=None</em>, <em>dm_last=0</em>, <em>vhf_last=0</em>, <em>hermi=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.dft.uks.UKS.get_veff" title="Permalink to this definition">¶</a></dt>
@@ -1846,7 +1878,7 @@ beta = c_SR - c_LR = hyb - alpha</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

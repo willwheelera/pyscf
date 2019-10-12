@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; PySCF 1.7.0 documentation</title>
+  <title>Index &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/> 
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -116,6 +116,14 @@
 <li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -201,6 +209,7 @@
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
+ | <a href="#V"><strong>V</strong></a>
  | <a href="#W"><strong>W</strong></a>
  | <a href="#Z"><strong>Z</strong></a>
  
@@ -240,6 +249,10 @@
 
       
   <dt><a href="symm.html#pyscf.symm.geom.alias_axes">alias_axes() (in module pyscf.symm.geom)</a>
+  </dt>
+
+      
+  <dt><a href="prop/gtensor.html#pyscf.prop.gtensor.uhf.align">align() (in module pyscf.prop.gtensor.uhf)</a>
   </dt>
 
       
@@ -329,6 +342,10 @@
   </dt>
 
       
+  <dt><a href="geomopt.html#pyscf.geomopt.addons.as_pyscf_method">as_pyscf_method() (in module pyscf.geomopt.addons)</a>
+  </dt>
+
+      
   <dt><a href="cc.html#pyscf.cc.ccsd.as_scanner">as_scanner() (in module pyscf.cc.ccsd)</a>
   </dt>
 
@@ -338,11 +355,47 @@
   </dt>
 
         
+  <dt><a href="ci.html#pyscf.ci.cisd.as_scanner">(in module pyscf.ci.cisd)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.casci.as_scanner">(in module pyscf.grad.casci)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.casscf.as_scanner">(in module pyscf.grad.casscf)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.ccsd.as_scanner">(in module pyscf.grad.ccsd)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.cisd.as_scanner">(in module pyscf.grad.cisd)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.mp2.as_scanner">(in module pyscf.grad.mp2)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.rhf.as_scanner">(in module pyscf.grad.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.tdrhf.as_scanner">(in module pyscf.grad.tdrhf)</a>
+  </dt>
+
+        
   <dt><a href="mcscf.html#pyscf.mcscf.casci.as_scanner">(in module pyscf.mcscf.casci)</a>
   </dt>
 
         
   <dt><a href="mcscf.html#pyscf.mcscf.mc1step.as_scanner">(in module pyscf.mcscf.mc1step)</a>
+  </dt>
+
+        
+  <dt><a href="mp.html#pyscf.mp.mp2.as_scanner">(in module pyscf.mp.mp2)</a>
   </dt>
 
         
@@ -355,6 +408,30 @@
 
         
   <dt><a href="cc.html#pyscf.cc.ccsd.CCSD.as_scanner">(pyscf.cc.ccsd.CCSD method)</a>
+  </dt>
+
+        
+  <dt><a href="ci.html#pyscf.ci.cisd.CISD.as_scanner">(pyscf.ci.cisd.CISD method)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.casci.Gradients.as_scanner">(pyscf.grad.casci.Gradients method)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.casscf.Gradients.as_scanner">(pyscf.grad.casscf.Gradients method)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.dhf.Gradients.as_scanner">(pyscf.grad.dhf.Gradients method)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.rhf.Gradients.as_scanner">(pyscf.grad.rhf.Gradients method)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.rhf.GradientsBasics.as_scanner">(pyscf.grad.rhf.GradientsBasics method)</a>
   </dt>
 
         
@@ -374,12 +451,12 @@
   </dt>
 
       </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="lib.html#lib.numpy_helper.asarray">asarray() (in module lib.numpy_helper)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="gto.html#pyscf.gto.moleintor.ascint3">ascint3() (in module pyscf.gto.moleintor)</a>
   </dt>
@@ -657,9 +734,15 @@
   </dt>
 
       
-  <dt><a href="mcscf.html#pyscf.mcscf.casci.CASCI">CASCI (class in pyscf.mcscf.casci)</a>
+  <dt><a href="doci.html#pyscf.doci.doci_mcscf.CASCI">CASCI (class in pyscf.doci.doci_mcscf)</a>
   </dt>
 
+      <dd><dl>
+        
+  <dt><a href="mcscf.html#pyscf.mcscf.casci.CASCI">(class in pyscf.mcscf.casci)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="scf.html#pyscf.scf.hf.RHF.CASCI">CASCI() (pyscf.scf.hf.RHF method)</a>, <a href="scf.html#pyscf.scf.hf.RHF.CASCI">[1]</a>
   </dt>
@@ -675,10 +758,14 @@
   </dt>
 
       
-  <dt><a href="mcscf.html#pyscf.mcscf.mc1step.CASSCF">CASSCF (class in pyscf.mcscf.mc1step)</a>
+  <dt><a href="doci.html#pyscf.doci.doci_mcscf.CASSCF">CASSCF (class in pyscf.doci.doci_mcscf)</a>
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="mcscf.html#pyscf.mcscf.mc1step.CASSCF">(class in pyscf.mcscf.mc1step)</a>
+  </dt>
+
         
   <dt><a href="mcscf.html#pyscf.mcscf.mc1step_symm.CASSCF">(in module pyscf.mcscf.mc1step_symm)</a>
   </dt>
@@ -718,12 +805,12 @@
   <dt><a href="symm.html#pyscf.symm.cg.cg_spin">cg_spin() (in module pyscf.symm.cg)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="scf.html#pyscf.scf.rohf.ROHF.check_sanity">check_sanity() (pyscf.scf.rohf.ROHF method)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="gto.html#pyscf.gto.mole.chiral_mol">chiral_mol() (in module pyscf.gto.mole)</a>
   </dt>
@@ -756,6 +843,10 @@
 
       
   <dt><a href="tddft.html#pyscf.tdscf.rhf.CIS">CIS (in module pyscf.tdscf.rhf)</a>
+  </dt>
+
+      
+  <dt><a href="ci.html#pyscf.ci.cisd.CISD">CISD (class in pyscf.ci.cisd)</a>
   </dt>
 
       
@@ -803,10 +894,14 @@
 
       </dl></dd>
       
-  <dt><a href="fci.html#pyscf.fci.direct_spin0.contract_2e">contract_2e() (in module pyscf.fci.direct_spin0)</a>
+  <dt><a href="doci.html#pyscf.doci.doci_slow.contract_2e">contract_2e() (in module pyscf.doci.doci_slow)</a>
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="fci.html#pyscf.fci.direct_spin0.contract_2e">(in module pyscf.fci.direct_spin0)</a>
+  </dt>
+
         
   <dt><a href="fci.html#pyscf.fci.direct_spin1.contract_2e">(in module pyscf.fci.direct_spin1)</a>
   </dt>
@@ -861,6 +956,10 @@
 
       </dl></dd>
       
+  <dt><a href="gw.html#pyscf.gw.gw_slow.corrected_moe">corrected_moe() (in module pyscf.gw.gw_slow)</a>
+  </dt>
+
+      
   <dt><a href="fci.html#pyscf.fci.addons.cre_a">cre_a() (in module pyscf.fci.addons)</a>
   </dt>
 
@@ -891,7 +990,23 @@
   </dt>
 
       
-  <dt><a href="lib.html#lib.linalg_helper.davidson_nosym">davidson_nosym() (in module lib.linalg_helper)</a>
+  <dt><a href="lib.html#lib.linalg_helper.davidson_test">davidson_test() (in module lib.linalg_helper)</a>
+  </dt>
+
+      
+  <dt><a href="solvent.html#pyscf.solvent.ddcosmo.ddcosmo_for_casci">ddcosmo_for_casci() (in module pyscf.solvent.ddcosmo)</a>
+  </dt>
+
+      
+  <dt><a href="solvent.html#pyscf.solvent.ddcosmo.ddcosmo_for_casscf">ddcosmo_for_casscf() (in module pyscf.solvent.ddcosmo)</a>
+  </dt>
+
+      
+  <dt><a href="solvent.html#pyscf.solvent.ddcosmo.ddcosmo_for_post_scf">ddcosmo_for_post_scf() (in module pyscf.solvent.ddcosmo)</a>
+  </dt>
+
+      
+  <dt><a href="solvent.html#pyscf.solvent.ddcosmo.ddcosmo_for_scf">ddcosmo_for_scf() (in module pyscf.solvent.ddcosmo)</a>
   </dt>
 
       
@@ -908,6 +1023,10 @@
 
       
   <dt><a href="tools.html#pyscf.tools.cubegen.density">density() (in module pyscf.tools.cubegen)</a>
+  </dt>
+
+      
+  <dt><a href="df.html#pyscf.df.df_jk.density_fit">density_fit() (in module pyscf.df.df_jk)</a>
   </dt>
 
       
@@ -937,7 +1056,7 @@
   </dt>
 
       
-  <dt><a href="df.html#pyscf.df.df.DF">DF (class in pyscf.df.df)</a>
+  <dt><a href="df.html#pyscf.df.df.DF">DF (class in pyscf.df.df)</a>, <a href="df.html#pyscf.df.df.DF">[1]</a>
   </dt>
 
       
@@ -945,19 +1064,85 @@
   </dt>
 
       
-  <dt><a href="lib.html#lib.linalg_helper.dgeev">dgeev() (in module lib.linalg_helper)</a>
-  </dt>
-
-      
-  <dt><a href="lib.html#lib.linalg_helper.dgeev1">dgeev1() (in module lib.linalg_helper)</a>
+  <dt><a href="df.html#pyscf.df.df.DF4C">DF4C (class in pyscf.df.df)</a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="dftd3.html#pyscf.dftd3.itrf.dftd3">dftd3() (in module pyscf.dftd3.itrf)</a>
+  </dt>
+
+      
   <dt><a href="scf.html#pyscf.scf.dhf.DHF">DHF (in module pyscf.scf.dhf)</a>
   </dt>
 
+      
+  <dt><a href="prop/gtensor.html#pyscf.prop.gtensor.uhf.dia">dia() (in module pyscf.prop.gtensor.uhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="prop/magnetizability.html#pyscf.prop.magnetizability.rhf.dia">(in module pyscf.prop.magnetizability.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.dhf.dia">(in module pyscf.prop.nmr.dhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.rhf.dia">(in module pyscf.prop.nmr.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nsr.html#pyscf.prop.nsr.rhf.dia">(in module pyscf.prop.nsr.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nsr.html#pyscf.prop.nsr.uhf.dia">(in module pyscf.prop.nsr.uhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.rhf.dia">(in module pyscf.prop.rotational_gtensor.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.rks.dia">(in module pyscf.prop.rotational_gtensor.rks)</a>
+  </dt>
+
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.uhf.dia">(in module pyscf.prop.rotational_gtensor.uhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.uks.dia">(in module pyscf.prop.rotational_gtensor.uks)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nsr.html#pyscf.prop.nsr.rhf.NSR.dia">(pyscf.prop.nsr.rhf.NSR method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nsr.html#pyscf.prop.nsr.uhf.NSR.dia">(pyscf.prop.nsr.uhf.NSR method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.rhf.RotationalGTensor.dia">(pyscf.prop.rotational_gtensor.rhf.RotationalGTensor method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.rks.RotationalGTensor.dia">(pyscf.prop.rotational_gtensor.rks.RotationalGTensor method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.uhf.RotationalGTensor.dia">(pyscf.prop.rotational_gtensor.uhf.RotationalGTensor method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.uks.RotationalGTensor.dia">(pyscf.prop.rotational_gtensor.uks.RotationalGTensor method)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="lib.html#lib.diis.DIIS">DIIS (class in lib.diis)</a>
   </dt>
@@ -1017,7 +1202,15 @@
   </dt>
 
       
+  <dt><a href="lib.html#lib.numpy_helper.dot">dot() (in module lib.numpy_helper)</a>
+  </dt>
+
+      
   <dt><a href="scf.html#pyscf.scf.hf.dot_eri_dm">dot_eri_dm() (in module pyscf.scf.hf)</a>
+  </dt>
+
+      
+  <dt><a href="prop/ssc.html#pyscf.prop.ssc.rhf.dso_integral">dso_integral() (in module pyscf.prop.ssc.rhf)</a>
   </dt>
 
       
@@ -1026,6 +1219,10 @@
 
       
   <dt><a href="tools.html#pyscf.tools.dump_mat.dump_mo">dump_mo() (in module pyscf.tools.dump_mat)</a>
+  </dt>
+
+      
+  <dt><a href="geomopt.html#pyscf.geomopt.addons.dump_mol_geometry">dump_mol_geometry() (in module pyscf.geomopt.addons)</a>
   </dt>
 
       
@@ -1085,14 +1282,10 @@
   </dt>
 
       
-  <dt><a href="lib.html#lib.linalg_helper.eig">eig() (in module lib.linalg_helper)</a>
+  <dt><a href="scf.html#pyscf.scf.hf.eig">eig() (in module pyscf.scf.hf)</a>
   </dt>
 
       <dd><dl>
-        
-  <dt><a href="scf.html#pyscf.scf.hf.eig">(in module pyscf.scf.hf)</a>
-  </dt>
-
         
   <dt><a href="scf.html#pyscf.scf.hf_symm.eig">(in module pyscf.scf.hf_symm)</a>
   </dt>
@@ -1123,10 +1316,6 @@
   </dt>
 
       
-  <dt><a href="lib.html#lib.numpy_helper.einsum">einsum() (in module lib.numpy_helper)</a>
-  </dt>
-
-      
   <dt><a href="gto.html#pyscf.gto.mole.Mole.elements">elements (pyscf.gto.mole.Mole attribute)</a>, <a href="gto.html#pyscf.gto.mole.Mole.elements">[1]</a>
   </dt>
 
@@ -1145,6 +1334,14 @@
 
         
   <dt><a href="fci.html#pyscf.fci.direct_spin1.energy">(in module pyscf.fci.direct_spin1)</a>
+  </dt>
+
+        
+  <dt><a href="solvent.html#pyscf.solvent.ddcosmo.energy">(in module pyscf.solvent.ddcosmo)</a>
+  </dt>
+
+        
+  <dt><a href="solvent.html#pyscf.solvent.ddpcm.energy">(in module pyscf.solvent.ddpcm)</a>
   </dt>
 
         
@@ -1234,12 +1431,12 @@
   <dt><a href="cc.html#pyscf.cc.ccsd.CCSD.EOMEA_Ta">EOMEA_Ta() (pyscf.cc.ccsd.CCSD method)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="cc.html#pyscf.cc.ccsd.CCSD.EOMIP_Ta">EOMIP_Ta() (pyscf.cc.ccsd.CCSD method)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="gto.html#pyscf.gto.mole.etbs">etbs() (in module pyscf.gto.mole)</a>
   </dt>
@@ -1315,9 +1512,15 @@
 
       </dl></dd>
       
-  <dt><a href="lib.html#lib.numpy_helper.expm">expm() (in module lib.numpy_helper)</a>
+  <dt><a href="grad.html#pyscf.grad.dhf.Gradients.extra_force">extra_force() (pyscf.grad.dhf.Gradients method)</a>
   </dt>
 
+      <dd><dl>
+        
+  <dt><a href="grad.html#pyscf.grad.rhf.Gradients.extra_force">(pyscf.grad.rhf.Gradients method)</a>
+  </dt>
+
+      </dl></dd>
   </dl></td>
 </tr></table>
 
@@ -1406,8 +1609,6 @@
   </dt>
 
       </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="gto.html#pyscf.gto.mole.format_ecp">format_ecp() (in module pyscf.gto.mole)</a>
   </dt>
@@ -1418,6 +1619,8 @@
   </dt>
 
       </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pbc/gto.html#pyscf.pbc.gto.Cell.format_pseudo">format_pseudo() (pyscf.pbc.gto.Cell method)</a>
   </dt>
@@ -1435,6 +1638,16 @@
   </dt>
 
       
+  <dt><a href="ci.html#pyscf.ci.cisd.from_fcivec">from_fcivec() (in module pyscf.ci.cisd)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="ci.html#pyscf.ci.ucisd.from_fcivec">(in module pyscf.ci.ucisd)</a>
+  </dt>
+
+      </dl></dd>
+      
   <dt><a href="tools.html#pyscf.tools.fcidump.from_integrals">from_integrals() (in module pyscf.tools.fcidump)</a>
   </dt>
 
@@ -1449,6 +1662,10 @@
 
       </dl></dd>
       
+  <dt><a href="ci.html#pyscf.ci.gcisd.from_rcisdvec">from_rcisdvec() (in module pyscf.ci.gcisd)</a>
+  </dt>
+
+      
   <dt><a href="tools.html#pyscf.tools.fcidump.from_scf">from_scf() (in module pyscf.tools.fcidump)</a>
   </dt>
 
@@ -1458,6 +1675,10 @@
   </dt>
 
       </dl></dd>
+      
+  <dt><a href="ci.html#pyscf.ci.gcisd.from_ucisdvec">from_ucisdvec() (in module pyscf.ci.gcisd)</a>
+  </dt>
+
       
   <dt><a href="gto.html#pyscf.gto.mole.from_zmatrix">from_zmatrix() (in module pyscf.gto.mole)</a>
   </dt>
@@ -1472,10 +1693,6 @@
   </dt>
 
       </dl></dd>
-      
-  <dt><a href="lib.html#lib.numpy_helper.frompointer">frompointer() (in module lib.numpy_helper)</a>
-  </dt>
-
       
   <dt><a href="gto.html#pyscf.gto.mole.fromstring">fromstring() (in module pyscf.gto.mole)</a>
   </dt>
@@ -1537,6 +1754,10 @@
   </dt>
 
       
+  <dt><a href="solvent.html#pyscf.solvent.ddcosmo.gen_ddcosmo_solver">gen_ddcosmo_solver() (in module pyscf.solvent.ddcosmo)</a>
+  </dt>
+
+      
   <dt><a href="fci.html#pyscf.fci.cistring.gen_des_str_index">gen_des_str_index() (in module pyscf.fci.cistring)</a>
   </dt>
 
@@ -1587,10 +1808,30 @@
   </dt>
 
       
-  <dt><a href="tddft.html#pyscf.tdscf.rhf.TDA.gen_vind">gen_vind() (pyscf.tdscf.rhf.TDA method)</a>
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.dhf.gen_vind">gen_vind() (in module pyscf.prop.nmr.dhf)</a>
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.rhf.gen_vind">(in module pyscf.prop.nmr.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.uhf.gen_vind">(in module pyscf.prop.nmr.uhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/ssc.html#pyscf.prop.ssc.rhf.gen_vind">(in module pyscf.prop.ssc.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/ssc.html#pyscf.prop.ssc.uhf.gen_vind">(in module pyscf.prop.ssc.uhf)</a>
+  </dt>
+
+        
+  <dt><a href="tddft.html#pyscf.tdscf.rhf.TDA.gen_vind">(pyscf.tdscf.rhf.TDA method)</a>
+  </dt>
+
         
   <dt><a href="tddft.html#pyscf.tdscf.rhf.TDHF.gen_vind">(pyscf.tdscf.rhf.TDHF method)</a>
   </dt>
@@ -1612,6 +1853,10 @@
       </dl></dd>
       
   <dt><a href="ao2mo.html#pyscf.ao2mo.outcore.general_iofree">general_iofree() (in module pyscf.ao2mo.outcore)</a>
+  </dt>
+
+      
+  <dt><a href="geomopt.html#pyscf.geomopt.berny_solver.GeometryOptimizer">GeometryOptimizer (class in pyscf.geomopt.berny_solver)</a>
   </dt>
 
       
@@ -1659,6 +1904,10 @@
   </dt>
 
       
+  <dt><a href="grad.html#pyscf.grad.dhf.get_coulomb_hf">get_coulomb_hf() (in module pyscf.grad.dhf)</a>
+  </dt>
+
+      
   <dt><a href="cc.html#pyscf.cc.ccsd.get_d1_diagnostic">get_d1_diagnostic() (in module pyscf.cc.ccsd)</a>
   </dt>
 
@@ -1702,7 +1951,59 @@
   </dt>
 
         
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.dhf.get_fock">(in module pyscf.prop.nmr.dhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.rhf.get_fock">(in module pyscf.prop.nmr.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.rks.get_fock">(in module pyscf.prop.nmr.rks)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.uhf.get_fock">(in module pyscf.prop.nmr.uhf)</a>
+  </dt>
+
+        
   <dt><a href="scf.html#pyscf.scf.hf.get_fock">(in module pyscf.scf.hf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/gtensor.html#pyscf.prop.gtensor.uhf.GTensor.get_fock">(pyscf.prop.gtensor.uhf.GTensor method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/gtensor.html#pyscf.prop.gtensor.uks.GTensor.get_fock">(pyscf.prop.gtensor.uks.GTensor method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.dhf.NMR.get_fock">(pyscf.prop.nmr.dhf.NMR method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nsr.html#pyscf.prop.nsr.rks.NSR.get_fock">(pyscf.prop.nsr.rks.NSR method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nsr.html#pyscf.prop.nsr.uhf.NSR.get_fock">(pyscf.prop.nsr.uhf.NSR method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nsr.html#pyscf.prop.nsr.uks.NSR.get_fock">(pyscf.prop.nsr.uks.NSR method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.rks.RotationalGTensor.get_fock">(pyscf.prop.rotational_gtensor.rks.RotationalGTensor method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.uhf.RotationalGTensor.get_fock">(pyscf.prop.rotational_gtensor.uhf.RotationalGTensor method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.uks.RotationalGTensor.get_fock">(pyscf.prop.rotational_gtensor.uks.RotationalGTensor method)</a>
   </dt>
 
         
@@ -1715,9 +2016,27 @@
 
       </dl></dd>
       
-  <dt><a href="cc.html#pyscf.cc.ccsd.CCSD.get_frozen_mask">get_frozen_mask() (pyscf.cc.ccsd.CCSD method)</a>
+  <dt><a href="mp.html#pyscf.mp.mp2.get_frozen_mask">get_frozen_mask() (in module pyscf.mp.mp2)</a>
   </dt>
 
+      <dd><dl>
+        
+  <dt><a href="mp.html#pyscf.mp.ump2.get_frozen_mask">(in module pyscf.mp.ump2)</a>
+  </dt>
+
+        
+  <dt><a href="cc.html#pyscf.cc.ccsd.CCSD.get_frozen_mask">(pyscf.cc.ccsd.CCSD method)</a>
+  </dt>
+
+        
+  <dt><a href="ci.html#pyscf.ci.cisd.CISD.get_frozen_mask">(pyscf.ci.cisd.CISD method)</a>
+  </dt>
+
+        
+  <dt><a href="gw.html#pyscf.gw.gw.GW.get_frozen_mask">(pyscf.gw.gw.GW method)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="scf.html#pyscf.scf.addons.get_ghf_orbspin">get_ghf_orbspin() (in module pyscf.scf.addons)</a>
   </dt>
@@ -1756,8 +2075,6 @@
   </dt>
 
       </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pbc/gto.html#pyscf.pbc.gto.Cell.get_Gv">get_Gv() (pyscf.pbc.gto.Cell method)</a>
   </dt>
@@ -1770,6 +2087,8 @@
   <dt><a href="mcscf.html#pyscf.mcscf.casci.CASCI.get_h1cas">get_h1cas() (pyscf.mcscf.casci.CASCI method)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="mcscf.html#pyscf.mcscf.casci.CASCI.get_h1eff">get_h1eff() (pyscf.mcscf.casci.CASCI method)</a>
   </dt>
@@ -1795,16 +2114,28 @@
 
       </dl></dd>
       
-  <dt><a href="pbc/scf.html#pyscf.pbc.scf.hf.get_hcore">get_hcore() (in module pyscf.pbc.scf.hf)</a>
+  <dt><a href="grad.html#pyscf.grad.rhf.get_hcore">get_hcore() (in module pyscf.grad.rhf)</a>
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="hessian.html#pyscf.hessian.rhf.get_hcore">(in module pyscf.hessian.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="pbc/scf.html#pyscf.pbc.scf.hf.get_hcore">(in module pyscf.pbc.scf.hf)</a>
+  </dt>
+
         
   <dt><a href="pbc/scf.html#pyscf.pbc.scf.khf.get_hcore">(in module pyscf.pbc.scf.khf)</a>
   </dt>
 
         
   <dt><a href="scf.html#pyscf.scf.hf.get_hcore">(in module pyscf.scf.hf)</a>
+  </dt>
+
+        
+  <dt><a href="semiempirical.html#pyscf.semiempirical.mindo3.get_hcore">(in module pyscf.semiempirical.mindo3)</a>
   </dt>
 
         
@@ -1827,6 +2158,10 @@
 
         
   <dt><a href="scf.html#pyscf.scf.hf.get_init_guess">(in module pyscf.scf.hf)</a>
+  </dt>
+
+        
+  <dt><a href="semiempirical.html#pyscf.semiempirical.mindo3.get_init_guess">(in module pyscf.semiempirical.mindo3)</a>
   </dt>
 
         
@@ -1875,16 +2210,32 @@
 
       </dl></dd>
       
-  <dt><a href="pbc/scf.html#pyscf.pbc.scf.hf.get_jk">get_jk() (in module pyscf.pbc.scf.hf)</a>
+  <dt><a href="prop/gtensor.html#pyscf.prop.gtensor.uhf.get_j_amfi">get_j_amfi() (in module pyscf.prop.gtensor.uhf)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#pyscf.grad.rhf.get_jk">get_jk() (in module pyscf.grad.rhf)</a>
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="pbc/scf.html#pyscf.pbc.scf.hf.get_jk">(in module pyscf.pbc.scf.hf)</a>
+  </dt>
+
         
   <dt><a href="pbc/scf.html#pyscf.pbc.scf.khf.get_jk">(in module pyscf.pbc.scf.khf)</a>
   </dt>
 
         
   <dt><a href="scf.html#pyscf.scf.hf.get_jk">(in module pyscf.scf.hf)</a>
+  </dt>
+
+        
+  <dt><a href="semiempirical.html#pyscf.semiempirical.mindo3.get_jk">(in module pyscf.semiempirical.mindo3)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.rhf.GradientsBasics.get_jk">(pyscf.grad.rhf.GradientsBasics method)</a>
   </dt>
 
         
@@ -1907,7 +2258,19 @@
   <dt><a href="scf.html#pyscf.scf.uhf.UHF.get_jk">(pyscf.scf.uhf.UHF method)</a>, <a href="scf.html#pyscf.scf.uhf.UHF.get_jk">[1]</a>
   </dt>
 
+        
+  <dt><a href="semiempirical.html#pyscf.semiempirical.mindo3.RMINDO3.get_jk">(pyscf.semiempirical.mindo3.RMINDO3 method)</a>
+  </dt>
+
+        
+  <dt><a href="semiempirical.html#pyscf.semiempirical.mindo3.UMINDO3.get_jk">(pyscf.semiempirical.mindo3.UMINDO3 method)</a>
+  </dt>
+
       </dl></dd>
+      
+  <dt><a href="prop/gtensor.html#pyscf.prop.gtensor.uhf.get_jk_amfi">get_jk_amfi() (in module pyscf.prop.gtensor.uhf)</a>
+  </dt>
+
       
   <dt><a href="pbc/scf.html#pyscf.pbc.scf.hf.SCF.get_jk_incore">get_jk_incore() (pyscf.pbc.scf.hf.SCF method)</a>
   </dt>
@@ -2006,6 +2369,14 @@
   </dt>
 
         
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.dhf.get_ovlp">(in module pyscf.prop.nmr.dhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.rhf.get_ovlp">(in module pyscf.prop.nmr.rhf)</a>
+  </dt>
+
+        
   <dt><a href="scf.html#pyscf.scf.hf.get_ovlp">(in module pyscf.scf.hf)</a>
   </dt>
 
@@ -2069,12 +2440,32 @@
   </dt>
 
       
-  <dt><a href="dft.html#pyscf.dft.rks.get_veff">get_veff() (in module pyscf.dft.rks)</a>
+  <dt><a href="df.html#pyscf.df.grad.rks.get_veff">get_veff() (in module pyscf.df.grad.rks)</a>
   </dt>
 
       <dd><dl>
         
+  <dt><a href="df.html#pyscf.df.grad.uks.get_veff">(in module pyscf.df.grad.uks)</a>
+  </dt>
+
+        
+  <dt><a href="dft.html#pyscf.dft.rks.get_veff">(in module pyscf.dft.rks)</a>
+  </dt>
+
+        
   <dt><a href="dft.html#pyscf.dft.uks.get_veff">(in module pyscf.dft.uks)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.dhf.get_veff">(in module pyscf.grad.dhf)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.rhf.get_veff">(in module pyscf.grad.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.rks.get_veff">(in module pyscf.grad.rks)</a>
   </dt>
 
         
@@ -2123,6 +2514,10 @@
 
       </dl></dd>
       
+  <dt><a href="grad.html#pyscf.grad.rks.get_vxc_full_response">get_vxc_full_response() (in module pyscf.grad.rks)</a>
+  </dt>
+
+      
   <dt><a href="gto.html#pyscf.gto.moleintor.getints">getints() (in module pyscf.gto.moleintor)</a>
   </dt>
 
@@ -2130,6 +2525,92 @@
   <dt><a href="gto.html#pyscf.gto.moleintor.getints_by_shell">getints_by_shell() (in module pyscf.gto.moleintor)</a>
   </dt>
 
+      
+  <dt><a href="df.html#pyscf.df.grad.rhf.Grad">Grad (in module pyscf.df.grad.rhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="df.html#pyscf.df.grad.uhf.Grad">(in module pyscf.df.grad.uhf)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.casci.Grad">(in module pyscf.grad.casci)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.casscf.Grad">(in module pyscf.grad.casscf)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.dhf.Grad">(in module pyscf.grad.dhf)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.rhf.Grad">(in module pyscf.grad.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.rohf.Grad">(in module pyscf.grad.rohf)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.roks.Grad">(in module pyscf.grad.roks)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.uhf.Grad">(in module pyscf.grad.uhf)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="dftd3.html#pyscf.dftd3.itrf.grad">grad() (in module pyscf.dftd3.itrf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="grad.html#pyscf.grad.rhf.GradientsBasics.grad">(pyscf.grad.rhf.GradientsBasics method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="df.html#pyscf.df.grad.rhf.Gradients">Gradients (class in pyscf.df.grad.rhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="df.html#pyscf.df.grad.uhf.Gradients">(class in pyscf.df.grad.uhf)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.casci.Gradients">(class in pyscf.grad.casci)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.casscf.Gradients">(class in pyscf.grad.casscf)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.dhf.Gradients">(class in pyscf.grad.dhf)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.rhf.Gradients">(class in pyscf.grad.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.rohf.Gradients">(class in pyscf.grad.rohf)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.roks.Gradients">(class in pyscf.grad.roks)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.uhf.Gradients">(class in pyscf.grad.uhf)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="mcscf.html#pyscf.mcscf.casci.CASCI.Gradients">Gradients() (pyscf.mcscf.casci.CASCI method)</a>
   </dt>
@@ -2157,9 +2638,29 @@
 
       </dl></dd>
       
+  <dt><a href="grad.html#pyscf.grad.dhf.GradientsBasics">GradientsBasics (class in pyscf.grad.dhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="grad.html#pyscf.grad.rhf.GradientsBasics">(class in pyscf.grad.rhf)</a>
+  </dt>
+
+      </dl></dd>
+      
   <dt><a href="dft.html#pyscf.dft.gen_grid.Grids">Grids (class in pyscf.dft.gen_grid)</a>
   </dt>
 
+      
+  <dt><a href="prop/gtensor.html#pyscf.prop.gtensor.uhf.GTensor">GTensor (class in pyscf.prop.gtensor.uhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="prop/gtensor.html#pyscf.prop.gtensor.uks.GTensor">(class in pyscf.prop.gtensor.uks)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="gto.html#pyscf.gto.mole.gto_norm">gto_norm() (in module pyscf.gto.mole)</a>
   </dt>
@@ -2172,6 +2673,10 @@
       </dl></dd>
       
   <dt><a href="fci.html#pyscf.fci.addons.guess_wfnsym">guess_wfnsym() (in module pyscf.fci.addons)</a>
+  </dt>
+
+      
+  <dt><a href="gw.html#pyscf.gw.gw.GW">GW (class in pyscf.gw.gw)</a>
   </dt>
 
   </dl></td>
@@ -2218,8 +2723,6 @@
   </dt>
 
       </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="lib.html#lib.numpy_helper.hermi_sum">hermi_sum() (in module lib.numpy_helper)</a>
   </dt>
@@ -2228,18 +2731,70 @@
   <dt><a href="lib.html#lib.numpy_helper.hermi_triu">hermi_triu() (in module lib.numpy_helper)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="scf.html#pyscf.scf.hf.RHF.Hessian">Hessian() (pyscf.scf.hf.RHF method)</a>, <a href="scf.html#pyscf.scf.hf.RHF.Hessian">[1]</a>
+  <dt><a href="df.html#pyscf.df.hessian.rhf.Hessian">Hessian (class in pyscf.df.hessian.rhf)</a>
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="df.html#pyscf.df.hessian.rks.Hessian">(class in pyscf.df.hessian.rks)</a>
+  </dt>
+
+        
+  <dt><a href="df.html#pyscf.df.hessian.uhf.Hessian">(class in pyscf.df.hessian.uhf)</a>
+  </dt>
+
+        
+  <dt><a href="df.html#pyscf.df.hessian.uks.Hessian">(class in pyscf.df.hessian.uks)</a>
+  </dt>
+
+        
+  <dt><a href="hessian.html#pyscf.hessian.rhf.Hessian">(class in pyscf.hessian.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="hessian.html#pyscf.hessian.rks.Hessian">(class in pyscf.hessian.rks)</a>
+  </dt>
+
+        
+  <dt><a href="hessian.html#pyscf.hessian.uhf.Hessian">(class in pyscf.hessian.uhf)</a>
+  </dt>
+
+        
+  <dt><a href="hessian.html#pyscf.hessian.uks.Hessian">(class in pyscf.hessian.uks)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="dft.html#pyscf.dft.rks.RKS.Hessian">Hessian() (pyscf.dft.rks.RKS method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="dft.html#pyscf.dft.uks.UKS.Hessian">(pyscf.dft.uks.UKS method)</a>
+  </dt>
+
+        
+  <dt><a href="scf.html#pyscf.scf.hf.RHF.Hessian">(pyscf.scf.hf.RHF method)</a>, <a href="scf.html#pyscf.scf.hf.RHF.Hessian">[1]</a>
+  </dt>
+
         
   <dt><a href="scf.html#pyscf.scf.uhf.UHF.Hessian">(pyscf.scf.uhf.UHF method)</a>, <a href="scf.html#pyscf.scf.uhf.UHF.Hessian">[1]</a>
   </dt>
 
       </dl></dd>
       
+  <dt><a href="prop/hfc.html#pyscf.prop.hfc.uhf.HFC">HFC (in module pyscf.prop.hfc.uhf)</a>
+  </dt>
+
+      
   <dt><a href="dft.html#pyscf.dft.libxc.hybrid_coeff">hybrid_coeff() (in module pyscf.dft.libxc)</a>
+  </dt>
+
+      
+  <dt><a href="prop/hfc.html#pyscf.prop.hfc.uhf.HyperfineCoupling">HyperfineCoupling (class in pyscf.prop.hfc.uhf)</a>
   </dt>
 
   </dl></td>
@@ -2250,6 +2805,14 @@
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="lo.html#pyscf.lo.iao.iao">iao() (in module pyscf.lo.iao)</a>
+  </dt>
+
+      
+  <dt><a href="lo.html#pyscf.lo.ibo.ibo">ibo() (in module pyscf.lo.ibo)</a>
+  </dt>
+
+      
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.rhf.inertia_tensor">inertia_tensor() (in module pyscf.prop.rotational_gtensor.rhf)</a>
   </dt>
 
       
@@ -2348,12 +2911,12 @@
   <dt><a href="gto.html#pyscf.gto.mole.inter_distance">inter_distance() (in module pyscf.gto.mole)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="gto.html#pyscf.gto.mole.Mole.intor">intor() (pyscf.gto.mole.Mole method)</a>, <a href="gto.html#pyscf.gto.mole.Mole.intor">[1]</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="gto.html#pyscf.gto.mole.Mole.intor_asymmetric">intor_asymmetric() (pyscf.gto.mole.Mole method)</a>, <a href="gto.html#pyscf.gto.mole.Mole.intor_asymmetric">[1]</a>
   </dt>
@@ -2389,10 +2952,22 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="mcscf.html#pyscf.mcscf.casci.kernel">kernel() (in module pyscf.mcscf.casci)</a>
+  <dt><a href="geomopt.html#pyscf.geomopt.berny_solver.kernel">kernel() (in module pyscf.geomopt.berny_solver)</a>
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="gw.html#pyscf.gw.gw.kernel">(in module pyscf.gw.gw)</a>
+  </dt>
+
+        
+  <dt><a href="gw.html#pyscf.gw.gw_slow.kernel">(in module pyscf.gw.gw_slow)</a>
+  </dt>
+
+        
+  <dt><a href="mcscf.html#pyscf.mcscf.casci.kernel">(in module pyscf.mcscf.casci)</a>
+  </dt>
+
         
   <dt><a href="mcscf.html#pyscf.mcscf.mc1step.kernel">(in module pyscf.mcscf.mc1step)</a>
   </dt>
@@ -2443,15 +3018,83 @@
 
       </dl></dd>
       
+  <dt><a href="ccn.html#pyscf.ccn.cc.kernel_ea_d">kernel_ea_d() (in module pyscf.ccn.cc)</a>
+  </dt>
+
+      
+  <dt><a href="ccn.html#pyscf.ccn.cc.kernel_ea_s">kernel_ea_s() (in module pyscf.ccn.cc)</a>
+  </dt>
+
+      
+  <dt><a href="ccn.html#pyscf.ccn.cc.kernel_ea_sd">kernel_ea_sd() (in module pyscf.ccn.cc)</a>
+  </dt>
+
+      
+  <dt><a href="ccn.html#pyscf.ccn.cc.kernel_ea_sdt">kernel_ea_sdt() (in module pyscf.ccn.cc)</a>
+  </dt>
+
+      
+  <dt><a href="ccn.html#pyscf.ccn.cc.kernel_ground_state_d">kernel_ground_state_d() (in module pyscf.ccn.cc)</a>
+  </dt>
+
+      
+  <dt><a href="ccn.html#pyscf.ccn.cc.kernel_ground_state_s">kernel_ground_state_s() (in module pyscf.ccn.cc)</a>
+  </dt>
+
+      
+  <dt><a href="ccn.html#pyscf.ccn.cc.kernel_ground_state_sd">kernel_ground_state_sd() (in module pyscf.ccn.cc)</a>
+  </dt>
+
+      
+  <dt><a href="ccn.html#pyscf.ccn.cc.kernel_ground_state_sdt">kernel_ground_state_sdt() (in module pyscf.ccn.cc)</a>
+  </dt>
+
+      
+  <dt><a href="ccn.html#pyscf.ccn.cc.kernel_ip_d">kernel_ip_d() (in module pyscf.ccn.cc)</a>
+  </dt>
+
+      
+  <dt><a href="ccn.html#pyscf.ccn.cc.kernel_ip_s">kernel_ip_s() (in module pyscf.ccn.cc)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="ccn.html#pyscf.ccn.cc.kernel_ip_sd">kernel_ip_sd() (in module pyscf.ccn.cc)</a>
+  </dt>
+
+      
+  <dt><a href="ccn.html#pyscf.ccn.cc.kernel_ip_sdt">kernel_ip_sdt() (in module pyscf.ccn.cc)</a>
+  </dt>
+
+      
+  <dt><a href="ccn.html#pyscf.ccn.cc.kernel_lambda_d">kernel_lambda_d() (in module pyscf.ccn.cc)</a>
+  </dt>
+
+      
+  <dt><a href="ccn.html#pyscf.ccn.cc.kernel_lambda_s">kernel_lambda_s() (in module pyscf.ccn.cc)</a>
+  </dt>
+
+      
+  <dt><a href="ccn.html#pyscf.ccn.cc.kernel_lambda_sd">kernel_lambda_sd() (in module pyscf.ccn.cc)</a>
+  </dt>
+
+      
+  <dt><a href="ccn.html#pyscf.ccn.cc.kernel_lambda_sdt">kernel_lambda_sdt() (in module pyscf.ccn.cc)</a>
+  </dt>
+
+      
   <dt><a href="dft.html#pyscf.dft.rks.KohnShamDFT">KohnShamDFT (class in pyscf.dft.rks)</a>
+  </dt>
+
+      
+  <dt><a href="prop/zfs.html#pyscf.prop.zfs.uhf.koseki_charge">koseki_charge() (in module pyscf.prop.zfs.uhf)</a>
   </dt>
 
       
   <dt><a href="lib.html#lib.linalg_helper.krylov">krylov() (in module lib.linalg_helper)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pbc/scf.html#pyscf.pbc.scf.khf.KSCF">KSCF (class in pyscf.pbc.scf.khf)</a>
   </dt>
@@ -2507,10 +3150,6 @@
   </dt>
 
       
-  <dt><a href="lib.html#module-lib.logger">lib.logger (module)</a>
-  </dt>
-
-      
   <dt><a href="lib.html#module-lib.misc">lib.misc (module)</a>
   </dt>
 
@@ -2522,10 +3161,6 @@
 
       
   <dt><a href="lib.html#module-lib.parameters">lib.parameters (module)</a>
-  </dt>
-
-      
-  <dt><a href="lib.html#lib.misc.light_speed">light_speed (class in lib.misc)</a>
   </dt>
 
       
@@ -2587,7 +3222,7 @@
   </dt>
 
       
-  <dt><a href="lib.html#lib.logger.Logger">Logger (class in lib.logger)</a>
+  <dt><a href="lo.html#pyscf.lo.orth.lowdin">lowdin() (in module pyscf.lo.orth)</a>
   </dt>
 
   </dl></td>
@@ -2639,9 +3274,19 @@
 
       </dl></dd>
       
-  <dt><a href="lib.html#lib.linalg_helper.make_diag_precond">make_diag_precond() (in module lib.linalg_helper)</a>
+  <dt><a href="prop/ssc.html#pyscf.prop.ssc.dhf.make_dia">make_dia() (in module pyscf.prop.ssc.dhf)</a>
   </dt>
 
+      
+  <dt><a href="prop/gtensor.html#pyscf.prop.gtensor.uhf.make_dia_gc2e">make_dia_gc2e() (in module pyscf.prop.gtensor.uhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="prop/gtensor.html#pyscf.prop.gtensor.uhf.GTensor.make_dia_gc2e">(pyscf.prop.gtensor.uhf.GTensor method)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="fci.html#pyscf.fci.rdm.make_dm123">make_dm123() (in module pyscf.fci.rdm)</a>
   </dt>
@@ -2650,6 +3295,16 @@
   <dt><a href="fci.html#pyscf.fci.rdm.make_dm1234">make_dm1234() (in module pyscf.fci.rdm)</a>
   </dt>
 
+      
+  <dt><a href="prop/ssc.html#pyscf.prop.ssc.rhf.make_dso">make_dso() (in module pyscf.prop.ssc.rhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="prop/ssc.html#pyscf.prop.ssc.uhf.make_dso">(in module pyscf.prop.ssc.uhf)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="gto.html#pyscf.gto.mole.make_ecp_env">make_ecp_env() (in module pyscf.gto.mole)</a>
   </dt>
@@ -2670,6 +3325,68 @@
   </dt>
 
       </dl></dd>
+      
+  <dt><a href="prop/ssc.html#pyscf.prop.ssc.rhf.make_fc">make_fc() (in module pyscf.prop.ssc.rhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="prop/ssc.html#pyscf.prop.ssc.uhf.make_fc">(in module pyscf.prop.ssc.uhf)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="prop/hfc.html#pyscf.prop.hfc.uhf.make_fcdip">make_fcdip() (in module pyscf.prop.hfc.uhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="prop/hfc.html#pyscf.prop.hfc.uhf.HyperfineCoupling.make_fcdip">(pyscf.prop.hfc.uhf.HyperfineCoupling method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="prop/ssc.html#pyscf.prop.ssc.rhf.make_fcsd">make_fcsd() (in module pyscf.prop.ssc.rhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="prop/ssc.html#pyscf.prop.ssc.uhf.make_fcsd">(in module pyscf.prop.ssc.uhf)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.rhf.make_h10">make_h10() (in module pyscf.prop.nmr.rhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.dhf.NMR.make_h10">(pyscf.prop.nmr.dhf.NMR method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.dhf.make_h10rkb">make_h10rkb() (in module pyscf.prop.nmr.dhf)</a>
+  </dt>
+
+      
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.dhf.make_h10rmb">make_h10rmb() (in module pyscf.prop.nmr.dhf)</a>
+  </dt>
+
+      
+  <dt><a href="prop/ssc.html#pyscf.prop.ssc.rhf.make_h1_fcsd">make_h1_fcsd() (in module pyscf.prop.ssc.rhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="prop/ssc.html#pyscf.prop.ssc.uhf.make_h1_fcsd">(in module pyscf.prop.ssc.uhf)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="prop/hfc.html#pyscf.prop.hfc.uhf.make_h1_soc">make_h1_soc() (in module pyscf.prop.hfc.uhf)</a>
+  </dt>
+
       
   <dt><a href="fci.html#pyscf.fci.direct_spin0.make_hdiag">make_hdiag() (in module pyscf.fci.direct_spin0)</a>
   </dt>
@@ -2698,17 +3415,53 @@
   </dt>
 
       </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="fci.html#pyscf.fci.direct_spin0.make_rdm1">make_rdm1() (in module pyscf.fci.direct_spin0)</a>
+  <dt><a href="prop/hfc.html#pyscf.prop.hfc.uhf.make_pso_soc">make_pso_soc() (in module pyscf.prop.hfc.uhf)</a>
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="prop/hfc.html#pyscf.prop.hfc.uhf.HyperfineCoupling.make_pso_soc">(pyscf.prop.hfc.uhf.HyperfineCoupling method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="ci.html#pyscf.ci.cisd.make_rdm1">make_rdm1() (in module pyscf.ci.cisd)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="ci.html#pyscf.ci.gcisd.make_rdm1">(in module pyscf.ci.gcisd)</a>
+  </dt>
+
+        
+  <dt><a href="ci.html#pyscf.ci.ucisd.make_rdm1">(in module pyscf.ci.ucisd)</a>
+  </dt>
+
+        
+  <dt><a href="fci.html#pyscf.fci.direct_spin0.make_rdm1">(in module pyscf.fci.direct_spin0)</a>
+  </dt>
+
         
   <dt><a href="fci.html#pyscf.fci.direct_spin1.make_rdm1">(in module pyscf.fci.direct_spin1)</a>
   </dt>
 
         
   <dt><a href="mcscf.html#pyscf.mcscf.addons.make_rdm1">(in module pyscf.mcscf.addons)</a>
+  </dt>
+
+        
+  <dt><a href="mp.html#pyscf.mp.gmp2.make_rdm1">(in module pyscf.mp.gmp2)</a>
+  </dt>
+
+        
+  <dt><a href="mp.html#pyscf.mp.mp2.make_rdm1">(in module pyscf.mp.mp2)</a>
+  </dt>
+
+        
+  <dt><a href="mp.html#pyscf.mp.ump2.make_rdm1">(in module pyscf.mp.ump2)</a>
   </dt>
 
         
@@ -2729,6 +3482,10 @@
 
         
   <dt><a href="cc.html#pyscf.cc.ccsd.CCSD.make_rdm1">(pyscf.cc.ccsd.CCSD method)</a>
+  </dt>
+
+        
+  <dt><a href="ci.html#pyscf.ci.cisd.CISD.make_rdm1">(pyscf.ci.cisd.CISD method)</a>
   </dt>
 
         
@@ -2780,12 +3537,24 @@
 
       <dd><dl>
         
+  <dt><a href="hci.html#pyscf.hci.hci.make_rdm12s">(in module pyscf.hci.hci)</a>
+  </dt>
+
+        
   <dt><a href="fci.html#pyscf.fci.direct_spin1.FCISolver.make_rdm12s">(pyscf.fci.direct_spin1.FCISolver method)</a>
   </dt>
 
       </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="grad.html#pyscf.grad.rhf.make_rdm1e">make_rdm1e() (in module pyscf.grad.rhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="grad.html#pyscf.grad.uhf.make_rdm1e">(in module pyscf.grad.uhf)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="fci.html#pyscf.fci.direct_spin0.make_rdm1s">make_rdm1s() (in module pyscf.fci.direct_spin0)</a>
   </dt>
@@ -2809,17 +3578,59 @@
 
       </dl></dd>
       
-  <dt><a href="cc.html#pyscf.cc.ccsd.CCSD.make_rdm2">make_rdm2() (pyscf.cc.ccsd.CCSD method)</a>
+  <dt><a href="ci.html#pyscf.ci.cisd.make_rdm2">make_rdm2() (in module pyscf.ci.cisd)</a>
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="ci.html#pyscf.ci.gcisd.make_rdm2">(in module pyscf.ci.gcisd)</a>
+  </dt>
+
+        
+  <dt><a href="ci.html#pyscf.ci.ucisd.make_rdm2">(in module pyscf.ci.ucisd)</a>
+  </dt>
+
+        
+  <dt><a href="mp.html#pyscf.mp.gmp2.make_rdm2">(in module pyscf.mp.gmp2)</a>
+  </dt>
+
+        
+  <dt><a href="mp.html#pyscf.mp.mp2.make_rdm2">(in module pyscf.mp.mp2)</a>
+  </dt>
+
+        
+  <dt><a href="mp.html#pyscf.mp.ump2.make_rdm2">(in module pyscf.mp.ump2)</a>
+  </dt>
+
+        
+  <dt><a href="cc.html#pyscf.cc.ccsd.CCSD.make_rdm2">(pyscf.cc.ccsd.CCSD method)</a>
+  </dt>
+
+        
+  <dt><a href="ci.html#pyscf.ci.cisd.CISD.make_rdm2">(pyscf.ci.cisd.CISD method)</a>
+  </dt>
+
         
   <dt><a href="fci.html#pyscf.fci.direct_spin1.FCISolver.make_rdm2">(pyscf.fci.direct_spin1.FCISolver method)</a>
   </dt>
 
       </dl></dd>
       
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.dhf.make_s10">make_s10() (in module pyscf.prop.nmr.dhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.rhf.make_s10">(in module pyscf.prop.nmr.rhf)</a>
+  </dt>
+
+      </dl></dd>
+      
   <dt><a href="fci.html#pyscf.fci.cistring.make_strings">make_strings() (in module pyscf.fci.cistring)</a>
+  </dt>
+
+      
+  <dt><a href="lo.html#pyscf.lo.ibo.MakeAtomIbOffsets">MakeAtomIbOffsets() (in module pyscf.lo.ibo)</a>
   </dt>
 
       
@@ -2989,11 +3800,23 @@
   </dt>
 
       
-  <dt><a href="lib.html#lib.logger.new_logger">new_logger() (in module lib.logger)</a>
+  <dt><a href="soscf.html#pyscf.soscf.newton_ah.newton">newton() (in module pyscf.soscf.newton_ah)</a>
   </dt>
 
       
   <dt><a href="dft.html#pyscf.dft.libxc.nlc_coeff">nlc_coeff() (in module pyscf.dft.libxc)</a>
+  </dt>
+
+      
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.dhf.NMR">NMR (class in pyscf.prop.nmr.dhf)</a>
+  </dt>
+
+      
+  <dt><a href="scf.html#pyscf.scf.dhf.UHF.NMR">NMR() (pyscf.scf.dhf.UHF method)</a>
+  </dt>
+
+      
+  <dt><a href="lib.html#lib.numpy_helper.norm">norm() (in module lib.numpy_helper)</a>
   </dt>
 
       
@@ -3049,6 +3872,44 @@
   </dt>
 
       
+  <dt><a href="prop/nsr.html#pyscf.prop.nsr.rhf.NSR">NSR (class in pyscf.prop.nsr.rhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="prop/nsr.html#pyscf.prop.nsr.rks.NSR">(class in pyscf.prop.nsr.rks)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nsr.html#pyscf.prop.nsr.uhf.NSR">(class in pyscf.prop.nsr.uhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nsr.html#pyscf.prop.nsr.uks.NSR">(class in pyscf.prop.nsr.uks)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="scf.html#pyscf.scf.hf.RHF.NSR">NSR() (pyscf.scf.hf.RHF method)</a>, <a href="scf.html#pyscf.scf.hf.RHF.NSR">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="scf.html#pyscf.scf.uhf.UHF.NSR">(pyscf.scf.uhf.UHF method)</a>, <a href="scf.html#pyscf.scf.uhf.UHF.NSR">[1]</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="prop/nsr.html#pyscf.prop.nsr.rhf.nuc">nuc() (in module pyscf.prop.nsr.rhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.rhf.nuc">(in module pyscf.prop.rotational_gtensor.rhf)</a>
+  </dt>
+
+      </dl></dd>
+      
   <dt><a href="scf.html#pyscf.scf.hf.SCF.nuc_grad_method">nuc_grad_method() (pyscf.scf.hf.SCF method)</a>, <a href="scf.html#pyscf.scf.hf.SCF.nuc_grad_method">[1]</a>
   </dt>
 
@@ -3090,6 +3951,14 @@
   </dt>
 
       </dl></dd>
+      
+  <dt><a href="geomopt.html#pyscf.geomopt.berny_solver.optimize">optimize() (in module pyscf.geomopt.berny_solver)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#pyscf.grad.rhf.GradientsBasics.optimizer">optimizer() (pyscf.grad.rhf.GradientsBasics method)</a>
+  </dt>
+
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
@@ -3101,9 +3970,23 @@
   </dt>
 
       
-  <dt><a href="fci.html#pyscf.fci.addons.overlap">overlap() (in module pyscf.fci.addons)</a>
+  <dt><a href="lo.html#pyscf.lo.orth.orth_ao">orth_ao() (in module pyscf.lo.orth)</a>
   </dt>
 
+      
+  <dt><a href="ci.html#pyscf.ci.cisd.overlap">overlap() (in module pyscf.ci.cisd)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="ci.html#pyscf.ci.ucisd.overlap">(in module pyscf.ci.ucisd)</a>
+  </dt>
+
+        
+  <dt><a href="fci.html#pyscf.fci.addons.overlap">(in module pyscf.fci.addons)</a>
+  </dt>
+
+      </dl></dd>
   </dl></td>
 </tr></table>
 
@@ -3133,6 +4016,52 @@
   </dt>
 
       
+  <dt><a href="prop/magnetizability.html#pyscf.prop.magnetizability.rhf.para">para() (in module pyscf.prop.magnetizability.rhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="prop/magnetizability.html#pyscf.prop.magnetizability.uhf.para">(in module pyscf.prop.magnetizability.uhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.rhf.para">(in module pyscf.prop.nmr.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nsr.html#pyscf.prop.nsr.rhf.para">(in module pyscf.prop.nsr.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nsr.html#pyscf.prop.nsr.uhf.para">(in module pyscf.prop.nsr.uhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.rhf.para">(in module pyscf.prop.rotational_gtensor.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.uhf.para">(in module pyscf.prop.rotational_gtensor.uhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nsr.html#pyscf.prop.nsr.rhf.NSR.para">(pyscf.prop.nsr.rhf.NSR method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nsr.html#pyscf.prop.nsr.uhf.NSR.para">(pyscf.prop.nsr.uhf.NSR method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.rhf.RotationalGTensor.para">(pyscf.prop.rotational_gtensor.rhf.RotationalGTensor method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.uhf.RotationalGTensor.para">(pyscf.prop.rotational_gtensor.uhf.RotationalGTensor method)</a>
+  </dt>
+
+      </dl></dd>
+      
   <dt><a href="gto.html#pyscf.gto.basis.parse">parse() (in module pyscf.gto.basis)</a>
   </dt>
 
@@ -3151,6 +4080,16 @@
   </dt>
 
       
+  <dt><a href="hessian.html#pyscf.hessian.rhf.partial_hess_elec">partial_hess_elec() (in module pyscf.hessian.rhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="hessian.html#pyscf.hessian.rhf.Hessian.partial_hess_elec">(pyscf.hessian.rhf.Hessian method)</a>
+  </dt>
+
+      </dl></dd>
+      
   <dt><a href="pbc/df.html#module-pbc.df">pbc.df (module)</a>
   </dt>
 
@@ -3167,11 +4106,27 @@
   </dt>
 
       
-  <dt><a href="lib.html#lib.linalg_helper.pick_real_eigs">pick_real_eigs() (in module lib.linalg_helper)</a>
+  <dt><a href="lo.html#pyscf.lo.ibo.Pipek">Pipek() (in module pyscf.lo.ibo)</a>
+  </dt>
+
+      
+  <dt><a href="lo.html#pyscf.lo.ibo.PipekMezey">PipekMezey() (in module pyscf.lo.ibo)</a>
+  </dt>
+
+      
+  <dt><a href="lo.html#pyscf.lo.ibo.PM">PM() (in module pyscf.lo.ibo)</a>
   </dt>
 
       
   <dt><a href="scf.html#pyscf.scf.hf.SCF.pop">pop() (pyscf.scf.hf.SCF method)</a>, <a href="scf.html#pyscf.scf.hf.SCF.pop">[1]</a>
+  </dt>
+
+      
+  <dt><a href="lo.html#pyscf.lo.orth.pre_orth_ao">pre_orth_ao() (in module pyscf.lo.orth)</a>
+  </dt>
+
+      
+  <dt><a href="lo.html#pyscf.lo.orth.pre_orth_project_ano">pre_orth_project_ano() (in module pyscf.lo.orth)</a>
   </dt>
 
       
@@ -3184,6 +4139,10 @@
 
       
   <dt><a href="scf.html#pyscf.scf.addons.project_mo_nr2nr">project_mo_nr2nr() (in module pyscf.scf.addons)</a>
+  </dt>
+
+      
+  <dt><a href="lo.html#pyscf.lo.orth.project_to_atomic_orbitals">project_to_atomic_orbitals() (in module pyscf.lo.orth)</a>
   </dt>
 
       
@@ -3237,7 +4196,75 @@
   </dt>
 
       
+  <dt><a href="ccn.html#module-pyscf.ccn">pyscf.ccn (module)</a>
+  </dt>
+
+      
+  <dt><a href="ccn.html#module-pyscf.ccn.cc">pyscf.ccn.cc (module)</a>
+  </dt>
+
+      
+  <dt><a href="ccn.html#module-pyscf.ccn.equations">pyscf.ccn.equations (module)</a>
+  </dt>
+
+      
+  <dt><a href="ci.html#module-pyscf.ci.addons">pyscf.ci.addons (module)</a>
+  </dt>
+
+      
+  <dt><a href="ci.html#module-pyscf.ci.cisd">pyscf.ci.cisd (module)</a>
+  </dt>
+
+      
+  <dt><a href="ci.html#module-pyscf.ci.gcisd">pyscf.ci.gcisd (module)</a>
+  </dt>
+
+      
+  <dt><a href="ci.html#module-pyscf.ci.ucisd">pyscf.ci.ucisd (module)</a>
+  </dt>
+
+      
   <dt><a href="df.html#module-pyscf.df.addons">pyscf.df.addons (module)</a>
+  </dt>
+
+      
+  <dt><a href="df.html#module-pyscf.df.df">pyscf.df.df (module)</a>
+  </dt>
+
+      
+  <dt><a href="df.html#module-pyscf.df.df_jk">pyscf.df.df_jk (module)</a>
+  </dt>
+
+      
+  <dt><a href="df.html#module-pyscf.df.grad.rhf">pyscf.df.grad.rhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="df.html#module-pyscf.df.grad.rks">pyscf.df.grad.rks (module)</a>
+  </dt>
+
+      
+  <dt><a href="df.html#module-pyscf.df.grad.uhf">pyscf.df.grad.uhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="df.html#module-pyscf.df.grad.uks">pyscf.df.grad.uks (module)</a>
+  </dt>
+
+      
+  <dt><a href="df.html#module-pyscf.df.hessian.rhf">pyscf.df.hessian.rhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="df.html#module-pyscf.df.hessian.rks">pyscf.df.hessian.rks (module)</a>
+  </dt>
+
+      
+  <dt><a href="df.html#module-pyscf.df.hessian.uhf">pyscf.df.hessian.uhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="df.html#module-pyscf.df.hessian.uks">pyscf.df.hessian.uks (module)</a>
   </dt>
 
       
@@ -3246,6 +4273,10 @@
 
       
   <dt><a href="df.html#module-pyscf.df.outcore">pyscf.df.outcore (module)</a>
+  </dt>
+
+      
+  <dt><a href="df.html#module-pyscf.df.r_incore">pyscf.df.r_incore (module)</a>
   </dt>
 
       
@@ -3266,6 +4297,26 @@
 
       
   <dt><a href="dft.html#module-pyscf.dft.uks">pyscf.dft.uks (module)</a>
+  </dt>
+
+      
+  <dt><a href="dftd3.html#module-pyscf.dftd3">pyscf.dftd3 (module)</a>
+  </dt>
+
+      
+  <dt><a href="dftd3.html#module-pyscf.dftd3.itrf">pyscf.dftd3.itrf (module)</a>
+  </dt>
+
+      
+  <dt><a href="doci.html#module-pyscf.doci">pyscf.doci (module)</a>
+  </dt>
+
+      
+  <dt><a href="doci.html#module-pyscf.doci.doci_mcscf">pyscf.doci.doci_mcscf (module)</a>
+  </dt>
+
+      
+  <dt><a href="doci.html#module-pyscf.doci.doci_slow">pyscf.doci.doci_slow (module)</a>
   </dt>
 
       
@@ -3317,7 +4368,99 @@
   </dt>
 
       
+  <dt><a href="geomopt.html#module-pyscf.geomopt">pyscf.geomopt (module)</a>
+  </dt>
+
+      
+  <dt><a href="geomopt.html#module-pyscf.geomopt.addons">pyscf.geomopt.addons (module)</a>
+  </dt>
+
+      
+  <dt><a href="geomopt.html#module-pyscf.geomopt.berny_solver">pyscf.geomopt.berny_solver (module)</a>
+  </dt>
+
+      
   <dt><a href="grad.html#module-pyscf.grad">pyscf.grad (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.casci">pyscf.grad.casci (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.casscf">pyscf.grad.casscf (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.ccsd">pyscf.grad.ccsd (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.ccsd_slow">pyscf.grad.ccsd_slow (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.ccsd_t">pyscf.grad.ccsd_t (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.cisd">pyscf.grad.cisd (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.dhf">pyscf.grad.dhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.mp2">pyscf.grad.mp2 (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.rhf">pyscf.grad.rhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.rks">pyscf.grad.rks (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.rohf">pyscf.grad.rohf (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.roks">pyscf.grad.roks (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.tdrhf">pyscf.grad.tdrhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.tdrhf_slow">pyscf.grad.tdrhf_slow (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.tdrks">pyscf.grad.tdrks (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.tduhf">pyscf.grad.tduhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.tduks">pyscf.grad.tduks (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.uccsd">pyscf.grad.uccsd (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.ucisd">pyscf.grad.ucisd (module)</a>
+  </dt>
+
+      
+  <dt><a href="grad.html#module-pyscf.grad.uhf">pyscf.grad.uhf (module)</a>
   </dt>
 
       
@@ -3333,7 +4476,43 @@
   </dt>
 
       
+  <dt><a href="gw.html#module-pyscf.gw">pyscf.gw (module)</a>
+  </dt>
+
+      
+  <dt><a href="gw.html#module-pyscf.gw.gw">pyscf.gw.gw (module)</a>
+  </dt>
+
+      
+  <dt><a href="gw.html#module-pyscf.gw.gw_slow">pyscf.gw.gw_slow (module)</a>
+  </dt>
+
+      
+  <dt><a href="hci.html#module-pyscf.hci">pyscf.hci (module)</a>
+  </dt>
+
+      
+  <dt><a href="hci.html#module-pyscf.hci.hci">pyscf.hci.hci (module)</a>
+  </dt>
+
+      
   <dt><a href="hessian.html#module-pyscf.hessian">pyscf.hessian (module)</a>
+  </dt>
+
+      
+  <dt><a href="hessian.html#module-pyscf.hessian.rhf">pyscf.hessian.rhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="hessian.html#module-pyscf.hessian.rks">pyscf.hessian.rks (module)</a>
+  </dt>
+
+      
+  <dt><a href="hessian.html#module-pyscf.hessian.uhf">pyscf.hessian.uhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="hessian.html#module-pyscf.hessian.uks">pyscf.hessian.uks (module)</a>
   </dt>
 
       
@@ -3344,8 +4523,6 @@
   <dt><a href="lo.html#module-pyscf.lo.boys">pyscf.lo.boys (module)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="lo.html#module-pyscf.lo.edmiston">pyscf.lo.edmiston (module)</a>
   </dt>
@@ -3355,13 +4532,23 @@
   </dt>
 
       
+  <dt><a href="lo.html#module-pyscf.lo.ibo">pyscf.lo.ibo (module)</a>
+  </dt>
+
+      
   <dt><a href="lo.html#module-pyscf.lo.nao">pyscf.lo.nao (module)</a>
+  </dt>
+
+      
+  <dt><a href="lo.html#module-pyscf.lo.orth">pyscf.lo.orth (module)</a>
   </dt>
 
       
   <dt><a href="lo.html#module-pyscf.lo.pipek">pyscf.lo.pipek (module)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="mcscf.html#module-pyscf.mcscf">pyscf.mcscf (module)</a>
   </dt>
@@ -3400,6 +4587,30 @@
 
       
   <dt><a href="mcscf.html#module-pyscf.mcscf.umc_ao2mo">pyscf.mcscf.umc_ao2mo (module)</a>
+  </dt>
+
+      
+  <dt><a href="mp.html#module-pyscf.mp">pyscf.mp (module)</a>
+  </dt>
+
+      
+  <dt><a href="mp.html#module-pyscf.mp.dfmp2">pyscf.mp.dfmp2 (module)</a>
+  </dt>
+
+      
+  <dt><a href="mp.html#module-pyscf.mp.gmp2">pyscf.mp.gmp2 (module)</a>
+  </dt>
+
+      
+  <dt><a href="mp.html#module-pyscf.mp.mp2">pyscf.mp.mp2 (module)</a>
+  </dt>
+
+      
+  <dt><a href="mp.html#module-pyscf.mp.mp2f12_slow">pyscf.mp.mp2f12_slow (module)</a>
+  </dt>
+
+      
+  <dt><a href="mp.html#module-pyscf.mp.ump2">pyscf.mp.ump2 (module)</a>
   </dt>
 
       
@@ -3443,7 +4654,11 @@
   </dt>
 
       
-  <dt><a href="pbc/dft.html#module-pyscf.pbc.dft">pyscf.pbc.dft (module)</a>
+  <dt><a href="pbc/gw.html#module-pyscf.pbc.gw.kgw_slow">pyscf.pbc.gw.kgw_slow (module)</a>
+  </dt>
+
+      
+  <dt><a href="pbc/prop.html#module-pyscf.pbc.prop.efg.rhf">pyscf.pbc.prop.efg.rhf (module)</a>
   </dt>
 
       
@@ -3460,6 +4675,214 @@
 
       
   <dt><a href="pbc/scf.html#module-pyscf.pbc.scf.uhf">pyscf.pbc.scf.uhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="pbc/x2c.html#module-pyscf.pbc.x2c">pyscf.pbc.x2c (module)</a>
+  </dt>
+
+      
+  <dt><a href="pbc/x2c.html#module-pyscf.pbc.x2c.sfx2c1e">pyscf.pbc.x2c.sfx2c1e (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/efg.html#module-pyscf.prop.efg">pyscf.prop.efg (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/efg.html#module-pyscf.prop.efg.rhf">pyscf.prop.efg.rhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/efg.html#module-pyscf.prop.efg.uhf">pyscf.prop.efg.uhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/freq.html#module-pyscf.prop.freq">pyscf.prop.freq (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/freq.html#module-pyscf.prop.freq.rhf">pyscf.prop.freq.rhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/freq.html#module-pyscf.prop.freq.rks">pyscf.prop.freq.rks (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/freq.html#module-pyscf.prop.freq.uhf">pyscf.prop.freq.uhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/freq.html#module-pyscf.prop.freq.uks">pyscf.prop.freq.uks (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/gtensor.html#module-pyscf.prop.gtensor">pyscf.prop.gtensor (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/gtensor.html#module-pyscf.prop.gtensor.dhf">pyscf.prop.gtensor.dhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/gtensor.html#module-pyscf.prop.gtensor.uhf">pyscf.prop.gtensor.uhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/gtensor.html#module-pyscf.prop.gtensor.uks">pyscf.prop.gtensor.uks (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/hfc.html#module-pyscf.prop.hfc">pyscf.prop.hfc (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/hfc.html#module-pyscf.prop.hfc.dhf">pyscf.prop.hfc.dhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/hfc.html#module-pyscf.prop.hfc.uhf">pyscf.prop.hfc.uhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/hfc.html#module-pyscf.prop.hfc.uks">pyscf.prop.hfc.uks (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/magnetizability.html#module-pyscf.prop.magnetizability">pyscf.prop.magnetizability (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/magnetizability.html#module-pyscf.prop.magnetizability.rhf">pyscf.prop.magnetizability.rhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/magnetizability.html#module-pyscf.prop.magnetizability.rks">pyscf.prop.magnetizability.rks (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/magnetizability.html#module-pyscf.prop.magnetizability.uhf">pyscf.prop.magnetizability.uhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/magnetizability.html#module-pyscf.prop.magnetizability.uks">pyscf.prop.magnetizability.uks (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/nmr.html#module-pyscf.prop.nmr">pyscf.prop.nmr (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/nmr.html#module-pyscf.prop.nmr.dhf">pyscf.prop.nmr.dhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/nmr.html#module-pyscf.prop.nmr.rhf">pyscf.prop.nmr.rhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/nmr.html#module-pyscf.prop.nmr.rks">pyscf.prop.nmr.rks (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/nmr.html#module-pyscf.prop.nmr.uhf">pyscf.prop.nmr.uhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/nmr.html#module-pyscf.prop.nmr.uks">pyscf.prop.nmr.uks (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/nsr.html#module-pyscf.prop.nsr">pyscf.prop.nsr (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/nsr.html#module-pyscf.prop.nsr.rhf">pyscf.prop.nsr.rhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/nsr.html#module-pyscf.prop.nsr.rks">pyscf.prop.nsr.rks (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/nsr.html#module-pyscf.prop.nsr.uhf">pyscf.prop.nsr.uhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/nsr.html#module-pyscf.prop.nsr.uks">pyscf.prop.nsr.uks (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/polarizability.html#module-pyscf.prop.polarizability">pyscf.prop.polarizability (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/polarizability.html#module-pyscf.prop.polarizability.rhf">pyscf.prop.polarizability.rhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/polarizability.html#module-pyscf.prop.polarizability.rks">pyscf.prop.polarizability.rks (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/polarizability.html#module-pyscf.prop.polarizability.uhf">pyscf.prop.polarizability.uhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/polarizability.html#module-pyscf.prop.polarizability.uks">pyscf.prop.polarizability.uks (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/rotational_gtensor.html#module-pyscf.prop.rotational_gtensor">pyscf.prop.rotational_gtensor (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/rotational_gtensor.html#module-pyscf.prop.rotational_gtensor.rhf">pyscf.prop.rotational_gtensor.rhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/rotational_gtensor.html#module-pyscf.prop.rotational_gtensor.rks">pyscf.prop.rotational_gtensor.rks (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/rotational_gtensor.html#module-pyscf.prop.rotational_gtensor.uhf">pyscf.prop.rotational_gtensor.uhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/rotational_gtensor.html#module-pyscf.prop.rotational_gtensor.uks">pyscf.prop.rotational_gtensor.uks (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/ssc.html#module-pyscf.prop.ssc">pyscf.prop.ssc (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/ssc.html#module-pyscf.prop.ssc.dhf">pyscf.prop.ssc.dhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/ssc.html#module-pyscf.prop.ssc.rhf">pyscf.prop.ssc.rhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/ssc.html#module-pyscf.prop.ssc.rks">pyscf.prop.ssc.rks (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/ssc.html#module-pyscf.prop.ssc.uhf">pyscf.prop.ssc.uhf (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/ssc.html#module-pyscf.prop.ssc.uks">pyscf.prop.ssc.uks (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/zfs.html#module-pyscf.prop.zfs">pyscf.prop.zfs (module)</a>
+  </dt>
+
+      
+  <dt><a href="prop/zfs.html#module-pyscf.prop.zfs.uhf">pyscf.prop.zfs.uhf (module)</a>
   </dt>
 
       
@@ -3500,6 +4923,58 @@
 
       
   <dt><a href="scf.html#module-pyscf.scf.uhf_symm">pyscf.scf.uhf_symm (module)</a>
+  </dt>
+
+      
+  <dt><a href="semiempirical.html#module-pyscf.semiempirical">pyscf.semiempirical (module)</a>
+  </dt>
+
+      
+  <dt><a href="semiempirical.html#module-pyscf.semiempirical.mindo3">pyscf.semiempirical.mindo3 (module)</a>
+  </dt>
+
+      
+  <dt><a href="semiempirical.html#module-pyscf.semiempirical.rmindo3_grad">pyscf.semiempirical.rmindo3_grad (module)</a>
+  </dt>
+
+      
+  <dt><a href="semiempirical.html#module-pyscf.semiempirical.umindo3_grad">pyscf.semiempirical.umindo3_grad (module)</a>
+  </dt>
+
+      
+  <dt><a href="sgx.html#module-pyscf.sgx">pyscf.sgx (module)</a>
+  </dt>
+
+      
+  <dt><a href="sgx.html#module-pyscf.sgx.sgx">pyscf.sgx.sgx (module)</a>
+  </dt>
+
+      
+  <dt><a href="sgx.html#module-pyscf.sgx.sgx_jk">pyscf.sgx.sgx_jk (module)</a>
+  </dt>
+
+      
+  <dt><a href="solvent.html#module-pyscf.solvent">pyscf.solvent (module)</a>
+  </dt>
+
+      
+  <dt><a href="solvent.html#module-pyscf.solvent.ddcosmo">pyscf.solvent.ddcosmo (module)</a>
+  </dt>
+
+      
+  <dt><a href="solvent.html#module-pyscf.solvent.ddcosmo_grad">pyscf.solvent.ddcosmo_grad (module)</a>
+  </dt>
+
+      
+  <dt><a href="solvent.html#module-pyscf.solvent.ddpcm">pyscf.solvent.ddpcm (module)</a>
+  </dt>
+
+      
+  <dt><a href="soscf.html#module-pyscf.soscf">pyscf.soscf (module)</a>
+  </dt>
+
+      
+  <dt><a href="soscf.html#module-pyscf.soscf.newton_ah">pyscf.soscf.newton_ah (module)</a>
   </dt>
 
       
@@ -3575,6 +5050,10 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="df.html#pyscf.df.df_jk.r_get_jk">r_get_jk() (in module pyscf.df.df_jk)</a>
+  </dt>
+
+      
   <dt><a href="cc.html#pyscf.cc.rccsd.RCCSD">RCCSD (class in pyscf.cc.rccsd)</a>, <a href="cc.html#pyscf.cc.rccsd.RCCSD">[1]</a>
   </dt>
 
@@ -3619,7 +5098,7 @@
   </dt>
 
       
-  <dt><a href="df.html#pyscf.df.df.DF.reset">reset() (pyscf.df.df.DF method)</a>
+  <dt><a href="df.html#pyscf.df.df.DF.reset">reset() (pyscf.df.df.DF method)</a>, <a href="df.html#pyscf.df.df.DF.reset">[1]</a>
   </dt>
 
       <dd><dl>
@@ -3645,11 +5124,11 @@
   <dt><a href="ao2mo.html#pyscf.ao2mo.addons.restore">(in module pyscf.ao2mo.addons)</a>
   </dt>
 
-        
-  <dt><a href="lib.html#lib.diis.DIIS.restore">(lib.diis.DIIS method)</a>
+      </dl></dd>
+      
+  <dt><a href="lo.html#pyscf.lo.orth.restore_ao_character">restore_ao_character() (in module pyscf.lo.orth)</a>
   </dt>
 
-      </dl></dd>
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
@@ -3681,6 +5160,10 @@
   </dt>
 
       
+  <dt><a href="semiempirical.html#pyscf.semiempirical.mindo3.RMINDO3">RMINDO3 (class in pyscf.semiempirical.mindo3)</a>
+  </dt>
+
+      
   <dt><a href="scf.html#pyscf.scf.rohf.ROHF">ROHF (class in pyscf.scf.rohf)</a>
   </dt>
 
@@ -3705,6 +5188,34 @@
   </dt>
 
       
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.rhf.RotationalGTensor">RotationalGTensor (class in pyscf.prop.rotational_gtensor.rhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.rks.RotationalGTensor">(class in pyscf.prop.rotational_gtensor.rks)</a>
+  </dt>
+
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.uhf.RotationalGTensor">(class in pyscf.prop.rotational_gtensor.uhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/rotational_gtensor.html#pyscf.prop.rotational_gtensor.uks.RotationalGTensor">(class in pyscf.prop.rotational_gtensor.uks)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="scf.html#pyscf.scf.hf.RHF.RotationalGTensor">RotationalGTensor() (pyscf.scf.hf.RHF method)</a>, <a href="scf.html#pyscf.scf.hf.RHF.RotationalGTensor">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="scf.html#pyscf.scf.uhf.UHF.RotationalGTensor">(pyscf.scf.uhf.UHF method)</a>, <a href="scf.html#pyscf.scf.uhf.UHF.RotationalGTensor">[1]</a>
+  </dt>
+
+      </dl></dd>
+      
   <dt><a href="symm.html#pyscf.symm.addons.route">route() (in module pyscf.symm.addons)</a>
   </dt>
 
@@ -3723,6 +5234,10 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="prop/ssc.html#pyscf.prop.ssc.dhf.sa01sa01_integral">sa01sa01_integral() (in module pyscf.prop.ssc.dhf)</a>
+  </dt>
+
+      
   <dt><a href="lib.html#lib.linalg_helper.safe_eigh">safe_eigh() (in module lib.linalg_helper)</a>
   </dt>
 
@@ -3732,10 +5247,6 @@
 
       
   <dt><a href="gto.html#pyscf.gto.mole.same_mol">same_mol() (in module pyscf.gto.mole)</a>
-  </dt>
-
-      
-  <dt><a href="lib.html#lib.chkfile.save">save() (in module lib.chkfile)</a>
   </dt>
 
       
@@ -3853,7 +5364,19 @@
   </dt>
 
       
+  <dt><a href="pbc/x2c.html#pyscf.pbc.x2c.sfx2c1e.sfx2c">sfx2c() (in module pyscf.pbc.x2c.sfx2c1e)</a>
+  </dt>
+
+      
+  <dt><a href="pbc/x2c.html#pyscf.pbc.x2c.sfx2c1e.sfx2c1e">sfx2c1e() (in module pyscf.pbc.x2c.sfx2c1e)</a>
+  </dt>
+
+      
   <dt><a href="dft.html#pyscf.dft.gen_grid.sg1_prune">sg1_prune() (in module pyscf.dft.gen_grid)</a>
+  </dt>
+
+      
+  <dt><a href="sgx.html#pyscf.sgx.sgx.sgx_fit">sgx_fit() (in module pyscf.sgx.sgx)</a>
   </dt>
 
       
@@ -3869,6 +5392,38 @@
   </dt>
 
       
+  <dt><a href="hessian.html#pyscf.hessian.rhf.solve_mo1">solve_mo1() (in module pyscf.hessian.rhf)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.dhf.solve_mo1">(in module pyscf.prop.nmr.dhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.rhf.solve_mo1">(in module pyscf.prop.nmr.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.uhf.solve_mo1">(in module pyscf.prop.nmr.uhf)</a>
+  </dt>
+
+        
+  <dt><a href="prop/gtensor.html#pyscf.prop.gtensor.uhf.GTensor.solve_mo1">(pyscf.prop.gtensor.uhf.GTensor method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nmr.html#pyscf.prop.nmr.dhf.NMR.solve_mo1">(pyscf.prop.nmr.dhf.NMR method)</a>
+  </dt>
+
+        
+  <dt><a href="prop/nsr.html#pyscf.prop.nsr.uhf.NSR.solve_mo1">(pyscf.prop.nsr.uhf.NSR method)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
   <dt><a href="mcscf.html#pyscf.mcscf.addons.sort_mo">sort_mo() (in module pyscf.mcscf.addons)</a>
   </dt>
 
@@ -3878,8 +5433,6 @@
   </dt>
 
       </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="mcscf.html#pyscf.mcscf.addons.sort_mo_by_irrep">sort_mo_by_irrep() (in module pyscf.mcscf.addons)</a>
   </dt>
@@ -4087,6 +5640,20 @@
   </dt>
 
       
+  <dt><a href="geomopt.html#pyscf.geomopt.addons.symmetrize">symmetrize() (in module pyscf.geomopt.addons)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="grad.html#pyscf.grad.rhf.symmetrize">(in module pyscf.grad.rhf)</a>
+  </dt>
+
+        
+  <dt><a href="grad.html#pyscf.grad.rhf.GradientsBasics.symmetrize">(pyscf.grad.rhf.GradientsBasics method)</a>
+  </dt>
+
+      </dl></dd>
+      
   <dt><a href="symm.html#pyscf.symm.addons.symmetrize_orb">symmetrize_orb() (in module pyscf.symm.addons)</a>
   </dt>
 
@@ -4105,7 +5672,7 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="lib.html#lib.numpy_helper.tag_array">tag_array() (in module lib.numpy_helper)</a>
+  <dt><a href="ci.html#pyscf.ci.cisd.t1strs">t1strs() (in module pyscf.ci.cisd)</a>
   </dt>
 
       
@@ -4128,6 +5695,16 @@
   <dt><a href="tddft.html#pyscf.tdscf.rks.tddft">tddft() (in module pyscf.tdscf.rks)</a>
   </dt>
 
+      
+  <dt><a href="dft.html#pyscf.dft.rks.RKS.TDDFT">TDDFT() (pyscf.dft.rks.RKS method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="dft.html#pyscf.dft.uks.UKS.TDDFT">(pyscf.dft.uks.UKS method)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="tddft.html#pyscf.tdscf.rks.TDDFTNoHybrid">TDDFTNoHybrid (class in pyscf.tdscf.rks)</a>
   </dt>
@@ -4163,9 +5740,27 @@
   </dt>
 
       
+  <dt><a href="ci.html#pyscf.ci.cisd.tn_addrs_signs">tn_addrs_signs() (in module pyscf.ci.cisd)</a>
+  </dt>
+
+      
   <dt><a href="fci.html#pyscf.fci.cistring.tn_strs">tn_strs() (in module pyscf.fci.cistring)</a>
   </dt>
 
+      
+  <dt><a href="geomopt.html#pyscf.geomopt.berny_solver.to_berny_log">to_berny_log() (in module pyscf.geomopt.berny_solver)</a>
+  </dt>
+
+      
+  <dt><a href="ci.html#pyscf.ci.cisd.to_fcivec">to_fcivec() (in module pyscf.ci.cisd)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="ci.html#pyscf.ci.ucisd.to_fcivec">(in module pyscf.ci.ucisd)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="pbc/scf.html#pyscf.pbc.scf.hf.SCF.to_ghf">to_ghf() (pyscf.pbc.scf.hf.SCF method)</a>
   </dt>
@@ -4199,6 +5794,12 @@
 
       </dl></dd>
       
+  <dt><a href="ci.html#pyscf.ci.gcisd.to_ucisdvec">to_ucisdvec() (in module pyscf.ci.gcisd)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
   <dt><a href="pbc/scf.html#pyscf.pbc.scf.hf.SCF.to_uhf">to_uhf() (pyscf.pbc.scf.hf.SCF method)</a>
   </dt>
 
@@ -4222,8 +5823,6 @@
   </dt>
 
       </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="gto.html#pyscf.gto.mole.tofile">tofile() (in module pyscf.gto.mole)</a>
   </dt>
@@ -4259,12 +5858,28 @@
 
       </dl></dd>
       
-  <dt><a href="fci.html#pyscf.fci.direct_spin0.trans_rdm1">trans_rdm1() (in module pyscf.fci.direct_spin0)</a>
+  <dt><a href="ci.html#pyscf.ci.cisd.trans_rdm1">trans_rdm1() (in module pyscf.ci.cisd)</a>
   </dt>
 
       <dd><dl>
         
+  <dt><a href="ci.html#pyscf.ci.gcisd.trans_rdm1">(in module pyscf.ci.gcisd)</a>
+  </dt>
+
+        
+  <dt><a href="ci.html#pyscf.ci.ucisd.trans_rdm1">(in module pyscf.ci.ucisd)</a>
+  </dt>
+
+        
+  <dt><a href="fci.html#pyscf.fci.direct_spin0.trans_rdm1">(in module pyscf.fci.direct_spin0)</a>
+  </dt>
+
+        
   <dt><a href="fci.html#pyscf.fci.direct_spin1.trans_rdm1">(in module pyscf.fci.direct_spin1)</a>
+  </dt>
+
+        
+  <dt><a href="ci.html#pyscf.ci.cisd.CISD.trans_rdm1">(pyscf.ci.cisd.CISD method)</a>
   </dt>
 
         
@@ -4439,6 +6054,10 @@
   </dt>
 
       
+  <dt><a href="semiempirical.html#pyscf.semiempirical.mindo3.UMINDO3">UMINDO3 (class in pyscf.semiempirical.mindo3)</a>
+  </dt>
+
+      
   <dt><a href="gto.html#pyscf.gto.mole.uncontract">uncontract() (in module pyscf.gto.mole)</a>
   </dt>
 
@@ -4503,9 +6122,33 @@
   </dl></td>
 </tr></table>
 
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="lo.html#pyscf.lo.orth.vec_lowdin">vec_lowdin() (in module pyscf.lo.orth)</a>
+  </dt>
+
+      
+  <dt><a href="lo.html#pyscf.lo.orth.vec_schmidt">vec_schmidt() (in module pyscf.lo.orth)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="ci.html#pyscf.ci.cisd.CISD.vector_size">vector_size() (pyscf.ci.cisd.CISD method)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="lo.html#pyscf.lo.orth.weight_orth">weight_orth() (in module pyscf.lo.orth)</a>
+  </dt>
+
       
   <dt><a href="gto.html#pyscf.gto.mole.Mole.with_common_orig">with_common_orig() (pyscf.gto.mole.Mole method)</a>, <a href="gto.html#pyscf.gto.mole.Mole.with_common_orig">[1]</a>
   </dt>
@@ -4522,12 +6165,12 @@
   <dt><a href="gto.html#pyscf.gto.mole.Mole.with_range_coulomb">with_range_coulomb() (pyscf.gto.mole.Mole method)</a>, <a href="gto.html#pyscf.gto.mole.Mole.with_range_coulomb">[1]</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="gto.html#pyscf.gto.mole.Mole.with_rinv_as_nucleus">with_rinv_as_nucleus() (pyscf.gto.mole.Mole method)</a>, <a href="gto.html#pyscf.gto.mole.Mole.with_rinv_as_nucleus">[1]</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="gto.html#pyscf.gto.mole.Mole.with_rinv_orig">with_rinv_orig() (pyscf.gto.mole.Mole method)</a>, <a href="gto.html#pyscf.gto.mole.Mole.with_rinv_orig">[1]</a>
   </dt>
@@ -4555,11 +6198,19 @@
   </dt>
 
       
-  <dt><a href="gto.html#pyscf.gto.mole.zmat">zmat() (in module pyscf.gto.mole)</a>
+  <dt><a href="prop/zfs.html#pyscf.prop.zfs.uhf.ZeroFieldSplitting">ZeroFieldSplitting (class in pyscf.prop.zfs.uhf)</a>
+  </dt>
+
+      
+  <dt><a href="prop/zfs.html#pyscf.prop.zfs.uhf.ZFS">ZFS (in module pyscf.prop.zfs.uhf)</a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="gto.html#pyscf.gto.mole.zmat">zmat() (in module pyscf.gto.mole)</a>
+  </dt>
+
       
   <dt><a href="gto.html#pyscf.gto.mole.zmat2cart">zmat2cart() (in module pyscf.gto.mole)</a>
   </dt>
@@ -4603,7 +6254,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

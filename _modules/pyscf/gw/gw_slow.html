@@ -1,0 +1,602 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyscf.gw.gw_slow &mdash; PySCF 1.5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="PySCF 1.5.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> PySCF
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">1. An overview of PySCF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">2. Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">3. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gto.html">4. gto &#8212; Molecular structure and GTO basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lib.html">5. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scf.html">6. scf &#8212; Mean-field methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ao2mo.html">7. ao2mo &#8212; Integral transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mcscf.html">8. mcscf &#8212; Multi-configurational self-consistent field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fci.html">9. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../symm.html">10. symm &#8211; Point group symmetry and spin symmetry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../df.html">11. df &#8212; Density fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dft.html">12. dft &#8212; Density functional theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tddft.html">13. tddft &#8212; Time dependent density functional theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cc.html">14. cc &#8212; Coupled cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ci.html">15. ci &#8212; Configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dmrgscf.html">16. dmrgscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fciqmcscf.html">17. fciqmcscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tools.html">18. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../grad.html">19. grad &#8212; Analytical nuclear gradients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hessian.html">20. hessian &#8212; Analytical nuclear Hessian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pbc.html">21. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nao.html">22. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lo.html">23. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../advanced.html">24. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qmmm.html">25. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mrpt.html">26. mrpt &#8212; Multi-reference perturbation theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../benchmark.html">27. Benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code-rule.html">28. Code standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PySCF</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyscf.gw.gw_slow</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyscf.gw.gw_slow</h1><div class="highlight"><pre>
+<span></span><span class="c1">#  Authors: Artem Pulkin, pyscf authors</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module implements the G0W0 approximation on top of `pyscf.tdscf.rhf_slow` and `pyscf.tdscf.proxy` TD</span>
+<span class="sd">implementations. Unlike `gw.py`, all integrals are stored in memory. Several variants of GW are available:</span>
+
+<span class="sd"> * (this module) `pyscf.gw_slow`: the molecular implementation;</span>
+<span class="sd"> * `pyscf.pbc.gw.gw_slow`: single-kpoint PBC (periodic boundary condition) implementation;</span>
+<span class="sd"> * `pyscf.pbc.gw.kgw_slow_supercell`: a supercell approach to PBC implementation with multiple k-points. Runs the</span>
+<span class="sd">   molecular code for a model with several k-points for the cost of discarding momentum conservation and using dense</span>
+<span class="sd">   instead of sparse matrixes;</span>
+<span class="sd"> * `pyscf.pbc.gw.kgw_slow`: a PBC implementation with multiple k-points;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pyscf.lib</span> <span class="k">import</span> <span class="n">einsum</span><span class="p">,</span> <span class="n">direct_sum</span>
+<span class="kn">from</span> <span class="nn">pyscf.lib</span> <span class="k">import</span> <span class="n">logger</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="k">import</span> <span class="n">newton</span><span class="p">,</span> <span class="n">bisect</span>
+
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">product</span>
+
+<span class="c1"># Convention for these modules:</span>
+<span class="c1"># * IMDS contains routines for intermediates</span>
+<span class="c1"># * kernel finds GW roots</span>
+<span class="c1"># * GW provides a container</span>
+
+
+<span class="k">class</span> <span class="nc">AbstractIMDS</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">orb_dims</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">eri</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        GW intermediates interface.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            td: a container with TD solution;</span>
+<span class="sd">            eri (PhysERI): a container with electron repulsion integrals;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">td</span> <span class="o">=</span> <span class="n">td</span>
+        <span class="k">if</span> <span class="n">eri</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eri</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">eri</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eri</span> <span class="o">=</span> <span class="n">eri</span>
+
+    <span class="k">def</span> <span class="nf">get_rhs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The right-hand side of the quasiparticle equation.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            p (int, tuple): the orbital;</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Right-hand sides of the quasiparticle equation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">entire_space</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The entire orbital space.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            An iterable of the entire orbital space.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">get_sigma_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The diagonal matrix element of the self-energy matrix.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            omega (float): the energy value;</span>
+<span class="sd">            p (int, tuple): the orbital;</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The diagonal matrix element.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">quasiparticle_eq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The quasiparticle equation `f(omega) = 0`.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            p (int, tuple): the orbital;</span>
+<span class="sd">            **kwargs: keyword arguments to `get_sigma_element`;</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A callable function of one parameter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rhs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_rhs</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">quasiparticle_eq</span><span class="p">(</span><span class="n">omega</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">omega</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sigma_element</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">real</span> <span class="o">-</span> <span class="n">rhs</span>
+
+        <span class="k">return</span> <span class="n">quasiparticle_eq</span>
+
+    <span class="k">def</span> <span class="nf">initial_guess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the initial guess for the quasiparticle energy for orbital `p`.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            p (int, tuple): the orbital;</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The value of initial guess (float).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+
+<div class="viewcode-block" id="corrected_moe"><a class="viewcode-back" href="../../../gw.html#pyscf.gw.gw_slow.corrected_moe">[docs]</a><span class="k">def</span> <span class="nf">corrected_moe</span><span class="p">(</span><span class="n">eri</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the corrected orbital energy.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        eri (PhysERI): a container with electron repulsion integrals;</span>
+<span class="sd">        p (int): orbital;</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The corrected orbital energy.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">moe</span> <span class="o">=</span> <span class="n">eri</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+    <span class="n">moc</span> <span class="o">=</span> <span class="n">eri</span><span class="o">.</span><span class="n">mo_coeff</span><span class="p">[:,</span> <span class="n">p</span><span class="p">]</span>
+    <span class="n">vk</span> <span class="o">=</span> <span class="o">-</span> <span class="n">eri</span><span class="o">.</span><span class="n">ao2mo</span><span class="p">((</span>
+        <span class="n">moc</span><span class="p">[:,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span>
+        <span class="n">eri</span><span class="o">.</span><span class="n">mo_coeff_full</span><span class="p">[:,</span> <span class="p">:</span><span class="n">eri</span><span class="o">.</span><span class="n">nocc_full</span><span class="p">],</span>
+        <span class="n">eri</span><span class="o">.</span><span class="n">mo_coeff_full</span><span class="p">[:,</span> <span class="p">:</span><span class="n">eri</span><span class="o">.</span><span class="n">nocc_full</span><span class="p">],</span>
+        <span class="n">moc</span><span class="p">[:,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span>
+    <span class="p">))</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">trace</span><span class="p">()</span>
+    <span class="n">mf</span> <span class="o">=</span> <span class="n">eri</span><span class="o">.</span><span class="n">model</span>
+    <span class="n">v_mf</span> <span class="o">=</span> <span class="n">eri</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">mf</span><span class="o">.</span><span class="n">get_veff</span><span class="p">()</span> <span class="o">-</span> <span class="n">mf</span><span class="o">.</span><span class="n">get_j</span><span class="p">())</span>
+    <span class="n">v_mf</span> <span class="o">=</span> <span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;i,ij,j&quot;</span><span class="p">,</span> <span class="n">moc</span><span class="o">.</span><span class="n">conj</span><span class="p">(),</span> <span class="n">v_mf</span><span class="p">,</span> <span class="n">moc</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">moe</span> <span class="o">+</span> <span class="n">vk</span> <span class="o">-</span> <span class="n">v_mf</span></div>
+
+
+<span class="k">class</span> <span class="nc">IMDS</span><span class="p">(</span><span class="n">AbstractIMDS</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">eri</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        GW intermediates.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            td: a container with TD solution;</span>
+<span class="sd">            eri: a container with electron repulsion integrals;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">IMDS</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">eri</span><span class="o">=</span><span class="n">eri</span><span class="p">)</span>
+
+        <span class="c1"># MF</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nocc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eri</span><span class="o">.</span><span class="n">nocc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">o</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eri</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">nocc</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">eri</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">nocc</span><span class="p">:]</span>
+
+        <span class="c1"># TD</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">td_xy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">td</span><span class="o">.</span><span class="n">xy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">td_e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">td</span><span class="o">.</span><span class="n">e</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tdm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">construct_tdm</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eri</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">get_rhs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="c1"># return self.eri.mo_energy[p]</span>
+        <span class="k">return</span> <span class="n">corrected_moe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eri</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">construct_tdm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">td_xy</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">td_xy</span><span class="p">)</span>
+        <span class="n">tdm_oo</span> <span class="o">=</span> <span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;vxia,ipaq-&gt;vxpq&#39;</span><span class="p">,</span> <span class="n">td_xy</span><span class="p">,</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;oovo&quot;</span><span class="p">])</span>
+        <span class="n">tdm_ov</span> <span class="o">=</span> <span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;vxia,ipaq-&gt;vxpq&#39;</span><span class="p">,</span> <span class="n">td_xy</span><span class="p">,</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;oovv&quot;</span><span class="p">])</span>
+        <span class="n">tdm_vv</span> <span class="o">=</span> <span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;vxia,ipaq-&gt;vxpq&#39;</span><span class="p">,</span> <span class="n">td_xy</span><span class="p">,</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;ovvv&quot;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">iscomplexobj</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;oovv&quot;</span><span class="p">]):</span>
+            <span class="n">tdm_vo</span> <span class="o">=</span> <span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;vxia,ipaq-&gt;vxpq&#39;</span><span class="p">,</span> <span class="n">td_xy</span><span class="p">,</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;ovvo&quot;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tdm_vo</span> <span class="o">=</span> <span class="n">tdm_ov</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span>
+
+        <span class="n">tdm</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">tdm_oo</span><span class="p">,</span> <span class="n">tdm_ov</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+                <span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">tdm_vo</span><span class="p">,</span> <span class="n">tdm_vv</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">tdm</span>
+
+    <span class="k">def</span> <span class="nf">get_sigma_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">vir_sgn</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">tdm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tdm</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">evi</span> <span class="o">=</span> <span class="n">direct_sum</span><span class="p">(</span><span class="s1">&#39;v-i-&gt;vi&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">td_e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">o</span><span class="p">)</span>
+        <span class="n">eva</span> <span class="o">=</span> <span class="n">direct_sum</span><span class="p">(</span><span class="s1">&#39;v+a-&gt;va&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">td_e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">tdm</span><span class="p">[:,</span> <span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">nocc</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">omega</span> <span class="o">+</span> <span class="n">evi</span> <span class="o">-</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">eta</span><span class="p">))</span>
+        <span class="n">sigma</span> <span class="o">+=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">tdm</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nocc</span><span class="p">:,</span> <span class="n">p</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">omega</span> <span class="o">-</span> <span class="n">eva</span> <span class="o">+</span> <span class="n">vir_sgn</span> <span class="o">*</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">eta</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">sigma</span>
+
+    <span class="k">def</span> <span class="nf">initial_guess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eri</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">entire_space</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eri</span><span class="o">.</span><span class="n">nmo</span><span class="p">)]</span>
+
+
+<span class="k">class</span> <span class="nc">LoggingFunction</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A function number-&gt;number logging calls.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            m (callable): an underlying method of a single number returning a number;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m</span> <span class="o">=</span> <span class="n">m</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__x__</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__y__</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__x__</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__y__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__x__</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__y__</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span>
+
+    <span class="k">def</span> <span class="nf">plot_call_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plots calls to this function.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            title (str): plot title;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">real</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">real</span>
+            <span class="n">pyplot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+            <span class="n">pyplot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+            <span class="n">pyplot</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">)</span>
+            <span class="n">pyplot</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span> <span class="o">+</span> <span class="s2">&quot; ncalls: </span><span class="si">{:d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)))</span>
+            <span class="n">pyplot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="kernel"><a class="viewcode-back" href="../../../gw.html#pyscf.gw.gw_slow.kernel">[docs]</a><span class="k">def</span> <span class="nf">kernel</span><span class="p">(</span><span class="n">imds</span><span class="p">,</span> <span class="n">orbs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">linearized</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;fallback&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates GW energies.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        imds (AbstractIMDS): GW intermediates;</span>
+<span class="sd">        orbs (Iterable): indexes of MO orbitals to correct;</span>
+<span class="sd">        linearized (bool): whether to apply a single-step linearized correction to energies instead of iterative</span>
+<span class="sd">        procedure;</span>
+<span class="sd">        eta (float): imaginary energy for the Green&#39;s function;</span>
+<span class="sd">        tol (float): tolerance for the search of zero;</span>
+<span class="sd">        method (str): &#39;bisect&#39; finds roots no matter what but, potentially, wrong ones, &#39;newton&#39; finding roots close to</span>
+<span class="sd">        the correct one but, potentially, failing during iterations, or &#39;fallback&#39; using &#39;newton&#39; and proceeding to</span>
+<span class="sd">        &#39;bisect&#39; in case of failure;</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Corrected orbital energies.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;newton&#39;</span><span class="p">,</span> <span class="s1">&#39;bisect&#39;</span><span class="p">,</span> <span class="s1">&#39;fallback&#39;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot recognize method=&#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">method</span><span class="p">))</span>
+
+    <span class="c1"># Check implementation consistency</span>
+    <span class="n">_orbs</span> <span class="o">=</span> <span class="n">imds</span><span class="o">.</span><span class="n">entire_space</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_orbs</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">_orbs</span><span class="p">)</span> <span class="o">==</span> <span class="n">imds</span><span class="o">.</span><span class="n">orb_dims</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;The object returned by &#39;imds.entire_space&#39; is not a list of length </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">imds</span><span class="o">.</span><span class="n">orb_dims</span><span class="p">,</span>
+            <span class="nb">repr</span><span class="p">(</span><span class="n">_orbs</span><span class="p">),</span>
+        <span class="p">))</span>
+
+    <span class="c1"># Assign default value</span>
+    <span class="k">if</span> <span class="n">orbs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">orbs</span> <span class="o">=</span> <span class="n">_orbs</span>
+
+    <span class="c1"># Make sure it is a list</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orbs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">orbs</span> <span class="o">=</span> <span class="p">[</span><span class="n">orbs</span><span class="p">]</span>
+
+    <span class="c1"># Add missing dimensions</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">orbs</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">imds</span><span class="o">.</span><span class="n">orb_dims</span><span class="p">:</span>
+        <span class="n">orbs</span> <span class="o">=</span> <span class="n">_orbs</span><span class="p">[:</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">orbs</span><span class="p">)]</span> <span class="o">+</span> <span class="n">orbs</span>
+
+    <span class="n">shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">orbs</span><span class="p">)</span>
+    <span class="n">gw_energies</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i_p</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="nb">tuple</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">)):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">orbs</span><span class="p">,</span> <span class="n">i_p</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">imds</span><span class="o">.</span><span class="n">orb_dims</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">linearized</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+            <span class="c1"># v_mf = imds.vmf</span>
+            <span class="c1"># vk = imds.vk</span>
+            <span class="c1"># de = 1e-6</span>
+            <span class="c1"># ep = imds.e_mf[p]</span>
+            <span class="c1"># # TODO: analytic sigma derivative</span>
+            <span class="c1"># sigma = imds.get_sigma_element(ep, p, eta).real</span>
+            <span class="c1"># dsigma = imds.get_sigma_element(ep + de, p, eta).real - sigma</span>
+            <span class="c1"># zn = 1.0 / (1 - dsigma / de)</span>
+            <span class="c1"># e = ep + zn * (sigma.real + vk[p] - v_mf[p])</span>
+            <span class="c1"># gw_energies[i_p] = e</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">debug</span> <span class="o">=</span> <span class="n">LoggingFunction</span><span class="p">(</span><span class="n">imds</span><span class="o">.</span><span class="n">quasiparticle_eq</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="n">eta</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;newton&quot;</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">gw_energies</span><span class="p">[</span><span class="n">i_p</span><span class="p">]</span> <span class="o">=</span> <span class="n">newton</span><span class="p">(</span><span class="n">debug</span><span class="p">,</span> <span class="n">imds</span><span class="o">.</span><span class="n">initial_guess</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">e</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;When calculating root @p=</span><span class="si">{}</span><span class="s2"> the following exception occurred:</span><span class="se">\n\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="nb">repr</span><span class="p">(</span><span class="n">p</span><span class="p">),</span>
+                        <span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="n">debug</span><span class="o">.</span><span class="n">plot_call_history</span><span class="p">(</span><span class="s2">&quot;Exception during Newton &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+                    <span class="k">raise</span>
+
+            <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;bisect&quot;</span><span class="p">:</span>
+                <span class="n">gw_energies</span><span class="p">[</span><span class="n">i_p</span><span class="p">]</span> <span class="o">=</span> <span class="n">bisect</span><span class="p">(</span><span class="n">debug</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">xtol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;fallback&quot;</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">gw_energies</span><span class="p">[</span><span class="n">i_p</span><span class="p">]</span> <span class="o">=</span> <span class="n">newton</span><span class="p">(</span><span class="n">debug</span><span class="p">,</span> <span class="n">imds</span><span class="o">.</span><span class="n">initial_guess</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">imds</span><span class="o">.</span><span class="n">td</span><span class="o">.</span><span class="n">_scf</span><span class="p">,</span> <span class="s2">&quot;Failed to converge with newton, using bisect on the interval [</span><span class="si">{:.3e}</span><span class="s2">, </span><span class="si">{:.3e}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="nb">min</span><span class="p">(</span><span class="n">debug</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">debug</span><span class="o">.</span><span class="n">x</span><span class="p">),</span>
+                    <span class="p">))</span>
+                    <span class="n">gw_energies</span><span class="p">[</span><span class="n">i_p</span><span class="p">]</span> <span class="o">=</span> <span class="n">bisect</span><span class="p">(</span><span class="n">debug</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">debug</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">debug</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="n">xtol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">gw_energies</span></div>
+
+
+<span class="k">class</span> <span class="nc">GW</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">base_imds</span> <span class="o">=</span> <span class="n">IMDS</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">eri</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs GW calculation. Roots are stored in `self.mo_energy`.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            td: a container with TD solution;</span>
+<span class="sd">            eri: a container with electron repulsion integrals;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">td</span> <span class="o">=</span> <span class="n">td</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_imds</span><span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">eri</span><span class="o">=</span><span class="n">eri</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mo_energy</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">orbs</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;fallback&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eta</span> <span class="o">=</span> <span class="mf">1e-3</span>
+
+    <span class="k">def</span> <span class="nf">kernel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates GW roots.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            GW roots.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mo_energy</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imds</span><span class="p">,</span> <span class="n">orbs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">orbs</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mo_energy</span>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015-, Qiming Sun &lt;osirpt.sun@gmail.com&gt;.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

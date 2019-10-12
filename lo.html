@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>23. lo — Orbital localization &mdash; PySCF 1.7.0 documentation</title>
+  <title>23. lo — Orbital localization &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
         <link rel="next" title="24. Miscellaneous" href="advanced.html"/>
         <link rel="prev" title="22.4.2.1. nao.examples.qmd_C60 — NAO Examples: QMD C60" href="nao/examples/qmd_C60.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -111,10 +111,13 @@
 <li class="toctree-l1"><a class="reference internal" href="pbc.html">21. pbc &#8212; Periodic boundary conditions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nao.html">22. nao &#8212; Numerical Atomic Orbitals</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">23. lo &#8212; Orbital localization</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.boys">23.1. Foster-Boys, Edmiston-Ruedenberg, Pipek-Mezey localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#meta-lowdin">23.2. Meta-Lowdin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.nao">23.3. Natural atomic orbitals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.iao">23.4. Intrinsic Atomic Orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">23.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo">23.2. Program reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.boys">23.3. Foster-Boys, Edmiston-Ruedenberg, Pipek-Mezey localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.orth">23.4. Meta-Lowdin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.nao">23.5. Natural atomic orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.iao">23.6. Intrinsic Atomic Orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.ibo">23.7. Intrinsic Bond Orbitals</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="advanced.html">24. Miscellaneous</a></li>
@@ -123,6 +126,14 @@
 <li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -186,10 +197,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-pyscf.lo">
-<span id="lo-orbital-localization"></span><h1>23. lo &#8212; Orbital localization<a class="headerlink" href="#module-pyscf.lo" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="lo-orbital-localization">
+<h1>23. lo &#8212; Orbital localization<a class="headerlink" href="#lo-orbital-localization" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="examples">
+<h2>23.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Relevant examples
+<code class="file docutils literal"><span class="pre">examples/local_orb/01-pop_with_meta_lowdin.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/local_orb/01-pop_with_nao.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/local_orb/02-pop_with_iao.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/local_orb/03-split_localization.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/local_orb/04-ibo_benzene_cubegen.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/local_orb/05-ibo_periodic_diamond_cubegen.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/local_orb/10-modify_valence_space_for_meta_lowdin.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/local_orb/40-hubbard_model_PM_localization.py</span></code></p>
+</div>
+<div class="section" id="module-pyscf.lo">
+<span id="program-reference"></span><h2>23.2. Program reference<a class="headerlink" href="#module-pyscf.lo" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="module-pyscf.lo.boys">
-<span id="foster-boys-edmiston-ruedenberg-pipek-mezey-localization"></span><h2>23.1. Foster-Boys, Edmiston-Ruedenberg, Pipek-Mezey localization<a class="headerlink" href="#module-pyscf.lo.boys" title="Permalink to this headline">¶</a></h2>
+<span id="foster-boys-edmiston-ruedenberg-pipek-mezey-localization"></span><h2>23.3. Foster-Boys, Edmiston-Ruedenberg, Pipek-Mezey localization<a class="headerlink" href="#module-pyscf.lo.boys" title="Permalink to this headline">¶</a></h2>
 <p>Foster-Boys localization</p>
 <span class="target" id="module-pyscf.lo.edmiston"></span><p>Edmiston-Ruedenberg localization</p>
 <span class="target" id="module-pyscf.lo.pipek"></span><p>Pipek-Mezey localization</p>
@@ -205,7 +231,7 @@
 </dd>
 <dt>Returns:</dt>
 <dd><p class="first">A 3-index tensor [A,i,j] indicates the population of any orbital-pair
-density <a href="#id1"><span class="problematic" id="id2">|i&gt;&lt;j|</span></a> for each species (atom in this case).  This tensor is
+density <a href="#id9"><span class="problematic" id="id10">|i&gt;&lt;j|</span></a> for each species (atom in this case).  This tensor is
 used to construct the population and gradients etc.</p>
 <p class="last">You can customize the PM localization wrt other population metric,
 such as the charge of a site, the charge of a fragment (a group of
@@ -217,11 +243,78 @@ localization of site-based population for hubbard model.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="meta-lowdin">
-<h2>23.2. Meta-Lowdin<a class="headerlink" href="#meta-lowdin" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pyscf.lo.orth">
+<span id="meta-lowdin"></span><h2>23.4. Meta-Lowdin<a class="headerlink" href="#module-pyscf.lo.orth" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyscf.lo.orth.lowdin">
+<code class="descclassname">pyscf.lo.orth.</code><code class="descname">lowdin</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/lo/orth.html#lowdin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.lo.orth.lowdin" title="Permalink to this definition">¶</a></dt>
+<dd><p>new basis is <a href="#id1"><span class="problematic" id="id2">|</span></a>mu&gt; c^{lowdin}_{mu i}</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.lo.orth.orth_ao">
+<code class="descclassname">pyscf.lo.orth.</code><code class="descname">orth_ao</code><span class="sig-paren">(</span><em>mf_or_mol</em>, <em>method='meta_lowdin'</em>, <em>pre_orth_ao=None</em>, <em>scf_method=None</em>, <em>s=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/lo/orth.html#orth_ao"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.lo.orth.orth_ao" title="Permalink to this definition">¶</a></dt>
+<dd><p>Orthogonalize AOs</p>
+<dl class="docutils">
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>method</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>One of
+| lowdin : Symmetric orthogonalization
+| meta-lowdin : Lowdin orth within core, valence, virtual space separately (JCTC, 10, 3784)
+| NAO</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.lo.orth.pre_orth_ao">
+<code class="descclassname">pyscf.lo.orth.</code><code class="descname">pre_orth_ao</code><span class="sig-paren">(</span><em>mol</em>, <em>method='ANO'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/lo/orth.html#pre_orth_ao"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.lo.orth.pre_orth_ao" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore AO characters.  Possible methods include the ANO/MINAO
+projection or fraction-averaged atomic RHF calculation</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.lo.orth.pre_orth_project_ano">
+<code class="descclassname">pyscf.lo.orth.</code><code class="descname">pre_orth_project_ano</code><span class="sig-paren">(</span><em>mol</em>, <em>basname</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.lo.orth.pre_orth_project_ano" title="Permalink to this definition">¶</a></dt>
+<dd><p>projected AO = <a href="#id3"><span class="problematic" id="id4">|</span></a>bas&gt;&lt;bas|ANO&gt;</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.lo.orth.project_to_atomic_orbitals">
+<code class="descclassname">pyscf.lo.orth.</code><code class="descname">project_to_atomic_orbitals</code><span class="sig-paren">(</span><em>mol</em>, <em>basname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/lo/orth.html#project_to_atomic_orbitals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.lo.orth.project_to_atomic_orbitals" title="Permalink to this definition">¶</a></dt>
+<dd><p>projected AO = <a href="#id5"><span class="problematic" id="id6">|</span></a>bas&gt;&lt;bas|ANO&gt;</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.lo.orth.restore_ao_character">
+<code class="descclassname">pyscf.lo.orth.</code><code class="descname">restore_ao_character</code><span class="sig-paren">(</span><em>mol</em>, <em>method='ANO'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.lo.orth.restore_ao_character" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore AO characters.  Possible methods include the ANO/MINAO
+projection or fraction-averaged atomic RHF calculation</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.lo.orth.vec_lowdin">
+<code class="descclassname">pyscf.lo.orth.</code><code class="descname">vec_lowdin</code><span class="sig-paren">(</span><em>c</em>, <em>s=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/lo/orth.html#vec_lowdin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.lo.orth.vec_lowdin" title="Permalink to this definition">¶</a></dt>
+<dd><p>lowdin orth for the metric c.T*s*c and get x, then c*x</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.lo.orth.vec_schmidt">
+<code class="descclassname">pyscf.lo.orth.</code><code class="descname">vec_schmidt</code><span class="sig-paren">(</span><em>c</em>, <em>s=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/lo/orth.html#vec_schmidt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.lo.orth.vec_schmidt" title="Permalink to this definition">¶</a></dt>
+<dd><p>schmidt orth for the metric c.T*s*c and get x, then c*x</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.lo.orth.weight_orth">
+<code class="descclassname">pyscf.lo.orth.</code><code class="descname">weight_orth</code><span class="sig-paren">(</span><em>s</em>, <em>weight</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/lo/orth.html#weight_orth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.lo.orth.weight_orth" title="Permalink to this definition">¶</a></dt>
+<dd><p>new basis is <a href="#id7"><span class="problematic" id="id8">|</span></a>mu&gt; c_{mu i}, c = w[(wsw)^{-1/2}]</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-pyscf.lo.nao">
-<span id="natural-atomic-orbitals"></span><h2>23.3. Natural atomic orbitals<a class="headerlink" href="#module-pyscf.lo.nao" title="Permalink to this headline">¶</a></h2>
+<span id="natural-atomic-orbitals"></span><h2>23.5. Natural atomic orbitals<a class="headerlink" href="#module-pyscf.lo.nao" title="Permalink to this headline">¶</a></h2>
 <p>Natural atomic orbitals
 Ref:</p>
 <blockquote>
@@ -257,7 +350,7 @@ See data/elements.py for the default configuration.</p>
 
 </div>
 <div class="section" id="module-pyscf.lo.iao">
-<span id="intrinsic-atomic-orbitals"></span><h2>23.4. Intrinsic Atomic Orbitals<a class="headerlink" href="#module-pyscf.lo.iao" title="Permalink to this headline">¶</a></h2>
+<span id="intrinsic-atomic-orbitals"></span><h2>23.6. Intrinsic Atomic Orbitals<a class="headerlink" href="#module-pyscf.lo.iao" title="Permalink to this headline">¶</a></h2>
 <p>Intrinsic Atomic Orbitals
 ref. JCTC, 9, 4834</p>
 <dl class="function">
@@ -307,6 +400,117 @@ eg using <code class="xref py py-func docutils literal"><span class="pre">orth.l
 </dd></dl>
 
 </div>
+<div class="section" id="module-pyscf.lo.ibo">
+<span id="intrinsic-bond-orbitals"></span><h2>23.7. Intrinsic Bond Orbitals<a class="headerlink" href="#module-pyscf.lo.ibo" title="Permalink to this headline">¶</a></h2>
+<p>Intrinsic Bonding Orbitals
+ref. JCTC, 9, 4834</p>
+<p>Below here is work done by Paul Robinson.
+much of the code below is adapted from code published freely on the website of Gerald Knizia
+Ref: JCTC, 2013, 9, 4834-4843</p>
+<dl class="function">
+<dt id="pyscf.lo.ibo.MakeAtomIbOffsets">
+<code class="descclassname">pyscf.lo.ibo.</code><code class="descname">MakeAtomIbOffsets</code><span class="sig-paren">(</span><em>Atoms</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/lo/ibo.html#MakeAtomIbOffsets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.lo.ibo.MakeAtomIbOffsets" title="Permalink to this definition">¶</a></dt>
+<dd><p>calcualte offset of first orbital of individual atoms
+in the valence minimal basis (IB)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.lo.ibo.PM">
+<code class="descclassname">pyscf.lo.ibo.</code><code class="descname">PM</code><span class="sig-paren">(</span><em>mol</em>, <em>orbocc</em>, <em>iaos=None</em>, <em>s=None</em>, <em>exponent=4</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.lo.ibo.PM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Note this localization is slightly different to Knizia&#8217;s implementation.
+The localization here reserves orthogonormality during optimization.
+Orbitals are projected to IAO basis first and the Mulliken pop is
+calculated based on IAO basis (in function atomic_pops).  A series of
+unitary matrices are generated and applied on the input orbitals.  The
+intemdiate orbitals in the optimization and the finally localized orbitals
+are all orthogonormal.</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf.lo</span> <span class="k">import</span> <span class="n">ibo</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">,</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;unc-sto3g&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pm</span> <span class="o">=</span> <span class="n">ibo</span><span class="o">.</span><span class="n">PM</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_coeff</span><span class="p">[:,</span><span class="n">mf</span><span class="o">.</span><span class="n">mo_occ</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loc_orb</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.lo.ibo.Pipek">
+<code class="descclassname">pyscf.lo.ibo.</code><code class="descname">Pipek</code><span class="sig-paren">(</span><em>mol</em>, <em>orbocc</em>, <em>iaos=None</em>, <em>s=None</em>, <em>exponent=4</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.lo.ibo.Pipek" title="Permalink to this definition">¶</a></dt>
+<dd><p>Note this localization is slightly different to Knizia&#8217;s implementation.
+The localization here reserves orthogonormality during optimization.
+Orbitals are projected to IAO basis first and the Mulliken pop is
+calculated based on IAO basis (in function atomic_pops).  A series of
+unitary matrices are generated and applied on the input orbitals.  The
+intemdiate orbitals in the optimization and the finally localized orbitals
+are all orthogonormal.</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf.lo</span> <span class="k">import</span> <span class="n">ibo</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">,</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;unc-sto3g&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pm</span> <span class="o">=</span> <span class="n">ibo</span><span class="o">.</span><span class="n">PM</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_coeff</span><span class="p">[:,</span><span class="n">mf</span><span class="o">.</span><span class="n">mo_occ</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loc_orb</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.lo.ibo.PipekMezey">
+<code class="descclassname">pyscf.lo.ibo.</code><code class="descname">PipekMezey</code><span class="sig-paren">(</span><em>mol</em>, <em>orbocc</em>, <em>iaos=None</em>, <em>s=None</em>, <em>exponent=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/lo/ibo.html#PipekMezey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.lo.ibo.PipekMezey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Note this localization is slightly different to Knizia&#8217;s implementation.
+The localization here reserves orthogonormality during optimization.
+Orbitals are projected to IAO basis first and the Mulliken pop is
+calculated based on IAO basis (in function atomic_pops).  A series of
+unitary matrices are generated and applied on the input orbitals.  The
+intemdiate orbitals in the optimization and the finally localized orbitals
+are all orthogonormal.</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf.lo</span> <span class="k">import</span> <span class="n">ibo</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">,</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;unc-sto3g&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pm</span> <span class="o">=</span> <span class="n">ibo</span><span class="o">.</span><span class="n">PM</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_coeff</span><span class="p">[:,</span><span class="n">mf</span><span class="o">.</span><span class="n">mo_occ</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loc_orb</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.lo.ibo.ibo">
+<code class="descclassname">pyscf.lo.ibo.</code><code class="descname">ibo</code><span class="sig-paren">(</span><em>mol</em>, <em>orbocc</em>, <em>iaos=None</em>, <em>exponent=4</em>, <em>grad_tol=1e-08</em>, <em>max_iter=200</em>, <em>verbose=3</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/lo/ibo.html#ibo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.lo.ibo.ibo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Intrinsic Bonding Orbitals. [Ref. JCTC, 9, 4834]</p>
+<p>This implementation follows Knizia&#8217;s implementation execept that the
+resultant IBOs are symmetrically orthogonalized.  Note the IBOs of this
+implementation do not strictly maximize the IAO Mulliken charges.</p>
+<p>IBOs can also be generated by another implementation (see function
+pyscf.lo.ibo.PM). In that function, PySCF builtin Pipek-Mezey localization
+module was used to maximize the IAO Mulliken charges.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">mol : the molecule or cell object</p>
+<dl class="last docutils">
+<dt>orbocc</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">2D array or a list of 2D array</span><dd>occupied molecular orbitals or crystal orbitals for each k-point</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>iaos</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">2D array</span><dd>the array of IAOs</dd>
+<dt>exponent</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">integer</span><dd>Localization power in PM scheme</dd>
+<dt>grad_tol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>convergence tolerance for norm of gradients</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>IBOs in the big basis (the basis defined in mol object).</dd>
+</dl>
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -353,7 +557,7 @@ eg using <code class="xref py py-func docutils literal"><span class="pre">orth.l
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

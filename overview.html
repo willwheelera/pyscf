@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>1. An overview of PySCF &mdash; PySCF 1.7.0 documentation</title>
+  <title>1. An overview of PySCF &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
         <link rel="next" title="2. Tutorial" href="tutorial.html"/>
         <link rel="prev" title="Welcome to PySCF documentation!" href="index.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -128,6 +128,14 @@
 <li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -228,229 +236,6 @@ based quantum chemistry programs.</p>
 <div class="section" id="features">
 <h2>1.2. Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Hartree-Fock<ul>
-<li>Non-relativistic restricted open-shell, unrestricted HF (~5000 basis for
-serial version, ~30000 basis in MPI mode)</li>
-<li>Scalar relativistic HF</li>
-<li>2-component relativistic HF</li>
-<li>4-component relativistic Dirac-Hartree-Fock</li>
-<li>Density fitting HF</li>
-<li>Second order SCF</li>
-<li>General J/K build function</li>
-<li>DIIS, EDIIS, ADIIS and second order solver</li>
-<li>SCF wavefunction (RHF, UHF, GHF) stability analysis</li>
-<li>Generalized Hartree-Fock (GHF)</li>
-</ul>
-</li>
-<li>DFT<ul>
-<li>Non-relativistic restricted, restricted open-shell, unrestricted Kohn-Sham
-(~5000 basis for serial version, ~30000 basis in MPI mode)</li>
-<li>Scalar relativistic DFT</li>
-<li>Density fitting DFT</li>
-<li>General XC functional evaluator (for Libxc or XcFun)</li>
-<li>General AO evaluator</li>
-<li>VV10 NLC functional for finite size systems</li>
-<li>range-separated hybrid features for RKS and UKS, including
-&gt; Analytical nuclear gradients
-&gt; Second order SCF
-&gt; Hessian and frequency
-&gt; TDDFT
-&gt; TDDFT nuclear gradients
-&gt; NMR</li>
-</ul>
-</li>
-<li>TDSCF/TDDFT<ul>
-<li>TDA (and density-fitting TDA) for RHF, UHF, RKS and UKS methods</li>
-<li>TDHF (and density-fitting TDHF) for RHF and UHF methods</li>
-<li>TDDFT (and density-fitting TDDFT) for RKS and UKS methods</li>
-<li>TDA nuclear gradients for RHF, UHF, RKS and UKS methods</li>
-<li>TDHF nuclear gradients for RHF and UHF methods</li>
-<li>TDDFT nuclear gradients for RKS and UKS methods</li>
-<li>Natural transition orbital analysis</li>
-<li>direct-RPA (no exchange, aka TDH)</li>
-<li>direct-TDA (TDA without exchange)</li>
-</ul>
-</li>
-<li>GW methods
-- G0W0 approximation</li>
-<li>General CASCI/CASSCF solver (up to ~3000 basis)<ul>
-<li>State-average CASCI/CASSCF</li>
-<li>State-specific CASCI/CASSCF for excited states</li>
-<li>Multiple roots CASCI</li>
-<li>Support DMRG as plugin FCI solver to do DMRG-CASSCF</li>
-<li>Support FCIQMC as plugin FCI solver to do FCIQMC-CASSCF</li>
-<li>Support Selected CI algorithm as plugin FCI solver to do SHCI-CASSCF</li>
-<li>UCASSCF</li>
-<li>Density-fitting CASSCF</li>
-<li>DMET-CAS and AVAS active space constructor</li>
-<li>CASCI and CASSCF analytical nuclear gradients</li>
-</ul>
-</li>
-<li>MP2 (up to ~200 occupied, ~2000 virtual orbitals)<ul>
-<li>Canonical RMP2, UMP2, GMP2</li>
-<li>Density-fitting RMP2</li>
-<li>RMP2, UMP2 and GMP2 1-particle and 2-particle density matrices</li>
-<li>RMP2 and UMP2 nuclear gradients</li>
-</ul>
-</li>
-<li>CCSD (up to ~100 occupied, ~1500 virtual orbitals)<ul>
-<li>canonical RCCSD, UCCSD</li>
-<li>canonical RCCSD, UCCSD lambda solver</li>
-<li>RCCSD, UCCSD and GCCSD 1-particle and 2-particle density matrices</li>
-<li>RCCSD and UCCSD nuclear gradients</li>
-<li>EOM-IP/EA/EE-RCCSD and EOM-IP/EA/EE-UCCSD</li>
-<li>RCC2</li>
-<li>Density-fitting RCCSD</li>
-</ul>
-</li>
-<li>CCSD(T)<ul>
-<li>RCCSD(T) and UCCSD(T)</li>
-<li>RCCSD(T), UCCSD(T) and GCCSD(T) 1- and 2-particle density matrices</li>
-<li>RCCSD(T) and UCCSD(T) analytical nuclear gradients</li>
-</ul>
-</li>
-<li>CI<ul>
-<li>RCISD, UCISD and GCISD</li>
-<li>RCISD, UCISD and GCISD 1, 2-particle density matrices</li>
-<li>Selected-CI</li>
-<li>Selected-CI 1, 2-particle density matrices</li>
-<li>RCISD, UCISD and GCISD 1-particle transition density matrices</li>
-</ul>
-</li>
-<li>Full CI<ul>
-<li>Direct-CI solver for spin degenerated Hamiltonian (RHF-FCI)</li>
-<li>Direct-CI solver for spin non-degenerated Hamiltonian (UHF-FCI)</li>
-<li>1, and 2-particle transition density matrices</li>
-<li>1, 2, 3, and 4-particle density matrices</li>
-<li>CI wavefunction overlap</li>
-</ul>
-</li>
-<li>Analytical Nuclear Gradients<ul>
-<li>Non-relativistic HF nuclear gradients</li>
-<li>4-component DHF nuclear gradients</li>
-<li>Non-relativistic DFT nuclear gradients</li>
-<li>Non-relativistic CISD nuclear gradients</li>
-<li>Non-relativistic CCSD and CCSD(T) nuclear gradients</li>
-<li>Non-relativistic CASCI and CASSCF nuclear gradients</li>
-<li>Non-relativistic TDA, TDHF and TDDFT nuclear gradients</li>
-<li>Non-relativistic nuclear gradients with SF-X2C-1e correction</li>
-<li>ECP nuclear gradients</li>
-<li>nuclear gradients for solvent model ddCOSMO</li>
-<li>Frozen orbitals for MP2, CISD, CCSD, CCSD(T), CASCI, CASSCF nuclear gradients</li>
-</ul>
-</li>
-<li>Nuclear Hessian<ul>
-<li>Non-relativistic HF nuclear hessian</li>
-<li>Non-relativistic DFT nuclear hessian</li>
-<li>Non-relativistic nuclear hessian with SF-X2C-1e correction</li>
-<li>ECP nuclear hessian</li>
-</ul>
-</li>
-<li>Properties<ul>
-<li>Non-relativistic RHF, UHF, RKS, UKS NMR shielding</li>
-<li>4-component DHF NMR shielding</li>
-<li>Non-relativistic RHF, UHF spin-spin coupling</li>
-<li>4-component DHF spin-spin coupling</li>
-<li>Non-relativistic UHF, UKS hyperfine coupling</li>
-<li>4-component DHF hyperfine coupling</li>
-<li>Non-relativistic UHF, UKS g-tensor</li>
-<li>4-component DHF g-tensor</li>
-<li>Non-relativistic UHF zero-field splitting</li>
-<li>Molecular electrostatic potential (MEP)</li>
-<li>EFG and Mossbauer spectroscopy</li>
-<li>Non-relativistic RHF, UHF, RKS, UKS magnetizability</li>
-</ul>
-</li>
-<li>MRPT<ul>
-<li>Strongly contracted NEVPT2 (SC-NEVPT2)</li>
-<li>DMRG-NEVPT2</li>
-<li>IC-MPS-PT2</li>
-</ul>
-</li>
-<li>Extended systems with periodic boundary condition<ul>
-<li>gamma point RHF, ROHF, UHF, RKS, ROKS, UKS</li>
-<li>gamma point TDDFT, MP2, CCSD</li>
-<li>RHF, ROHF, UHF, GHF, RKS, ROKS, UKS with k-point sampling</li>
-<li>Restricted MP2 with k-point sampling</li>
-<li>KRCCSD (RCCSD with k-point sampling)</li>
-<li>KUCCSD</li>
-<li>KGCCSD (Generalized CCSD with k-point sampling)</li>
-<li>k-point GCCSD(T) and RCCSD(T)</li>
-<li>k-point EOM-IP/EA-CCSD</li>
-<li>PBC AO integrals</li>
-<li>PBC MO integral transformation</li>
-<li>PBC density fitting and mixed-density fitting methods</li>
-<li>Smearing for mean-field methods</li>
-<li>Low-dimensional (0D, 1D, 2D) PBC systems</li>
-<li>(restricted and unrestricted) TDA, TDHF and TDDFT with k-point sampling</li>
-<li>Multigrid DFT</li>
-<li>EFG and Mossbauer spectroscopy</li>
-</ul>
-</li>
-<li>Relativistic effects<ul>
-<li>4-component HF with Dirac-Coulomb Hamiltonian (DHF)</li>
-<li>4-component DHF with Gaunt and Breit corrections</li>
-<li>2-component X2C HF</li>
-<li>4-component and 2-component Kohn-Sham DFT (LDA only)</li>
-</ul>
-</li>
-<li>AO integrals<ul>
-<li>Interface to access all AO integrals of Libcint library</li>
-<li>1-electron real-GTO and spinor-GTO integrals</li>
-<li>2-electron real-GTO and spinor-GTO integrals</li>
-<li>3-center 1-electron real-GTO and spinor-GTO integrals</li>
-<li>3-center 2-electron real-GTO and spinor-GTO integrals</li>
-<li>General basis value evaluator (for numeric integration)</li>
-<li>PBC 1-electron integrals</li>
-<li>PBC 2-electron integrals</li>
-<li>F12 integrals</li>
-</ul>
-</li>
-<li>MO integrals<ul>
-<li>2-electron integral transformation for any integrals provided by
-Libcint library</li>
-<li>Support for 4-index integral transformation with 4 different orbitals</li>
-<li>PBC 2-electron MO integrals</li>
-<li>Integral transformation for (4-component and 2-compoent relativistic) spinor
-integrals</li>
-</ul>
-</li>
-<li>Localizer<ul>
-<li>Boys</li>
-<li>Edmiston</li>
-<li>Meta-Lowdin for both finite size and PBC systems</li>
-<li>Natural atomic orbital (NAO) for both finite size and PBC systems</li>
-<li>Intrinsic atomic orbital (IAO) for both finite size and PBC systems</li>
-<li>Pipek-Mezey for both finite size and PBC systems</li>
-<li>Intrinsic bond orbital (IBO) for both finite size and PBC systems</li>
-</ul>
-</li>
-<li>Geometry optimization<ul>
-<li>HF, DFT, CCSD, CCSD(T), CISD, CASCI, CASSCF and TDSCF/TDDFT with pyberny
-geometry optimizer</li>
-</ul>
-</li>
-<li>D2h symmetry and linear molecule symmetry<ul>
-<li>Molecule symmetry detection</li>
-<li>Symmetry adapted basis</li>
-<li>Label orbital symmetry on the fly</li>
-<li>Hot update symmetry information</li>
-<li>Function to symmetrize given orbital space</li>
-</ul>
-</li>
-<li>Solvent model
-- ddCOSMO
-- ddPCM
-- ddCOSMO analytical nuclear gradients</li>
-<li>Tools<ul>
-<li>fcidump writer</li>
-<li>molden writer and reader</li>
-<li>cubegen writer</li>
-<li>Molpro XML reader</li>
-<li>(GAMESS-format) wfn writer</li>
-<li>Vasp CHGCAR-format writer</li>
-</ul>
-</li>
 <li>Interface to integral package <a class="reference external" href="https://github.com/sunqm/libcint">Libcint</a></li>
 <li>Interface to DMRG <a class="reference external" href="https://github.com/SebWouters/CheMPS2">CheMPS2</a></li>
 <li>Interface to DMRG <a class="reference external" href="https://github.com/sanshar/Block">Block</a></li>
@@ -690,7 +475,7 @@ all nuclear gradients scanner.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

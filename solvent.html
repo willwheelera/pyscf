@@ -1,0 +1,569 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>solvent — Solvent methods &mdash; PySCF 1.5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PySCF
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">1. An overview of PySCF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">2. Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">3. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gto.html">4. gto &#8212; Molecular structure and GTO basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.html">5. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scf.html">6. scf &#8212; Mean-field methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ao2mo.html">7. ao2mo &#8212; Integral transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcscf.html">8. mcscf &#8212; Multi-configurational self-consistent field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fci.html">9. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="symm.html">10. symm &#8211; Point group symmetry and spin symmetry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="df.html">11. df &#8212; Density fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dft.html">12. dft &#8212; Density functional theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tddft.html">13. tddft &#8212; Time dependent density functional theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cc.html">14. cc &#8212; Coupled cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ci.html">15. ci &#8212; Configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">17. fciqmcscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">18. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grad.html">19. grad &#8212; Analytical nuclear gradients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hessian.html">20. hessian &#8212; Analytical nuclear Hessian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc.html">21. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nao.html">22. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lo.html">23. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">24. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qmmm.html">25. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mrpt.html">26. mrpt &#8212; Multi-reference perturbation theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PySCF</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>solvent &#8212; Solvent methods</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/solvent.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="solvent-solvent-methods">
+<h1>solvent &#8212; Solvent methods<a class="headerlink" href="#solvent-solvent-methods" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Relevant examples
+<code class="file docutils literal"><span class="pre">examples/solvent/00-scf_with_ddcosmo.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/solvent/02-casci_with_ddcosmo.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/solvent/03-ccsd_with_ddcosmo.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/solvent/20-state_specific_casci.py</span></code></p>
+</div>
+<div class="section" id="module-pyscf.solvent">
+<span id="program-reference"></span><h2>Program reference<a class="headerlink" href="#module-pyscf.solvent" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pyscf.solvent.ddpcm">
+<span id="domain-decomposition-pcm"></span><h3>domain decomposition PCM<a class="headerlink" href="#module-pyscf.solvent.ddpcm" title="Permalink to this headline">¶</a></h3>
+<p>domain decomposition PCM (In testing)</p>
+<p>See also
+JCP, 144, 054101
+JCP, 144, 160901</p>
+<dl class="function">
+<dt id="pyscf.solvent.ddpcm.energy">
+<code class="descclassname">pyscf.solvent.ddpcm.</code><code class="descname">energy</code><span class="sig-paren">(</span><em>pcmobj</em>, <em>dm</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/solvent/ddpcm.html#energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.solvent.ddpcm.energy" title="Permalink to this definition">¶</a></dt>
+<dd><p>ddPCM energy
+Es = 1/2 f(eps) int rho(r) W(r) dr</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyscf.solvent.ddcosmo">
+<span id="domain-decomposition-cosmo"></span><h3>domain decomposition COSMO<a class="headerlink" href="#module-pyscf.solvent.ddcosmo" title="Permalink to this headline">¶</a></h3>
+<p>domain decomposition COSMO</p>
+<p>See also the code on github</p>
+<p><a class="reference external" href="https://github.com/filippolipparini/ddPCM">https://github.com/filippolipparini/ddPCM</a></p>
+<p>and the papers</p>
+<p>[1] Domain decomposition for implicit solvation models.
+E. Cances, Y. Maday, B. Stamm
+J. Chem. Phys., 139, 054111 (2013)
+<a class="reference external" href="http://dx.doi.org/10.1063/1.4816767">http://dx.doi.org/10.1063/1.4816767</a></p>
+<p>[2] Fast Domain Decomposition Algorithm for Continuum Solvation Models: Energy and First Derivatives.
+F. Lipparini, B. Stamm, E. Cances, Y. Maday, B. Mennucci
+J. Chem. Theory Comput., 9, 3637-3648 (2013)
+<a class="reference external" href="http://dx.doi.org/10.1021/ct400280b">http://dx.doi.org/10.1021/ct400280b</a></p>
+<p>[3] Quantum, classical, and hybrid QM/MM calculations in solution: General implementation of the ddCOSMO linear scaling strategy.
+F. Lipparini, G. Scalmani, L. Lagardere, B. Stamm, E. Cances, Y. Maday, J.-P.Piquemal, M. J. Frisch, B. Mennucci
+J. Chem. Phys., 141, 184108 (2014)
+<a class="reference external" href="http://dx.doi.org/10.1063/1.4901304">http://dx.doi.org/10.1063/1.4901304</a></p>
+<p>&#8211; Dielectric constants (from <a class="reference external" href="https://gaussian.com/scrf/">https://gaussian.com/scrf/</a>) &#8211;
+More dataset can be found in Minnesota Solvent Descriptor Database
+(<a class="reference external" href="https://comp.chem.umn.edu/solvation">https://comp.chem.umn.edu/solvation</a>)
+Water                                  78.3553
+Acetonitrile                           35.688
+Methanol                               32.613
+Ethanol                                24.852
+IsoQuinoline                           11.00
+Quinoline                              9.16
+Chloroform                             4.7113
+DiethylEther                           4.2400
+Dichloromethane                        8.93
+DiChloroEthane                         10.125
+CarbonTetraChloride                    2.2280
+Benzene                                2.2706
+Toluene                                2.3741
+ChloroBenzene                          5.6968
+NitroMethane                           36.562
+Heptane                                1.9113
+CycloHexane                            2.0165
+Aniline                                6.8882
+Acetone                                20.493
+TetraHydroFuran                        7.4257
+DiMethylSulfoxide                      46.826
+Argon                                  1.430
+Krypton                                1.519
+Xenon                                  1.706
+n-Octanol                              9.8629
+1,1,1-TriChloroEthane                  7.0826
+1,1,2-TriChloroEthane                  7.1937
+1,2,4-TriMethylBenzene                 2.3653
+1,2-DiBromoEthane                      4.9313
+1,2-EthaneDiol                         40.245
+1,4-Dioxane                            2.2099
+1-Bromo-2-MethylPropane                7.7792
+1-BromoOctane                          5.0244
+1-BromoPentane                         6.269
+1-BromoPropane                         8.0496
+1-Butanol                              17.332
+1-ChloroHexane                         5.9491
+1-ChloroPentane                        6.5022
+1-ChloroPropane                        8.3548
+1-Decanol                              7.5305
+1-FluoroOctane                         3.89
+1-Heptanol                             11.321
+1-Hexanol                              12.51
+1-Hexene                               2.0717
+1-Hexyne                               2.615
+1-IodoButane                           6.173
+1-IodoHexaDecane                       3.5338
+1-IodoPentane                          5.6973
+1-IodoPropane                          6.9626
+1-NitroPropane                         23.73
+1-Nonanol                              8.5991
+1-Pentanol                             15.13
+1-Pentene                              1.9905
+1-Propanol                             20.524
+2,2,2-TriFluoroEthanol                 26.726
+2,2,4-TriMethylPentane                 1.9358
+2,4-DiMethylPentane                    1.8939
+2,4-DiMethylPyridine                   9.4176
+2,6-DiMethylPyridine                   7.1735
+2-BromoPropane                         9.3610
+2-Butanol                              15.944
+2-ChloroButane                         8.3930
+2-Heptanone                            11.658
+2-Hexanone                             14.136
+2-MethoxyEthanol                       17.2
+2-Methyl-1-Propanol                    16.777
+2-Methyl-2-Propanol                    12.47
+2-MethylPentane                        1.89
+2-MethylPyridine                       9.9533
+2-NitroPropane                         25.654
+2-Octanone                             9.4678
+2-Pentanone                            15.200
+2-Propanol                             19.264
+2-Propen-1-ol                          19.011
+3-MethylPyridine                       11.645
+3-Pentanone                            16.78
+4-Heptanone                            12.257
+4-Methyl-2-Pentanone                   12.887
+4-MethylPyridine                       11.957
+5-Nonanone                             10.6
+AceticAcid                             6.2528
+AcetoPhenone                           17.44
+a-ChloroToluene                        6.7175
+Anisole                                4.2247
+Benzaldehyde                           18.220
+BenzoNitrile                           25.592
+BenzylAlcohol                          12.457
+BromoBenzene                           5.3954
+BromoEthane                            9.01
+Bromoform                              4.2488
+Butanal                                13.45
+ButanoicAcid                           2.9931
+Butanone                               18.246
+ButanoNitrile                          24.291
+ButylAmine                             4.6178
+ButylEthanoate                         4.9941
+CarbonDiSulfide                        2.6105
+Cis-1,2-DiMethylCycloHexane            2.06
+Cis-Decalin                            2.2139
+CycloHexanone                          15.619
+CycloPentane                           1.9608
+CycloPentanol                          16.989
+CycloPentanone                         13.58
+Decalin-mixture                        2.196
+DiBromomEthane                         7.2273
+DiButylEther                           3.0473
+DiEthylAmine                           3.5766
+DiEthylSulfide                         5.723
+DiIodoMethane                          5.32
+DiIsoPropylEther                       3.38
+DiMethylDiSulfide                      9.6
+DiPhenylEther                          3.73
+DiPropylAmine                          2.9112
+e-1,2-DiChloroEthene                   2.14
+e-2-Pentene                            2.051
+EthaneThiol                            6.667
+EthylBenzene                           2.4339
+EthylEthanoate                         5.9867
+EthylMethanoate                        8.3310
+EthylPhenylEther                       4.1797
+FluoroBenzene                          5.42
+Formamide                              108.94
+FormicAcid                             51.1
+HexanoicAcid                           2.6
+IodoBenzene                            4.5470
+IodoEthane                             7.6177
+IodoMethane                            6.8650
+IsoPropylBenzene                       2.3712
+m-Cresol                               12.44
+Mesitylene                             2.2650
+MethylBenzoate                         6.7367
+MethylButanoate                        5.5607
+MethylCycloHexane                      2.024
+MethylEthanoate                        6.8615
+MethylMethanoate                       8.8377
+MethylPropanoate                       6.0777
+m-Xylene                               2.3478
+n-ButylBenzene                         2.36
+n-Decane                               1.9846
+n-Dodecane                             2.0060
+n-Hexadecane                           2.0402
+n-Hexane                               1.8819
+NitroBenzene                           34.809
+NitroEthane                            28.29
+n-MethylAniline                        5.9600
+n-MethylFormamide-mixture              181.56
+n,n-DiMethylAcetamide                  37.781
+n,n-DiMethylFormamide                  37.219
+n-Nonane                               1.9605
+n-Octane                               1.9406
+n-Pentadecane                          2.0333
+n-Pentane                              1.8371
+n-Undecane                             1.9910
+o-ChloroToluene                        4.6331
+o-Cresol                               6.76
+o-DiChloroBenzene                      9.9949
+o-NitroToluene                         25.669
+o-Xylene                               2.5454
+Pentanal                               10.0
+PentanoicAcid                          2.6924
+PentylAmine                            4.2010
+PentylEthanoate                        4.7297
+PerFluoroBenzene                       2.029
+p-IsoPropylToluene                     2.2322
+Propanal                               18.5
+PropanoicAcid                          3.44
+PropanoNitrile                         29.324
+PropylAmine                            4.9912
+PropylEthanoate                        5.5205
+p-Xylene                               2.2705
+Pyridine                               12.978
+sec-ButylBenzene                       2.3446
+tert-ButylBenzene                      2.3447
+TetraChloroEthene                      2.268
+TetraHydroThiophene-s,s-dioxide        43.962
+Tetralin                               2.771
+Thiophene                              2.7270
+Thiophenol                             4.2728
+trans-Decalin                          2.1781
+TriButylPhosphate                      8.1781
+TriChloroEthene                        3.422
+TriEthylAmine                          2.3832
+Xylene-mixture                         2.3879
+z-1,2-DiChloroEthene                   9.2</p>
+<dl class="function">
+<dt id="pyscf.solvent.ddcosmo.ddcosmo_for_casci">
+<code class="descclassname">pyscf.solvent.ddcosmo.</code><code class="descname">ddcosmo_for_casci</code><span class="sig-paren">(</span><em>mc</em>, <em>solvent_obj=None</em>, <em>dm=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/solvent/ddcosmo.html#ddcosmo_for_casci"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.solvent.ddcosmo.ddcosmo_for_casci" title="Permalink to this definition">¶</a></dt>
+<dd><p>Patch ddCOSMO to CASCI method.</p>
+<dl class="docutils">
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>dm</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">if given, solvent does not response to the change of density</span><dd>matrix. A frozen ddCOSMO potential is added to the results.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.solvent.ddcosmo.ddcosmo_for_casscf">
+<code class="descclassname">pyscf.solvent.ddcosmo.</code><code class="descname">ddcosmo_for_casscf</code><span class="sig-paren">(</span><em>mc</em>, <em>solvent_obj=None</em>, <em>dm=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/solvent/ddcosmo.html#ddcosmo_for_casscf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.solvent.ddcosmo.ddcosmo_for_casscf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Patch ddCOSMO to CASSCF method.</p>
+<dl class="docutils">
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>dm</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">if given, solvent does not response to the change of density</span><dd>matrix. A frozen ddCOSMO potential is added to the results.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.solvent.ddcosmo.ddcosmo_for_post_scf">
+<code class="descclassname">pyscf.solvent.ddcosmo.</code><code class="descname">ddcosmo_for_post_scf</code><span class="sig-paren">(</span><em>method</em>, <em>solvent_obj=None</em>, <em>dm=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/solvent/ddcosmo.html#ddcosmo_for_post_scf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.solvent.ddcosmo.ddcosmo_for_post_scf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default wrapper to patch ddCOSMO to post-SCF methods (CC, CI, MP,
+TDDFT etc.)</p>
+<p>NOTE: this implementation often causes (macro iteration) convergence issue</p>
+<dl class="docutils">
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>dm</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">if given, solvent does not response to the change of density</span><dd>matrix. A frozen ddCOSMO potential is added to the results.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.solvent.ddcosmo.ddcosmo_for_scf">
+<code class="descclassname">pyscf.solvent.ddcosmo.</code><code class="descname">ddcosmo_for_scf</code><span class="sig-paren">(</span><em>mf</em>, <em>solvent_obj=None</em>, <em>dm=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/solvent/ddcosmo.html#ddcosmo_for_scf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.solvent.ddcosmo.ddcosmo_for_scf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Patch ddCOSMO to SCF (HF and DFT) method.</p>
+<dl class="docutils">
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>dm</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">if given, solvent does not response to the change of density</span><dd>matrix. A frozen ddCOSMO potential is added to the results.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.solvent.ddcosmo.energy">
+<code class="descclassname">pyscf.solvent.ddcosmo.</code><code class="descname">energy</code><span class="sig-paren">(</span><em>pcmobj</em>, <em>dm</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/solvent/ddcosmo.html#energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.solvent.ddcosmo.energy" title="Permalink to this definition">¶</a></dt>
+<dd><p>ddCOSMO energy
+Es = 1/2 f(eps) int rho(r) W(r) dr</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.solvent.ddcosmo.gen_ddcosmo_solver">
+<code class="descclassname">pyscf.solvent.ddcosmo.</code><code class="descname">gen_ddcosmo_solver</code><span class="sig-paren">(</span><em>pcmobj</em>, <em>verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/solvent/ddcosmo.html#gen_ddcosmo_solver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.solvent.ddcosmo.gen_ddcosmo_solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate ddcosmo function to compute energy and potential matrix</p>
+</dd></dl>
+
+<span class="target" id="module-pyscf.solvent.ddcosmo_grad"></span><p>Analytical nuclear gradients for domain decomposition COSMO</p>
+<p>See also</p>
+<p>[1] Fast Domain Decomposition Algorithm for Continuum Solvation Models: Energy and First Derivatives.
+F. Lipparini, B. Stamm, E. Cances, Y. Maday, B. Mennucci
+J. Chem. Theory Comput., 9, 3637-3648 (2013)
+<a class="reference external" href="http://dx.doi.org/10.1021/ct400280b">http://dx.doi.org/10.1021/ct400280b</a></p>
+<p>[2] Quantum, classical, and hybrid QM/MM calculations in solution: General implementation of the ddCOSMO linear scaling strategy.
+F. Lipparini, G. Scalmani, L. Lagardere, B. Stamm, E. Cances, Y. Maday, J.-P.Piquemal, M. J. Frisch, B. Mennucci
+J. Chem. Phys., 141, 184108 (2014)
+<a class="reference external" href="http://dx.doi.org/10.1063/1.4901304">http://dx.doi.org/10.1063/1.4901304</a></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015-, Qiming Sun &lt;osirpt.sun@gmail.com&gt;.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

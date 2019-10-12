@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>31. hci — Interface to Heat-Bath selective CI &mdash; PySCF 1.5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+        <link rel="next" title="32. sgx — Pseudo-spectral methods (COSX, PS, SN-K)" href="sgx.html"/>
+        <link rel="prev" title="30. gw — Molecular G0W0" href="gw.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PySCF
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">1. An overview of PySCF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">2. Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">3. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gto.html">4. gto &#8212; Molecular structure and GTO basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.html">5. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scf.html">6. scf &#8212; Mean-field methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ao2mo.html">7. ao2mo &#8212; Integral transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcscf.html">8. mcscf &#8212; Multi-configurational self-consistent field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fci.html">9. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="symm.html">10. symm &#8211; Point group symmetry and spin symmetry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="df.html">11. df &#8212; Density fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dft.html">12. dft &#8212; Density functional theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tddft.html">13. tddft &#8212; Time dependent density functional theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cc.html">14. cc &#8212; Coupled cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ci.html">15. ci &#8212; Configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">17. fciqmcscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">18. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grad.html">19. grad &#8212; Analytical nuclear gradients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hessian.html">20. hessian &#8212; Analytical nuclear Hessian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc.html">21. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nao.html">22. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lo.html">23. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">24. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qmmm.html">25. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mrpt.html">26. mrpt &#8212; Multi-reference perturbation theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">31. hci &#8212; Interface to Heat-Bath selective CI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">31.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.hci">31.2. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.hci.hci">31.2.1. Interface</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PySCF</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>31. hci &#8212; Interface to Heat-Bath selective CI</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/hci.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="hci-interface-to-heat-bath-selective-ci">
+<h1>31. hci &#8212; Interface to Heat-Bath selective CI<a class="headerlink" href="#hci-interface-to-heat-bath-selective-ci" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="examples">
+<h2>31.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Relevant examples
+<code class="file docutils literal"><span class="pre">examples/hci/00-simple_hci.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/hci/10-spin.py</span></code></p>
+</div>
+<div class="section" id="module-pyscf.hci">
+<span id="program-reference"></span><h2>31.2. Program reference<a class="headerlink" href="#module-pyscf.hci" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pyscf.hci.hci">
+<span id="interface"></span><h3>31.2.1. Interface<a class="headerlink" href="#module-pyscf.hci.hci" title="Permalink to this headline">¶</a></h3>
+<p>Selected CI using Heat-Bath CI algorithm
+(JCTC 2016, 12, 3674-3680)</p>
+<p>Simple usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">py</span><span class="p">:</span><span class="n">function</span><span class="p">::</span> <span class="n">fix_spin</span><span class="p">(</span><span class="n">myci</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">ss</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">module:</th><td class="field-body">pyscf.hci.hci</td>
+</tr>
+</tbody>
+</table>
+<p>If Selected CI solver cannot stick on spin eigenfunction, modify the solver by
+adding a shift on spin square operator</p>
+<div class="math">
+\[(H + shift*S^2) |\Psi\rangle = E |\Psi\rangle\]</div>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>myci : An instance of <code class="xref py py-class docutils literal"><span class="pre">SelectedCI</span></code></dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>shift</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Level shift for states which have different spin</dd>
+<dt>ss</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">number</span><dd>S^2 expection value == s*(s+1)</dd>
+</dl>
+</dd>
+<dt>Returns</dt>
+<dd>A modified Selected CI object based on myci.</dd>
+</dl>
+</div></blockquote>
+<dl class="function">
+<dt id="pyscf.hci.hci.make_rdm12s">
+<code class="descclassname">pyscf.hci.hci.</code><code class="descname">make_rdm12s</code><span class="sig-paren">(</span><em>civec</em>, <em>norb</em>, <em>nelec</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/hci/hci.html#make_rdm12s"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.hci.hci.make_rdm12s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Spin orbital 1- and 2-particle reduced density matrices (aa, bb, aaaa, aabb, bbbb)</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sgx.html" class="btn btn-neutral float-right" title="32. sgx — Pseudo-spectral methods (COSX, PS, SN-K)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gw.html" class="btn btn-neutral" title="30. gw — Molecular G0W0" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015-, Qiming Sun &lt;osirpt.sun@gmail.com&gt;.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

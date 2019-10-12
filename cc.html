@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>14. cc — Coupled cluster &mdash; PySCF 1.7.0 documentation</title>
+  <title>14. cc — Coupled cluster &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
         <link rel="next" title="15. ci — Configuration interaction" href="ci.html"/>
         <link rel="prev" title="13. tddft — Time dependent density functional theory" href="tddft.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -139,6 +139,14 @@
 <li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -298,123 +306,11 @@ perform advanced simulations.  For a complete list of CC examples, see
 a general solver for arbitrary Hamiltonians.  It allows users to overwrite the
 default molecular Hamiltonian with their own effective Hamiltonians.  In this
 example, we create a Hubbard model and feed its Hamiltonian to the CCSD module.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
-
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">Six-site 1D U/t=2 Hubbard-like model system with PBC at half filling.</span>
-<span class="sd">The model is gapped at the mean-field level</span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">ao2mo</span><span class="p">,</span> <span class="n">cc</span>
-
-<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">6</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">nelectron</span> <span class="o">=</span> <span class="n">n</span>
-<span class="c1"># Setting incore_anyway=True to ensure the customized Hamiltonian (the _eri</span>
-<span class="c1"># attribute) to be used in the post-HF calculations.  Without this parameter,</span>
-<span class="c1"># some post-HF method (particularly in the MO integral transformation) may</span>
-<span class="c1"># ignore the customized Hamiltonian if memory is not enough.</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">incore_anyway</span> <span class="o">=</span> <span class="kc">True</span>
-
-<span class="n">h1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">h1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">h1</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
-<span class="n">h1</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">h1</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
-<span class="n">eri</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="n">eri</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
-
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">get_hcore</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">h1</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">get_ovlp</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">_eri</span> <span class="o">=</span> <span class="n">ao2mo</span><span class="o">.</span><span class="n">restore</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">eri</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-
-
-<span class="c1"># In PySCF, the customized Hamiltonian needs to be created once in mf object.</span>
-<span class="c1"># The Hamiltonian will be used everywhere whenever possible.  Here, the model</span>
-<span class="c1"># Hamiltonian is passed to CCSD object via the mf object.</span>
-
-<span class="n">mycc</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="n">RCCSD</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span>
-<span class="n">mycc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-<span class="n">e</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="n">mycc</span><span class="o">.</span><span class="n">ipccsd</span><span class="p">(</span><span class="n">nroots</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="using-ccsd-as-casci-active-space-solver">
 <h3>14.1.2. Using CCSD as CASCI active space solver<a class="headerlink" href="#using-ccsd-as-casci-active-space-solver" title="Permalink to this headline">¶</a></h3>
 <p>CCSD program can be wrapped as a Full CI solver, which can be combined with the
 CASCI solver to approximate the multi-configuration calculation.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
-
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">Using the CCSD method as the active space solver to compute an approximate</span>
-<span class="sd">CASCI energy.</span>
-
-<span class="sd">A wrapper is required to adapt the CCSD solver to CASCI fcisolver interface.</span>
-<span class="sd">Inside the wrapper function, the CCSD code is the same as the example</span>
-<span class="sd">40-ccsd_with_given_hamiltonian.py</span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="n">ao2mo</span><span class="p">,</span> <span class="n">mcscf</span>
-
-<span class="k">class</span> <span class="nc">AsFCISolver</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mycc</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="k">def</span> <span class="nf">kernel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">,</span> <span class="n">norb</span><span class="p">,</span> <span class="n">nelec</span><span class="p">,</span> <span class="n">ci0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ecore</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">fakemol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">nelec</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">nelec</span><span class="p">)</span>
-        <span class="n">fakemol</span><span class="o">.</span><span class="n">nelectron</span> <span class="o">=</span> <span class="n">nelec</span>
-        <span class="n">fake_hf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">fakemol</span><span class="p">)</span>
-        <span class="n">fake_hf</span><span class="o">.</span><span class="n">_eri</span> <span class="o">=</span> <span class="n">ao2mo</span><span class="o">.</span><span class="n">restore</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">h2</span><span class="p">,</span> <span class="n">norb</span><span class="p">)</span>
-        <span class="n">fake_hf</span><span class="o">.</span><span class="n">get_hcore</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">h1</span>
-        <span class="n">fake_hf</span><span class="o">.</span><span class="n">get_ovlp</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">norb</span><span class="p">)</span>
-        <span class="n">fake_hf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mycc</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="n">CCSD</span><span class="p">(</span><span class="n">fake_hf</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eris</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mycc</span><span class="o">.</span><span class="n">ao2mo</span><span class="p">()</span>
-        <span class="n">e_corr</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mycc</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">eris</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eris</span><span class="p">)</span>
-        <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mycc</span><span class="o">.</span><span class="n">solve_lambda</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">eris</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eris</span><span class="p">)</span>
-        <span class="n">e</span> <span class="o">=</span> <span class="n">fake_hf</span><span class="o">.</span><span class="n">e_tot</span> <span class="o">+</span> <span class="n">e_corr</span>
-        <span class="k">return</span> <span class="n">e</span><span class="o">+</span><span class="n">ecore</span><span class="p">,</span> <span class="p">[</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">,</span><span class="n">l1</span><span class="p">,</span><span class="n">l2</span><span class="p">]</span>
-
-    <span class="k">def</span> <span class="nf">make_rdm1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fake_ci</span><span class="p">,</span> <span class="n">norb</span><span class="p">,</span> <span class="n">nelec</span><span class="p">):</span>
-        <span class="n">mo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mycc</span><span class="o">.</span><span class="n">mo_coeff</span>
-        <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span> <span class="o">=</span> <span class="n">fake_ci</span>
-        <span class="n">dm1</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">,</span> <span class="p">(</span><span class="n">mo</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mycc</span><span class="o">.</span><span class="n">make_rdm1</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">),</span> <span class="n">mo</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">dm1</span>
-
-    <span class="k">def</span> <span class="nf">make_rdm12</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fake_ci</span><span class="p">,</span> <span class="n">norb</span><span class="p">,</span> <span class="n">nelec</span><span class="p">):</span>
-        <span class="n">mo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mycc</span><span class="o">.</span><span class="n">mo_coeff</span>
-        <span class="n">nmo</span> <span class="o">=</span> <span class="n">mo</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span> <span class="o">=</span> <span class="n">fake_ci</span>
-        <span class="n">dm2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mycc</span><span class="o">.</span><span class="n">make_rdm2</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">)</span>
-        <span class="n">dm2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">mo</span><span class="p">,</span> <span class="n">dm2</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">nmo</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-        <span class="n">dm2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">dm2</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">nmo</span><span class="p">),</span> <span class="n">mo</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-        <span class="n">dm2</span> <span class="o">=</span> <span class="n">dm2</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="n">nmo</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">dm2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">mo</span><span class="p">,</span> <span class="n">dm2</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">nmo</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-        <span class="n">dm2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">dm2</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">nmo</span><span class="p">),</span> <span class="n">mo</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-        <span class="n">dm2</span> <span class="o">=</span> <span class="n">dm2</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="n">nmo</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_rdm1</span><span class="p">(</span><span class="n">fake_ci</span><span class="p">,</span> <span class="n">norb</span><span class="p">,</span> <span class="n">nelec</span><span class="p">),</span> <span class="n">dm2</span>
-
-    <span class="k">def</span> <span class="nf">spin_square</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fake_ci</span><span class="p">,</span> <span class="n">norb</span><span class="p">,</span> <span class="n">nelec</span><span class="p">):</span>
-        <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
-
-<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;H 0 0 0; F 0 0 1.2&#39;</span><span class="p">,</span>
-            <span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span>
-            <span class="n">verbose</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="n">norb</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_coeff</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">nelec</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">nelectron</span>
-<span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASCI</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="n">norb</span><span class="p">,</span> <span class="n">nelec</span><span class="p">)</span>
-<span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span> <span class="o">=</span> <span class="n">AsFCISolver</span><span class="p">()</span>
-<span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-
-</pre></div>
-</div>
 </div>
 <div class="section" id="gamma-point-ccsd-with-periodic-boundary-condition">
 <h3>14.1.3. Gamma point CCSD with Periodic boundary condition<a class="headerlink" href="#gamma-point-ccsd-with-periodic-boundary-condition" title="Permalink to this headline">¶</a></h3>
@@ -424,47 +320,6 @@ operations as the above example.  However, the interface between PBC code and
 molecular code are more compatible.  You can treat the crystal object and the
 molecule object in the same manner.  In this example, you can pass the PBC mean
 field method to CC module to have the gamma point CCSD correlation.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
-
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">Gamma point post-HF calculation needs only real integrals.</span>
-<span class="sd">Methods implemented in finite-size system can be directly used here without</span>
-<span class="sd">any modification.</span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">pyscf.pbc</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span>
-
-<span class="n">cell</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mf">3.5668</span><span class="p">,</span>
-    <span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;C     0.      0.      0.    </span>
-<span class="s1">              C     0.8917  0.8917  0.8917</span>
-<span class="s1">              C     1.7834  1.7834  0.    </span>
-<span class="s1">              C     2.6751  2.6751  0.8917</span>
-<span class="s1">              C     1.7834  0.      1.7834</span>
-<span class="s1">              C     2.6751  0.8917  2.6751</span>
-<span class="s1">              C     0.      1.7834  1.7834</span>
-<span class="s1">              C     0.8917  2.6751  2.6751&#39;&#39;&#39;</span><span class="p">,</span>
-    <span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;6-31g&#39;</span><span class="p">,</span>
-    <span class="n">verbose</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="o">.</span><span class="n">density_fit</span><span class="p">()</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">with_df</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-
-<span class="c1">#</span>
-<span class="c1"># Import CC, TDDFT moduel from the molecular implementations</span>
-<span class="c1">#</span>
-<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">cc</span><span class="p">,</span> <span class="n">tddft</span>
-<span class="n">mycc</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="n">CCSD</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span>
-<span class="n">mycc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-
-<span class="n">mytd</span> <span class="o">=</span> <span class="n">tddft</span><span class="o">.</span><span class="n">TDHF</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span>
-<span class="n">mytd</span><span class="o">.</span><span class="n">nstates</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">mytd</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="ccsd-with-truncated-mos-to-avoid-linear-dependency">
 <h3>14.1.4. CCSD with truncated MOs to avoid linear dependency<a class="headerlink" href="#ccsd-with-truncated-mos-to-avoid-linear-dependency" title="Permalink to this headline">¶</a></h3>
@@ -473,28 +328,6 @@ the AO basis set to approach complete basis set limit.  The numerical
 instability usually has noticeable effects on the CCSD convergence.  An
 effective way to remove this negative effects is to truncate the AO sets and
 allow the MO orbitals being less than AO functions.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
-
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">:func:`scf.addons.remove_linear_dep_` discards the small eigenvalues of overlap</span>
-<span class="sd">matrix.  This reduces the number of MOs from 50 to 49.  The problem size of</span>
-<span class="sd">the following CCSD method is 49.</span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">cc</span>
-<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">Mole</span><span class="p">()</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">atom</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">)]</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;ccpvdz&#39;</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="n">mycc</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="n">CCSD</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">addons</span><span class="o">.</span><span class="n">remove_linear_dep_</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="n">mycc</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="n">CCSD</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-
-</pre></div>
-</div>
 </div>
 <div class="section" id="response-and-un-relaxed-ccsd-density-matrix">
 <h3>14.1.5. Response and un-relaxed CCSD density matrix<a class="headerlink" href="#response-and-un-relaxed-ccsd-density-matrix" title="Permalink to this headline">¶</a></h3>
@@ -505,52 +338,6 @@ associated to the regular CCSD energy formula.  The response density is mainly
 used to compute the first order response quantities eg the analytical nuclear
 gradients.  It is not recommended to use the response density matrix for
 population analysis.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="c1">#</span>
-<span class="c1"># Author: Qiming Sun &lt;osirpt.sun@gmail.com&gt;</span>
-<span class="c1">#</span>
-
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">CCSD density matrix</span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="n">ao2mo</span>
-
-<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span>
-    <span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;H 0 0 0; F 0 0 1.1&#39;</span><span class="p">,</span>
-    <span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;ccpvdz&#39;</span><span class="p">)</span>
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="n">mycc</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="n">CCSD</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-
-<span class="c1">#</span>
-<span class="c1"># CCSD density matrix in MO basis</span>
-<span class="c1">#</span>
-<span class="n">dm1</span> <span class="o">=</span> <span class="n">mycc</span><span class="o">.</span><span class="n">make_rdm1</span><span class="p">()</span>
-<span class="n">dm2</span> <span class="o">=</span> <span class="n">mycc</span><span class="o">.</span><span class="n">make_rdm2</span><span class="p">()</span>
-
-<span class="c1">#</span>
-<span class="c1"># CCSD energy based on density matrices</span>
-<span class="c1">#</span>
-<span class="n">h1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;pi,pq,qj-&gt;ij&#39;</span><span class="p">,</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_coeff</span><span class="o">.</span><span class="n">conj</span><span class="p">(),</span> <span class="n">mf</span><span class="o">.</span><span class="n">get_hcore</span><span class="p">(),</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_coeff</span><span class="p">)</span>
-<span class="n">nmo</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_coeff</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">eri</span> <span class="o">=</span> <span class="n">ao2mo</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_coeff</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="n">nmo</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">E</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;pq,qp&#39;</span><span class="p">,</span> <span class="n">h1</span><span class="p">,</span> <span class="n">dm1</span><span class="p">)</span>
-<span class="c1"># Note dm2 is transposed to simplify its contraction to integrals</span>
-<span class="n">E</span><span class="o">+=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;pqrs,pqrs&#39;</span><span class="p">,</span> <span class="n">eri</span><span class="p">,</span> <span class="n">dm2</span><span class="p">)</span> <span class="o">*</span> <span class="o">.</span><span class="mi">5</span>
-<span class="n">E</span><span class="o">+=</span> <span class="n">mol</span><span class="o">.</span><span class="n">energy_nuc</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E(CCSD) = </span><span class="si">%s</span><span class="s1">, reference </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">mycc</span><span class="o">.</span><span class="n">e_tot</span><span class="p">))</span>
-
-
-<span class="c1"># When plotting CCSD density on the grids, CCSD density matrices need to be</span>
-<span class="c1"># first transformed to AO basis.</span>
-<span class="n">dm1_ao</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;pi,ij,qj-&gt;pq&#39;</span><span class="p">,</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_coeff</span><span class="p">,</span> <span class="n">dm1</span><span class="p">,</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_coeff</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span>
-
-<span class="kn">from</span> <span class="nn">pyscf.tools</span> <span class="k">import</span> <span class="n">cubegen</span>
-<span class="n">cubegen</span><span class="o">.</span><span class="n">density</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="s1">&#39;rho_ccsd.cube&#39;</span><span class="p">,</span> <span class="n">dm1_ao</span><span class="p">)</span>
-
-</pre></div>
-</div>
 </div>
 <div class="section" id="reusing-integrals-in-ccsd-and-relevant-calculations">
 <h3>14.1.6. Reusing integrals in CCSD and relevant calculations<a class="headerlink" href="#reusing-integrals-in-ccsd-and-relevant-calculations" title="Permalink to this headline">¶</a></h3>
@@ -559,51 +346,6 @@ gradients program generate MO integrals in their own runtime.  But in most
 scenario, the same MO integrals can be generated once and reused in the four
 modules.  To remove the overhead of recomputing MO integrals, the three module
 support user to feed MO integrals.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="c1">#</span>
-<span class="c1"># Author: Qiming Sun &lt;osirpt.sun@gmail.com&gt;</span>
-<span class="c1">#</span>
-
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">To avoid recomputing AO to MO integral transformation, integrals for CCSD,</span>
-<span class="sd">CCSD(T), CCSD lambda equation etc can be reused.</span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">cc</span>
-
-<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">verbose</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;H 0 0 0; F 0 0 1.1&#39;</span><span class="p">,</span>
-    <span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;ccpvdz&#39;</span><span class="p">)</span>
-
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="n">mycc</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="n">CCSD</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span>
-
-<span class="c1">#</span>
-<span class="c1"># CCSD module allows you feed MO integrals</span>
-<span class="c1">#</span>
-<span class="n">eris</span> <span class="o">=</span> <span class="n">mycc</span><span class="o">.</span><span class="n">ao2mo</span><span class="p">()</span>
-<span class="n">mycc</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">eris</span><span class="o">=</span><span class="n">eris</span><span class="p">)</span>
-
-<span class="c1">#</span>
-<span class="c1"># The same MO integrals can be used in CCSD lambda equation</span>
-<span class="c1">#</span>
-<span class="n">mycc</span><span class="o">.</span><span class="n">solve_lambda</span><span class="p">(</span><span class="n">eris</span><span class="o">=</span><span class="n">eris</span><span class="p">)</span>
-
-<span class="c1">#</span>
-<span class="c1"># CCSD(T) module requires the same integrals used by CCSD module</span>
-<span class="c1">#</span>
-<span class="kn">from</span> <span class="nn">pyscf.cc</span> <span class="k">import</span> <span class="n">ccsd_t</span>
-<span class="n">ccsd_t</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">mycc</span><span class="p">,</span> <span class="n">eris</span><span class="o">=</span><span class="n">eris</span><span class="p">)</span>
-
-<span class="c1">#</span>
-<span class="c1"># CCSD gradients need regular MO integrals to solve the relaxed 1-particle</span>
-<span class="c1"># density matrix</span>
-<span class="c1">#</span>
-<span class="kn">from</span> <span class="nn">pyscf.cc</span> <span class="k">import</span> <span class="n">ccsd_grad</span>
-<span class="n">grad_e</span> <span class="o">=</span> <span class="n">ccsd_grad</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">mycc</span><span class="p">,</span> <span class="n">eris</span><span class="o">=</span><span class="n">eris</span><span class="p">)</span>  <span class="c1"># The electronic part only</span>
-
-</pre></div>
-</div>
 </div>
 <div class="section" id="interfering-ccsd-diis">
 <h3>14.1.7. Interfering CCSD-DIIS<a class="headerlink" href="#interfering-ccsd-diis" title="Permalink to this headline">¶</a></h3>
@@ -1068,7 +810,7 @@ automatically applied in the solver.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

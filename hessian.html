@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>20. hessian — Analytical nuclear Hessian &mdash; PySCF 1.7.0 documentation</title>
+  <title>20. hessian — Analytical nuclear Hessian &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
         <link rel="next" title="21. pbc — Periodic boundary conditions" href="pbc.html"/>
         <link rel="prev" title="19. grad — Analytical nuclear gradients" href="grad.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -107,7 +107,17 @@
 <li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">17. fciqmcscf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tools.html">18. tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grad.html">19. grad &#8212; Analytical nuclear gradients</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">20. hessian &#8212; Analytical nuclear Hessian</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">20. hessian &#8212; Analytical nuclear Hessian</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">20.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.hessian">20.2. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#spin-restricted-hartree-fock">20.2.1. Spin-restricted Hartree-Fock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spin-unrestricted-hartree-fock">20.2.2. Spin-unrestricted Hartree-Fock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spin-restricted-dft">20.2.3. Spin-restricted DFT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spin-unrestricted-dft">20.2.4. Spin-unrestricted DFT</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="pbc.html">21. pbc &#8212; Periodic boundary conditions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nao.html">22. nao &#8212; Numerical Atomic Orbitals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lo.html">23. lo &#8212; Orbital localization</a></li>
@@ -117,6 +127,14 @@
 <li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -180,8 +198,89 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-pyscf.hessian">
-<span id="hessian-analytical-nuclear-hessian"></span><h1>20. hessian &#8212; Analytical nuclear Hessian<a class="headerlink" href="#module-pyscf.hessian" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="hessian-analytical-nuclear-hessian">
+<h1>20. hessian &#8212; Analytical nuclear Hessian<a class="headerlink" href="#hessian-analytical-nuclear-hessian" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="examples">
+<h2>20.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Relevant examples
+<code class="file docutils literal"><span class="pre">examples/hessian/01-scf_hessian.py</span></code></p>
+</div>
+<div class="section" id="module-pyscf.hessian">
+<span id="program-reference"></span><h2>20.2. Program reference<a class="headerlink" href="#module-pyscf.hessian" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="spin-restricted-hartree-fock">
+<h3>20.2.1. Spin-restricted Hartree-Fock<a class="headerlink" href="#spin-restricted-hartree-fock" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="module-pyscf.hessian.rhf"></span><p>Non-relativistic RHF analytical Hessian</p>
+<dl class="class">
+<dt id="pyscf.hessian.rhf.Hessian">
+<em class="property">class </em><code class="descclassname">pyscf.hessian.rhf.</code><code class="descname">Hessian</code><span class="sig-paren">(</span><em>scf_method</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/hessian/rhf.html#Hessian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.hessian.rhf.Hessian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic restricted Hartree-Fock hessian</p>
+<dl class="method">
+<dt id="pyscf.hessian.rhf.Hessian.partial_hess_elec">
+<code class="descname">partial_hess_elec</code><span class="sig-paren">(</span><em>hessobj</em>, <em>mo_energy=None</em>, <em>mo_coeff=None</em>, <em>mo_occ=None</em>, <em>atmlst=None</em>, <em>max_memory=4000</em>, <em>verbose=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.hessian.rhf.Hessian.partial_hess_elec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Partial derivative</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.hessian.rhf.get_hcore">
+<code class="descclassname">pyscf.hessian.rhf.</code><code class="descname">get_hcore</code><span class="sig-paren">(</span><em>mol</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/hessian/rhf.html#get_hcore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.hessian.rhf.get_hcore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Part of the second derivatives of core Hamiltonian</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.hessian.rhf.partial_hess_elec">
+<code class="descclassname">pyscf.hessian.rhf.</code><code class="descname">partial_hess_elec</code><span class="sig-paren">(</span><em>hessobj</em>, <em>mo_energy=None</em>, <em>mo_coeff=None</em>, <em>mo_occ=None</em>, <em>atmlst=None</em>, <em>max_memory=4000</em>, <em>verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/hessian/rhf.html#partial_hess_elec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.hessian.rhf.partial_hess_elec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Partial derivative</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.hessian.rhf.solve_mo1">
+<code class="descclassname">pyscf.hessian.rhf.</code><code class="descname">solve_mo1</code><span class="sig-paren">(</span><em>mf</em>, <em>mo_energy</em>, <em>mo_coeff</em>, <em>mo_occ</em>, <em>h1ao_or_chkfile</em>, <em>fx=None</em>, <em>atmlst=None</em>, <em>max_memory=4000</em>, <em>verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/hessian/rhf.html#solve_mo1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.hessian.rhf.solve_mo1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solve the first order equation</p>
+<dl class="docutils">
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>fx</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">function(dm_mo) =&gt; v1_mo</span><dd>A function to generate the induced potential.
+See also the function gen_vind.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="spin-unrestricted-hartree-fock">
+<h3>20.2.2. Spin-unrestricted Hartree-Fock<a class="headerlink" href="#spin-unrestricted-hartree-fock" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="module-pyscf.hessian.uhf"></span><p>Non-relativistic UHF analytical Hessian</p>
+<dl class="class">
+<dt id="pyscf.hessian.uhf.Hessian">
+<em class="property">class </em><code class="descclassname">pyscf.hessian.uhf.</code><code class="descname">Hessian</code><span class="sig-paren">(</span><em>scf_method</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/hessian/uhf.html#Hessian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.hessian.uhf.Hessian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic UHF hessian</p>
+</dd></dl>
+
+</div>
+<div class="section" id="spin-restricted-dft">
+<h3>20.2.3. Spin-restricted DFT<a class="headerlink" href="#spin-restricted-dft" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="module-pyscf.hessian.rks"></span><p>Non-relativistic RKS analytical Hessian</p>
+<dl class="class">
+<dt id="pyscf.hessian.rks.Hessian">
+<em class="property">class </em><code class="descclassname">pyscf.hessian.rks.</code><code class="descname">Hessian</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/hessian/rks.html#Hessian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.hessian.rks.Hessian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic RKS hessian</p>
+</dd></dl>
+
+</div>
+<div class="section" id="spin-unrestricted-dft">
+<h3>20.2.4. Spin-unrestricted DFT<a class="headerlink" href="#spin-unrestricted-dft" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="module-pyscf.hessian.uks"></span><p>Non-relativistic UKS analytical Hessian</p>
+<dl class="class">
+<dt id="pyscf.hessian.uks.Hessian">
+<em class="property">class </em><code class="descclassname">pyscf.hessian.uks.</code><code class="descname">Hessian</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/hessian/uks.html#Hessian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.hessian.uks.Hessian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic UKS hessian</p>
+</dd></dl>
+
+</div>
+</div>
 </div>
 
 
@@ -228,7 +327,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

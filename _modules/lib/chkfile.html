@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lib.chkfile &mdash; PySCF 1.7.0 documentation</title>
+  <title>lib.chkfile &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="../../index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -116,6 +116,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -181,32 +189,16 @@
             
   <h1>Source code for lib.chkfile</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="c1"># Copyright 2014-2018 The PySCF Developers. All Rights Reserved.</span>
-<span class="c1">#</span>
-<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
-<span class="c1"># you may not use this file except in compliance with the License.</span>
-<span class="c1"># You may obtain a copy of the License at</span>
-<span class="c1">#</span>
-<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
-<span class="c1">#</span>
-<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
-<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
-<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
-<span class="c1"># See the License for the specific language governing permissions and</span>
-<span class="c1"># limitations under the License.</span>
 <span class="c1">#</span>
 <span class="c1"># Author: Qiming Sun &lt;osirpt.sun@gmail.com&gt;</span>
 <span class="c1">#</span>
 
-<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">import</span> <span class="nn">pyscf.gto</span>
 
-<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
-    <span class="n">RANGE_TYPE</span> <span class="o">=</span> <span class="nb">list</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">RANGE_TYPE</span> <span class="o">=</span> <span class="nb">range</span>
-
+<span class="k">def</span> <span class="nf">load_chkfile_key</span><span class="p">(</span><span class="n">chkfile</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">load</span><span class="p">(</span><span class="n">chkfile</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
 <div class="viewcode-block" id="load"><a class="viewcode-back" href="../../lib.html#lib.chkfile.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">chkfile</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Load array(s) from chkfile</span>
 <span class="sd">    </span>
@@ -214,8 +206,8 @@
 <span class="sd">        chkfile : str</span>
 <span class="sd">            Name of chkfile. The chkfile needs to be saved in HDF5 format.</span>
 <span class="sd">        key : str</span>
-<span class="sd">            HDF5.dataset name or group name.  If key is the name of a HDF5</span>
-<span class="sd">            group, the group will be loaded into a Python dict, recursively.</span>
+<span class="sd">            HDF5.dataset name or group name.  If key is the HDF5 group name,</span>
+<span class="sd">            the group will be loaded into an Python dict, recursively</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        whatever read from chkfile</span>
@@ -234,28 +226,22 @@
 <span class="sd">    &gt;&gt;&gt; scfdat.keys()</span>
 <span class="sd">    [&#39;e_tot&#39;, &#39;mo_occ&#39;, &#39;mo_energy&#39;, &#39;mo_coeff&#39;]</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="nf">load_as_dic</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">group</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">loadasdic</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">group</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">group</span><span class="p">:</span>
             <span class="n">val</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;__from_list__&#39;</span> <span class="ow">in</span> <span class="n">group</span><span class="p">:</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;__from_list__&#39;</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">h5py</span><span class="o">.</span><span class="n">Group</span><span class="p">):</span>
+                <span class="k">return</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">k</span><span class="p">,</span> <span class="n">loadasdic</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">val</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">val</span><span class="o">.</span><span class="n">value</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">h5py</span><span class="o">.</span><span class="n">Group</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;__from_list__&#39;</span><span class="p">):</span>
-                <span class="k">return</span> <span class="p">[</span><span class="n">load_as_dic</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">val</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">k</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;__from_list__&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
-                              <span class="n">load_as_dic</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">val</span><span class="p">])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">val</span><span class="o">.</span><span class="n">value</span>
-
     <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">chkfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh5</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">load_as_dic</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">fh5</span><span class="p">)</span></div>
-<span class="n">load_chkfile_key</span> <span class="o">=</span> <span class="n">load</span>
+        <span class="k">return</span> <span class="n">loadasdic</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">fh5</span><span class="p">)</span></div>
 
+<span class="k">def</span> <span class="nf">dump_chkfile_key</span><span class="p">(</span><span class="n">chkfile</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="n">dump</span><span class="p">(</span><span class="n">chkfile</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="n">chkfile</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="n">dump</span><span class="p">(</span><span class="n">chkfile</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="n">chkfile</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Save array(s) in chkfile</span>
 <span class="sd">    </span>
@@ -263,11 +249,10 @@
 <span class="sd">        chkfile : str</span>
 <span class="sd">            Name of chkfile.</span>
 <span class="sd">        key : str</span>
-<span class="sd">            key to be used in h5py object. It can contain &quot;/&quot; to represent the</span>
-<span class="sd">            path in the HDF5 storage structure.</span>
-<span class="sd">        value : array, vector, list ... or dict</span>
-<span class="sd">            If value is a python dict or list, the key/value of the dict will</span>
-<span class="sd">            be saved recursively as the HDF5 group/dataset structure.</span>
+
+<span class="sd">        value : array, vector ... or dict</span>
+<span class="sd">            If value is a python dict, the key/value of the dict will be saved</span>
+<span class="sd">            recursively as the HDF5 group/dataset</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        No return value</span>
@@ -278,7 +263,7 @@
 <span class="sd">    &gt;&gt;&gt; from pyscf import lib</span>
 <span class="sd">    &gt;&gt;&gt; ci = {&#39;Ci&#39; : {&#39;op&#39;: (&#39;E&#39;, &#39;i&#39;), &#39;irrep&#39;: (&#39;Ag&#39;, &#39;Au&#39;)}}</span>
 <span class="sd">    &gt;&gt;&gt; lib.chkfile.save(&#39;symm.chk&#39;, &#39;symm&#39;, ci)</span>
-<span class="sd">    &gt;&gt;&gt; f = h5py.File(&#39;symm.chk&#39;, &#39;r&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; f = h5py.File(&#39;symm.chk&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; f.keys()</span>
 <span class="sd">    [&#39;symm&#39;]</span>
 <span class="sd">    &gt;&gt;&gt; f[&#39;symm&#39;].keys()</span>
@@ -288,37 +273,21 @@
 <span class="sd">    &gt;&gt;&gt; f[&#39;symm/Ci/op&#39;]</span>
 <span class="sd">    &lt;HDF5 dataset &quot;op&quot;: shape (2,), type &quot;|S1&quot;&gt;</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="nf">save_as_group</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">saveasgroup</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="n">root1</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
-                <span class="n">save_as_group</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">root1</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">RANGE_TYPE</span><span class="p">)):</span>
-            <span class="n">root1</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;__from_list__&#39;</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
-                <span class="n">save_as_group</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%06d</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">root1</span><span class="p">)</span>
+                <span class="n">saveasgroup</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">root1</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">root</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-            <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Object dtype dtype(&#39;O&#39;) has no native HDF5 equivalent&quot;</span> <span class="ow">or</span>
-                        <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;could not broadcast input array&#39;</span><span class="p">)):</span>
-                    <span class="k">raise</span> <span class="n">e</span>
-                <span class="n">root1</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;__from_list__&#39;</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
-                    <span class="n">save_as_group</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%06d</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">root1</span><span class="p">)</span>
-
+            <span class="n">root</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
     <span class="k">if</span> <span class="n">h5py</span><span class="o">.</span><span class="n">is_hdf5</span><span class="p">(</span><span class="n">chkfile</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">chkfile</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh5</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">fh5</span><span class="p">:</span>
                 <span class="k">del</span><span class="p">(</span><span class="n">fh5</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-            <span class="k">elif</span> <span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;__from_list__&#39;</span> <span class="ow">in</span> <span class="n">fh5</span><span class="p">:</span>
-                <span class="k">del</span><span class="p">(</span><span class="n">fh5</span><span class="p">[</span><span class="n">key</span><span class="o">+</span><span class="s1">&#39;__from_list__&#39;</span><span class="p">])</span>
-            <span class="n">save_as_group</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">fh5</span><span class="p">)</span>
+            <span class="n">saveasgroup</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">fh5</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">chkfile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh5</span><span class="p">:</span>
-            <span class="n">save_as_group</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">fh5</span><span class="p">)</span>
-<span class="n">dump_chkfile_key</span> <span class="o">=</span> <span class="n">save</span> <span class="o">=</span> <span class="n">dump</span>
+            <span class="n">saveasgroup</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">fh5</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="load_mol"><a class="viewcode-back" href="../../lib.html#lib.chkfile.load_mol">[docs]</a><span class="k">def</span> <span class="nf">load_mol</span><span class="p">(</span><span class="n">chkfile</span><span class="p">):</span>
@@ -340,16 +309,16 @@
 <span class="sd">    &gt;&gt;&gt; lib.chkfile.load_mol(&#39;He.chk&#39;)</span>
 <span class="sd">    &lt;pyscf.gto.mole.Mole object at 0x7fdcd94d7f50&gt;</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">array</span>
-    <span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">chkfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh5</span><span class="p">:</span>
-            <span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">fh5</span><span class="p">[</span><span class="s1">&#39;mol&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="n">mol</span> <span class="o">=</span> <span class="n">pyscf</span><span class="o">.</span><span class="n">gto</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">fh5</span><span class="p">[</span><span class="s1">&#39;mol&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
     <span class="k">except</span><span class="p">:</span>
 <span class="c1"># Compatibility to the old serialization format</span>
 <span class="c1"># TODO: remove it in future release</span>
+        <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">array</span>
         <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">chkfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh5</span><span class="p">:</span>
-            <span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">Mole</span><span class="p">()</span>
+            <span class="n">mol</span> <span class="o">=</span> <span class="n">pyscf</span><span class="o">.</span><span class="n">gto</span><span class="o">.</span><span class="n">Mole</span><span class="p">()</span>
+            <span class="n">mol</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="n">mol</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;/dev/null&#39;</span>
             <span class="n">moldic</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">fh5</span><span class="p">[</span><span class="s1">&#39;mol&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;mass&#39;</span><span class="p">,</span> <span class="s1">&#39;grids&#39;</span><span class="p">,</span> <span class="s1">&#39;light_speed&#39;</span><span class="p">):</span>
@@ -362,12 +331,13 @@
     <span class="sd">&#39;&#39;&#39;Save Mole object in chkfile</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        chkfile str:</span>
+<span class="sd">        mol : an instance of :class:`Mole`.</span>
+
+<span class="sd">        chkfile : str</span>
 <span class="sd">            Name of chkfile.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        No return value</span>
-
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">dump</span><span class="p">(</span><span class="n">chkfile</span><span class="p">,</span> <span class="s1">&#39;mol&#39;</span><span class="p">,</span> <span class="n">mol</span><span class="o">.</span><span class="n">dumps</span><span class="p">())</span></div>
 <span class="n">dump_mol</span> <span class="o">=</span> <span class="n">save_mol</span>
@@ -408,7 +378,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

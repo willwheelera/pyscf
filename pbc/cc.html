@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>21.5. pbc.cc — PBC coupled cluster &mdash; PySCF 1.7.0 documentation</title>
+  <title>21.9. pbc.cc — PBC coupled cluster &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,10 +32,10 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="../index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="../index.html"/>
         <link rel="up" title="21. pbc — Periodic boundary conditions" href="../pbc.html"/>
-        <link rel="next" title="21.6. pbc.tools — PBC tools" href="tools.html"/>
-        <link rel="prev" title="21.4. pbc.df — PBC denisty fitting" href="df.html"/> 
+        <link rel="next" title="21.10. pbc.mpicc — PBC coupled cluster for MPI" href="mpicc.html"/>
+        <link rel="prev" title="21.8. pbc.ci — PBC configuration interaction" href="ci.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -111,12 +111,40 @@
 <li class="toctree-l1"><a class="reference internal" href="../hessian.html">20. hessian &#8212; Analytical nuclear Hessian</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../pbc.html">21. pbc &#8212; Periodic boundary conditions</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="gto.html">21.1. pbc.gto &#8212; Crystal cell structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scf.html">21.2. pbc.scf &#8212; Mean-field with periodic boundary condition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dft.html">21.3. pbc.dft</a></li>
-<li class="toctree-l2"><a class="reference internal" href="df.html">21.4. pbc.df &#8212; PBC denisty fitting</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">21.5. pbc.cc &#8212; PBC coupled cluster</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tools.html">21.6. pbc.tools &#8212; PBC tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mix_mol.html">21.7. Mixing PBC and molecular modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ao2mo.html">21.2. pbc.ao2mo &#8212; PBC integral transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scf.html">21.3. pbc.scf &#8212; Mean-field with periodic boundary condition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dft.html">21.4. pbc.dft  &#8212; PBC density functional theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="df.html">21.5. pbc.df &#8212; PBC denisty fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tdscf.html">21.6. pbc.tdscf &#8212; PBC time dependent density functional theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mp.html">21.7. pbc.mp &#8212; PBC perturbation theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci.html">21.8. pbc.ci &#8212; PBC configuration interaction</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">21.9. pbc.cc &#8212; PBC coupled cluster</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#examples">21.9.1. Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#program-reference">21.9.2. Program reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ccsd">21.9.2.1. ccsd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kccsd">21.9.2.2. kccsd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kccsd-rhf">21.9.2.3. kccsd_rhf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kccsd-uhf">21.9.2.4. kccsd_uhf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kccsd-t">21.9.2.5. kccsd_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kccsd-t-rhf">21.9.2.6. kccsd_t_rhf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kccsd-t-rhf-slow">21.9.2.7. kccsd_t_rhf_slow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kintermediates">21.9.2.8. kintermediates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kintermediates-rhf">21.9.2.9. kintermediates_rhf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kintermediates-uhf">21.9.2.10. kintermediates_uhf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#eom-kccsd-ghf">21.9.2.11. eom_kccsd_ghf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#eom-kccsd-rhf">21.9.2.12. eom_kccsd_rhf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#eom-kccsd-rhf-ip">21.9.2.13. eom_kccsd_rhf_ip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#eom-kccsd-rhf-ea">21.9.2.14. eom_kccsd_rhf_ea</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#eom-kccsd-uhf">21.9.2.15. eom_kccsd_uhf</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mpicc.html">21.10. pbc.mpicc &#8212; PBC coupled cluster for MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">21.11. pbc.tools &#8212; PBC tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mix_mol.html">21.12. Mixing PBC and molecular modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop.html">21.13. pbc.prop &#8212; PBC property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gw.html">21.14. pbc.gw &#8212; GW with PBC</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../nao.html">22. nao &#8212; Numerical Atomic Orbitals</a></li>
@@ -127,6 +155,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -173,7 +209,7 @@
         
           <li><a href="../pbc.html">21. pbc &#8212; Periodic boundary conditions</a> &raquo;</li>
         
-      <li>21.5. pbc.cc &#8212; PBC coupled cluster</li>
+      <li>21.9. pbc.cc &#8212; PBC coupled cluster</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -193,7 +229,65 @@
            <div itemprop="articleBody">
             
   <div class="section" id="pbc-cc-pbc-coupled-cluster">
-<span id="pbc-cc"></span><h1>21.5. pbc.cc &#8212; PBC coupled cluster<a class="headerlink" href="#pbc-cc-pbc-coupled-cluster" title="Permalink to this headline">¶</a></h1>
+<span id="pbc-cc"></span><h1>21.9. pbc.cc &#8212; PBC coupled cluster<a class="headerlink" href="#pbc-cc-pbc-coupled-cluster" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="examples">
+<h2>21.9.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Relevant examples
+<code class="file docutils literal"><span class="pre">examples/pbc/12-gamma_point_post_hf.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/pbc/22-k_points_ccsd.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/pbc/24-k_points_vs_gamma.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/pbc/25-k_points_mpi_ccsd.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/pbc/29-eom_ccsd_Ta.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/pbc/36-ccsd_level_shift.py</span></code></p>
+</div>
+<div class="section" id="program-reference">
+<h2>21.9.2. Program reference<a class="headerlink" href="#program-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ccsd">
+<h3>21.9.2.1. ccsd<a class="headerlink" href="#ccsd" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="kccsd">
+<h3>21.9.2.2. kccsd<a class="headerlink" href="#kccsd" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="kccsd-rhf">
+<h3>21.9.2.3. kccsd_rhf<a class="headerlink" href="#kccsd-rhf" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="kccsd-uhf">
+<h3>21.9.2.4. kccsd_uhf<a class="headerlink" href="#kccsd-uhf" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="kccsd-t">
+<h3>21.9.2.5. kccsd_t<a class="headerlink" href="#kccsd-t" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="kccsd-t-rhf">
+<h3>21.9.2.6. kccsd_t_rhf<a class="headerlink" href="#kccsd-t-rhf" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="kccsd-t-rhf-slow">
+<h3>21.9.2.7. kccsd_t_rhf_slow<a class="headerlink" href="#kccsd-t-rhf-slow" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="kintermediates">
+<h3>21.9.2.8. kintermediates<a class="headerlink" href="#kintermediates" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="kintermediates-rhf">
+<h3>21.9.2.9. kintermediates_rhf<a class="headerlink" href="#kintermediates-rhf" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="kintermediates-uhf">
+<h3>21.9.2.10. kintermediates_uhf<a class="headerlink" href="#kintermediates-uhf" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="eom-kccsd-ghf">
+<h3>21.9.2.11. eom_kccsd_ghf<a class="headerlink" href="#eom-kccsd-ghf" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="eom-kccsd-rhf">
+<h3>21.9.2.12. eom_kccsd_rhf<a class="headerlink" href="#eom-kccsd-rhf" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="eom-kccsd-rhf-ip">
+<h3>21.9.2.13. eom_kccsd_rhf_ip<a class="headerlink" href="#eom-kccsd-rhf-ip" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="eom-kccsd-rhf-ea">
+<h3>21.9.2.14. eom_kccsd_rhf_ea<a class="headerlink" href="#eom-kccsd-rhf-ea" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="eom-kccsd-uhf">
+<h3>21.9.2.15. eom_kccsd_uhf<a class="headerlink" href="#eom-kccsd-uhf" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
 </div>
 
 
@@ -206,10 +300,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tools.html" class="btn btn-neutral float-right" title="21.6. pbc.tools — PBC tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="mpicc.html" class="btn btn-neutral float-right" title="21.10. pbc.mpicc — PBC coupled cluster for MPI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="df.html" class="btn btn-neutral" title="21.4. pbc.df — PBC denisty fitting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ci.html" class="btn btn-neutral" title="21.8. pbc.ci — PBC configuration interaction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -240,7 +334,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

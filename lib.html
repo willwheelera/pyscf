@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5. lib — Helper functions, parameters, and C extensions &mdash; PySCF 1.7.0 documentation</title>
+  <title>5. lib — Helper functions, parameters, and C extensions &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
         <link rel="next" title="6. scf — Mean-field methods" href="scf.html"/>
         <link rel="prev" title="4. gto — Molecular structure and GTO basis" href="gto.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -93,15 +93,9 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">3. Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gto.html">4. gto &#8212; Molecular structure and GTO basis</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">5. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-lib.parameters">5.1. <code class="docutils literal"><span class="pre">lib.parameters</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#scratch-directory">5.1.1. Scratch directory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#maximum-memory">5.1.2. Maximum memory</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#module-lib.logger">5.2. <code class="docutils literal"><span class="pre">lib.logger</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#log-level">5.2.1. Log level</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#timer">5.2.2. timer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#logger-object">5.2.3. Logger object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-lib.parameters">5.1. <code class="docutils literal"><span class="pre">lib.parameters</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lib-logger">5.2. <code class="docutils literal"><span class="pre">lib.logger</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#logger-object">5.2.1. Logger object</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-lib.numpy_helper">5.3. numpy extensions</a></li>
@@ -117,7 +111,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#temporary-hdf5-file">5.7.2. Temporary HDF5 file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#openmp-threads">5.7.3. OpenMP threads</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#capture-stdout">5.7.4. Capture stdout</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-lib.misc">5.7.5. Other helper functions in <code class="docutils literal"><span class="pre">lib.misc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-helper-functions-in-lib-misc">5.7.5. Other helper functions in <code class="docutils literal"><span class="pre">lib.misc</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -146,6 +140,14 @@
 <li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -213,155 +215,20 @@
 <span id="lib-helper-functions-parameters-and-c-extensions"></span><h1>5. <a class="reference internal" href="#module-lib" title="lib: Helper functions, parameters, and C extensions."><code class="xref py py-mod docutils literal"><span class="pre">lib</span></code></a> &#8212; Helper functions, parameters, and C extensions<a class="headerlink" href="#module-lib" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-lib.parameters">
 <span id="lib-parameters"></span><h2>5.1. <a class="reference internal" href="#module-lib.parameters" title="lib.parameters"><code class="xref py py-mod docutils literal"><span class="pre">lib.parameters</span></code></a><a class="headerlink" href="#module-lib.parameters" title="Permalink to this headline">¶</a></h2>
-<p>PySCF environment variables are defined in this module.</p>
-<div class="section" id="scratch-directory">
-<h3>5.1.1. Scratch directory<a class="headerlink" href="#scratch-directory" title="Permalink to this headline">¶</a></h3>
-<p>The PySCF scratch directory is specified by <code class="xref py py-data docutils literal"><span class="pre">TMPDIR</span></code>.  Its default value
-is the same to the system-wide environment variable <code class="docutils literal"><span class="pre">TMPDIR</span></code>.  It can be
-overwritten by the environment variable <code class="docutils literal"><span class="pre">PYSCF_TMPDIR</span></code>.  Another place to set
-<code class="docutils literal"><span class="pre">TMPDIR</span></code> is the global configuration file (see <a class="reference internal" href="overview.html#global-config"><span class="std std-ref">Global configurations</span></a>).</p>
 </div>
-<div class="section" id="maximum-memory">
-<span id="max-mem"></span><h3>5.1.2. Maximum memory<a class="headerlink" href="#maximum-memory" title="Permalink to this headline">¶</a></h3>
-<p>The variable <code class="xref py py-data docutils literal"><span class="pre">MAX_MEMORY</span></code> defines the maximum memory that PySCF can be
-used in the calculation.  Its unit is MB.  The default value is 4000 MB.  It can
-be overwritten by the system-wide environment variable <code class="docutils literal"><span class="pre">PYSCF_MAX_MEMORY</span></code>.
-<code class="docutils literal"><span class="pre">MAX_MEMORY</span></code> can also be set in <a class="reference internal" href="overview.html#global-config"><span class="std std-ref">Global configurations</span></a> file.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Some calculations may exceed the max_memory limit, especially
-when the attribute <code class="xref py py-attr docutils literal"><span class="pre">Mole.incore_anyway</span></code> was set.</p>
-</div>
-</div>
-</div>
-<div class="section" id="module-lib.logger">
-<span id="lib-logger"></span><h2>5.2. <a class="reference internal" href="#module-lib.logger" title="lib.logger"><code class="xref py py-mod docutils literal"><span class="pre">lib.logger</span></code></a><a class="headerlink" href="#module-lib.logger" title="Permalink to this headline">¶</a></h2>
-<p>Logging system</p>
-<div class="section" id="log-level">
-<h3>5.2.1. Log level<a class="headerlink" href="#log-level" title="Permalink to this headline">¶</a></h3>
-<table border="1" class="docutils">
-<colgroup>
-<col width="54%" />
-<col width="46%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>Level</td>
-<td>number</td>
-</tr>
-<tr class="row-even"><td>DEBUG4</td>
-<td>9</td>
-</tr>
-<tr class="row-odd"><td>DEBUG3</td>
-<td>8</td>
-</tr>
-<tr class="row-even"><td>DEBUG2</td>
-<td>7</td>
-</tr>
-<tr class="row-odd"><td>DEBUG1</td>
-<td>6</td>
-</tr>
-<tr class="row-even"><td>DEBUG</td>
-<td>5</td>
-</tr>
-<tr class="row-odd"><td>INFO</td>
-<td>4</td>
-</tr>
-<tr class="row-even"><td>NOTE</td>
-<td>3</td>
-</tr>
-<tr class="row-odd"><td>WARN</td>
-<td>2</td>
-</tr>
-<tr class="row-even"><td>ERROR</td>
-<td>1</td>
-</tr>
-<tr class="row-odd"><td>QUIET</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>Large value means more noise in the output file.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Error and warning messages are written to stderr.</p>
-</div>
-<p>Each Logger object has its own output destination and verbose level.  So
-multiple Logger objects can be created to manage the message system without
-affecting each other.
-The methods provided by Logger class has the direct connection to the log level.
-E.g.  <code class="xref py py-func docutils literal"><span class="pre">info()</span></code> print messages if the verbose level &gt;= 4 (INFO):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">lib</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">log</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;info level&#39;</span><span class="p">)</span>
-<span class="go">info level</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">log</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;info level&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">log</span><span class="o">.</span><span class="n">note</span><span class="p">(</span><span class="s1">&#39;note level&#39;</span><span class="p">)</span>
-<span class="go">note level</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="timer">
-<h3>5.2.2. timer<a class="headerlink" href="#timer" title="Permalink to this headline">¶</a></h3>
-<p>Logger object provides timer method for timing.  Set <code class="xref py py-attr docutils literal"><span class="pre">TIMER_LEVEL</span></code> to
-control at which level the timing information should be output.  It is 5
-(DEBUG) by default.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">time</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">lib</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">log</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">log</span><span class="o">.</span><span class="n">timer</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">lib</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">TIMER_LEVEL</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">log</span><span class="o">.</span><span class="n">timer</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
-<span class="go">    CPU time for test      0.00 sec</span>
-</pre></div>
-</div>
-</div>
+<div class="section" id="lib-logger">
+<h2>5.2. <code class="xref py py-mod docutils literal"><span class="pre">lib.logger</span></code><a class="headerlink" href="#lib-logger" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="logger-object">
-<h3>5.2.3. Logger object<a class="headerlink" href="#logger-object" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="lib.logger.Logger">
-<em class="property">class </em><code class="descclassname">lib.logger.</code><code class="descname">Logger</code><span class="sig-paren">(</span><em>stdout=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w'&gt;</em>, <em>verbose=3</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/logger.html#Logger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.logger.Logger" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Attributes:</dt>
-<dd><dl class="first last docutils">
-<dt>stdout</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">file object or sys.stdout</span><dd>The file to dump output message.</dd>
-<dt>verbose</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Large value means more noise in the output file.</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="lib.logger.new_logger">
-<code class="descclassname">lib.logger.</code><code class="descname">new_logger</code><span class="sig-paren">(</span><em>rec=None</em>, <em>verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/logger.html#new_logger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.logger.new_logger" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create and return a <a class="reference internal" href="#lib.logger.Logger" title="lib.logger.Logger"><code class="xref py py-class docutils literal"><span class="pre">Logger</span></code></a> object</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><p class="first">rec : An object which carries the attributes stdout and verbose</p>
-<dl class="last docutils">
-<dt>verbose</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">a Logger object, or integer or None</span><dd>The verbose level. If verbose is a Logger object, the Logger
-object is returned. If verbose is not specified (None),
-rec.verbose will be used in the new Logger object.</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
+<h3>5.2.1. Logger object<a class="headerlink" href="#logger-object" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="module-lib.numpy_helper">
 <span id="numpy-extensions"></span><h2>5.3. numpy extensions<a class="headerlink" href="#module-lib.numpy_helper" title="Permalink to this headline">¶</a></h2>
-<p>Extension to numpy and scipy</p>
 <dl class="function">
 <dt id="lib.numpy_helper.asarray">
 <code class="descclassname">lib.numpy_helper.</code><code class="descname">asarray</code><span class="sig-paren">(</span><em>a</em>, <em>dtype=None</em>, <em>order=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/numpy_helper.html#asarray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.numpy_helper.asarray" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a list of N-dim arrays to a (N+1) dim array.  It is equivalent to
-numpy.asarray function.</p>
+numpy.asarray function but more efficient.</p>
 </dd></dl>
 
 <dl class="function">
@@ -436,8 +303,8 @@ formed of input arrays.</dd>
 <code class="descclassname">lib.numpy_helper.</code><code class="descname">direct_sum</code><span class="sig-paren">(</span><em>subscripts</em>, <em>*operands</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/numpy_helper.html#direct_sum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.numpy_helper.direct_sum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply the summation over many operands with the einsum fashion.</p>
 <p>Examples:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">direct_sum</span><span class="p">(</span><span class="s1">&#39;ij,klm-&gt;ijklm&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(6, 5, 4, 3, 2)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">direct_sum</span><span class="p">(</span><span class="s1">&#39;ij,klm&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>
@@ -450,59 +317,21 @@ formed of input arrays.</dd>
 <span class="go">(6, 5, 4, 3, 2)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">direct_sum</span><span class="p">(</span><span class="s1">&#39;-i-j+klm-&gt;mjlik&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(2, 6, 3, 5, 4)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">z</span> <span class="o">=</span> <span class="n">direct_sum</span><span class="p">(</span><span class="s1">&#39;ik+jk-&gt;kij&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># This is slow</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">c</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="go">0.0</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
-<dt id="lib.numpy_helper.einsum">
-<code class="descclassname">lib.numpy_helper.</code><code class="descname">einsum</code><span class="sig-paren">(</span><em>subscripts</em>, <em>*tensors</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/numpy_helper.html#einsum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.numpy_helper.einsum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perform a more efficient einsum via reshaping to a matrix multiply.</p>
-<p>Current differences compared to numpy.einsum:
-This assumes that each repeated index is actually summed (i.e. no &#8216;i,i-&gt;i&#8217;)
-and appears only twice (i.e. no &#8216;ij,ik,il-&gt;jkl&#8217;). The output indices must
-be explicitly specified (i.e. &#8216;ij,j-&gt;i&#8217; and not &#8216;ij,j&#8217;).</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="lib.numpy_helper.expm">
-<code class="descclassname">lib.numpy_helper.</code><code class="descname">expm</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/numpy_helper.html#expm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.numpy_helper.expm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Equivalent to scipy.linalg.expm</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="lib.numpy_helper.frompointer">
-<code class="descclassname">lib.numpy_helper.</code><code class="descname">frompointer</code><span class="sig-paren">(</span><em>pointer</em>, <em>count</em>, <em>dtype=&lt;type 'float'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/numpy_helper.html#frompointer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.numpy_helper.frompointer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Interpret a buffer that the pointer refers to as a 1-dimensional array.</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><dl class="first last docutils">
-<dt>pointer</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int or ctypes pointer</span><dd>address of a buffer</dd>
-<dt>count</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of items to read.</dd>
-<dt>dtype</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">data-type, optional</span><dd>Data-type of the returned array; default: float.</dd>
-</dl>
-</dd>
-</dl>
-<p>Examples:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ptr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">frompointer</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span>
-<span class="go">[1, 0, 1, 0, 1, 0]</span>
-</pre></div>
-</div>
+<dt id="lib.numpy_helper.dot">
+<code class="descclassname">lib.numpy_helper.</code><code class="descname">dot</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>alpha=1</em>, <em>c=None</em>, <em>beta=0</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.numpy_helper.dot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Matrix-matrix multiplication for double complex arrays using Gauss&#8217;s
+complex multiplication algorithm</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="lib.numpy_helper.hermi_sum">
 <code class="descclassname">lib.numpy_helper.</code><code class="descname">hermi_sum</code><span class="sig-paren">(</span><em>a</em>, <em>axes=None</em>, <em>hermi=1</em>, <em>inplace=False</em>, <em>out=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/numpy_helper.html#hermi_sum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.numpy_helper.hermi_sum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computing a + a.T.conj() with better memory efficiency</p>
+<dd><p>a + a.T for better memory efficiency</p>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">transpose_sum</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">4.</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 <span class="go">[[ 0.  3.]</span>
@@ -540,6 +369,12 @@ be explicitly specified (i.e. &#8216;ij,j-&gt;i&#8217; and not &#8216;ij,j&#8217
 </dd></dl>
 
 <dl class="function">
+<dt id="lib.numpy_helper.norm">
+<code class="descclassname">lib.numpy_helper.</code><code class="descname">norm</code><span class="sig-paren">(</span><em>x</em>, <em>ord=None</em>, <em>axis=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/numpy_helper.html#norm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.numpy_helper.norm" title="Permalink to this definition">¶</a></dt>
+<dd><p>numpy.linalg.norm for numpy 1.6.*</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="lib.numpy_helper.pack_tril">
 <code class="descclassname">lib.numpy_helper.</code><code class="descname">pack_tril</code><span class="sig-paren">(</span><em>mat</em>, <em>axis=-1</em>, <em>out=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/numpy_helper.html#pack_tril"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.numpy_helper.pack_tril" title="Permalink to this definition">¶</a></dt>
 <dd><p>flatten the lower triangular part of a matrix.
@@ -554,21 +389,13 @@ Given mat, it returns mat[...,numpy.tril_indices(mat.shape[0])]</p>
 <dl class="function">
 <dt id="lib.numpy_helper.solve_lineq_by_SVD">
 <code class="descclassname">lib.numpy_helper.</code><code class="descname">solve_lineq_by_SVD</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/numpy_helper.html#solve_lineq_by_SVD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.numpy_helper.solve_lineq_by_SVD" title="Permalink to this definition">¶</a></dt>
-<dd><p>Solving a * x = b.  If a is a singular matrix, its small SVD values are
-neglected.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="lib.numpy_helper.tag_array">
-<code class="descclassname">lib.numpy_helper.</code><code class="descname">tag_array</code><span class="sig-paren">(</span><em>a</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/numpy_helper.html#tag_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.numpy_helper.tag_array" title="Permalink to this definition">¶</a></dt>
-<dd><p>Attach attributes to numpy ndarray. The attribute name and value are
-obtained from the keyword arguments.</p>
+<dd><p>a * x = b</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="lib.numpy_helper.take_2d">
 <code class="descclassname">lib.numpy_helper.</code><code class="descname">take_2d</code><span class="sig-paren">(</span><em>a</em>, <em>idx</em>, <em>idy</em>, <em>out=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/numpy_helper.html#take_2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.numpy_helper.take_2d" title="Permalink to this definition">¶</a></dt>
-<dd><p>Equivalent to a[idx[:,None],idy] for a 2D array.</p>
+<dd><p>a(idx,idy)</p>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">9.</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">take_2d</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
@@ -581,8 +408,7 @@ obtained from the keyword arguments.</p>
 <dl class="function">
 <dt id="lib.numpy_helper.takebak_2d">
 <code class="descclassname">lib.numpy_helper.</code><code class="descname">takebak_2d</code><span class="sig-paren">(</span><em>out</em>, <em>a</em>, <em>idx</em>, <em>idy</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/numpy_helper.html#takebak_2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.numpy_helper.takebak_2d" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reverse operation of take_2d.  Equivalent to out[idx[:,None],idy] += a
-for a 2D array.</p>
+<dd><p>Reverse operation of take_2d.  out(idx,idy) += a</p>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">takebak_2d</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
@@ -596,7 +422,7 @@ for a 2D array.</p>
 <dl class="function">
 <dt id="lib.numpy_helper.transpose">
 <code class="descclassname">lib.numpy_helper.</code><code class="descname">transpose</code><span class="sig-paren">(</span><em>a</em>, <em>axes=None</em>, <em>inplace=False</em>, <em>out=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/numpy_helper.html#transpose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.numpy_helper.transpose" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transposing an array with better memory efficiency</p>
+<dd><p>Transpose array for better memory efficiency</p>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">transpose</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span>
 <span class="go">[[ 1.  1.  1.]</span>
@@ -608,7 +434,7 @@ for a 2D array.</p>
 <dl class="function">
 <dt id="lib.numpy_helper.transpose_sum">
 <code class="descclassname">lib.numpy_helper.</code><code class="descname">transpose_sum</code><span class="sig-paren">(</span><em>a</em>, <em>inplace=False</em>, <em>out=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/numpy_helper.html#transpose_sum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.numpy_helper.transpose_sum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computing a + a.T with better memory efficiency</p>
+<dd><p>a + a.T for better memory efficiency</p>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">transpose_sum</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">4.</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 <span class="go">[[ 0.  3.]</span>
@@ -669,7 +495,8 @@ to the upper triangular part to make the matrix anti-hermitian</div>
 <dl class="function">
 <dt id="lib.numpy_helper.zdot">
 <code class="descclassname">lib.numpy_helper.</code><code class="descname">zdot</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>alpha=1</em>, <em>c=None</em>, <em>beta=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/numpy_helper.html#zdot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.numpy_helper.zdot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Matrix-matrix multiplication for double complex arrays</p>
+<dd><p>Matrix-matrix multiplication for double complex arrays using Gauss&#8217;s
+complex multiplication algorithm</p>
 </dd></dl>
 
 </div>
@@ -684,11 +511,10 @@ to the upper triangular part to make the matrix anti-hermitian</div>
 
 <dl class="function">
 <dt id="lib.linalg_helper.davidson">
-<code class="descclassname">lib.linalg_helper.</code><code class="descname">davidson</code><span class="sig-paren">(</span><em>aop</em>, <em>x0</em>, <em>precond</em>, <em>tol=1e-12</em>, <em>max_cycle=50</em>, <em>max_space=12</em>, <em>lindep=1e-14</em>, <em>max_memory=2000</em>, <em>dot=&lt;built-in function dot&gt;</em>, <em>callback=None</em>, <em>nroots=1</em>, <em>lessio=False</em>, <em>pick=None</em>, <em>verbose=2</em>, <em>follow_state=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#davidson"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.davidson" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">lib.linalg_helper.</code><code class="descname">davidson</code><span class="sig-paren">(</span><em>aop</em>, <em>x0</em>, <em>precond</em>, <em>tol=1e-14</em>, <em>max_cycle=50</em>, <em>max_space=12</em>, <em>lindep=1e-14</em>, <em>max_memory=2000</em>, <em>dot=&lt;built-in function dot&gt;</em>, <em>callback=None</em>, <em>nroots=1</em>, <em>lessio=False</em>, <em>verbose=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#davidson"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.davidson" title="Permalink to this definition">¶</a></dt>
 <dd><p>Davidson diagonalization method to solve  a c = e c.  Ref
 [1] E.R. Davidson, J. Comput. Phys. 17 (1), 87-94 (1975).
 [2] <a class="reference external" href="http://people.inf.ethz.ch/arbenz/ewp/Lnotes/chapter11.pdf">http://people.inf.ethz.ch/arbenz/ewp/Lnotes/chapter11.pdf</a></p>
-<p>Note: This function has an overhead of memory usage ~4*x0.size*nroots</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><dl class="first last docutils">
@@ -696,14 +522,9 @@ to the upper triangular part to make the matrix anti-hermitian</div>
  <span class="classifier-delimiter">:</span> <span class="classifier">function(x) =&gt; array_like_x</span><dd>aop(x) to mimic the matrix vector multiplication <span class="math">\(\sum_{j}a_{ij}*x_j\)</span>.
 The argument is a 1D array.  The returned value is a 1D array.</dd>
 <dt>x0</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">1D array or a list of 1D array</span><dd>Initial guess.  The initial guess vector(s) are just used as the
-initial subspace bases.  If the subspace is smaller than &#8220;nroots&#8221;,
-eg 10 roots and one initial guess, all eigenvectors are chosen as
-the eigenvectors during the iterations.  The first iteration has
-one eigenvector, the next iteration has two, the third iterastion
-has 4, ..., until the subspace size &gt; nroots.</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">1D array</span><dd>Initial guess</dd>
 <dt>precond</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">diagonal elements of the matrix or  function(dx, e, x0) =&gt; array_like_dx</span><dd>Preconditioner to generate new trial vector.
+ <span class="classifier-delimiter">:</span> <span class="classifier">function(dx, e, x0) =&gt; array_like_dx</span><dd>Preconditioner to generate new trial vector.
 The argument dx is a residual vector <code class="docutils literal"><span class="pre">a*x0-e*x0</span></code>; e is the current
 eigenvalue; x0 is the current eigenvector.</dd>
 </dl>
@@ -738,12 +559,6 @@ ways to compute a*x0.  One is to assemble the existed a*x.  The
 other is to call aop(x0).  The default is the first method which
 needs more IO and less computational cost.  When IO is slow, the
 second method can be considered.</dd>
-<dt>pick</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">function(w,v,nroots) =&gt; (e[idx], w[:,idx], idx)</span><dd>Function to filter eigenvalues and eigenvectors.</dd>
-<dt>follow_state</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>If the solution dramatically changes in two iterations, clean the
-subspace and restart the iteration with the old solution.  It can
-help to improve numerical stability.  Default is False.</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
@@ -771,25 +586,19 @@ is a list of arrays for the lowest <code class="xref py py-attr docutils literal
 
 <dl class="function">
 <dt id="lib.linalg_helper.davidson1">
-<code class="descclassname">lib.linalg_helper.</code><code class="descname">davidson1</code><span class="sig-paren">(</span><em>aop</em>, <em>x0</em>, <em>precond</em>, <em>tol=1e-12</em>, <em>max_cycle=50</em>, <em>max_space=12</em>, <em>lindep=1e-14</em>, <em>max_memory=2000</em>, <em>dot=&lt;built-in function dot&gt;</em>, <em>callback=None</em>, <em>nroots=1</em>, <em>lessio=False</em>, <em>pick=None</em>, <em>verbose=2</em>, <em>follow_state=False</em>, <em>tol_residual=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#davidson1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.davidson1" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">lib.linalg_helper.</code><code class="descname">davidson1</code><span class="sig-paren">(</span><em>aop</em>, <em>x0</em>, <em>precond</em>, <em>tol=1e-14</em>, <em>max_cycle=50</em>, <em>max_space=12</em>, <em>lindep=1e-14</em>, <em>max_memory=2000</em>, <em>dot=&lt;built-in function dot&gt;</em>, <em>callback=None</em>, <em>nroots=1</em>, <em>lessio=False</em>, <em>verbose=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#davidson1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.davidson1" title="Permalink to this definition">¶</a></dt>
 <dd><p>Davidson diagonalization method to solve  a c = e c.  Ref
 [1] E.R. Davidson, J. Comput. Phys. 17 (1), 87-94 (1975).
 [2] <a class="reference external" href="http://people.inf.ethz.ch/arbenz/ewp/Lnotes/chapter11.pdf">http://people.inf.ethz.ch/arbenz/ewp/Lnotes/chapter11.pdf</a></p>
-<p>Note: This function has an overhead of memory usage ~4*x0.size*nroots</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><dl class="first last docutils">
 <dt>aop</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">function([x]) =&gt; [array_like_x]</span><dd>Matrix vector multiplication <span class="math">\(y_{ki} = \sum_{j}a_{ij}*x_{jk}\)</span>.</dd>
 <dt>x0</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">1D array or a list of 1D arrays or a function to generate x0 array(s)</span><dd>Initial guess.  The initial guess vector(s) are just used as the
-initial subspace bases.  If the subspace is smaller than &#8220;nroots&#8221;,
-eg 10 roots and one initial guess, all eigenvectors are chosen as
-the eigenvectors during the iterations.  The first iteration has
-one eigenvector, the next iteration has two, the third iterastion
-has 4, ..., until the subspace size &gt; nroots.</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">1D array or a list of 1D array</span><dd>Initial guess</dd>
 <dt>precond</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">diagonal elements of the matrix or  function(dx, e, x0) =&gt; array_like_dx</span><dd>Preconditioner to generate new trial vector.
+ <span class="classifier-delimiter">:</span> <span class="classifier">function(dx, e, x0) =&gt; array_like_dx</span><dd>Preconditioner to generate new trial vector.
 The argument dx is a residual vector <code class="docutils literal"><span class="pre">a*x0-e*x0</span></code>; e is the current
 eigenvalue; x0 is the current eigenvector.</dd>
 </dl>
@@ -824,12 +633,6 @@ ways to compute a*x0.  One is to assemble the existed a*x.  The
 other is to call aop(x0).  The default is the first method which
 needs more IO and less computational cost.  When IO is slow, the
 second method can be considered.</dd>
-<dt>pick</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">function(w,v,nroots) =&gt; (e[idx], w[:,idx], idx)</span><dd>Function to filter eigenvalues and eigenvectors.</dd>
-<dt>follow_state</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>If the solution dramatically changes in two iterations, clean the
-subspace and restart the iteration with the old solution.  It can
-help to improve numerical stability.  Default is False.</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
@@ -858,23 +661,21 @@ help to improve numerical stability.  Default is False.</dd>
 </dd></dl>
 
 <dl class="function">
-<dt id="lib.linalg_helper.davidson_nosym">
-<code class="descclassname">lib.linalg_helper.</code><code class="descname">davidson_nosym</code><span class="sig-paren">(</span><em>aop</em>, <em>x0</em>, <em>precond</em>, <em>tol=1e-12</em>, <em>max_cycle=50</em>, <em>max_space=12</em>, <em>lindep=1e-14</em>, <em>max_memory=2000</em>, <em>dot=&lt;built-in function dot&gt;</em>, <em>callback=None</em>, <em>nroots=1</em>, <em>lessio=False</em>, <em>left=False</em>, <em>pick=&lt;function pick_real_eigs&gt;</em>, <em>verbose=2</em>, <em>follow_state=False</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.linalg_helper.davidson_nosym" title="Permalink to this definition">¶</a></dt>
-<dd><p>Davidson diagonalization to solve the non-symmetric eigenvalue problem</p>
+<dt id="lib.linalg_helper.davidson_test">
+<code class="descclassname">lib.linalg_helper.</code><code class="descname">davidson_test</code><span class="sig-paren">(</span><em>aop</em>, <em>x0</em>, <em>precond</em>, <em>tol=1e-14</em>, <em>max_cycle=50</em>, <em>max_space=12</em>, <em>lindep=1e-14</em>, <em>max_memory=2000</em>, <em>dot=&lt;built-in function dot&gt;</em>, <em>callback=None</em>, <em>nroots=1</em>, <em>lessio=False</em>, <em>verbose=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#davidson_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.davidson_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Davidson diagonalization method to solve  a c = e c.  Ref
+[1] E.R. Davidson, J. Comput. Phys. 17 (1), 87-94 (1975).
+[2] <a class="reference external" href="http://people.inf.ethz.ch/arbenz/ewp/Lnotes/chapter11.pdf">http://people.inf.ethz.ch/arbenz/ewp/Lnotes/chapter11.pdf</a></p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><dl class="first last docutils">
 <dt>aop</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">function([x]) =&gt; [array_like_x]</span><dd>Matrix vector multiplication <span class="math">\(y_{ki} = \sum_{j}a_{ij}*x_{jk}\)</span>.</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">function(x) =&gt; array_like_x</span><dd>aop(x) to mimic the matrix vector multiplication <span class="math">\(\sum_{j}a_{ij}*x_j\)</span>.
+The argument is a 1D array.  The returned value is a 1D array.</dd>
 <dt>x0</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">1D array or a list of 1D array</span><dd>Initial guess.  The initial guess vector(s) are just used as the
-initial subspace bases.  If the subspace is smaller than &#8220;nroots&#8221;,
-eg 10 roots and one initial guess, all eigenvectors are chosen as
-the eigenvectors during the iterations.  The first iteration has
-one eigenvector, the next iteration has two, the third iterastion
-has 4, ..., until the subspace size &gt; nroots.</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">1D array</span><dd>Initial guess</dd>
 <dt>precond</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">diagonal elements of the matrix or  function(dx, e, x0) =&gt; array_like_dx</span><dd>Preconditioner to generate new trial vector.
+ <span class="classifier-delimiter">:</span> <span class="classifier">function(dx, e, x0) =&gt; array_like_dx</span><dd>Preconditioner to generate new trial vector.
 The argument dx is a residual vector <code class="docutils literal"><span class="pre">a*x0-e*x0</span></code>; e is the current
 eigenvalue; x0 is the current eigenvector.</dd>
 </dl>
@@ -909,260 +710,37 @@ ways to compute a*x0.  One is to assemble the existed a*x.  The
 other is to call aop(x0).  The default is the first method which
 needs more IO and less computational cost.  When IO is slow, the
 second method can be considered.</dd>
-<dt>left</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to calculate and return left eigenvectors.  Default is False.</dd>
-<dt>pick</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">function(w,v,nroots) =&gt; (e[idx], w[:,idx], idx)</span><dd>Function to filter eigenvalues and eigenvectors.</dd>
-<dt>follow_state</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>If the solution dramatically changes in two iterations, clean the
-subspace and restart the iteration with the old solution.  It can
-help to improve numerical stability.  Default is False.</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
 <dd><dl class="first last docutils">
-<dt>conv</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Converged or not</dd>
 <dt>e</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">list of eigenvalues</span><dd>The eigenvalues can be sorted real or complex, depending on the
-return value of <code class="docutils literal"><span class="pre">pick</span></code> function.</dd>
-<dt>vl</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">list of 1D arrays</span><dd>Left eigenvectors. Only returned if <code class="docutils literal"><span class="pre">left=True</span></code>.</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float or list of floats</span><dd>Eigenvalue.  By default it&#8217;s one float number.  If <code class="xref py py-attr docutils literal"><span class="pre">nroots</span></code> &gt; 1, it
+is a list of floats for the lowest <code class="xref py py-attr docutils literal"><span class="pre">nroots</span></code> eigenvalues.</dd>
 <dt>c</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">list of 1D arrays</span><dd>Right eigenvectors.</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">1D array or list of 1D arrays</span><dd>Eigenvector.  By default it&#8217;s a 1D array.  If <code class="xref py py-attr docutils literal"><span class="pre">nroots</span></code> &gt; 1, it
+is a list of arrays for the lowest <code class="xref py py-attr docutils literal"><span class="pre">nroots</span></code> eigenvectors.</dd>
 </dl>
 </dd>
 </dl>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">lib</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">aop</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">xs</span><span class="p">:</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xs</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">a</span><span class="o">.</span><span class="n">T</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aop</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">precond</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">dx</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x0</span><span class="p">:</span> <span class="n">dx</span><span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span><span class="o">-</span><span class="n">e</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x0</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="p">,</span> <span class="n">vl</span><span class="p">,</span> <span class="n">vr</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">davidson</span><span class="p">(</span><span class="n">aop</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">precond</span><span class="p">,</span> <span class="n">nroots</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">davidson</span><span class="p">(</span><span class="n">aop</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">precond</span><span class="p">,</span> <span class="n">nroots</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 <span class="go">2</span>
 </pre></div>
 </div>
-</dd></dl>
-
-<dl class="function">
-<dt id="lib.linalg_helper.dgeev">
-<code class="descclassname">lib.linalg_helper.</code><code class="descname">dgeev</code><span class="sig-paren">(</span><em>abop</em>, <em>x0</em>, <em>precond</em>, <em>type=1</em>, <em>tol=1e-12</em>, <em>max_cycle=50</em>, <em>max_space=12</em>, <em>lindep=1e-14</em>, <em>max_memory=2000</em>, <em>dot=&lt;built-in function dot&gt;</em>, <em>callback=None</em>, <em>nroots=1</em>, <em>lessio=False</em>, <em>verbose=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#dgeev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.dgeev" title="Permalink to this definition">¶</a></dt>
-<dd><p>Davidson diagonalization method to solve  A c = e B c.</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><dl class="first last docutils">
-<dt>abop</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">function(x) =&gt; (array_like_x, array_like_x)</span><dd>abop applies two matrix vector multiplications and returns tuple (Ax, Bx)</dd>
-<dt>x0</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">1D array</span><dd>Initial guess</dd>
-<dt>precond</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">diagonal elements of the matrix or  function(dx, e, x0) =&gt; array_like_dx</span><dd>Preconditioner to generate new trial vector.
-The argument dx is a residual vector <code class="docutils literal"><span class="pre">a*x0-e*x0</span></code>; e is the current
-eigenvalue; x0 is the current eigenvector.</dd>
-</dl>
-</dd>
-<dt>Kwargs:</dt>
-<dd><dl class="first last docutils">
-<dt>tol</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Convergence tolerance.</dd>
-<dt>max_cycle</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>max number of iterations.</dd>
-<dt>max_space</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>space size to hold trial vectors.</dd>
-<dt>lindep</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Linear dependency threshold.  The function is terminated when the
-smallest eigenvalue of the metric of the trial vectors is lower
-than this threshold.</dd>
-<dt>max_memory</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int or float</span><dd>Allowed memory in MB.</dd>
-<dt>dot</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">function(x, y) =&gt; scalar</span><dd>Inner product</dd>
-<dt>callback</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">function(envs_dict) =&gt; None</span><dd>callback function takes one dict as the argument which is
-generated by the builtin function <code class="xref py py-func docutils literal"><span class="pre">locals()</span></code>, so that the
-callback function can access all local variables in the current
-envrionment.</dd>
-<dt>nroots</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of eigenvalues to be computed.  When nroots &gt; 1, it affects
-the shape of the return value</dd>
-<dt>lessio</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>How to compute a*x0 for current eigenvector x0.  There are two
-ways to compute a*x0.  One is to assemble the existed a*x.  The
-other is to call aop(x0).  The default is the first method which
-needs more IO and less computational cost.  When IO is slow, the
-second method can be considered.</dd>
-</dl>
-</dd>
-<dt>Returns:</dt>
-<dd><dl class="first last docutils">
-<dt>e</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">list of floats</span><dd>The lowest <code class="xref py py-attr docutils literal"><span class="pre">nroots</span></code> eigenvalues.</dd>
-<dt>c</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">list of 1D arrays</span><dd>The lowest <code class="xref py py-attr docutils literal"><span class="pre">nroots</span></code> eigenvectors.</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="lib.linalg_helper.dgeev1">
-<code class="descclassname">lib.linalg_helper.</code><code class="descname">dgeev1</code><span class="sig-paren">(</span><em>abop</em>, <em>x0</em>, <em>precond</em>, <em>type=1</em>, <em>tol=1e-12</em>, <em>max_cycle=50</em>, <em>max_space=12</em>, <em>lindep=1e-14</em>, <em>max_memory=2000</em>, <em>dot=&lt;built-in function dot&gt;</em>, <em>callback=None</em>, <em>nroots=1</em>, <em>lessio=False</em>, <em>verbose=2</em>, <em>tol_residual=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#dgeev1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.dgeev1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Davidson diagonalization method to solve  A c = e B c.</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><dl class="first last docutils">
-<dt>abop</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">function([x]) =&gt; ([array_like_x], [array_like_x])</span><dd>abop applies two matrix vector multiplications and returns tuple (Ax, Bx)</dd>
-<dt>x0</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">1D array</span><dd>Initial guess</dd>
-<dt>precond</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">diagonal elements of the matrix or  function(dx, e, x0) =&gt; array_like_dx</span><dd>Preconditioner to generate new trial vector.
-The argument dx is a residual vector <code class="docutils literal"><span class="pre">a*x0-e*x0</span></code>; e is the current
-eigenvalue; x0 is the current eigenvector.</dd>
-</dl>
-</dd>
-<dt>Kwargs:</dt>
-<dd><dl class="first last docutils">
-<dt>tol</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Convergence tolerance.</dd>
-<dt>max_cycle</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>max number of iterations.</dd>
-<dt>max_space</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>space size to hold trial vectors.</dd>
-<dt>lindep</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Linear dependency threshold.  The function is terminated when the
-smallest eigenvalue of the metric of the trial vectors is lower
-than this threshold.</dd>
-<dt>max_memory</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int or float</span><dd>Allowed memory in MB.</dd>
-<dt>dot</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">function(x, y) =&gt; scalar</span><dd>Inner product</dd>
-<dt>callback</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">function(envs_dict) =&gt; None</span><dd>callback function takes one dict as the argument which is
-generated by the builtin function <code class="xref py py-func docutils literal"><span class="pre">locals()</span></code>, so that the
-callback function can access all local variables in the current
-envrionment.</dd>
-<dt>nroots</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of eigenvalues to be computed.  When nroots &gt; 1, it affects
-the shape of the return value</dd>
-<dt>lessio</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>How to compute a*x0 for current eigenvector x0.  There are two
-ways to compute a*x0.  One is to assemble the existed a*x.  The
-other is to call aop(x0).  The default is the first method which
-needs more IO and less computational cost.  When IO is slow, the
-second method can be considered.</dd>
-</dl>
-</dd>
-<dt>Returns:</dt>
-<dd><dl class="first last docutils">
-<dt>conv</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Converged or not</dd>
-<dt>e</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">list of floats</span><dd>The lowest <code class="xref py py-attr docutils literal"><span class="pre">nroots</span></code> eigenvalues.</dd>
-<dt>c</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">list of 1D arrays</span><dd>The lowest <code class="xref py py-attr docutils literal"><span class="pre">nroots</span></code> eigenvectors.</dd>
-</dl>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="lib.linalg_helper.dsolve">
-<code class="descclassname">lib.linalg_helper.</code><code class="descname">dsolve</code><span class="sig-paren">(</span><em>aop</em>, <em>b</em>, <em>precond</em>, <em>tol=1e-12</em>, <em>max_cycle=30</em>, <em>dot=&lt;built-in function dot&gt;</em>, <em>lindep=1e-15</em>, <em>verbose=0</em>, <em>tol_residual=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#dsolve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.dsolve" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">lib.linalg_helper.</code><code class="descname">dsolve</code><span class="sig-paren">(</span><em>aop</em>, <em>b</em>, <em>precond</em>, <em>tol=1e-14</em>, <em>max_cycle=30</em>, <em>dot=&lt;built-in function dot&gt;</em>, <em>lindep=1e-16</em>, <em>verbose=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#dsolve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.dsolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Davidson iteration to solve linear equation.  It works bad.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="lib.linalg_helper.eig">
-<code class="descclassname">lib.linalg_helper.</code><code class="descname">eig</code><span class="sig-paren">(</span><em>aop</em>, <em>x0</em>, <em>precond</em>, <em>tol=1e-12</em>, <em>max_cycle=50</em>, <em>max_space=12</em>, <em>lindep=1e-14</em>, <em>max_memory=2000</em>, <em>dot=&lt;built-in function dot&gt;</em>, <em>callback=None</em>, <em>nroots=1</em>, <em>lessio=False</em>, <em>left=False</em>, <em>pick=&lt;function pick_real_eigs&gt;</em>, <em>verbose=2</em>, <em>follow_state=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#eig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.eig" title="Permalink to this definition">¶</a></dt>
-<dd><p>Davidson diagonalization to solve the non-symmetric eigenvalue problem</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><dl class="first last docutils">
-<dt>aop</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">function([x]) =&gt; [array_like_x]</span><dd>Matrix vector multiplication <span class="math">\(y_{ki} = \sum_{j}a_{ij}*x_{jk}\)</span>.</dd>
-<dt>x0</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">1D array or a list of 1D array</span><dd>Initial guess.  The initial guess vector(s) are just used as the
-initial subspace bases.  If the subspace is smaller than &#8220;nroots&#8221;,
-eg 10 roots and one initial guess, all eigenvectors are chosen as
-the eigenvectors during the iterations.  The first iteration has
-one eigenvector, the next iteration has two, the third iterastion
-has 4, ..., until the subspace size &gt; nroots.</dd>
-<dt>precond</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">diagonal elements of the matrix or  function(dx, e, x0) =&gt; array_like_dx</span><dd>Preconditioner to generate new trial vector.
-The argument dx is a residual vector <code class="docutils literal"><span class="pre">a*x0-e*x0</span></code>; e is the current
-eigenvalue; x0 is the current eigenvector.</dd>
-</dl>
-</dd>
-<dt>Kwargs:</dt>
-<dd><dl class="first last docutils">
-<dt>tol</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Convergence tolerance.</dd>
-<dt>max_cycle</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>max number of iterations.</dd>
-<dt>max_space</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>space size to hold trial vectors.</dd>
-<dt>lindep</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Linear dependency threshold.  The function is terminated when the
-smallest eigenvalue of the metric of the trial vectors is lower
-than this threshold.</dd>
-<dt>max_memory</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int or float</span><dd>Allowed memory in MB.</dd>
-<dt>dot</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">function(x, y) =&gt; scalar</span><dd>Inner product</dd>
-<dt>callback</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">function(envs_dict) =&gt; None</span><dd>callback function takes one dict as the argument which is
-generated by the builtin function <code class="xref py py-func docutils literal"><span class="pre">locals()</span></code>, so that the
-callback function can access all local variables in the current
-envrionment.</dd>
-<dt>nroots</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of eigenvalues to be computed.  When nroots &gt; 1, it affects
-the shape of the return value</dd>
-<dt>lessio</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>How to compute a*x0 for current eigenvector x0.  There are two
-ways to compute a*x0.  One is to assemble the existed a*x.  The
-other is to call aop(x0).  The default is the first method which
-needs more IO and less computational cost.  When IO is slow, the
-second method can be considered.</dd>
-<dt>left</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to calculate and return left eigenvectors.  Default is False.</dd>
-<dt>pick</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">function(w,v,nroots) =&gt; (e[idx], w[:,idx], idx)</span><dd>Function to filter eigenvalues and eigenvectors.</dd>
-<dt>follow_state</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>If the solution dramatically changes in two iterations, clean the
-subspace and restart the iteration with the old solution.  It can
-help to improve numerical stability.  Default is False.</dd>
-</dl>
-</dd>
-<dt>Returns:</dt>
-<dd><dl class="first last docutils">
-<dt>conv</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Converged or not</dd>
-<dt>e</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">list of eigenvalues</span><dd>The eigenvalues can be sorted real or complex, depending on the
-return value of <code class="docutils literal"><span class="pre">pick</span></code> function.</dd>
-<dt>vl</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">list of 1D arrays</span><dd>Left eigenvectors. Only returned if <code class="docutils literal"><span class="pre">left=True</span></code>.</dd>
-<dt>c</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">list of 1D arrays</span><dd>Right eigenvectors.</dd>
-</dl>
-</dd>
-</dl>
-<p>Examples:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">lib</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">aop</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">xs</span><span class="p">:</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xs</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">precond</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">dx</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x0</span><span class="p">:</span> <span class="n">dx</span><span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span><span class="o">-</span><span class="n">e</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x0</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="p">,</span> <span class="n">vl</span><span class="p">,</span> <span class="n">vr</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">davidson</span><span class="p">(</span><span class="n">aop</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">precond</span><span class="p">,</span> <span class="n">nroots</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-<span class="go">2</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="function">
@@ -1211,7 +789,7 @@ seig is the eigenvalue vector of the metric s.</dd>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">lib</span><span class="p">,</span> <span class="n">symm</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; H 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">symmetry</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">symm_orb</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">vnuc_so</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">,</span> <span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">mol</span><span class="o">.</span><span class="n">intor</span><span class="p">(</span><span class="s1">&#39;int1e_nuc_sph&#39;</span><span class="p">),</span> <span class="n">c</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vnuc_so</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">,</span> <span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">mol</span><span class="o">.</span><span class="n">intor</span><span class="p">(</span><span class="s1">&#39;cint1e_nuc_sph&#39;</span><span class="p">),</span> <span class="n">c</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">orbsym</span> <span class="o">=</span> <span class="n">symm</span><span class="o">.</span><span class="n">label_orb_symm</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">mol</span><span class="o">.</span><span class="n">irrep_name</span><span class="p">,</span> <span class="n">mol</span><span class="o">.</span><span class="n">symm_orb</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lib</span><span class="o">.</span><span class="n">eigh_by_blocks</span><span class="p">(</span><span class="n">vnuc_so</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">orbsym</span><span class="p">)</span>
 <span class="go">(array([-4.50766885, -1.80666351, -1.7808565 , -1.7808565 , -1.74189134,</span>
@@ -1223,17 +801,16 @@ seig is the eigenvalue vector of the metric s.</dd>
 
 <dl class="function">
 <dt id="lib.linalg_helper.krylov">
-<code class="descclassname">lib.linalg_helper.</code><code class="descname">krylov</code><span class="sig-paren">(</span><em>aop</em>, <em>b</em>, <em>x0=None</em>, <em>tol=1e-10</em>, <em>max_cycle=30</em>, <em>dot=&lt;built-in function dot&gt;</em>, <em>lindep=1e-15</em>, <em>callback=None</em>, <em>hermi=False</em>, <em>max_memory=2000</em>, <em>verbose=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#krylov"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.krylov" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">lib.linalg_helper.</code><code class="descname">krylov</code><span class="sig-paren">(</span><em>aop</em>, <em>b</em>, <em>x0=None</em>, <em>tol=1e-10</em>, <em>max_cycle=30</em>, <em>dot=&lt;built-in function dot&gt;</em>, <em>lindep=1e-15</em>, <em>callback=None</em>, <em>hermi=False</em>, <em>verbose=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#krylov"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.krylov" title="Permalink to this definition">¶</a></dt>
 <dd><p>Krylov subspace method to solve  (1+a) x = b.  Ref:
 J. A. Pople et al, Int. J.  Quantum. Chem.  Symp. 13, 225 (1979).</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd><dl class="first docutils">
+<dd><dl class="first last docutils">
 <dt>aop</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">function(x) =&gt; array_like_x</span><dd>aop(x) to mimic the matrix vector multiplication <span class="math">\(\sum_{j}a_{ij} x_j\)</span>.
 The argument is a 1D array.  The returned value is a 1D array.</dd>
 </dl>
-<p class="last">b : a vector or a list of vectors</p>
 </dd>
 <dt>Kwargs:</dt>
 <dd><dl class="first last docutils">
@@ -1257,7 +834,7 @@ envrionment.</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
-<dd>x : ndarray like b</dd>
+<dd>x : 1D array like b</dd>
 </dl>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">lib</span>
@@ -1269,19 +846,6 @@ envrionment.</dd>
 <span class="go">True</span>
 </pre></div>
 </div>
-</dd></dl>
-
-<dl class="function">
-<dt id="lib.linalg_helper.make_diag_precond">
-<code class="descclassname">lib.linalg_helper.</code><code class="descname">make_diag_precond</code><span class="sig-paren">(</span><em>diag</em>, <em>level_shift=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#make_diag_precond"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.make_diag_precond" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate the preconditioner function with the diagonal function.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="lib.linalg_helper.pick_real_eigs">
-<code class="descclassname">lib.linalg_helper.</code><code class="descname">pick_real_eigs</code><span class="sig-paren">(</span><em>w</em>, <em>v</em>, <em>nroots</em>, <em>envs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#pick_real_eigs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.pick_real_eigs" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function searchs the real eigenvalues or eigenvalues with small
-imaginary component.</p>
 </dd></dl>
 
 <dl class="function">
@@ -1321,44 +885,6 @@ seig is the eigenvalue vector of the metric s.</dd>
 <div class="section" id="module-lib.chkfile">
 <span id="functions-to-access-key-value-in-chkfile"></span><h3>5.5.1. Functions to access key/value in chkfile<a class="headerlink" href="#module-lib.chkfile" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="lib.chkfile.save">
-<code class="descclassname">lib.chkfile.</code><code class="descname">save</code><span class="sig-paren">(</span><em>chkfile</em>, <em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.chkfile.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save array(s) in chkfile</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><dl class="first last docutils">
-<dt>chkfile</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>Name of chkfile.</dd>
-<dt>key</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>key to be used in h5py object. It can contain &#8220;/&#8221; to represent the
-path in the HDF5 storage structure.</dd>
-<dt>value</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">array, vector, list ... or dict</span><dd>If value is a python dict or list, the key/value of the dict will
-be saved recursively as the HDF5 group/dataset structure.</dd>
-</dl>
-</dd>
-<dt>Returns:</dt>
-<dd>No return value</dd>
-</dl>
-<p>Examples:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">h5py</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">lib</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ci</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Ci&#39;</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;op&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">),</span> <span class="s1">&#39;irrep&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Ag&#39;</span><span class="p">,</span> <span class="s1">&#39;Au&#39;</span><span class="p">)}}</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">lib</span><span class="o">.</span><span class="n">chkfile</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;symm.chk&#39;</span><span class="p">,</span> <span class="s1">&#39;symm&#39;</span><span class="p">,</span> <span class="n">ci</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;symm.chk&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-<span class="go">[&#39;symm&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;symm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-<span class="go">[&#39;Ci&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;symm/Ci&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-<span class="go">[&#39;op&#39;, &#39;irrep&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;symm/Ci/op&#39;</span><span class="p">]</span>
-<span class="go">&lt;HDF5 dataset &quot;op&quot;: shape (2,), type &quot;|S1&quot;&gt;</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
 <dt id="lib.chkfile.load">
 <code class="descclassname">lib.chkfile.</code><code class="descname">load</code><span class="sig-paren">(</span><em>chkfile</em>, <em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/chkfile.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.chkfile.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load array(s) from chkfile</p>
@@ -1368,8 +894,8 @@ be saved recursively as the HDF5 group/dataset structure.</dd>
 <dt>chkfile</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>Name of chkfile. The chkfile needs to be saved in HDF5 format.</dd>
 <dt>key</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>HDF5.dataset name or group name.  If key is the name of a HDF5
-group, the group will be loaded into a Python dict, recursively.</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>HDF5.dataset name or group name.  If key is the HDF5 group name,
+the group will be loaded into an Python dict, recursively</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
@@ -1397,9 +923,10 @@ group, the group will be loaded into a Python dict, recursively.</dd>
 <dd><p>Save Mole object in chkfile</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd><dl class="first last docutils">
-<dt>chkfile str:</dt>
-<dd>Name of chkfile.</dd>
+<dd><p class="first">mol : an instance of <code class="xref py py-class docutils literal"><span class="pre">Mole</span></code>.</p>
+<dl class="last docutils">
+<dt>chkfile</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>Name of chkfile.</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
@@ -1460,7 +987,7 @@ objects using the python built in methods <code class="docutils literal"><span c
 <p>DIIS</p>
 <dl class="class">
 <dt id="lib.diis.DIIS">
-<em class="property">class </em><code class="descclassname">lib.diis.</code><code class="descname">DIIS</code><span class="sig-paren">(</span><em>dev=None</em>, <em>filename=None</em>, <em>incore=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/diis.html#DIIS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.diis.DIIS" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">lib.diis.</code><code class="descname">DIIS</code><span class="sig-paren">(</span><em>dev=None</em>, <em>filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/diis.html#DIIS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.diis.DIIS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Direct inversion in the iterative subspace method.</p>
 <dl class="docutils">
 <dt>Attributes:</dt>
@@ -1528,13 +1055,6 @@ vector to extrapolate the vector.</dd>
 </pre></div>
 </div>
 <dl class="method">
-<dt id="lib.diis.DIIS.restore">
-<code class="descname">restore</code><span class="sig-paren">(</span><em>filename</em>, <em>inplace=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/diis.html#DIIS.restore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.diis.DIIS.restore" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read diis contents from a diis file and replace the attributes of
-current diis object if needed, then construct the vector.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="lib.diis.DIIS.update">
 <code class="descname">update</code><span class="sig-paren">(</span><em>x</em>, <em>xerr=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/diis.html#DIIS.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.diis.DIIS.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extrapolate vector</p>
@@ -1552,8 +1072,8 @@ vector to extrapolate the vector.</p>
 
 <dl class="function">
 <dt id="lib.diis.restore">
-<code class="descclassname">lib.diis.</code><code class="descname">restore</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/diis.html#restore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.diis.restore" title="Permalink to this definition">¶</a></dt>
-<dd><p>Restore/construct diis object based on a diis file</p>
+<code class="descclassname">lib.diis.</code><code class="descname">restore</code><span class="sig-paren">(</span><em>dev</em>, <em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/diis.html#restore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.diis.restore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore DIIS vectors/error-vectors from given file.</p>
 </dd></dl>
 
 </div>
@@ -1684,9 +1204,9 @@ context, the number OpenMP threads will be restored.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-lib.misc">
-<span id="other-helper-functions-in-lib-misc"></span><h3>5.7.5. Other helper functions in <a class="reference internal" href="#module-lib.misc" title="lib.misc"><code class="xref py py-mod docutils literal"><span class="pre">lib.misc</span></code></a><a class="headerlink" href="#module-lib.misc" title="Permalink to this headline">¶</a></h3>
-<p>Some hacky functions</p>
+<div class="section" id="other-helper-functions-in-lib-misc">
+<h3>5.7.5. Other helper functions in <a class="reference internal" href="#module-lib.misc" title="lib.misc"><code class="xref py py-mod docutils literal"><span class="pre">lib.misc</span></code></a><a class="headerlink" href="#other-helper-functions-in-lib-misc" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="module-lib.misc"></span><p>Some hacky functions</p>
 <dl class="function">
 <dt id="lib.misc.flatten">
 <code class="descclassname">lib.misc.</code><code class="descname">flatten</code><span class="sig-paren">(</span><em>lst</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/misc.html#flatten"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.misc.flatten" title="Permalink to this definition">¶</a></dt>
@@ -1695,21 +1215,6 @@ x[0] + x[1] + x[2] + ...</p>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flatten</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">]]])</span>
 <span class="go">[0, 2, 1, [9, 8, 7]]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="class">
-<dt id="lib.misc.light_speed">
-<em class="property">class </em><code class="descclassname">lib.misc.</code><code class="descname">light_speed</code><span class="sig-paren">(</span><em>c</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/misc.html#light_speed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.misc.light_speed" title="Permalink to this definition">¶</a></dt>
-<dd><p>Within the context of this macro, the environment varialbe LIGHT_SPEED
-can be customized.</p>
-<p>Examples:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">light_speed</span><span class="p">(</span><span class="mf">15.</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">LIGHT_SPEED</span><span class="p">)</span>
-<span class="go">15.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">LIGHT_SPEED</span><span class="p">)</span>
-<span class="go">137.03599967994</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1762,7 +1267,7 @@ can be customized.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

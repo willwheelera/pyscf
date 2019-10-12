@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>19. grad — Analytical nuclear gradients &mdash; PySCF 1.7.0 documentation</title>
+  <title>19. grad — Analytical nuclear gradients &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
         <link rel="next" title="20. hessian — Analytical nuclear Hessian" href="hessian.html"/>
         <link rel="prev" title="18. tools" href="tools.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -107,7 +107,34 @@
 <li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">17. fciqmcscf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tools.html">18. tools</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">19. grad &#8212; Analytical nuclear gradients</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#analytical-nuclear-gradients">19.1. Analytical nuclear gradients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">19.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.grad">19.2. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#analytical-nuclear-gradients">19.2.1. Analytical nuclear gradients</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.grad.casci">19.2.2. casci</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#casscf">19.2.3. casscf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.grad.ccsd">19.2.4. ccsd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ccsd-slow">19.2.5. ccsd_slow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ccsd-t">19.2.6. ccsd_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.grad.cisd">19.2.7. cisd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.grad.dhf">19.2.8. dhf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.grad.mp2">19.2.9. mp2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.grad.rhf">19.2.10. rhf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.grad.rks">19.2.11. rks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.grad.rohf">19.2.12. rohf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.grad.roks">19.2.13. roks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.grad.tdrhf">19.2.14. tdrhf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tdrhf-slow">19.2.15. tdrhf_slow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.grad.tdrks">19.2.16. tdrks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.grad.tduhf">19.2.17. tduhf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.grad.tduks">19.2.18. tduks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.grad.uccsd">19.2.19. uccsd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uccsd-t">19.2.20. uccsd_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.grad.ucisd">19.2.21. ucisd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.grad.uhf">19.2.22. uhf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uks">19.2.23. uks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ump2">19.2.24. ump2</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="hessian.html">20. hessian &#8212; Analytical nuclear Hessian</a></li>
@@ -120,6 +147,14 @@
 <li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -183,16 +218,572 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-pyscf.grad">
-<span id="grad-analytical-nuclear-gradients"></span><h1>19. grad &#8212; Analytical nuclear gradients<a class="headerlink" href="#module-pyscf.grad" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="grad-analytical-nuclear-gradients">
+<h1>19. grad &#8212; Analytical nuclear gradients<a class="headerlink" href="#grad-analytical-nuclear-gradients" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="examples">
+<h2>19.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Relevant examples
+<code class="file docutils literal"><span class="pre">examples/grad/01-scf_grad.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/grad/02-dft_grad.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/grad/03-mp2_grad.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/grad/04-cisd_grad.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/grad/05-ccsd_grad.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/grad/06-tddft_gradients.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/grad/10-excited_state_cisd_grad.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/grad/11-excited_state_casci_grad.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/grad/16-scan_force.py</span></code></p>
+</div>
+<div class="section" id="module-pyscf.grad">
+<span id="program-reference"></span><h2>19.2. Program reference<a class="headerlink" href="#module-pyscf.grad" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="analytical-nuclear-gradients">
-<h2>19.1. Analytical nuclear gradients<a class="headerlink" href="#analytical-nuclear-gradients" title="Permalink to this headline">¶</a></h2>
+<h3>19.2.1. Analytical nuclear gradients<a class="headerlink" href="#analytical-nuclear-gradients" title="Permalink to this headline">¶</a></h3>
 <p>Simple usage:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">grad</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">grad</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="module-pyscf.grad.casci">
+<span id="casci"></span><h3>19.2.2. casci<a class="headerlink" href="#module-pyscf.grad.casci" title="Permalink to this headline">¶</a></h3>
+<p>CASCI analytical nuclear gradients</p>
+<p>Ref.
+J. Comput. Chem., 5, 589</p>
+<dl class="attribute">
+<dt id="pyscf.grad.casci.Grad">
+<code class="descclassname">pyscf.grad.casci.</code><code class="descname">Grad</code><a class="headerlink" href="#pyscf.grad.casci.Grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#pyscf.grad.casci.Gradients" title="pyscf.grad.casci.Gradients"><code class="xref py py-class docutils literal"><span class="pre">Gradients</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyscf.grad.casci.Gradients">
+<em class="property">class </em><code class="descclassname">pyscf.grad.casci.</code><code class="descname">Gradients</code><span class="sig-paren">(</span><em>mc</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/casci.html#Gradients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.casci.Gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic restricted Hartree-Fock gradients</p>
+<dl class="method">
+<dt id="pyscf.grad.casci.Gradients.as_scanner">
+<code class="descname">as_scanner</code><span class="sig-paren">(</span><em>mcscf_grad</em>, <em>state=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.grad.casci.Gradients.as_scanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generating a nuclear gradients scanner/solver (for geometry optimizer).</p>
+<p>The returned solver is a function. This function requires one argument
+&#8220;mol&#8221; as input and returns energy and first order nuclear derivatives.</p>
+<p>The solver will automatically use the results of last calculation as the
+initial guess of the new calculation.  All parameters assigned in the
+nuc-grad object and SCF object (DIIS, conv_tol, max_memory etc) are
+automatically applied in the solver.</p>
+<p>Note scanner has side effects.  It may change many underlying objects
+(_scf, with_df, with_x2c, ...) during calculation.</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1.1&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc_grad_scanner</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASCI</span><span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">nuc_grad_method</span><span class="p">()</span><span class="o">.</span><span class="n">as_scanner</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">etot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">mc_grad_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1.1&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">etot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">mc_grad_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1.5&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.grad.casci.as_scanner">
+<code class="descclassname">pyscf.grad.casci.</code><code class="descname">as_scanner</code><span class="sig-paren">(</span><em>mcscf_grad</em>, <em>state=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/casci.html#as_scanner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.casci.as_scanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generating a nuclear gradients scanner/solver (for geometry optimizer).</p>
+<p>The returned solver is a function. This function requires one argument
+&#8220;mol&#8221; as input and returns energy and first order nuclear derivatives.</p>
+<p>The solver will automatically use the results of last calculation as the
+initial guess of the new calculation.  All parameters assigned in the
+nuc-grad object and SCF object (DIIS, conv_tol, max_memory etc) are
+automatically applied in the solver.</p>
+<p>Note scanner has side effects.  It may change many underlying objects
+(_scf, with_df, with_x2c, ...) during calculation.</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1.1&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc_grad_scanner</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASCI</span><span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">nuc_grad_method</span><span class="p">()</span><span class="o">.</span><span class="n">as_scanner</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">etot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">mc_grad_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1.1&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">etot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">mc_grad_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1.5&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="casscf">
+<h3>19.2.3. casscf<a class="headerlink" href="#casscf" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="module-pyscf.grad.casscf"></span><p>CASSCF analytical nuclear gradients</p>
+<p>Ref.
+J. Comput. Chem., 5, 589</p>
+<dl class="attribute">
+<dt id="pyscf.grad.casscf.Grad">
+<code class="descclassname">pyscf.grad.casscf.</code><code class="descname">Grad</code><a class="headerlink" href="#pyscf.grad.casscf.Grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#pyscf.grad.casscf.Gradients" title="pyscf.grad.casscf.Gradients"><code class="xref py py-class docutils literal"><span class="pre">Gradients</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyscf.grad.casscf.Gradients">
+<em class="property">class </em><code class="descclassname">pyscf.grad.casscf.</code><code class="descname">Gradients</code><span class="sig-paren">(</span><em>mc</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/casscf.html#Gradients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.casscf.Gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic restricted Hartree-Fock gradients</p>
+<dl class="method">
+<dt id="pyscf.grad.casscf.Gradients.as_scanner">
+<code class="descname">as_scanner</code><span class="sig-paren">(</span><em>mcscf_grad</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.grad.casscf.Gradients.as_scanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generating a nuclear gradients scanner/solver (for geometry optimizer).</p>
+<p>The returned solver is a function. This function requires one argument
+&#8220;mol&#8221; as input and returns energy and first order nuclear derivatives.</p>
+<p>The solver will automatically use the results of last calculation as the
+initial guess of the new calculation.  All parameters assigned in the
+nuc-grad object and SCF object (DIIS, conv_tol, max_memory etc) are
+automatically applied in the solver.</p>
+<p>Note scanner has side effects.  It may change many underlying objects
+(_scf, with_df, with_x2c, ...) during calculation.</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1.1&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc_grad_scanner</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">nuc_grad_method</span><span class="p">()</span><span class="o">.</span><span class="n">as_scanner</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">etot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">mc_grad_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1.1&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">etot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">mc_grad_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1.5&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.grad.casscf.as_scanner">
+<code class="descclassname">pyscf.grad.casscf.</code><code class="descname">as_scanner</code><span class="sig-paren">(</span><em>mcscf_grad</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/casscf.html#as_scanner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.casscf.as_scanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generating a nuclear gradients scanner/solver (for geometry optimizer).</p>
+<p>The returned solver is a function. This function requires one argument
+&#8220;mol&#8221; as input and returns energy and first order nuclear derivatives.</p>
+<p>The solver will automatically use the results of last calculation as the
+initial guess of the new calculation.  All parameters assigned in the
+nuc-grad object and SCF object (DIIS, conv_tol, max_memory etc) are
+automatically applied in the solver.</p>
+<p>Note scanner has side effects.  It may change many underlying objects
+(_scf, with_df, with_x2c, ...) during calculation.</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1.1&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc_grad_scanner</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">nuc_grad_method</span><span class="p">()</span><span class="o">.</span><span class="n">as_scanner</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">etot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">mc_grad_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1.1&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">etot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">mc_grad_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1.5&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyscf.grad.ccsd">
+<span id="ccsd"></span><h3>19.2.4. ccsd<a class="headerlink" href="#module-pyscf.grad.ccsd" title="Permalink to this headline">¶</a></h3>
+<p>CCSD analytical nuclear gradients</p>
+<dl class="function">
+<dt id="pyscf.grad.ccsd.as_scanner">
+<code class="descclassname">pyscf.grad.ccsd.</code><code class="descname">as_scanner</code><span class="sig-paren">(</span><em>grad_cc</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/ccsd.html#as_scanner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.ccsd.as_scanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generating a nuclear gradients scanner/solver (for geometry optimizer).</p>
+<p>The returned solver is a function. This function requires one argument
+&#8220;mol&#8221; as input and returns total CCSD energy.</p>
+<p>The solver will automatically use the results of last calculation as the
+initial guess of the new calculation.  All parameters assigned in the
+CCSD and the underlying SCF objects (conv_tol, max_memory etc) are
+automatically applied in the solver.</p>
+<p>Note scanner has side effects.  It may change many underlying objects
+(_scf, with_df, with_x2c, ...) during calculation.</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">cc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cc_scanner</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="n">CCSD</span><span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">))</span><span class="o">.</span><span class="n">nuc_grad_method</span><span class="p">()</span><span class="o">.</span><span class="n">as_scanner</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">cc_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.1&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">cc_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.5&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="ccsd-slow">
+<h3>19.2.5. ccsd_slow<a class="headerlink" href="#ccsd-slow" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="module-pyscf.grad.ccsd_slow"></span><p>RCCSD</p>
+<p>Ref: JCP, 90, 1752</p>
+</div>
+<div class="section" id="ccsd-t">
+<h3>19.2.6. ccsd_t<a class="headerlink" href="#ccsd-t" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="module-pyscf.grad.ccsd_t"></span></div>
+<div class="section" id="module-pyscf.grad.cisd">
+<span id="cisd"></span><h3>19.2.7. cisd<a class="headerlink" href="#module-pyscf.grad.cisd" title="Permalink to this headline">¶</a></h3>
+<p>CISD analytical nuclear gradients</p>
+<dl class="function">
+<dt id="pyscf.grad.cisd.as_scanner">
+<code class="descclassname">pyscf.grad.cisd.</code><code class="descname">as_scanner</code><span class="sig-paren">(</span><em>grad_ci</em>, <em>state=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/cisd.html#as_scanner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.cisd.as_scanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generating a nuclear gradients scanner/solver (for geometry optimizer).</p>
+<p>The returned solver is a function. This function requires one argument
+&#8220;mol&#8221; as input and returns total CISD energy.</p>
+<p>The solver will automatically use the results of last calculation as the
+initial guess of the new calculation.  All parameters assigned in the
+CISD and the underlying SCF objects (conv_tol, max_memory etc) are
+automatically applied in the solver.</p>
+<p>Note scanner has side effects.  It may change many underlying objects
+(_scf, with_df, with_x2c, ...) during calculation.</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">ci</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ci_scanner</span> <span class="o">=</span> <span class="n">ci</span><span class="o">.</span><span class="n">CISD</span><span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">))</span><span class="o">.</span><span class="n">nuc_grad_method</span><span class="p">()</span><span class="o">.</span><span class="n">as_scanner</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">ci_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.1&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">ci_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.5&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyscf.grad.dhf">
+<span id="dhf"></span><h3>19.2.8. dhf<a class="headerlink" href="#module-pyscf.grad.dhf" title="Permalink to this headline">¶</a></h3>
+<p>Relativistic Dirac-Hartree-Fock</p>
+<dl class="attribute">
+<dt id="pyscf.grad.dhf.Grad">
+<code class="descclassname">pyscf.grad.dhf.</code><code class="descname">Grad</code><a class="headerlink" href="#pyscf.grad.dhf.Grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#pyscf.grad.dhf.Gradients" title="pyscf.grad.dhf.Gradients"><code class="xref py py-class docutils literal"><span class="pre">Gradients</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyscf.grad.dhf.Gradients">
+<em class="property">class </em><code class="descclassname">pyscf.grad.dhf.</code><code class="descname">Gradients</code><span class="sig-paren">(</span><em>scf_method</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/dhf.html#Gradients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.dhf.Gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unrestricted Dirac-Hartree-Fock gradients</p>
+<dl class="method">
+<dt id="pyscf.grad.dhf.Gradients.as_scanner">
+<code class="descname">as_scanner</code><span class="sig-paren">(</span><em>mf_grad</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.grad.dhf.Gradients.as_scanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generating a nuclear gradients scanner/solver (for geometry optimizer).</p>
+<p>The returned solver is a function. This function requires one argument
+&#8220;mol&#8221; as input and returns energy and first order nuclear derivatives.</p>
+<p>The solver will automatically use the results of last calculation as the
+initial guess of the new calculation.  All parameters assigned in the
+nuc-grad object and SCF object (DIIS, conv_tol, max_memory etc) are
+automatically applied in the solver.</p>
+<p>Note scanner has side effects.  It may change many underlying objects
+(_scf, with_df, with_x2c, ...) during calculation.</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">grad</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hf_scanner</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">grad</span><span class="o">.</span><span class="n">RHF</span><span class="p">)</span><span class="o">.</span><span class="n">as_scanner</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">hf_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.1&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">hf_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.5&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.grad.dhf.Gradients.extra_force">
+<code class="descname">extra_force</code><span class="sig-paren">(</span><em>atom_id</em>, <em>envs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/dhf.html#Gradients.extra_force"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.dhf.Gradients.extra_force" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook for extra contributions in analytical gradients.</p>
+<p>Contributions like the response of auxiliary basis in density fitting
+method, the grid response in DFT numerical integration can be put in
+this function.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyscf.grad.dhf.GradientsBasics">
+<em class="property">class </em><code class="descclassname">pyscf.grad.dhf.</code><code class="descname">GradientsBasics</code><span class="sig-paren">(</span><em>method</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/dhf.html#GradientsBasics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.dhf.GradientsBasics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic nuclear gradient functions for 4C relativistic methods</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.grad.dhf.get_coulomb_hf">
+<code class="descclassname">pyscf.grad.dhf.</code><code class="descname">get_coulomb_hf</code><span class="sig-paren">(</span><em>mol</em>, <em>dm</em>, <em>level='SSSS'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/dhf.html#get_coulomb_hf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.dhf.get_coulomb_hf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dirac-Hartree-Fock Coulomb repulsion</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.grad.dhf.get_veff">
+<code class="descclassname">pyscf.grad.dhf.</code><code class="descname">get_veff</code><span class="sig-paren">(</span><em>mol</em>, <em>dm</em>, <em>level='SSSS'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.grad.dhf.get_veff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dirac-Hartree-Fock Coulomb repulsion</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyscf.grad.mp2">
+<span id="mp2"></span><h3>19.2.9. mp2<a class="headerlink" href="#module-pyscf.grad.mp2" title="Permalink to this headline">¶</a></h3>
+<p>MP2 analytical nuclear gradients</p>
+<dl class="function">
+<dt id="pyscf.grad.mp2.as_scanner">
+<code class="descclassname">pyscf.grad.mp2.</code><code class="descname">as_scanner</code><span class="sig-paren">(</span><em>grad_mp</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/mp2.html#as_scanner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.mp2.as_scanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generating a nuclear gradients scanner/solver (for geometry optimizer).</p>
+<p>The returned solver is a function. This function requires one argument
+&#8220;mol&#8221; as input and returns total MP2 energy.</p>
+<p>The solver will automatically use the results of last calculation as the
+initial guess of the new calculation.  All parameters assigned in the
+MP2 and the underlying SCF objects (max_memory etc) are automatically
+applied in the solver.</p>
+<p>Note scanner has side effects.  It may change many underlying objects
+(_scf, with_df, with_x2c, ...) during calculation.</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mp2_scanner</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">MP2</span><span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">))</span><span class="o">.</span><span class="n">nuc_grad_method</span><span class="p">()</span><span class="o">.</span><span class="n">as_scanner</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">mp2_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.1&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">mp2_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.5&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyscf.grad.rhf">
+<span id="rhf"></span><h3>19.2.10. rhf<a class="headerlink" href="#module-pyscf.grad.rhf" title="Permalink to this headline">¶</a></h3>
+<p>Non-relativistic Hartree-Fock analytical nuclear gradients</p>
+<dl class="attribute">
+<dt id="pyscf.grad.rhf.Grad">
+<code class="descclassname">pyscf.grad.rhf.</code><code class="descname">Grad</code><a class="headerlink" href="#pyscf.grad.rhf.Grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#pyscf.grad.rhf.Gradients" title="pyscf.grad.rhf.Gradients"><code class="xref py py-class docutils literal"><span class="pre">Gradients</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyscf.grad.rhf.Gradients">
+<em class="property">class </em><code class="descclassname">pyscf.grad.rhf.</code><code class="descname">Gradients</code><span class="sig-paren">(</span><em>method</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/rhf.html#Gradients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.rhf.Gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic restricted Hartree-Fock gradients</p>
+<dl class="method">
+<dt id="pyscf.grad.rhf.Gradients.as_scanner">
+<code class="descname">as_scanner</code><span class="sig-paren">(</span><em>mf_grad</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.grad.rhf.Gradients.as_scanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generating a nuclear gradients scanner/solver (for geometry optimizer).</p>
+<p>The returned solver is a function. This function requires one argument
+&#8220;mol&#8221; as input and returns energy and first order nuclear derivatives.</p>
+<p>The solver will automatically use the results of last calculation as the
+initial guess of the new calculation.  All parameters assigned in the
+nuc-grad object and SCF object (DIIS, conv_tol, max_memory etc) are
+automatically applied in the solver.</p>
+<p>Note scanner has side effects.  It may change many underlying objects
+(_scf, with_df, with_x2c, ...) during calculation.</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">grad</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hf_scanner</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">grad</span><span class="o">.</span><span class="n">RHF</span><span class="p">)</span><span class="o">.</span><span class="n">as_scanner</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">hf_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.1&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">hf_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.5&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.grad.rhf.Gradients.extra_force">
+<code class="descname">extra_force</code><span class="sig-paren">(</span><em>atom_id</em>, <em>envs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/rhf.html#Gradients.extra_force"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.rhf.Gradients.extra_force" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook for extra contributions in analytical gradients.</p>
+<p>Contributions like the response of auxiliary basis in density fitting
+method, the grid response in DFT numerical integration can be put in
+this function.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyscf.grad.rhf.GradientsBasics">
+<em class="property">class </em><code class="descclassname">pyscf.grad.rhf.</code><code class="descname">GradientsBasics</code><span class="sig-paren">(</span><em>method</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/rhf.html#GradientsBasics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.rhf.GradientsBasics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic nuclear gradient functions for non-relativistic methods</p>
+<dl class="method">
+<dt id="pyscf.grad.rhf.GradientsBasics.as_scanner">
+<code class="descname">as_scanner</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/rhf.html#GradientsBasics.as_scanner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.rhf.GradientsBasics.as_scanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate Gradients Scanner</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.grad.rhf.GradientsBasics.get_jk">
+<code class="descname">get_jk</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/rhf.html#GradientsBasics.get_jk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.rhf.GradientsBasics.get_jk" title="Permalink to this definition">¶</a></dt>
+<dd><p>J = ((-nabla i) j| kl) D_lk
+K = ((-nabla i) j| kl) D_jk</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.grad.rhf.GradientsBasics.grad">
+<code class="descname">grad</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.grad.rhf.GradientsBasics.grad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyscf.grad.rhf.GradientsBasics.optimizer">
+<code class="descname">optimizer</code><span class="sig-paren">(</span><em>solver='geometric'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/rhf.html#GradientsBasics.optimizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.rhf.GradientsBasics.optimizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Geometry optimization solver</p>
+<dl class="docutils">
+<dt>Kwargs:</dt>
+<dd>solver (string) : geometry optimization solver, can be &#8220;geomeTRIC&#8221;
+(default) or &#8220;berny&#8221;.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.grad.rhf.GradientsBasics.symmetrize">
+<code class="descname">symmetrize</code><span class="sig-paren">(</span><em>de</em>, <em>atmlst=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/rhf.html#GradientsBasics.symmetrize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.rhf.GradientsBasics.symmetrize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Symmetrize the gradients wrt the point group symmetry of the molecule.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.grad.rhf.as_scanner">
+<code class="descclassname">pyscf.grad.rhf.</code><code class="descname">as_scanner</code><span class="sig-paren">(</span><em>mf_grad</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/rhf.html#as_scanner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.rhf.as_scanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generating a nuclear gradients scanner/solver (for geometry optimizer).</p>
+<p>The returned solver is a function. This function requires one argument
+&#8220;mol&#8221; as input and returns energy and first order nuclear derivatives.</p>
+<p>The solver will automatically use the results of last calculation as the
+initial guess of the new calculation.  All parameters assigned in the
+nuc-grad object and SCF object (DIIS, conv_tol, max_memory etc) are
+automatically applied in the solver.</p>
+<p>Note scanner has side effects.  It may change many underlying objects
+(_scf, with_df, with_x2c, ...) during calculation.</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">grad</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hf_scanner</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">grad</span><span class="o">.</span><span class="n">RHF</span><span class="p">)</span><span class="o">.</span><span class="n">as_scanner</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">hf_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.1&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">hf_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.5&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.grad.rhf.get_hcore">
+<code class="descclassname">pyscf.grad.rhf.</code><code class="descname">get_hcore</code><span class="sig-paren">(</span><em>mol</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/rhf.html#get_hcore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.rhf.get_hcore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Part of the nuclear gradients of core Hamiltonian</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.grad.rhf.get_jk">
+<code class="descclassname">pyscf.grad.rhf.</code><code class="descname">get_jk</code><span class="sig-paren">(</span><em>mol</em>, <em>dm</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/rhf.html#get_jk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.rhf.get_jk" title="Permalink to this definition">¶</a></dt>
+<dd><p>J = ((-nabla i) j| kl) D_lk
+K = ((-nabla i) j| kl) D_jk</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.grad.rhf.get_veff">
+<code class="descclassname">pyscf.grad.rhf.</code><code class="descname">get_veff</code><span class="sig-paren">(</span><em>mf_grad</em>, <em>mol</em>, <em>dm</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/rhf.html#get_veff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.rhf.get_veff" title="Permalink to this definition">¶</a></dt>
+<dd><p>NR Hartree-Fock Coulomb repulsion</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.grad.rhf.make_rdm1e">
+<code class="descclassname">pyscf.grad.rhf.</code><code class="descname">make_rdm1e</code><span class="sig-paren">(</span><em>mo_energy</em>, <em>mo_coeff</em>, <em>mo_occ</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/rhf.html#make_rdm1e"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.rhf.make_rdm1e" title="Permalink to this definition">¶</a></dt>
+<dd><p>Energy weighted density matrix</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.grad.rhf.symmetrize">
+<code class="descclassname">pyscf.grad.rhf.</code><code class="descname">symmetrize</code><span class="sig-paren">(</span><em>mol</em>, <em>de</em>, <em>atmlst=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/rhf.html#symmetrize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.rhf.symmetrize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Symmetrize the gradients wrt the point group symmetry of the molecule.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyscf.grad.rks">
+<span id="rks"></span><h3>19.2.11. rks<a class="headerlink" href="#module-pyscf.grad.rks" title="Permalink to this headline">¶</a></h3>
+<p>Non-relativistic RKS analytical nuclear gradients</p>
+<dl class="function">
+<dt id="pyscf.grad.rks.get_veff">
+<code class="descclassname">pyscf.grad.rks.</code><code class="descname">get_veff</code><span class="sig-paren">(</span><em>ks_grad</em>, <em>mol=None</em>, <em>dm=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/rks.html#get_veff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.rks.get_veff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coulomb + XC functional</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.grad.rks.get_vxc_full_response">
+<code class="descclassname">pyscf.grad.rks.</code><code class="descname">get_vxc_full_response</code><span class="sig-paren">(</span><em>ni</em>, <em>mol</em>, <em>grids</em>, <em>xc_code</em>, <em>dms</em>, <em>relativity=0</em>, <em>hermi=1</em>, <em>max_memory=2000</em>, <em>verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/rks.html#get_vxc_full_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.rks.get_vxc_full_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Full response including the response of the grids</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyscf.grad.rohf">
+<span id="rohf"></span><h3>19.2.12. rohf<a class="headerlink" href="#module-pyscf.grad.rohf" title="Permalink to this headline">¶</a></h3>
+<p>Non-relativistic ROHF analytical nuclear gradients</p>
+<dl class="attribute">
+<dt id="pyscf.grad.rohf.Grad">
+<code class="descclassname">pyscf.grad.rohf.</code><code class="descname">Grad</code><a class="headerlink" href="#pyscf.grad.rohf.Grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#pyscf.grad.rohf.Gradients" title="pyscf.grad.rohf.Gradients"><code class="xref py py-class docutils literal"><span class="pre">Gradients</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyscf.grad.rohf.Gradients">
+<em class="property">class </em><code class="descclassname">pyscf.grad.rohf.</code><code class="descname">Gradients</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/rohf.html#Gradients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.rohf.Gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic ROHF gradients</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyscf.grad.roks">
+<span id="roks"></span><h3>19.2.13. roks<a class="headerlink" href="#module-pyscf.grad.roks" title="Permalink to this headline">¶</a></h3>
+<p>Non-relativistic ROKS analytical nuclear gradients</p>
+<dl class="attribute">
+<dt id="pyscf.grad.roks.Grad">
+<code class="descclassname">pyscf.grad.roks.</code><code class="descname">Grad</code><a class="headerlink" href="#pyscf.grad.roks.Grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#pyscf.grad.roks.Gradients" title="pyscf.grad.roks.Gradients"><code class="xref py py-class docutils literal"><span class="pre">Gradients</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyscf.grad.roks.Gradients">
+<em class="property">class </em><code class="descclassname">pyscf.grad.roks.</code><code class="descname">Gradients</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/roks.html#Gradients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.roks.Gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic ROHF gradients</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyscf.grad.tdrhf">
+<span id="tdrhf"></span><h3>19.2.14. tdrhf<a class="headerlink" href="#module-pyscf.grad.tdrhf" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pyscf.grad.tdrhf.as_scanner">
+<code class="descclassname">pyscf.grad.tdrhf.</code><code class="descname">as_scanner</code><span class="sig-paren">(</span><em>td_grad</em>, <em>state=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/tdrhf.html#as_scanner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.tdrhf.as_scanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generating a nuclear gradients scanner/solver (for geometry optimizer).</p>
+<p>The returned solver is a function. This function requires one argument
+&#8220;mol&#8221; as input and returns energy and first order nuclear derivatives.</p>
+<p>The solver will automatically use the results of last calculation as the
+initial guess of the new calculation.  All parameters assigned in the
+nuc-grad object and SCF object (DIIS, conv_tol, max_memory etc) are
+automatically applied in the solver.</p>
+<p>Note scanner has side effects.  It may change many underlying objects
+(_scf, with_df, with_x2c, ...) during calculation.</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">tdscf</span><span class="p">,</span> <span class="n">grad</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">td_grad_scanner</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">tdscf</span><span class="o">.</span><span class="n">TDA</span><span class="p">)</span><span class="o">.</span><span class="n">nuc_grad_method</span><span class="p">()</span><span class="o">.</span><span class="n">as_scanner</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">td_grad_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.1&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_tot</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">td_grad_scanner</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1.5&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="tdrhf-slow">
+<h3>19.2.15. tdrhf_slow<a class="headerlink" href="#tdrhf-slow" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="module-pyscf.grad.tdrhf_slow"></span></div>
+<div class="section" id="module-pyscf.grad.tdrks">
+<span id="tdrks"></span><h3>19.2.16. tdrks<a class="headerlink" href="#module-pyscf.grad.tdrks" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="module-pyscf.grad.tduhf">
+<span id="tduhf"></span><h3>19.2.17. tduhf<a class="headerlink" href="#module-pyscf.grad.tduhf" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="module-pyscf.grad.tduks">
+<span id="tduks"></span><h3>19.2.18. tduks<a class="headerlink" href="#module-pyscf.grad.tduks" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="module-pyscf.grad.uccsd">
+<span id="uccsd"></span><h3>19.2.19. uccsd<a class="headerlink" href="#module-pyscf.grad.uccsd" title="Permalink to this headline">¶</a></h3>
+<p>UCCSD analytical nuclear gradients</p>
+</div>
+<div class="section" id="uccsd-t">
+<h3>19.2.20. uccsd_t<a class="headerlink" href="#uccsd-t" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="module-pyscf.grad.ucisd">
+<span id="ucisd"></span><h3>19.2.21. ucisd<a class="headerlink" href="#module-pyscf.grad.ucisd" title="Permalink to this headline">¶</a></h3>
+<p>UCISD analytical nuclear gradients</p>
+</div>
+<div class="section" id="module-pyscf.grad.uhf">
+<span id="uhf"></span><h3>19.2.22. uhf<a class="headerlink" href="#module-pyscf.grad.uhf" title="Permalink to this headline">¶</a></h3>
+<p>Non-relativistic unrestricted Hartree-Fock analytical nuclear gradients</p>
+<dl class="attribute">
+<dt id="pyscf.grad.uhf.Grad">
+<code class="descclassname">pyscf.grad.uhf.</code><code class="descname">Grad</code><a class="headerlink" href="#pyscf.grad.uhf.Grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#pyscf.grad.uhf.Gradients" title="pyscf.grad.uhf.Gradients"><code class="xref py py-class docutils literal"><span class="pre">Gradients</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyscf.grad.uhf.Gradients">
+<em class="property">class </em><code class="descclassname">pyscf.grad.uhf.</code><code class="descname">Gradients</code><span class="sig-paren">(</span><em>method</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/uhf.html#Gradients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.uhf.Gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic unrestricted Hartree-Fock gradients</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.grad.uhf.make_rdm1e">
+<code class="descclassname">pyscf.grad.uhf.</code><code class="descname">make_rdm1e</code><span class="sig-paren">(</span><em>mo_energy</em>, <em>mo_coeff</em>, <em>mo_occ</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/grad/uhf.html#make_rdm1e"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.grad.uhf.make_rdm1e" title="Permalink to this definition">¶</a></dt>
+<dd><p>Energy weighted density matrix</p>
+</dd></dl>
+
+</div>
+<div class="section" id="uks">
+<h3>19.2.23. uks<a class="headerlink" href="#uks" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="ump2">
+<h3>19.2.24. ump2<a class="headerlink" href="#ump2" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 </div>
@@ -241,7 +832,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

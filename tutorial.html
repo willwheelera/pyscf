@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>2. Tutorial &mdash; PySCF 1.7.0 documentation</title>
+  <title>2. Tutorial &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
         <link rel="next" title="3. Installation" href="install.html"/>
         <link rel="prev" title="1. An overview of PySCF" href="overview.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -149,6 +149,14 @@
 <li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -681,58 +689,6 @@ results to the target basis sets.</p>
 <p>To restart a CASSCF calculation, you need prepare either CASSCF orbitals
 or CI coefficients (not that useful unless doing a DMRG-CASSCF calculation) or
 both.  For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="c1">#</span>
-<span class="c1"># Author: Qiming Sun &lt;osirpt.sun@gmail.com&gt;</span>
-<span class="c1">#</span>
-
-<span class="kn">import</span> <span class="nn">tempfile</span>
-<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
-<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">lib</span>
-
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">Restart CASSCF from previous calculation.</span>
-
-<span class="sd">There is no &quot;restart&quot; keyword for CASSCF solver.  The CASSCF solver is</span>
-<span class="sd">completely controlled by initial guess.  So we can mimic the restart feature</span>
-<span class="sd">by providing proper initial guess from previous calculation.</span>
-
-<span class="sd">We need assign the .chkfile a string to indicate the file where to save the</span>
-<span class="sd">CASSCF intermediate results.  Then we can &quot;restart&quot; the calculation from the</span>
-<span class="sd">intermediate results.</span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="n">tmpchk</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span>
-
-<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">Mole</span><span class="p">()</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;C 0 0 0; C 0 0 1.2&#39;</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;ccpvdz&#39;</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
-
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-
-<span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">mc</span><span class="o">.</span><span class="n">chkfile</span> <span class="o">=</span> <span class="n">tmpchk</span><span class="o">.</span><span class="n">name</span>
-<span class="n">mc</span><span class="o">.</span><span class="n">max_cycle_macro</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-
-<span class="c1">#######################################################################</span>
-<span class="c1">#</span>
-<span class="c1"># Assuming the CASSCF was interrupted.  Intermediate data were saved in</span>
-<span class="c1"># tmpchk file.  Here we read the chkfile to restart the previous calculation.</span>
-<span class="c1">#</span>
-<span class="c1">#######################################################################</span>
-<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">Mole</span><span class="p">()</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;C 0 0 0; C 0 0 1.2&#39;</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;ccpvdz&#39;</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
-
-<span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">),</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">mo</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">chkfile</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">tmpchk</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;mcscf/mo_coeff&#39;</span><span class="p">)</span>
-<span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">mo</span><span class="p">)</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="access-ao-integrals">
 <h2>2.7. Access AO integrals<a class="headerlink" href="#access-ao-integrals" title="Permalink to this headline">¶</a></h2>
@@ -866,162 +822,12 @@ methods:</p>
 <h2>2.8. Other features<a class="headerlink" href="#other-features" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="density-fitting">
 <h3>2.8.1. Density fitting<a class="headerlink" href="#density-fitting" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="c1">#</span>
-<span class="c1"># Author: Qiming Sun &lt;osirpt.sun@gmail.com&gt;</span>
-<span class="c1">#</span>
-
-<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span>
-<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">scf</span>
-
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">Density fitting method by decorating the scf object with scf.density_fit function.</span>
-
-<span class="sd">There is no flag to control the program to do density fitting for 2-electron</span>
-<span class="sd">integration.  The way to call density fitting is to decorate the existed scf</span>
-<span class="sd">object with scf.density_fit function.</span>
-
-<span class="sd">NOTE scf.density_fit function generates a new object, which works exactly the</span>
-<span class="sd">same way as the regular scf method.  The density fitting scf object is an</span>
-<span class="sd">independent object to the regular scf object which is to be decorated.  By</span>
-<span class="sd">doing so, density fitting can be applied anytime, anywhere in your script</span>
-<span class="sd">without affecting the exsited scf object.</span>
-
-<span class="sd">See also:</span>
-<span class="sd">examples/df/00-with_df.py</span>
-<span class="sd">examples/df/01-auxbasis.py </span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">Mole</span><span class="p">()</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
-    <span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;8  0  0.     0</span>
-<span class="s1">              1  0  -0.757 0.587</span>
-<span class="s1">              1  0  0.757  0.587&#39;&#39;&#39;</span><span class="p">,</span>
-    <span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">density_fit</span><span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">))</span>
-<span class="n">energy</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E = </span><span class="si">%.12f</span><span class="s1">, ref = -76.026744737355&#39;</span> <span class="o">%</span> <span class="n">energy</span><span class="p">)</span>
-
-<span class="c1">#</span>
-<span class="c1"># Stream style: calling .density_fit method to return a DF-SCF object.</span>
-<span class="c1">#</span>
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">density_fit</span><span class="p">()</span>
-<span class="n">energy</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E = </span><span class="si">%.12f</span><span class="s1">, ref = -76.026744737355&#39;</span> <span class="o">%</span> <span class="n">energy</span><span class="p">)</span>
-
-<span class="c1">#</span>
-<span class="c1"># By default optimal auxiliary basis (if possible) or even-tempered gaussian</span>
-<span class="c1"># functions are used fitting basis.  You can assign with_df.auxbasis to change</span>
-<span class="c1"># the change the fitting basis.</span>
-<span class="c1">#</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">spin</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">charge</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">UKS</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">density_fit</span><span class="p">()</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">with_df</span><span class="o">.</span><span class="n">auxbasis</span> <span class="o">=</span> <span class="s1">&#39;cc-pvdz-jkfit&#39;</span>
-<span class="n">energy</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E = </span><span class="si">%.12f</span><span class="s1">, ref = -75.390366559552&#39;</span> <span class="o">%</span> <span class="n">energy</span><span class="p">)</span>
-
-<span class="c1"># Switch off density fitting</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">with_df</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="n">energy</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E = </span><span class="si">%.12f</span><span class="s1">, ref = </span><span class="si">%.12f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">energy</span><span class="p">,</span> <span class="n">scf</span><span class="o">.</span><span class="n">UKS</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">kernel</span><span class="p">()))</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="customizing-hamiltonian">
 <h3>2.8.2. Customizing Hamiltonian<a class="headerlink" href="#customizing-hamiltonian" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="c1">#</span>
-<span class="c1"># Author: Qiming Sun &lt;osirpt.sun@gmail.com&gt;</span>
-<span class="c1">#</span>
-
-<span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">ao2mo</span>
-
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">Customizing Hamiltonian for SCF module.</span>
-
-<span class="sd">Three steps to define Hamiltonian for SCF:</span>
-<span class="sd">1. Specify the number of electrons. (Note mole object must be &quot;built&quot; before doing this step)</span>
-<span class="sd">2. Overwrite three attributes of scf object</span>
-<span class="sd">    .get_hcore</span>
-<span class="sd">    .get_ovlp</span>
-<span class="sd">    ._eri</span>
-<span class="sd">3. Specify initial guess (to overwrite the default atomic density initial guess)</span>
-
-<span class="sd">Note you will see warning message on the screen:</span>
-
-<span class="sd">        Overwritten attributes  get_ovlp get_hcore  of &lt;class &#39;pyscf.scf.hf.RHF&#39;&gt;</span>
-
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">()</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">nelectron</span> <span class="o">=</span> <span class="n">n</span>
-
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
-<span class="n">h1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">h1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">h1</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
-<span class="n">h1</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">h1</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>  <span class="c1"># PBC</span>
-<span class="n">eri</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="n">eri</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">4.0</span>
-
-<span class="n">mf</span><span class="o">.</span><span class="n">get_hcore</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">h1</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">get_ovlp</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="c1"># ao2mo.restore(8, eri, n) to get 8-fold permutation symmetry of the integrals</span>
-<span class="c1"># ._eri only supports the two-electron integrals in 4-fold or 8-fold symmetry.</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">_eri</span> <span class="o">=</span> <span class="n">ao2mo</span><span class="o">.</span><span class="n">restore</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">eri</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-
-<span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-
-<span class="c1"># If you need to run post-HF calculations based on the customized Hamiltonian,</span>
-<span class="c1"># setting incore_anyway=True to ensure the customized Hamiltonian (the _eri</span>
-<span class="c1"># attribute) to be used.  Without this parameter, some post-HF method</span>
-<span class="c1"># (particularly in the MO integral transformation) may ignore the customized</span>
-<span class="c1"># Hamiltonian if memory is not enough.</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">incore_anyway</span> <span class="o">=</span> <span class="kc">True</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="symmetry-in-casscf">
 <h3>2.8.3. Symmetry in CASSCF<a class="headerlink" href="#symmetry-in-casscf" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="c1">#</span>
-<span class="c1"># Author: Qiming Sun &lt;osirpt.sun@gmail.com&gt;</span>
-<span class="c1">#</span>
-
-<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
-
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">Symmetry is not immutable</span>
-
-<span class="sd">In PySCF, symmetry is not built-in data structure.  Orbitals are stored in C1</span>
-<span class="sd">symmetry.  The irreps and symmetry information are generated on the fly.</span>
-<span class="sd">We can switch on symmetry for CASSCF solver even the Hartree-Fock is not</span>
-<span class="sd">optimized with symmetry.</span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">Mole</span><span class="p">()</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
-    <span class="n">atom</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;O&#39;</span> <span class="p">,</span> <span class="p">(</span><span class="mf">0.</span> <span class="p">,</span> <span class="mf">0.</span>     <span class="p">,</span> <span class="mf">0.</span><span class="p">)],</span>
-            <span class="p">[</span><span class="mi">1</span>   <span class="p">,</span> <span class="p">(</span><span class="mf">0.</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.757</span> <span class="p">,</span> <span class="mf">0.587</span><span class="p">)],</span>
-            <span class="p">[</span><span class="mi">1</span>   <span class="p">,</span> <span class="p">(</span><span class="mf">0.</span> <span class="p">,</span> <span class="mf">0.757</span>  <span class="p">,</span> <span class="mf">0.587</span><span class="p">)]],</span>
-    <span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;cc-pvdz&#39;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-
-<span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">symmetry</span> <span class="o">=</span> <span class="s1">&#39;C2v&#39;</span><span class="p">)</span>
-<span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
-<span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -1070,7 +876,7 @@ methods:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

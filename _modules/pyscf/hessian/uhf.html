@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyscf.hessian.uhf &mdash; PySCF 1.7.0 documentation</title>
+  <title>pyscf.hessian.uhf &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -116,6 +116,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -627,7 +635,7 @@
     <span class="k">return</span> <span class="n">h_op</span><span class="p">,</span> <span class="n">hdiag</span>
 
 
-<span class="k">class</span> <span class="nc">Hessian</span><span class="p">(</span><span class="n">rhf_hess</span><span class="o">.</span><span class="n">Hessian</span><span class="p">):</span>
+<div class="viewcode-block" id="Hessian"><a class="viewcode-back" href="../../../hessian.html#pyscf.hessian.uhf.Hessian">[docs]</a><span class="k">class</span> <span class="nc">Hessian</span><span class="p">(</span><span class="n">rhf_hess</span><span class="o">.</span><span class="n">Hessian</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Non-relativistic UHF hessian&#39;&#39;&#39;</span>
     <span class="n">partial_hess_elec</span> <span class="o">=</span> <span class="n">partial_hess_elec</span>
     <span class="n">hess_elec</span> <span class="o">=</span> <span class="n">hess_elec</span>
@@ -637,7 +645,7 @@
     <span class="k">def</span> <span class="nf">solve_mo1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mo_energy</span><span class="p">,</span> <span class="n">mo_coeff</span><span class="p">,</span> <span class="n">mo_occ</span><span class="p">,</span> <span class="n">h1ao_or_chkfile</span><span class="p">,</span>
                   <span class="n">fx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">atmlst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_memory</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">solve_mo1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base</span><span class="p">,</span> <span class="n">mo_energy</span><span class="p">,</span> <span class="n">mo_coeff</span><span class="p">,</span> <span class="n">mo_occ</span><span class="p">,</span> <span class="n">h1ao_or_chkfile</span><span class="p">,</span>
-                         <span class="n">fx</span><span class="p">,</span> <span class="n">atmlst</span><span class="p">,</span> <span class="n">max_memory</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+                         <span class="n">fx</span><span class="p">,</span> <span class="n">atmlst</span><span class="p">,</span> <span class="n">max_memory</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span></div>
 
 <span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">scf</span>
 <span class="n">scf</span><span class="o">.</span><span class="n">uhf</span><span class="o">.</span><span class="n">UHF</span><span class="o">.</span><span class="n">Hessian</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">class_as_method</span><span class="p">(</span><span class="n">Hessian</span><span class="p">)</span>
@@ -750,7 +758,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

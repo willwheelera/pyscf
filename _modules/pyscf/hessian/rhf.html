@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyscf.hessian.rhf &mdash; PySCF 1.7.0 documentation</title>
+  <title>pyscf.hessian.rhf &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -116,6 +116,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -277,13 +285,13 @@
     <span class="n">log</span><span class="o">.</span><span class="n">timer</span><span class="p">(</span><span class="s1">&#39;RHF hessian&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">time0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">de2</span>
 
-<span class="k">def</span> <span class="nf">partial_hess_elec</span><span class="p">(</span><span class="n">hessobj</span><span class="p">,</span> <span class="n">mo_energy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mo_coeff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mo_occ</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="partial_hess_elec"><a class="viewcode-back" href="../../../hessian.html#pyscf.hessian.rhf.partial_hess_elec">[docs]</a><span class="k">def</span> <span class="nf">partial_hess_elec</span><span class="p">(</span><span class="n">hessobj</span><span class="p">,</span> <span class="n">mo_energy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mo_coeff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mo_occ</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                       <span class="n">atmlst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_memory</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Partial derivative</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">e1</span><span class="p">,</span> <span class="n">ej</span><span class="p">,</span> <span class="n">ek</span> <span class="o">=</span> <span class="n">_partial_hess_ejk</span><span class="p">(</span><span class="n">hessobj</span><span class="p">,</span> <span class="n">mo_energy</span><span class="p">,</span> <span class="n">mo_coeff</span><span class="p">,</span> <span class="n">mo_occ</span><span class="p">,</span>
                                    <span class="n">atmlst</span><span class="p">,</span> <span class="n">max_memory</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">e1</span> <span class="o">+</span> <span class="n">ej</span> <span class="o">-</span> <span class="n">ek</span>  <span class="c1"># (A,B,dR_A,dR_B)</span>
+    <span class="k">return</span> <span class="n">e1</span> <span class="o">+</span> <span class="n">ej</span> <span class="o">-</span> <span class="n">ek</span>  <span class="c1"># (A,B,dR_A,dR_B)</span></div>
 
 <span class="k">def</span> <span class="nf">_partial_hess_ejk</span><span class="p">(</span><span class="n">hessobj</span><span class="p">,</span> <span class="n">mo_energy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mo_coeff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mo_occ</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                       <span class="n">atmlst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_memory</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">with_k</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -434,7 +442,7 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">chkfile</span>
 
-<span class="k">def</span> <span class="nf">get_hcore</span><span class="p">(</span><span class="n">mol</span><span class="p">):</span>
+<div class="viewcode-block" id="get_hcore"><a class="viewcode-back" href="../../../hessian.html#pyscf.hessian.rhf.get_hcore">[docs]</a><span class="k">def</span> <span class="nf">get_hcore</span><span class="p">(</span><span class="n">mol</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Part of the second derivatives of core Hamiltonian&#39;&#39;&#39;</span>
     <span class="n">h1aa</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">intor</span><span class="p">(</span><span class="s1">&#39;int1e_ipipkin&#39;</span><span class="p">,</span> <span class="n">comp</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
     <span class="n">h1ab</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">intor</span><span class="p">(</span><span class="s1">&#39;int1e_ipkinip&#39;</span><span class="p">,</span> <span class="n">comp</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
@@ -447,7 +455,7 @@
         <span class="n">h1aa</span> <span class="o">+=</span> <span class="n">mol</span><span class="o">.</span><span class="n">intor</span><span class="p">(</span><span class="s1">&#39;ECPscalar_ipipnuc&#39;</span><span class="p">,</span> <span class="n">comp</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
         <span class="n">h1ab</span> <span class="o">+=</span> <span class="n">mol</span><span class="o">.</span><span class="n">intor</span><span class="p">(</span><span class="s1">&#39;ECPscalar_ipnucip&#39;</span><span class="p">,</span> <span class="n">comp</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
     <span class="n">nao</span> <span class="o">=</span> <span class="n">h1aa</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">h1aa</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">nao</span><span class="p">,</span><span class="n">nao</span><span class="p">),</span> <span class="n">h1ab</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">nao</span><span class="p">,</span><span class="n">nao</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">h1aa</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">nao</span><span class="p">,</span><span class="n">nao</span><span class="p">),</span> <span class="n">h1ab</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">nao</span><span class="p">,</span><span class="n">nao</span><span class="p">)</span></div>
 
 <span class="k">def</span> <span class="nf">get_ovlp</span><span class="p">(</span><span class="n">mol</span><span class="p">):</span>
     <span class="n">s1a</span> <span class="o">=-</span><span class="n">mol</span><span class="o">.</span><span class="n">intor</span><span class="p">(</span><span class="s1">&#39;int1e_ipovlp&#39;</span><span class="p">,</span> <span class="n">comp</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
@@ -481,7 +489,7 @@
                 <span class="n">lib</span><span class="o">.</span><span class="n">hermi_triu</span><span class="p">(</span><span class="n">vs</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">hermi</span><span class="o">=</span><span class="n">hermi</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">vs</span>
 
-<span class="k">def</span> <span class="nf">solve_mo1</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="n">mo_energy</span><span class="p">,</span> <span class="n">mo_coeff</span><span class="p">,</span> <span class="n">mo_occ</span><span class="p">,</span> <span class="n">h1ao_or_chkfile</span><span class="p">,</span>
+<div class="viewcode-block" id="solve_mo1"><a class="viewcode-back" href="../../../hessian.html#pyscf.hessian.rhf.solve_mo1">[docs]</a><span class="k">def</span> <span class="nf">solve_mo1</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="n">mo_energy</span><span class="p">,</span> <span class="n">mo_coeff</span><span class="p">,</span> <span class="n">mo_occ</span><span class="p">,</span> <span class="n">h1ao_or_chkfile</span><span class="p">,</span>
               <span class="n">fx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">atmlst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_memory</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Solve the first order equation</span>
 
@@ -546,7 +554,7 @@
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h1ao_or_chkfile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">h1ao_or_chkfile</span><span class="p">,</span> <span class="n">e1s</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">mo1s</span><span class="p">,</span> <span class="n">e1s</span>
+        <span class="k">return</span> <span class="n">mo1s</span><span class="p">,</span> <span class="n">e1s</span></div>
 
 <span class="k">def</span> <span class="nf">gen_vind</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="n">mo_coeff</span><span class="p">,</span> <span class="n">mo_occ</span><span class="p">):</span>
     <span class="n">nao</span><span class="p">,</span> <span class="n">nmo</span> <span class="o">=</span> <span class="n">mo_coeff</span><span class="o">.</span><span class="n">shape</span>
@@ -655,7 +663,7 @@
     <span class="k">return</span> <span class="n">h_op</span><span class="p">,</span> <span class="n">hdiag</span>
 
 
-<span class="k">class</span> <span class="nc">Hessian</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">StreamObject</span><span class="p">):</span>
+<div class="viewcode-block" id="Hessian"><a class="viewcode-back" href="../../../hessian.html#pyscf.hessian.rhf.Hessian">[docs]</a><span class="k">class</span> <span class="nc">Hessian</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">StreamObject</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Non-relativistic restricted Hartree-Fock hessian&#39;&#39;&#39;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scf_method</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">scf_method</span><span class="o">.</span><span class="n">verbose</span>
@@ -769,7 +777,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">de</span>
     <span class="n">hess</span> <span class="o">=</span> <span class="n">kernel</span>
 
-    <span class="n">gen_hop</span> <span class="o">=</span> <span class="n">gen_hop</span>
+    <span class="n">gen_hop</span> <span class="o">=</span> <span class="n">gen_hop</span></div>
 
 <span class="c1"># Inject to RHF class</span>
 <span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">scf</span>
@@ -880,7 +888,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

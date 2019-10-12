@@ -1,0 +1,477 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyscf.solvent.ddpcm &mdash; PySCF 1.5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="PySCF 1.5.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> PySCF
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">1. An overview of PySCF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">2. Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">3. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gto.html">4. gto &#8212; Molecular structure and GTO basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lib.html">5. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scf.html">6. scf &#8212; Mean-field methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ao2mo.html">7. ao2mo &#8212; Integral transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mcscf.html">8. mcscf &#8212; Multi-configurational self-consistent field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fci.html">9. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../symm.html">10. symm &#8211; Point group symmetry and spin symmetry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../df.html">11. df &#8212; Density fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dft.html">12. dft &#8212; Density functional theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tddft.html">13. tddft &#8212; Time dependent density functional theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cc.html">14. cc &#8212; Coupled cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ci.html">15. ci &#8212; Configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dmrgscf.html">16. dmrgscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fciqmcscf.html">17. fciqmcscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tools.html">18. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../grad.html">19. grad &#8212; Analytical nuclear gradients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hessian.html">20. hessian &#8212; Analytical nuclear Hessian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pbc.html">21. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nao.html">22. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lo.html">23. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../advanced.html">24. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qmmm.html">25. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mrpt.html">26. mrpt &#8212; Multi-reference perturbation theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../benchmark.html">27. Benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code-rule.html">28. Code standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PySCF</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyscf.solvent.ddpcm</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyscf.solvent.ddpcm</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># Copyright 2014-2019 The PySCF Developers. All Rights Reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1">#</span>
+<span class="c1"># Author: Qiming Sun &lt;osirpt.sun@gmail.com&gt;</span>
+<span class="c1">#</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">domain decomposition PCM (In testing)</span>
+
+<span class="sd">See also</span>
+<span class="sd">JCP, 144, 054101</span>
+<span class="sd">JCP, 144, 160901</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">import</span> <span class="nn">ctypes</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">lib</span>
+<span class="kn">from</span> <span class="nn">pyscf.lib</span> <span class="k">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span>
+<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">df</span>
+<span class="kn">from</span> <span class="nn">pyscf.dft</span> <span class="k">import</span> <span class="n">gen_grid</span><span class="p">,</span> <span class="n">numint</span>
+<span class="kn">from</span> <span class="nn">pyscf.data</span> <span class="k">import</span> <span class="n">radii</span>
+<span class="kn">from</span> <span class="nn">pyscf.solvent</span> <span class="k">import</span> <span class="n">ddcosmo</span>
+<span class="kn">from</span> <span class="nn">pyscf.symm</span> <span class="k">import</span> <span class="n">sph</span>
+
+<span class="k">def</span> <span class="nf">ddpcm_for_scf</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="n">solvent_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">solvent_obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">solvent_obj</span> <span class="o">=</span> <span class="n">DDPCM</span><span class="p">(</span><span class="n">mf</span><span class="o">.</span><span class="n">mol</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ddcosmo</span><span class="o">.</span><span class="n">ddcosmo_for_scf</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="n">solvent_obj</span><span class="p">,</span> <span class="n">dm</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">ddpcm_for_casscf</span><span class="p">(</span><span class="n">mc</span><span class="p">,</span> <span class="n">solvent_obj</span><span class="p">,</span> <span class="n">dm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">solvent_obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">solvent_obj</span> <span class="o">=</span> <span class="n">DDPCM</span><span class="p">(</span><span class="n">mc</span><span class="o">.</span><span class="n">mol</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ddcosmo</span><span class="o">.</span><span class="n">ddcosmo_for_casscf</span><span class="p">(</span><span class="n">mc</span><span class="p">,</span> <span class="n">solvent_obj</span><span class="p">,</span> <span class="n">dm</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">ddpcm_for_casci</span><span class="p">(</span><span class="n">mc</span><span class="p">,</span> <span class="n">solvent_obj</span><span class="p">,</span> <span class="n">dm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">solvent_obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">solvent_obj</span> <span class="o">=</span> <span class="n">DDPCM</span><span class="p">(</span><span class="n">mc</span><span class="o">.</span><span class="n">mol</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ddcosmo</span><span class="o">.</span><span class="n">ddcosmo_for_casci</span><span class="p">(</span><span class="n">mc</span><span class="p">,</span> <span class="n">solvent_obj</span><span class="p">,</span> <span class="n">dm</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">ddpcm_for_post_scf</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">solvent_obj</span><span class="p">,</span> <span class="n">dm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">solvent_obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">solvent_obj</span> <span class="o">=</span> <span class="n">DDPCM</span><span class="p">(</span><span class="n">method</span><span class="o">.</span><span class="n">mol</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ddcosmo</span><span class="o">.</span><span class="n">ddcosmo_for_post_scf</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">solvent_obj</span><span class="p">,</span> <span class="n">dm</span><span class="p">)</span>
+
+
+<span class="c1"># Inject DDPCM to other methods</span>
+<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">scf</span>
+<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">mcscf</span>
+<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">mp</span><span class="p">,</span> <span class="n">ci</span><span class="p">,</span> <span class="n">cc</span>
+<span class="n">scf</span><span class="o">.</span><span class="n">hf</span><span class="o">.</span><span class="n">SCF</span><span class="o">.</span><span class="n">DDPCM</span> <span class="o">=</span> <span class="n">ddpcm_for_scf</span>
+<span class="n">mcscf</span><span class="o">.</span><span class="n">casci</span><span class="o">.</span><span class="n">DDPCM</span> <span class="o">=</span> <span class="n">ddpcm_for_casci</span>
+<span class="n">mcscf</span><span class="o">.</span><span class="n">mc1step</span><span class="o">.</span><span class="n">DDPCM</span> <span class="o">=</span> <span class="n">ddpcm_for_casscf</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">mp2</span><span class="o">.</span><span class="n">MP2</span><span class="o">.</span><span class="n">DDPCM</span> <span class="o">=</span> <span class="n">ddpcm_for_post_scf</span>
+<span class="n">ci</span><span class="o">.</span><span class="n">cisd</span><span class="o">.</span><span class="n">CISD</span><span class="o">.</span><span class="n">DDPCM</span> <span class="o">=</span> <span class="n">ddpcm_for_post_scf</span>
+<span class="n">cc</span><span class="o">.</span><span class="n">ccsd</span><span class="o">.</span><span class="n">CCSD</span><span class="o">.</span><span class="n">DDPCM</span> <span class="o">=</span> <span class="n">ddpcm_for_post_scf</span>
+
+<span class="k">def</span> <span class="nf">gen_ddpcm_solver</span><span class="p">(</span><span class="n">pcmobj</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">mol</span> <span class="o">=</span> <span class="n">pcmobj</span><span class="o">.</span><span class="n">mol</span>
+    <span class="k">if</span> <span class="n">pcmobj</span><span class="o">.</span><span class="n">grids</span><span class="o">.</span><span class="n">coords</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pcmobj</span><span class="o">.</span><span class="n">grids</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">with_non0tab</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">natm</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">natm</span>
+    <span class="n">lmax</span> <span class="o">=</span> <span class="n">pcmobj</span><span class="o">.</span><span class="n">lmax</span>
+
+    <span class="n">r_vdw</span> <span class="o">=</span> <span class="n">ddcosmo</span><span class="o">.</span><span class="n">get_atomic_radii</span><span class="p">(</span><span class="n">pcmobj</span><span class="p">)</span>
+    <span class="n">coords_1sph</span><span class="p">,</span> <span class="n">weights_1sph</span> <span class="o">=</span> <span class="n">ddcosmo</span><span class="o">.</span><span class="n">make_grids_one_sphere</span><span class="p">(</span><span class="n">pcmobj</span><span class="o">.</span><span class="n">lebedev_order</span><span class="p">)</span>
+    <span class="n">ylm_1sph</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">sph</span><span class="o">.</span><span class="n">real_sph_vec</span><span class="p">(</span><span class="n">coords_1sph</span><span class="p">,</span> <span class="n">lmax</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+
+    <span class="n">fi</span> <span class="o">=</span> <span class="n">ddcosmo</span><span class="o">.</span><span class="n">make_fi</span><span class="p">(</span><span class="n">pcmobj</span><span class="p">,</span> <span class="n">r_vdw</span><span class="p">)</span>
+    <span class="n">ui</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">fi</span>
+    <span class="n">ui</span><span class="p">[</span><span class="n">ui</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">nexposed</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">ui</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">nbury</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">ui</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">on_shell</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">ui</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="n">nexposed</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">pcmobj</span><span class="p">,</span> <span class="s1">&#39;Num points exposed </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">nexposed</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">pcmobj</span><span class="p">,</span> <span class="s1">&#39;Num points buried </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">nbury</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">pcmobj</span><span class="p">,</span> <span class="s1">&#39;Num points on shell </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">on_shell</span><span class="p">)</span>
+
+    <span class="n">nlm</span> <span class="o">=</span> <span class="p">(</span><span class="n">lmax</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">Lmat</span> <span class="o">=</span> <span class="n">ddcosmo</span><span class="o">.</span><span class="n">make_L</span><span class="p">(</span><span class="n">pcmobj</span><span class="p">,</span> <span class="n">r_vdw</span><span class="p">,</span> <span class="n">ylm_1sph</span><span class="p">,</span> <span class="n">fi</span><span class="p">)</span>
+    <span class="n">Lmat</span> <span class="o">=</span> <span class="n">Lmat</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">natm</span><span class="o">*</span><span class="n">nlm</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">Amat</span> <span class="o">=</span> <span class="n">make_A</span><span class="p">(</span><span class="n">pcmobj</span><span class="p">,</span> <span class="n">r_vdw</span><span class="p">,</span> <span class="n">ylm_1sph</span><span class="p">,</span> <span class="n">ui</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">natm</span><span class="o">*</span><span class="n">nlm</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">fac</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">pcmobj</span><span class="o">.</span><span class="n">eps</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">pcmobj</span><span class="o">.</span><span class="n">eps</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">A_diele</span> <span class="o">=</span> <span class="n">Amat</span> <span class="o">+</span> <span class="n">fac</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">natm</span><span class="o">*</span><span class="n">nlm</span><span class="p">)</span>
+    <span class="n">A_inf</span> <span class="o">=</span> <span class="n">Amat</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">natm</span><span class="o">*</span><span class="n">nlm</span><span class="p">)</span>
+
+    <span class="n">cached_pol</span> <span class="o">=</span> <span class="n">ddcosmo</span><span class="o">.</span><span class="n">cache_fake_multipoles</span><span class="p">(</span><span class="n">pcmobj</span><span class="o">.</span><span class="n">grids</span><span class="p">,</span> <span class="n">r_vdw</span><span class="p">,</span> <span class="n">lmax</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">gen_vind</span><span class="p">(</span><span class="n">dm</span><span class="p">):</span>
+        <span class="n">phi</span> <span class="o">=</span> <span class="n">ddcosmo</span><span class="o">.</span><span class="n">make_phi</span><span class="p">(</span><span class="n">pcmobj</span><span class="p">,</span> <span class="n">dm</span><span class="p">,</span> <span class="n">r_vdw</span><span class="p">,</span> <span class="n">ui</span><span class="p">)</span>
+        <span class="n">phi</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A_diele</span><span class="p">,</span> <span class="n">A_inf</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">phi</span><span class="o">.</span><span class="n">ravel</span><span class="p">()))</span>
+
+        <span class="n">L_X</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Lmat</span><span class="p">,</span> <span class="n">phi</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">natm</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">psi</span><span class="p">,</span> <span class="n">vmat</span> <span class="o">=</span> <span class="n">ddcosmo</span><span class="o">.</span><span class="n">make_psi_vmat</span><span class="p">(</span><span class="n">pcmobj</span><span class="p">,</span> <span class="n">dm</span><span class="p">,</span> <span class="n">r_vdw</span><span class="p">,</span> <span class="n">ui</span><span class="p">,</span> <span class="n">pcmobj</span><span class="o">.</span><span class="n">grids</span><span class="p">,</span>
+                                          <span class="n">ylm_1sph</span><span class="p">,</span> <span class="n">cached_pol</span><span class="p">,</span> <span class="n">L_X</span><span class="p">,</span> <span class="n">Lmat</span><span class="p">)[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">dielectric</span> <span class="o">=</span> <span class="n">pcmobj</span><span class="o">.</span><span class="n">eps</span>
+        <span class="n">f_epsilon</span> <span class="o">=</span> <span class="p">(</span><span class="n">dielectric</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span><span class="o">/</span><span class="n">dielectric</span>
+        <span class="n">epcm</span> <span class="o">=</span> <span class="o">.</span><span class="mi">5</span> <span class="o">*</span> <span class="n">f_epsilon</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;jx,jx&#39;</span><span class="p">,</span> <span class="n">psi</span><span class="p">,</span> <span class="n">L_X</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">epcm</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span> <span class="o">*</span> <span class="n">f_epsilon</span> <span class="o">*</span> <span class="n">vmat</span>
+    <span class="k">return</span> <span class="n">gen_vind</span>
+
+<div class="viewcode-block" id="energy"><a class="viewcode-back" href="../../../solvent.html#pyscf.solvent.ddpcm.energy">[docs]</a><span class="k">def</span> <span class="nf">energy</span><span class="p">(</span><span class="n">pcmobj</span><span class="p">,</span> <span class="n">dm</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    ddPCM energy</span>
+<span class="sd">    Es = 1/2 f(eps) \int rho(r) W(r) dr</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">epcm</span> <span class="o">=</span> <span class="n">gen_ddpcm_solver</span><span class="p">(</span><span class="n">pcmobj</span><span class="p">,</span> <span class="n">pcmobj</span><span class="o">.</span><span class="n">verbose</span><span class="p">)(</span><span class="n">dm</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">epcm</span></div>
+
+<span class="k">def</span> <span class="nf">regularize_xt</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">eta</span> <span class="o">*=</span> <span class="n">scale</span>
+    <span class="n">xt</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">inner</span> <span class="o">=</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="o">-</span><span class="n">eta</span>
+    <span class="n">on_shell</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">eta</span> <span class="o">&lt;</span> <span class="n">t</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">t</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">xt</span><span class="p">[</span><span class="n">inner</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">ti</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="n">on_shell</span><span class="p">]</span> <span class="o">-</span> <span class="n">eta</span><span class="o">*.</span><span class="mi">5</span>
+<span class="c1"># JCP, 144, 054101</span>
+    <span class="n">xt</span><span class="p">[</span><span class="n">on_shell</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="n">eta</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ti</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">ti</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">eta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="n">xt</span>
+
+<span class="k">def</span> <span class="nf">make_A</span><span class="p">(</span><span class="n">pcmobj</span><span class="p">,</span> <span class="n">r_vdw</span><span class="p">,</span> <span class="n">ylm_1sph</span><span class="p">,</span> <span class="n">ui</span><span class="p">):</span>
+    <span class="c1"># Part of A matrix defined in JCP, 144, 054101, Eq (43), (44)</span>
+    <span class="n">mol</span> <span class="o">=</span> <span class="n">pcmobj</span><span class="o">.</span><span class="n">mol</span>
+    <span class="n">natm</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">natm</span>
+    <span class="n">lmax</span> <span class="o">=</span> <span class="n">pcmobj</span><span class="o">.</span><span class="n">lmax</span>
+    <span class="n">eta</span> <span class="o">=</span> <span class="n">pcmobj</span><span class="o">.</span><span class="n">eta</span>
+    <span class="n">nlm</span> <span class="o">=</span> <span class="p">(</span><span class="n">lmax</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="n">coords_1sph</span><span class="p">,</span> <span class="n">weights_1sph</span> <span class="o">=</span> <span class="n">ddcosmo</span><span class="o">.</span><span class="n">make_grids_one_sphere</span><span class="p">(</span><span class="n">pcmobj</span><span class="o">.</span><span class="n">lebedev_order</span><span class="p">)</span>
+    <span class="n">ngrid_1sph</span> <span class="o">=</span> <span class="n">weights_1sph</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">atom_coords</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">atom_coords</span><span class="p">()</span>
+    <span class="n">ylm_1sph</span> <span class="o">=</span> <span class="n">ylm_1sph</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">nlm</span><span class="p">,</span><span class="n">ngrid_1sph</span><span class="p">)</span>
+    <span class="n">Amat</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">natm</span><span class="p">,</span><span class="n">nlm</span><span class="p">,</span><span class="n">natm</span><span class="p">,</span><span class="n">nlm</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">ja</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">natm</span><span class="p">):</span>
+        <span class="c1"># w_u = precontract w_n U_j</span>
+        <span class="n">w_u</span> <span class="o">=</span> <span class="n">weights_1sph</span> <span class="o">*</span> <span class="n">ui</span><span class="p">[</span><span class="n">ja</span><span class="p">]</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">lmax</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">fac</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="p">(</span><span class="n">l</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">p0</span><span class="p">,</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p1</span> <span class="o">+</span> <span class="p">(</span><span class="n">l</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;xn,n,mn-&gt;xm&#39;</span><span class="p">,</span> <span class="n">ylm_1sph</span><span class="p">,</span> <span class="n">w_u</span><span class="p">,</span> <span class="n">ylm_1sph</span><span class="p">[</span><span class="n">p0</span><span class="p">:</span><span class="n">p1</span><span class="p">])</span>
+            <span class="n">Amat</span><span class="p">[</span><span class="n">ja</span><span class="p">,:,</span><span class="n">ja</span><span class="p">,</span><span class="n">p0</span><span class="p">:</span><span class="n">p1</span><span class="p">]</span> <span class="o">+=</span> <span class="o">-</span><span class="n">fac</span> <span class="o">*</span> <span class="n">a</span>
+
+        <span class="k">for</span> <span class="n">ka</span> <span class="ow">in</span> <span class="n">ddcosmo</span><span class="o">.</span><span class="n">atoms_with_vdw_overlap</span><span class="p">(</span><span class="n">ja</span><span class="p">,</span> <span class="n">atom_coords</span><span class="p">,</span> <span class="n">r_vdw</span><span class="p">):</span>
+            <span class="n">vjk</span> <span class="o">=</span> <span class="n">r_vdw</span><span class="p">[</span><span class="n">ja</span><span class="p">]</span> <span class="o">*</span> <span class="n">coords_1sph</span> <span class="o">+</span> <span class="n">atom_coords</span><span class="p">[</span><span class="n">ja</span><span class="p">]</span> <span class="o">-</span> <span class="n">atom_coords</span><span class="p">[</span><span class="n">ka</span><span class="p">]</span>
+            <span class="n">rjk</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vjk</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">pol</span> <span class="o">=</span> <span class="n">sph</span><span class="o">.</span><span class="n">multipoles</span><span class="p">(</span><span class="n">vjk</span><span class="p">,</span> <span class="n">lmax</span><span class="p">)</span>
+            <span class="n">p1</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">weights</span> <span class="o">=</span> <span class="n">w_u</span> <span class="o">/</span> <span class="n">rjk</span><span class="o">**</span><span class="p">(</span><span class="n">l</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">lmax</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">fac</span> <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">l</span><span class="o">/</span><span class="p">(</span><span class="n">l</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">r_vdw</span><span class="p">[</span><span class="n">ka</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">p0</span><span class="p">,</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p1</span> <span class="o">+</span> <span class="p">(</span><span class="n">l</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;xn,n,mn-&gt;xm&#39;</span><span class="p">,</span> <span class="n">ylm_1sph</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">pol</span><span class="p">[</span><span class="n">l</span><span class="p">])</span>
+                <span class="n">Amat</span><span class="p">[</span><span class="n">ja</span><span class="p">,:,</span><span class="n">ka</span><span class="p">,</span><span class="n">p0</span><span class="p">:</span><span class="n">p1</span><span class="p">]</span> <span class="o">+=</span> <span class="o">-</span><span class="n">fac</span> <span class="o">*</span> <span class="n">a</span>
+    <span class="k">return</span> <span class="n">Amat</span>
+
+<span class="k">class</span> <span class="nc">DDPCM</span><span class="p">(</span><span class="n">ddcosmo</span><span class="o">.</span><span class="n">DDCOSMO</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="p">):</span>
+        <span class="n">ddcosmo</span><span class="o">.</span><span class="n">DDCOSMO</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">dump_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;******** </span><span class="si">%s</span><span class="s1"> (In testing) ********&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ddPCM is an experimental feature. It is &#39;</span>
+                    <span class="s1">&#39;still in testing.</span><span class="se">\n</span><span class="s1">Features and APIs may be changed &#39;</span>
+                    <span class="s1">&#39;in the future.&#39;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;lebedev_order = </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%d</span><span class="s1"> grids per sphere)&#39;</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">lebedev_order</span><span class="p">,</span> <span class="n">gen_grid</span><span class="o">.</span><span class="n">LEBEDEV_ORDER</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">lebedev_order</span><span class="p">])</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;lmax = </span><span class="si">%s</span><span class="s1">&#39;</span>         <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lmax</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;eta = </span><span class="si">%s</span><span class="s1">&#39;</span>          <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;eps = </span><span class="si">%s</span><span class="s1">&#39;</span>          <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;radii_table </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">radii_table</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_radii</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;User specified atomic radii </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">atom_radii</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grids</span><span class="o">.</span><span class="n">dump_flags</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="n">gen_solver</span> <span class="o">=</span> <span class="n">as_solver</span> <span class="o">=</span> <span class="n">gen_ddpcm_solver</span>
+
+    <span class="k">def</span> <span class="nf">regularize_xt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">regularize_xt</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">scf</span>
+    <span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; H 0 1 1.2; H 1. .1 0; H .5 .5 1&#39;</span><span class="p">)</span>
+    <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">nao</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">nao_nr</span><span class="p">()</span>
+    <span class="n">dm</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">nao</span><span class="p">,</span><span class="n">nao</span><span class="p">))</span>
+    <span class="n">dm</span> <span class="o">=</span> <span class="n">dm</span> <span class="o">+</span> <span class="n">dm</span><span class="o">.</span><span class="n">T</span>
+    <span class="c1">#dm = scf.RHF(mol).run().make_rdm1()</span>
+    <span class="n">e</span><span class="p">,</span> <span class="n">vmat</span> <span class="o">=</span> <span class="n">DDPCM</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">dm</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">e</span> <span class="o">+</span> <span class="mf">1.2446306643473923</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">finger</span><span class="p">(</span><span class="n">vmat</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.77873361914445294</span><span class="p">)</span>
+
+    <span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">Mole</span><span class="p">()</span>
+    <span class="n">mol</span><span class="o">.</span><span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39; O                  0.00000000    0.00000000   -0.11081188</span>
+<span class="s1">                   H                 -0.00000000   -0.84695236    0.59109389</span>
+<span class="s1">                   H                 -0.00000000    0.89830571    0.52404783 &#39;&#39;&#39;</span>
+    <span class="n">mol</span><span class="o">.</span><span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;3-21g&#39;</span> <span class="c1">#cc-pvdz&#39;</span>
+    <span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">DDPCM</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+    <span class="n">cm</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">mf</span> <span class="o">=</span> <span class="n">ddpcm_for_scf</span><span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">),</span> <span class="n">cm</span><span class="p">)</span><span class="c1">#.newton()</span>
+    <span class="n">mf</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015-, Qiming Sun &lt;osirpt.sun@gmail.com&gt;.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

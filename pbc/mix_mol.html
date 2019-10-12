@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>21.7. Mixing PBC and molecular modules &mdash; PySCF 1.7.0 documentation</title>
+  <title>21.12. Mixing PBC and molecular modules &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,10 +32,10 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="../index.html"/>
+    <link rel="top" title="PySCF 1.5.0 documentation" href="../index.html"/>
         <link rel="up" title="21. pbc — Periodic boundary conditions" href="../pbc.html"/>
-        <link rel="next" title="22. nao — Numerical Atomic Orbitals" href="../nao.html"/>
-        <link rel="prev" title="21.6. pbc.tools — PBC tools" href="tools.html"/> 
+        <link rel="next" title="21.13. pbc.prop — PBC property" href="prop.html"/>
+        <link rel="prev" title="21.11. pbc.tools — PBC tools" href="tools.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                1.7
+                1.5
               </div>
             
           
@@ -111,15 +111,22 @@
 <li class="toctree-l1"><a class="reference internal" href="../hessian.html">20. hessian &#8212; Analytical nuclear Hessian</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../pbc.html">21. pbc &#8212; Periodic boundary conditions</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="gto.html">21.1. pbc.gto &#8212; Crystal cell structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scf.html">21.2. pbc.scf &#8212; Mean-field with periodic boundary condition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dft.html">21.3. pbc.dft</a></li>
-<li class="toctree-l2"><a class="reference internal" href="df.html">21.4. pbc.df &#8212; PBC denisty fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc.html">21.5. pbc.cc &#8212; PBC coupled cluster</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tools.html">21.6. pbc.tools &#8212; PBC tools</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">21.7. Mixing PBC and molecular modules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#examples">21.7.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ao2mo.html">21.2. pbc.ao2mo &#8212; PBC integral transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scf.html">21.3. pbc.scf &#8212; Mean-field with periodic boundary condition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dft.html">21.4. pbc.dft  &#8212; PBC density functional theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="df.html">21.5. pbc.df &#8212; PBC denisty fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tdscf.html">21.6. pbc.tdscf &#8212; PBC time dependent density functional theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mp.html">21.7. pbc.mp &#8212; PBC perturbation theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci.html">21.8. pbc.ci &#8212; PBC configuration interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc.html">21.9. pbc.cc &#8212; PBC coupled cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mpicc.html">21.10. pbc.mpicc &#8212; PBC coupled cluster for MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">21.11. pbc.tools &#8212; PBC tools</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">21.12. Mixing PBC and molecular modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#examples">21.12.1. Examples</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="prop.html">21.13. pbc.prop &#8212; PBC property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gw.html">21.14. pbc.gw &#8212; GW with PBC</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../nao.html">22. nao &#8212; Numerical Atomic Orbitals</a></li>
@@ -130,6 +137,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../benchmark.html">27. Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../code-rule.html">28. Code standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../version.html">29. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gw.html">30. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mp.html">34. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 </ul>
 
             
@@ -176,7 +191,7 @@
         
           <li><a href="../pbc.html">21. pbc &#8212; Periodic boundary conditions</a> &raquo;</li>
         
-      <li>21.7. Mixing PBC and molecular modules</li>
+      <li>21.12. Mixing PBC and molecular modules</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -196,7 +211,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="mixing-pbc-and-molecular-modules">
-<span id="mix-mol"></span><h1>21.7. Mixing PBC and molecular modules<a class="headerlink" href="#mixing-pbc-and-molecular-modules" title="Permalink to this headline">¶</a></h1>
+<span id="mix-mol"></span><h1>21.12. Mixing PBC and molecular modules<a class="headerlink" href="#mixing-pbc-and-molecular-modules" title="Permalink to this headline">¶</a></h1>
 <p>The post-HF methods, as a standalone numerical solver, do not require the
 knowledge of the boundary condition.  The calculations of finite-size systems
 and extend systems are distinguished by the boundary condition of integrals (and
@@ -234,48 +249,7 @@ required by the post-HF solver.  They are <code class="xref py py-meth docutils 
 the numerical integration of DFT exchange-correlation functionals.  They are all
 overloaded in PBC mean-field object to produce the PBC integrals.</p>
 <div class="section" id="examples">
-<h2>21.7.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
-
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">Gamma point post-HF calculation needs only real integrals.</span>
-<span class="sd">Methods implemented in finite-size system can be directly used here without</span>
-<span class="sd">any modification.</span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">pyscf.pbc</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span>
-
-<span class="n">cell</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mf">3.5668</span><span class="p">,</span>
-    <span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;C     0.      0.      0.    </span>
-<span class="s1">              C     0.8917  0.8917  0.8917</span>
-<span class="s1">              C     1.7834  1.7834  0.    </span>
-<span class="s1">              C     2.6751  2.6751  0.8917</span>
-<span class="s1">              C     1.7834  0.      1.7834</span>
-<span class="s1">              C     2.6751  0.8917  2.6751</span>
-<span class="s1">              C     0.      1.7834  1.7834</span>
-<span class="s1">              C     0.8917  2.6751  2.6751&#39;&#39;&#39;</span><span class="p">,</span>
-    <span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;6-31g&#39;</span><span class="p">,</span>
-    <span class="n">verbose</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="o">.</span><span class="n">density_fit</span><span class="p">()</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">with_df</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-
-<span class="c1">#</span>
-<span class="c1"># Import CC, TDDFT moduel from the molecular implementations</span>
-<span class="c1">#</span>
-<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">cc</span><span class="p">,</span> <span class="n">tddft</span>
-<span class="n">mycc</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="n">CCSD</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span>
-<span class="n">mycc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-
-<span class="n">mytd</span> <span class="o">=</span> <span class="n">tddft</span><span class="o">.</span><span class="n">TDHF</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span>
-<span class="n">mytd</span><span class="o">.</span><span class="n">nstates</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">mytd</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-</pre></div>
-</div>
+<h2>21.12.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -289,10 +263,10 @@ overloaded in PBC mean-field object to produce the PBC integrals.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../nao.html" class="btn btn-neutral float-right" title="22. nao — Numerical Atomic Orbitals" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="prop.html" class="btn btn-neutral float-right" title="21.13. pbc.prop — PBC property" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="tools.html" class="btn btn-neutral" title="21.6. pbc.tools — PBC tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="tools.html" class="btn btn-neutral" title="21.11. pbc.tools — PBC tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -323,7 +297,7 @@ overloaded in PBC mean-field object to produce the PBC integrals.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.7.0',
+            VERSION:'1.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
