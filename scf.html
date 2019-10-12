@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>6. scf — Mean-field methods &mdash; PySCF 1.5.0 documentation</title>
+  <title>6. scf — Mean-field methods &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
         <link rel="next" title="7. ao2mo — Integral transformations" href="ao2mo.html"/>
         <link rel="prev" title="5. lib — Helper functions, parameters, and C extensions" href="lib.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -546,6 +546,46 @@ envrionment.</dd>
 </pre></div>
 </div>
 <dl class="method">
+<dt id="pyscf.scf.hf.SCF.QMMM">
+<code class="descname">QMMM</code><span class="sig-paren">(</span><em>scf_method</em>, <em>coords</em>, <em>charges</em>, <em>unit=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.hf.SCF.QMMM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify the QM method using the (non-relativistic) potential generated
+by MM charges. Note the static Coulomb interactions of the background
+charges are not included in the total energy.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">scf_method : a HF or DFT object</p>
+<dl class="last docutils">
+<dt>coords</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">2D array, shape (N,3)</span><dd>MM particle coordinates</dd>
+<dt>charges</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">1D array</span><dd>MM particle charges</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>unit</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>Bohr, AU, Ang (case insensitive). Default is the same to mol.unit</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>Same method object as the input scf_method with modified 1e Hamiltonian</dd>
+<dt>Note:</dt>
+<dd>1. if MM charge and X2C correction are used together, function mm_charge
+needs to be applied after X2C decoration (.x2c method), eg
+mf = mm_charge(scf.RHF(mol).x2c()), [(0.5,0.6,0.8)], [-0.5]).
+2. Once mm_charge function is applied on the SCF object, it
+affects all the post-HF calculations eg MP2, CCSD, MCSCF etc</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">mm_charge</span><span class="p">(</span><span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">mol</span><span class="p">),</span> <span class="p">[(</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.8</span><span class="p">)],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+<span class="go">-101.940495711284</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyscf.scf.hf.SCF.analyze">
 <code class="descname">analyze</code><span class="sig-paren">(</span><em>verbose=None</em>, <em>with_meta_lowdin=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.analyze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.SCF.analyze" title="Permalink to this definition">¶</a></dt>
 <dd><p>Analyze the given SCF object:  print orbital energies, occupancies;
@@ -619,6 +659,7 @@ HF potential</p>
   <span class="o">+</span> \<span class="n">frac</span><span class="p">{</span><span class="mi">1</span><span class="p">}{</span><span class="mi">2</span><span class="p">}</span>\<span class="n">sum_</span><span class="p">{</span><span class="n">ijkl</span><span class="p">}</span> \<span class="n">gamma_</span><span class="p">{</span><span class="n">ji</span><span class="p">}</span>\<span class="n">gamma_</span><span class="p">{</span><span class="n">lk</span><span class="p">}</span> \<span class="n">langle</span> <span class="n">ik</span><span class="o">||</span><span class="n">jl</span>\<span class="n">rangle</span>
 </pre></div>
 </div>
+<p>Note this function has side effects which cause mf.scf_summary updated.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd>mf : an instance of SCF class</dd>
@@ -654,6 +695,7 @@ HF potential</p>
 <code class="descname">energy_tot</code><span class="sig-paren">(</span><em>mf</em>, <em>dm=None</em>, <em>h1e=None</em>, <em>vhf=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.hf.SCF.energy_tot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Total Hartree-Fock energy, electronic part plus nuclear repulstion
 See <code class="xref py py-func docutils literal"><span class="pre">scf.hf.energy_elec()</span></code> for the electron part</p>
+<p>Note this function has side effects which cause mf.scf_summary updated.</p>
 </dd></dl>
 
 <dl class="method">
@@ -720,14 +762,14 @@ to get_fock function during the SCF iteration)</p>
 
 <dl class="method">
 <dt id="pyscf.scf.hf.SCF.get_j">
-<code class="descname">get_j</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.get_j"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.SCF.get_j" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute J matrix for the given density matrix.</p>
+<code class="descname">get_j</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>omega=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.get_j"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.SCF.get_j" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute J matrices for all input density matrices</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyscf.scf.hf.SCF.get_jk">
-<code class="descname">get_jk</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.get_jk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.SCF.get_jk" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute J, K matrices for the given density matrix</p>
+<code class="descname">get_jk</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>with_j=True</em>, <em>with_k=True</em>, <em>omega=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.get_jk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.SCF.get_jk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute J, K matrices for all input density matrices</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><p class="first">mol : an instance of <code class="xref py py-class docutils literal"><span class="pre">Mole</span></code></p>
@@ -749,6 +791,14 @@ to get_fock function during the SCF iteration)</p>
 <dt>vhfopt :</dt>
 <dd>A class which holds precomputed quantities to optimize the
 computation of J, K matrices</dd>
+<dt>with_j</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">boolean</span><dd>Whether to compute J matrices</dd>
+<dt>with_k</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">boolean</span><dd>Whether to compute K matrices</dd>
+<dt>omega</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Parameter of range-seperated Coulomb operator: erf( omega * r12 ) / r12.
+If specified, integration are evaluated based on the long-range
+part of the range-seperated Coulomb operator.</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
@@ -770,8 +820,8 @@ input density matrices.</dd>
 
 <dl class="method">
 <dt id="pyscf.scf.hf.SCF.get_k">
-<code class="descname">get_k</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.get_k"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.SCF.get_k" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute K matrix for the given density matrix.</p>
+<code class="descname">get_k</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>omega=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.get_k"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.SCF.get_k" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute K matrices for all input density matrices</p>
 </dd></dl>
 
 <dl class="method">
@@ -974,6 +1024,15 @@ three methods</p>
 </dd>
 </dl>
 </dd>
+<dt>Returns:</dt>
+<dd><p class="first">A list : pop, charges</p>
+<dl class="last docutils">
+<dt>pop</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken population on each atomic orbitals</dd>
+<dt>charges</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken charges</dd>
+</dl>
+</dd>
 </dl>
 </dd></dl>
 
@@ -986,6 +1045,17 @@ three methods</p>
 <p>Mulliken charges</p>
 <div class="math">
 \[\delta_i = \sum_j M_{ij}\]</div>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><p class="first">A list : pop, charges</p>
+<dl class="last docutils">
+<dt>pop</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken population on each atomic orbitals</dd>
+<dt>charges</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken charges</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1015,6 +1085,15 @@ three methods</p>
 <div class="line">&#8216;scf&#8217;   : Fraction-averaged RHF</div>
 </div>
 </dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><p class="first">A list : pop, charges</p>
+<dl class="last docutils">
+<dt>pop</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken population on each atomic orbitals</dd>
+<dt>charges</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken charges</dd>
 </dl>
 </dd>
 </dl>
@@ -1055,7 +1134,22 @@ three methods</p>
 </dd>
 </dl>
 </dd>
+<dt>Returns:</dt>
+<dd><p class="first">A list : pop, charges</p>
+<dl class="last docutils">
+<dt>pop</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken population on each atomic orbitals</dd>
+<dt>charges</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken charges</dd>
 </dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.scf.hf.SCF.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><em>mol=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.SCF.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset mol and clean up relevant attributes for scanner mode</p>
 </dd></dl>
 
 <dl class="method">
@@ -1084,31 +1178,49 @@ three methods</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="pyscf.scf.hf.SCF.to_ghf">
+<code class="descname">to_ghf</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.to_ghf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.SCF.to_ghf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the input mean-field object to a GHF/GKS object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.scf.hf.SCF.to_rhf">
+<code class="descname">to_rhf</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.to_rhf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.SCF.to_rhf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the input mean-field object to a RHF/ROHF/RKS/ROKS object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.scf.hf.SCF.to_uhf">
+<code class="descname">to_uhf</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.to_uhf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.SCF.to_uhf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the input mean-field object to a UHF/UKS object</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyscf.scf.hf.SCF.update">
 <code class="descname">update</code><span class="sig-paren">(</span><em>chkfile=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.hf.SCF.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read attributes from the chkfile then replace the attributes of
-current object.  It&#8217;s an alias of function <a href="#id2"><span class="problematic" id="id3">update_from_chk_</span></a>.</p>
+current object.  It&#8217;s an alias of function <a href="#id4"><span class="problematic" id="id5">update_from_chk_</span></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyscf.scf.hf.SCF.update_">
 <code class="descname">update_</code><span class="sig-paren">(</span><em>chkfile=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.update_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.SCF.update_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read attributes from the chkfile then replace the attributes of
-current object.  It&#8217;s an alias of function <a href="#id4"><span class="problematic" id="id5">update_from_chk_</span></a>.</p>
+current object.  It&#8217;s an alias of function <a href="#id6"><span class="problematic" id="id7">update_from_chk_</span></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyscf.scf.hf.SCF.update_from_chk">
 <code class="descname">update_from_chk</code><span class="sig-paren">(</span><em>chkfile=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.hf.SCF.update_from_chk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read attributes from the chkfile then replace the attributes of
-current object.  It&#8217;s an alias of function <a href="#id6"><span class="problematic" id="id7">update_from_chk_</span></a>.</p>
+current object.  It&#8217;s an alias of function <a href="#id8"><span class="problematic" id="id9">update_from_chk_</span></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyscf.scf.hf.SCF.update_from_chk_">
 <code class="descname">update_from_chk_</code><span class="sig-paren">(</span><em>chkfile=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.hf.SCF.update_from_chk_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read attributes from the chkfile then replace the attributes of
-current object.  It&#8217;s an alias of function <a href="#id8"><span class="problematic" id="id9">update_from_chk_</span></a>.</p>
+current object.  It&#8217;s an alias of function <a href="#id10"><span class="problematic" id="id11">update_from_chk_</span></a>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1197,15 +1309,395 @@ envrionment.</dd>
 </pre></div>
 </div>
 <dl class="method">
+<dt id="pyscf.scf.hf.RHF.CASCI">
+<code class="descname">CASCI</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.hf.RHF.CASCI" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>mf_or_mol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">SCF object or Mole object</span><dd>SCF or Mole to define the problem size.</dd>
+<dt>ncas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of active orbitals.</dd>
+<dt>nelecas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or a pair of int</span><dd>Number of electrons in active space.</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>ncore</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of doubly occupied core orbitals. If not presented, this
+parameter can be automatically determined.</dd>
+</dl>
+</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first last docutils">
+<dt>verbose</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Print level.  Default value equals to <code class="xref py py-class docutils literal"><span class="pre">Mole.verbose</span></code>.</dd>
+<dt>max_memory</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float or int</span><dd>Allowed memory in MB.  Default value equals to <code class="xref py py-class docutils literal"><span class="pre">Mole.max_memory</span></code>.</dd>
+<dt>ncas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Active space size.</dd>
+<dt>nelecas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">tuple of int</span><dd>Active (nelec_alpha, nelec_beta)</dd>
+<dt>ncore</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or tuple of int</span><dd>Core electron number.  In UHF-CASSCF, it&#8217;s a tuple to indicate the different core eletron numbers.</dd>
+<dt>natorb</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to transform natural orbital in active space.  Be cautious
+of this parameter when CASCI/CASSCF are combined with DMRG solver
+or selected CI solver because DMRG and selected CI are not invariant
+to the rotation in active space.
+False by default.</dd>
+<dt>canonicalization</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to canonicalize orbitals. Note that canonicalization does
+not change the orbitals in active space by default. It only
+diagonalizes core and external space of the general Fock matirx.
+To get the natural orbitals in active space, attribute natorb
+need to be enabled.
+True by default.</dd>
+<dt>sorting_mo_energy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to sort the orbitals based on the diagonal elements of the
+general Fock matrix.  Default is False.</dd>
+<dt>fcisolver</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">an instance of <code class="xref py py-class docutils literal"><span class="pre">FCISolver</span></code></span><dd><p class="first">The pyscf.fci module provides several FCISolver for different scenario.  Generally,
+fci.direct_spin1.FCISolver can be used for all RHF-CASSCF.  However, a proper FCISolver
+can provide better performance and better numerical stability.  One can either use
+<code class="xref py py-func docutils literal"><span class="pre">fci.solver()</span></code> function to pick the FCISolver by the program or manually assigen
+the FCISolver to this attribute, e.g.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">fci</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span> <span class="o">=</span> <span class="n">fci</span><span class="o">.</span><span class="n">solver</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">singlet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span> <span class="o">=</span> <span class="n">fci</span><span class="o">.</span><span class="n">direct_spin1</span><span class="o">.</span><span class="n">FCISolver</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can control FCISolver by setting e.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span><span class="o">.</span><span class="n">max_cycle</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span><span class="o">.</span><span class="n">conv_tol</span> <span class="o">=</span> <span class="mf">1e-7</span>
+</pre></div>
+</div>
+<p class="last">For more details of the parameter for FCISolver, See <code class="xref py py-mod docutils literal"><span class="pre">fci</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Saved results</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>e_tot</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Total MCSCF energy (electronic energy plus nuclear repulsion)</dd>
+<dt>e_cas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>CAS space FCI energy</dd>
+<dt>ci</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>CAS space FCI coefficients</dd>
+<dt>mo_coeff</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>When canonicalization is specified, the orbitals are canonical
+orbitals which make the general Fock matrix (Fock operator on top
+of MCSCF 1-particle density matrix) diagonalized within each
+subspace (core, active, external).  If natorb (natural orbitals in
+active space) is specified, the active segment of the mo_coeff is
+natural orbitls.</dd>
+<dt>mo_energy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>Diagonal elements of general Fock matrix (in mo_coeff
+representation).</dd>
+</dl>
+</div></blockquote>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">scf</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASCI</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">-108.980200816243354</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.scf.hf.RHF.CASSCF">
+<code class="descname">CASSCF</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.hf.RHF.CASSCF" title="Permalink to this definition">¶</a></dt>
+<dd><p>CASCI</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>mf_or_mol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">SCF object or Mole object</span><dd>SCF or Mole to define the problem size.</dd>
+<dt>ncas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of active orbitals.</dd>
+<dt>nelecas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or a pair of int</span><dd>Number of electrons in active space.</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>ncore</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of doubly occupied core orbitals. If not presented, this
+parameter can be automatically determined.</dd>
+</dl>
+</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first last docutils">
+<dt>verbose</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Print level.  Default value equals to <code class="xref py py-class docutils literal"><span class="pre">Mole.verbose</span></code>.</dd>
+<dt>max_memory</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float or int</span><dd>Allowed memory in MB.  Default value equals to <code class="xref py py-class docutils literal"><span class="pre">Mole.max_memory</span></code>.</dd>
+<dt>ncas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Active space size.</dd>
+<dt>nelecas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">tuple of int</span><dd>Active (nelec_alpha, nelec_beta)</dd>
+<dt>ncore</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or tuple of int</span><dd>Core electron number.  In UHF-CASSCF, it&#8217;s a tuple to indicate the different core eletron numbers.</dd>
+<dt>natorb</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to transform natural orbital in active space.  Be cautious
+of this parameter when CASCI/CASSCF are combined with DMRG solver
+or selected CI solver because DMRG and selected CI are not invariant
+to the rotation in active space.
+False by default.</dd>
+<dt>canonicalization</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to canonicalize orbitals. Note that canonicalization does
+not change the orbitals in active space by default. It only
+diagonalizes core and external space of the general Fock matirx.
+To get the natural orbitals in active space, attribute natorb
+need to be enabled.
+True by default.</dd>
+<dt>sorting_mo_energy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to sort the orbitals based on the diagonal elements of the
+general Fock matrix.  Default is False.</dd>
+<dt>fcisolver</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">an instance of <code class="xref py py-class docutils literal"><span class="pre">FCISolver</span></code></span><dd><p class="first">The pyscf.fci module provides several FCISolver for different scenario.  Generally,
+fci.direct_spin1.FCISolver can be used for all RHF-CASSCF.  However, a proper FCISolver
+can provide better performance and better numerical stability.  One can either use
+<code class="xref py py-func docutils literal"><span class="pre">fci.solver()</span></code> function to pick the FCISolver by the program or manually assigen
+the FCISolver to this attribute, e.g.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">fci</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span> <span class="o">=</span> <span class="n">fci</span><span class="o">.</span><span class="n">solver</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">singlet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span> <span class="o">=</span> <span class="n">fci</span><span class="o">.</span><span class="n">direct_spin1</span><span class="o">.</span><span class="n">FCISolver</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can control FCISolver by setting e.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span><span class="o">.</span><span class="n">max_cycle</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span><span class="o">.</span><span class="n">conv_tol</span> <span class="o">=</span> <span class="mf">1e-7</span>
+</pre></div>
+</div>
+<p class="last">For more details of the parameter for FCISolver, See <code class="xref py py-mod docutils literal"><span class="pre">fci</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Saved results</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>e_tot</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Total MCSCF energy (electronic energy plus nuclear repulsion)</dd>
+<dt>e_cas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>CAS space FCI energy</dd>
+<dt>ci</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>CAS space FCI coefficients</dd>
+<dt>mo_coeff</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>When canonicalization is specified, the orbitals are canonical
+orbitals which make the general Fock matrix (Fock operator on top
+of MCSCF 1-particle density matrix) diagonalized within each
+subspace (core, active, external).  If natorb (natural orbitals in
+active space) is specified, the active segment of the mo_coeff is
+natural orbitls.</dd>
+<dt>mo_energy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>Diagonal elements of general Fock matrix (in mo_coeff
+representation).</dd>
+</dl>
+</div></blockquote>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">scf</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASCI</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">-108.980200816243354</span>
+<span class="go">CASSCF</span>
+</pre></div>
+</div>
+<p>Extra attributes for CASSCF:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>conv_tol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Converge threshold.  Default is 1e-7</dd>
+<dt>conv_tol_grad</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Converge threshold for CI gradients and orbital rotation gradients.
+Default is 1e-4</dd>
+<dt>max_stepsize</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>The step size for orbital rotation.  Small step (0.005 - 0.05) is prefered.
+Default is 0.03.</dd>
+<dt>max_cycle_macro</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Max number of macro iterations.  Default is 50.</dd>
+<dt>max_cycle_micro</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Max number of micro iterations in each macro iteration.  Depending on
+systems, increasing this value might reduce the total macro
+iterations.  Generally, 2 - 5 steps should be enough.  Default is 3.</dd>
+<dt>ah_level_shift</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float, for AH solver.</span><dd>Level shift for the Davidson diagonalization in AH solver.  Default is 1e-8.</dd>
+<dt>ah_conv_tol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float, for AH solver.</span><dd>converge threshold for AH solver.  Default is 1e-12.</dd>
+<dt>ah_max_cycle</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float, for AH solver.</span><dd>Max number of iterations allowd in AH solver.  Default is 30.</dd>
+<dt>ah_lindep</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float, for AH solver.</span><dd>Linear dependence threshold for AH solver.  Default is 1e-14.</dd>
+<dt>ah_start_tol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">flat, for AH solver.</span><dd>In AH solver, the orbital rotation is started without completely solving the AH problem.
+This value is to control the start point. Default is 0.2.</dd>
+<dt>ah_start_cycle</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int, for AH solver.</span><dd><p class="first">In AH solver, the orbital rotation is started without completely solving the AH problem.
+This value is to control the start point. Default is 2.</p>
+<p><code class="docutils literal"><span class="pre">ah_conv_tol</span></code>, <code class="docutils literal"><span class="pre">ah_max_cycle</span></code>, <code class="docutils literal"><span class="pre">ah_lindep</span></code>, <code class="docutils literal"><span class="pre">ah_start_tol</span></code> and <code class="docutils literal"><span class="pre">ah_start_cycle</span></code>
+can affect the accuracy and performance of CASSCF solver.  Lower
+<code class="docutils literal"><span class="pre">ah_conv_tol</span></code> and <code class="docutils literal"><span class="pre">ah_lindep</span></code> might improve the accuracy of CASSCF
+optimization, but decrease the performance.</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">UHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">scf</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">conv_tol</span> <span class="o">=</span> <span class="mf">1e-10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">ah_conv_tol</span> <span class="o">=</span> <span class="mf">1e-5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">-109.044401898486001</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">ah_conv_tol</span> <span class="o">=</span> <span class="mf">1e-10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">-109.044401887945668</span>
+</pre></div>
+</div>
+</dd>
+<dt>chkfile</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>Checkpoint file to save the intermediate orbitals during the CASSCF optimization.
+Default is the checkpoint file of mean field object.</dd>
+<dt>ci_response_space</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>subspace size to solve the CI vector response.  Default is 3.</dd>
+<dt>callback</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">function(envs_dict) =&gt; None</span><dd>callback function takes one dict as the argument which is
+generated by the builtin function <code class="xref py py-func docutils literal"><span class="pre">locals()</span></code>, so that the
+callback function can access all local variables in the current
+envrionment.</dd>
+<dt>scale_restoration</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>When a step of orbital rotation moves out of trust region, the
+orbital optimization will be restored to previous state and the
+step size of the orbital rotation needs to be reduced.
+scale_restoration controls how much to scale down the step size.</dd>
+</dl>
+</div></blockquote>
+<p>Saved results</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>e_tot</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Total MCSCF energy (electronic energy plus nuclear repulsion)</dd>
+<dt>e_cas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>CAS space FCI energy</dd>
+<dt>ci</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>CAS space FCI coefficients</dd>
+<dt>mo_coeff</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>Optimized CASSCF orbitals coefficients. When canonicalization is
+specified, the returned orbitals make the general Fock matrix
+(Fock operator on top of MCSCF 1-particle density matrix)
+diagonalized within each subspace (core, active, external).
+If natorb (natural orbitals in active space) is specified,
+the active segment of the mo_coeff is natural orbitls.</dd>
+<dt>mo_energy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>Diagonal elements of general Fock matrix (in mo_coeff
+representation).</dd>
+</dl>
+</div></blockquote>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">scf</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">-109.044401882238134</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.scf.hf.RHF.Gradients">
+<code class="descname">Gradients</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.hf.RHF.Gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic restricted Hartree-Fock gradients</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.scf.hf.RHF.Hessian">
+<code class="descname">Hessian</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.hf.RHF.Hessian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic restricted Hartree-Fock hessian</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.scf.hf.RHF.TDA">
+<code class="descname">TDA</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.hf.RHF.TDA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tamm-Dancoff approximation</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><dl class="first last docutils">
+<dt>conv_tol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Diagonalization convergence tolerance.  Default is 1e-9.</dd>
+<dt>nstates</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of TD states to be computed. Default is 3.</dd>
+</dl>
+</dd>
+</dl>
+<p>Saved results:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>converged</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Diagonalization converged or not</dd>
+<dt>e</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">1D array</span><dd>excitation energy for each excited state.</dd>
+<dt>xy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">A list of two 2D arrays</span><dd>The two 2D arrays are Excitation coefficients X (shape [nocc,nvir])
+and de-excitation coefficients Y (shape [nocc,nvir]) for each
+excited state.  (X,Y) are normalized to 1/2 in RHF/RKS methods and
+normalized to 1 for UHF/UKS methods. In the TDA calculation, Y = 0.</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.scf.hf.RHF.TDHF">
+<code class="descname">TDHF</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.hf.RHF.TDHF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time-dependent Hartree-Fock</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><dl class="first last docutils">
+<dt>conv_tol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Diagonalization convergence tolerance.  Default is 1e-9.</dd>
+<dt>nstates</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of TD states to be computed. Default is 3.</dd>
+</dl>
+</dd>
+</dl>
+<p>Saved results:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>converged</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Diagonalization converged or not</dd>
+<dt>e</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">1D array</span><dd>excitation energy for each excited state.</dd>
+<dt>xy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">A list of two 2D arrays</span><dd>The two 2D arrays are Excitation coefficients X (shape [nocc,nvir])
+and de-excitation coefficients Y (shape [nocc,nvir]) for each
+excited state.  (X,Y) are normalized to 1/2 in RHF/RKS methods and
+normalized to 1 for UHF/UKS methods. In the TDA calculation, Y = 0.</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyscf.scf.hf.RHF.convert_from_">
 <code class="descname">convert_from_</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#RHF.convert_from_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.RHF.convert_from_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert given mean-field object to RHF/ROHF</p>
+<dd><p>Convert the input mean-field object to RHF/ROHF</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyscf.scf.hf.RHF.get_jk">
-<code class="descname">get_jk</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#RHF.get_jk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.RHF.get_jk" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute J, K matrices for the given density matrix</p>
+<code class="descname">get_jk</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>with_j=True</em>, <em>with_k=True</em>, <em>omega=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#RHF.get_jk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.RHF.get_jk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute J, K matrices for all input density matrices</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><p class="first">mol : an instance of <code class="xref py py-class docutils literal"><span class="pre">Mole</span></code></p>
@@ -1227,6 +1719,14 @@ envrionment.</dd>
 <dt>vhfopt :</dt>
 <dd>A class which holds precomputed quantities to optimize the
 computation of J, K matrices</dd>
+<dt>with_j</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">boolean</span><dd>Whether to compute J matrices</dd>
+<dt>with_k</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">boolean</span><dd>Whether to compute K matrices</dd>
+<dt>omega</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Parameter of range-seperated Coulomb operator: erf( omega * r12 ) / r12.
+If specified, integration are evaluated based on the long-range
+part of the range-seperated Coulomb operator.</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
@@ -1242,6 +1742,58 @@ input density matrices.</dd>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">hf</span><span class="o">.</span><span class="n">get_jk</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">dms</span><span class="p">,</span> <span class="n">hermi</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="go">(3, 2, 2)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.scf.hf.RHF.get_veff">
+<code class="descname">get_veff</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>dm_last=0</em>, <em>vhf_last=0</em>, <em>hermi=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#RHF.get_veff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.RHF.get_veff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hartree-Fock potential matrix for the given density matrix</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">mol : an instance of <code class="xref py py-class docutils literal"><span class="pre">Mole</span></code></p>
+<dl class="last docutils">
+<dt>dm</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray or list of ndarrays</span><dd>A density matrix or a list of density matrices</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>dm_last</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray or a list of ndarrays or 0</span><dd>The density matrix baseline.  If not 0, this function computes the
+increment of HF potential w.r.t. the reference HF potential matrix.</dd>
+<dt>vhf_last</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray or a list of ndarrays or 0</span><dd>The reference HF potential matrix.</dd>
+<dt>hermi</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd><p class="first">Whether J, K matrix is hermitian</p>
+<div class="last line-block">
+<div class="line">0 : no hermitian or symmetric</div>
+<div class="line">1 : hermitian</div>
+<div class="line">2 : anti-hermitian</div>
+</div>
+</dd>
+<dt>vhfopt :</dt>
+<dd>A class which holds precomputed quantities to optimize the
+computation of J, K matrices</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>matrix Vhf = 2*J - K.  Vhf can be a list matrices, corresponding to the
+input density matrices.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf.scf</span> <span class="k">import</span> <span class="n">_vhf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; H 0 0 1.1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dm0</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">mol</span><span class="o">.</span><span class="n">nao_nr</span><span class="p">(),</span><span class="n">mol</span><span class="o">.</span><span class="n">nao_nr</span><span class="p">()))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vhf0</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">hf</span><span class="o">.</span><span class="n">get_veff</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">dm0</span><span class="p">,</span> <span class="n">hermi</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dm1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">mol</span><span class="o">.</span><span class="n">nao_nr</span><span class="p">(),</span><span class="n">mol</span><span class="o">.</span><span class="n">nao_nr</span><span class="p">()))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vhf1</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">hf</span><span class="o">.</span><span class="n">get_veff</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">dm1</span><span class="p">,</span> <span class="n">hermi</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vhf2</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">hf</span><span class="o">.</span><span class="n">get_veff</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">dm1</span><span class="p">,</span> <span class="n">dm_last</span><span class="o">=</span><span class="n">dm0</span><span class="p">,</span> <span class="n">vhf_last</span><span class="o">=</span><span class="n">vhf0</span><span class="p">,</span> <span class="n">hermi</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">vhf1</span><span class="p">,</span> <span class="n">vhf2</span><span class="p">)</span>
+<span class="go">True</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1359,6 +1911,320 @@ envrionment.</dd>
 <span class="go">-1.0811707843775884</span>
 </pre></div>
 </div>
+<dl class="method">
+<dt id="pyscf.scf.rohf.ROHF.CASCI">
+<code class="descname">CASCI</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.rohf.ROHF.CASCI" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>mf_or_mol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">SCF object or Mole object</span><dd>SCF or Mole to define the problem size.</dd>
+<dt>ncas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of active orbitals.</dd>
+<dt>nelecas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or a pair of int</span><dd>Number of electrons in active space.</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>ncore</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of doubly occupied core orbitals. If not presented, this
+parameter can be automatically determined.</dd>
+</dl>
+</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first last docutils">
+<dt>verbose</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Print level.  Default value equals to <code class="xref py py-class docutils literal"><span class="pre">Mole.verbose</span></code>.</dd>
+<dt>max_memory</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float or int</span><dd>Allowed memory in MB.  Default value equals to <code class="xref py py-class docutils literal"><span class="pre">Mole.max_memory</span></code>.</dd>
+<dt>ncas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Active space size.</dd>
+<dt>nelecas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">tuple of int</span><dd>Active (nelec_alpha, nelec_beta)</dd>
+<dt>ncore</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or tuple of int</span><dd>Core electron number.  In UHF-CASSCF, it&#8217;s a tuple to indicate the different core eletron numbers.</dd>
+<dt>natorb</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to transform natural orbital in active space.  Be cautious
+of this parameter when CASCI/CASSCF are combined with DMRG solver
+or selected CI solver because DMRG and selected CI are not invariant
+to the rotation in active space.
+False by default.</dd>
+<dt>canonicalization</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to canonicalize orbitals. Note that canonicalization does
+not change the orbitals in active space by default. It only
+diagonalizes core and external space of the general Fock matirx.
+To get the natural orbitals in active space, attribute natorb
+need to be enabled.
+True by default.</dd>
+<dt>sorting_mo_energy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to sort the orbitals based on the diagonal elements of the
+general Fock matrix.  Default is False.</dd>
+<dt>fcisolver</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">an instance of <code class="xref py py-class docutils literal"><span class="pre">FCISolver</span></code></span><dd><p class="first">The pyscf.fci module provides several FCISolver for different scenario.  Generally,
+fci.direct_spin1.FCISolver can be used for all RHF-CASSCF.  However, a proper FCISolver
+can provide better performance and better numerical stability.  One can either use
+<code class="xref py py-func docutils literal"><span class="pre">fci.solver()</span></code> function to pick the FCISolver by the program or manually assigen
+the FCISolver to this attribute, e.g.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">fci</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span> <span class="o">=</span> <span class="n">fci</span><span class="o">.</span><span class="n">solver</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">singlet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span> <span class="o">=</span> <span class="n">fci</span><span class="o">.</span><span class="n">direct_spin1</span><span class="o">.</span><span class="n">FCISolver</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can control FCISolver by setting e.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span><span class="o">.</span><span class="n">max_cycle</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span><span class="o">.</span><span class="n">conv_tol</span> <span class="o">=</span> <span class="mf">1e-7</span>
+</pre></div>
+</div>
+<p class="last">For more details of the parameter for FCISolver, See <code class="xref py py-mod docutils literal"><span class="pre">fci</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Saved results</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>e_tot</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Total MCSCF energy (electronic energy plus nuclear repulsion)</dd>
+<dt>e_cas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>CAS space FCI energy</dd>
+<dt>ci</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>CAS space FCI coefficients</dd>
+<dt>mo_coeff</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>When canonicalization is specified, the orbitals are canonical
+orbitals which make the general Fock matrix (Fock operator on top
+of MCSCF 1-particle density matrix) diagonalized within each
+subspace (core, active, external).  If natorb (natural orbitals in
+active space) is specified, the active segment of the mo_coeff is
+natural orbitls.</dd>
+<dt>mo_energy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>Diagonal elements of general Fock matrix (in mo_coeff
+representation).</dd>
+</dl>
+</div></blockquote>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">scf</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASCI</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">-108.980200816243354</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.scf.rohf.ROHF.CASSCF">
+<code class="descname">CASSCF</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.rohf.ROHF.CASSCF" title="Permalink to this definition">¶</a></dt>
+<dd><p>CASCI</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>mf_or_mol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">SCF object or Mole object</span><dd>SCF or Mole to define the problem size.</dd>
+<dt>ncas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of active orbitals.</dd>
+<dt>nelecas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or a pair of int</span><dd>Number of electrons in active space.</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>ncore</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of doubly occupied core orbitals. If not presented, this
+parameter can be automatically determined.</dd>
+</dl>
+</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first last docutils">
+<dt>verbose</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Print level.  Default value equals to <code class="xref py py-class docutils literal"><span class="pre">Mole.verbose</span></code>.</dd>
+<dt>max_memory</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float or int</span><dd>Allowed memory in MB.  Default value equals to <code class="xref py py-class docutils literal"><span class="pre">Mole.max_memory</span></code>.</dd>
+<dt>ncas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Active space size.</dd>
+<dt>nelecas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">tuple of int</span><dd>Active (nelec_alpha, nelec_beta)</dd>
+<dt>ncore</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or tuple of int</span><dd>Core electron number.  In UHF-CASSCF, it&#8217;s a tuple to indicate the different core eletron numbers.</dd>
+<dt>natorb</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to transform natural orbital in active space.  Be cautious
+of this parameter when CASCI/CASSCF are combined with DMRG solver
+or selected CI solver because DMRG and selected CI are not invariant
+to the rotation in active space.
+False by default.</dd>
+<dt>canonicalization</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to canonicalize orbitals. Note that canonicalization does
+not change the orbitals in active space by default. It only
+diagonalizes core and external space of the general Fock matirx.
+To get the natural orbitals in active space, attribute natorb
+need to be enabled.
+True by default.</dd>
+<dt>sorting_mo_energy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to sort the orbitals based on the diagonal elements of the
+general Fock matrix.  Default is False.</dd>
+<dt>fcisolver</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">an instance of <code class="xref py py-class docutils literal"><span class="pre">FCISolver</span></code></span><dd><p class="first">The pyscf.fci module provides several FCISolver for different scenario.  Generally,
+fci.direct_spin1.FCISolver can be used for all RHF-CASSCF.  However, a proper FCISolver
+can provide better performance and better numerical stability.  One can either use
+<code class="xref py py-func docutils literal"><span class="pre">fci.solver()</span></code> function to pick the FCISolver by the program or manually assigen
+the FCISolver to this attribute, e.g.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">fci</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span> <span class="o">=</span> <span class="n">fci</span><span class="o">.</span><span class="n">solver</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">singlet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span> <span class="o">=</span> <span class="n">fci</span><span class="o">.</span><span class="n">direct_spin1</span><span class="o">.</span><span class="n">FCISolver</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can control FCISolver by setting e.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span><span class="o">.</span><span class="n">max_cycle</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span><span class="o">.</span><span class="n">conv_tol</span> <span class="o">=</span> <span class="mf">1e-7</span>
+</pre></div>
+</div>
+<p class="last">For more details of the parameter for FCISolver, See <code class="xref py py-mod docutils literal"><span class="pre">fci</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Saved results</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>e_tot</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Total MCSCF energy (electronic energy plus nuclear repulsion)</dd>
+<dt>e_cas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>CAS space FCI energy</dd>
+<dt>ci</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>CAS space FCI coefficients</dd>
+<dt>mo_coeff</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>When canonicalization is specified, the orbitals are canonical
+orbitals which make the general Fock matrix (Fock operator on top
+of MCSCF 1-particle density matrix) diagonalized within each
+subspace (core, active, external).  If natorb (natural orbitals in
+active space) is specified, the active segment of the mo_coeff is
+natural orbitls.</dd>
+<dt>mo_energy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>Diagonal elements of general Fock matrix (in mo_coeff
+representation).</dd>
+</dl>
+</div></blockquote>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">scf</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASCI</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">-108.980200816243354</span>
+<span class="go">CASSCF</span>
+</pre></div>
+</div>
+<p>Extra attributes for CASSCF:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>conv_tol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Converge threshold.  Default is 1e-7</dd>
+<dt>conv_tol_grad</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Converge threshold for CI gradients and orbital rotation gradients.
+Default is 1e-4</dd>
+<dt>max_stepsize</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>The step size for orbital rotation.  Small step (0.005 - 0.05) is prefered.
+Default is 0.03.</dd>
+<dt>max_cycle_macro</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Max number of macro iterations.  Default is 50.</dd>
+<dt>max_cycle_micro</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Max number of micro iterations in each macro iteration.  Depending on
+systems, increasing this value might reduce the total macro
+iterations.  Generally, 2 - 5 steps should be enough.  Default is 3.</dd>
+<dt>ah_level_shift</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float, for AH solver.</span><dd>Level shift for the Davidson diagonalization in AH solver.  Default is 1e-8.</dd>
+<dt>ah_conv_tol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float, for AH solver.</span><dd>converge threshold for AH solver.  Default is 1e-12.</dd>
+<dt>ah_max_cycle</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float, for AH solver.</span><dd>Max number of iterations allowd in AH solver.  Default is 30.</dd>
+<dt>ah_lindep</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float, for AH solver.</span><dd>Linear dependence threshold for AH solver.  Default is 1e-14.</dd>
+<dt>ah_start_tol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">flat, for AH solver.</span><dd>In AH solver, the orbital rotation is started without completely solving the AH problem.
+This value is to control the start point. Default is 0.2.</dd>
+<dt>ah_start_cycle</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int, for AH solver.</span><dd><p class="first">In AH solver, the orbital rotation is started without completely solving the AH problem.
+This value is to control the start point. Default is 2.</p>
+<p><code class="docutils literal"><span class="pre">ah_conv_tol</span></code>, <code class="docutils literal"><span class="pre">ah_max_cycle</span></code>, <code class="docutils literal"><span class="pre">ah_lindep</span></code>, <code class="docutils literal"><span class="pre">ah_start_tol</span></code> and <code class="docutils literal"><span class="pre">ah_start_cycle</span></code>
+can affect the accuracy and performance of CASSCF solver.  Lower
+<code class="docutils literal"><span class="pre">ah_conv_tol</span></code> and <code class="docutils literal"><span class="pre">ah_lindep</span></code> might improve the accuracy of CASSCF
+optimization, but decrease the performance.</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">UHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">scf</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">conv_tol</span> <span class="o">=</span> <span class="mf">1e-10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">ah_conv_tol</span> <span class="o">=</span> <span class="mf">1e-5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">-109.044401898486001</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">ah_conv_tol</span> <span class="o">=</span> <span class="mf">1e-10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">-109.044401887945668</span>
+</pre></div>
+</div>
+</dd>
+<dt>chkfile</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>Checkpoint file to save the intermediate orbitals during the CASSCF optimization.
+Default is the checkpoint file of mean field object.</dd>
+<dt>ci_response_space</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>subspace size to solve the CI vector response.  Default is 3.</dd>
+<dt>callback</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">function(envs_dict) =&gt; None</span><dd>callback function takes one dict as the argument which is
+generated by the builtin function <code class="xref py py-func docutils literal"><span class="pre">locals()</span></code>, so that the
+callback function can access all local variables in the current
+envrionment.</dd>
+<dt>scale_restoration</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>When a step of orbital rotation moves out of trust region, the
+orbital optimization will be restored to previous state and the
+step size of the orbital rotation needs to be reduced.
+scale_restoration controls how much to scale down the step size.</dd>
+</dl>
+</div></blockquote>
+<p>Saved results</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>e_tot</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Total MCSCF energy (electronic energy plus nuclear repulsion)</dd>
+<dt>e_cas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>CAS space FCI energy</dd>
+<dt>ci</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>CAS space FCI coefficients</dd>
+<dt>mo_coeff</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>Optimized CASSCF orbitals coefficients. When canonicalization is
+specified, the returned orbitals make the general Fock matrix
+(Fock operator on top of MCSCF 1-particle density matrix)
+diagonalized within each subspace (core, active, external).
+If natorb (natural orbitals in active space) is specified,
+the active segment of the mo_coeff is natural orbitls.</dd>
+<dt>mo_energy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>Diagonal elements of general Fock matrix (in mo_coeff
+representation).</dd>
+</dl>
+</div></blockquote>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">scf</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">-109.044401882238134</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.scf.rohf.ROHF.Gradients">
+<code class="descname">Gradients</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.rohf.ROHF.Gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic ROHF gradients</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyscf.scf.rohf.ROHF.analyze">
 <code class="descname">analyze</code><span class="sig-paren">(</span><em>verbose=None</em>, <em>with_meta_lowdin=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/rohf.html#ROHF.analyze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.rohf.ROHF.analyze" title="Permalink to this definition">¶</a></dt>
@@ -1620,6 +2486,18 @@ envrionment.</dd>
 </pre></div>
 </div>
 <dl class="method">
+<dt id="pyscf.scf.uhf.UHF.Gradients">
+<code class="descname">Gradients</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.uhf.UHF.Gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic unrestricted Hartree-Fock gradients</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.scf.uhf.UHF.Hessian">
+<code class="descname">Hessian</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.uhf.UHF.Hessian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic UHF hessian</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyscf.scf.uhf.UHF.canonicalize">
 <code class="descname">canonicalize</code><span class="sig-paren">(</span><em>mf</em>, <em>mo_coeff</em>, <em>mo_occ</em>, <em>fock=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.uhf.UHF.canonicalize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Canonicalization diagonalizes the UHF Fock matrix within occupied,
@@ -1669,6 +2547,7 @@ They are used to calculate asymmetric density matrix</dd>
 <dt id="pyscf.scf.uhf.UHF.energy_elec">
 <code class="descname">energy_elec</code><span class="sig-paren">(</span><em>mf</em>, <em>dm=None</em>, <em>h1e=None</em>, <em>vhf=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.uhf.UHF.energy_elec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Electronic energy of Unrestricted Hartree-Fock</p>
+<p>Note this function has side effects which cause mf.scf_summary updated.</p>
 <dl class="docutils">
 <dt>Returns:</dt>
 <dd>Hartree-Fock electronic energy and the 2-electron part contribution</dd>
@@ -1677,7 +2556,7 @@ They are used to calculate asymmetric density matrix</dd>
 
 <dl class="method">
 <dt id="pyscf.scf.uhf.UHF.get_jk">
-<code class="descname">get_jk</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/uhf.html#UHF.get_jk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.uhf.UHF.get_jk" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_jk</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>with_j=True</em>, <em>with_k=True</em>, <em>omega=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/uhf.html#UHF.get_jk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.uhf.UHF.get_jk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Coulomb (J) and exchange (K)</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -2013,14 +2892,394 @@ envrionment.</dd>
 </div>
 <dl class="method">
 <dt>
-<code class="descname">convert_from_</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#RHF.convert_from_"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Convert given mean-field object to RHF/ROHF</p>
+<code class="descname">CASCI</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>mf_or_mol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">SCF object or Mole object</span><dd>SCF or Mole to define the problem size.</dd>
+<dt>ncas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of active orbitals.</dd>
+<dt>nelecas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or a pair of int</span><dd>Number of electrons in active space.</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>ncore</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of doubly occupied core orbitals. If not presented, this
+parameter can be automatically determined.</dd>
+</dl>
+</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first last docutils">
+<dt>verbose</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Print level.  Default value equals to <code class="xref py py-class docutils literal"><span class="pre">Mole.verbose</span></code>.</dd>
+<dt>max_memory</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float or int</span><dd>Allowed memory in MB.  Default value equals to <code class="xref py py-class docutils literal"><span class="pre">Mole.max_memory</span></code>.</dd>
+<dt>ncas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Active space size.</dd>
+<dt>nelecas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">tuple of int</span><dd>Active (nelec_alpha, nelec_beta)</dd>
+<dt>ncore</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or tuple of int</span><dd>Core electron number.  In UHF-CASSCF, it&#8217;s a tuple to indicate the different core eletron numbers.</dd>
+<dt>natorb</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to transform natural orbital in active space.  Be cautious
+of this parameter when CASCI/CASSCF are combined with DMRG solver
+or selected CI solver because DMRG and selected CI are not invariant
+to the rotation in active space.
+False by default.</dd>
+<dt>canonicalization</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to canonicalize orbitals. Note that canonicalization does
+not change the orbitals in active space by default. It only
+diagonalizes core and external space of the general Fock matirx.
+To get the natural orbitals in active space, attribute natorb
+need to be enabled.
+True by default.</dd>
+<dt>sorting_mo_energy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to sort the orbitals based on the diagonal elements of the
+general Fock matrix.  Default is False.</dd>
+<dt>fcisolver</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">an instance of <code class="xref py py-class docutils literal"><span class="pre">FCISolver</span></code></span><dd><p class="first">The pyscf.fci module provides several FCISolver for different scenario.  Generally,
+fci.direct_spin1.FCISolver can be used for all RHF-CASSCF.  However, a proper FCISolver
+can provide better performance and better numerical stability.  One can either use
+<code class="xref py py-func docutils literal"><span class="pre">fci.solver()</span></code> function to pick the FCISolver by the program or manually assigen
+the FCISolver to this attribute, e.g.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">fci</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span> <span class="o">=</span> <span class="n">fci</span><span class="o">.</span><span class="n">solver</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">singlet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span> <span class="o">=</span> <span class="n">fci</span><span class="o">.</span><span class="n">direct_spin1</span><span class="o">.</span><span class="n">FCISolver</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can control FCISolver by setting e.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span><span class="o">.</span><span class="n">max_cycle</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span><span class="o">.</span><span class="n">conv_tol</span> <span class="o">=</span> <span class="mf">1e-7</span>
+</pre></div>
+</div>
+<p class="last">For more details of the parameter for FCISolver, See <code class="xref py py-mod docutils literal"><span class="pre">fci</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Saved results</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>e_tot</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Total MCSCF energy (electronic energy plus nuclear repulsion)</dd>
+<dt>e_cas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>CAS space FCI energy</dd>
+<dt>ci</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>CAS space FCI coefficients</dd>
+<dt>mo_coeff</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>When canonicalization is specified, the orbitals are canonical
+orbitals which make the general Fock matrix (Fock operator on top
+of MCSCF 1-particle density matrix) diagonalized within each
+subspace (core, active, external).  If natorb (natural orbitals in
+active space) is specified, the active segment of the mo_coeff is
+natural orbitls.</dd>
+<dt>mo_energy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>Diagonal elements of general Fock matrix (in mo_coeff
+representation).</dd>
+</dl>
+</div></blockquote>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">scf</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASCI</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">-108.980200816243354</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
 <dt>
-<code class="descname">get_jk</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#RHF.get_jk"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Compute J, K matrices for the given density matrix</p>
+<code class="descname">CASSCF</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><p>CASCI</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>mf_or_mol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">SCF object or Mole object</span><dd>SCF or Mole to define the problem size.</dd>
+<dt>ncas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of active orbitals.</dd>
+<dt>nelecas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or a pair of int</span><dd>Number of electrons in active space.</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>ncore</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of doubly occupied core orbitals. If not presented, this
+parameter can be automatically determined.</dd>
+</dl>
+</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first last docutils">
+<dt>verbose</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Print level.  Default value equals to <code class="xref py py-class docutils literal"><span class="pre">Mole.verbose</span></code>.</dd>
+<dt>max_memory</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float or int</span><dd>Allowed memory in MB.  Default value equals to <code class="xref py py-class docutils literal"><span class="pre">Mole.max_memory</span></code>.</dd>
+<dt>ncas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Active space size.</dd>
+<dt>nelecas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">tuple of int</span><dd>Active (nelec_alpha, nelec_beta)</dd>
+<dt>ncore</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or tuple of int</span><dd>Core electron number.  In UHF-CASSCF, it&#8217;s a tuple to indicate the different core eletron numbers.</dd>
+<dt>natorb</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to transform natural orbital in active space.  Be cautious
+of this parameter when CASCI/CASSCF are combined with DMRG solver
+or selected CI solver because DMRG and selected CI are not invariant
+to the rotation in active space.
+False by default.</dd>
+<dt>canonicalization</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to canonicalize orbitals. Note that canonicalization does
+not change the orbitals in active space by default. It only
+diagonalizes core and external space of the general Fock matirx.
+To get the natural orbitals in active space, attribute natorb
+need to be enabled.
+True by default.</dd>
+<dt>sorting_mo_energy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to sort the orbitals based on the diagonal elements of the
+general Fock matrix.  Default is False.</dd>
+<dt>fcisolver</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">an instance of <code class="xref py py-class docutils literal"><span class="pre">FCISolver</span></code></span><dd><p class="first">The pyscf.fci module provides several FCISolver for different scenario.  Generally,
+fci.direct_spin1.FCISolver can be used for all RHF-CASSCF.  However, a proper FCISolver
+can provide better performance and better numerical stability.  One can either use
+<code class="xref py py-func docutils literal"><span class="pre">fci.solver()</span></code> function to pick the FCISolver by the program or manually assigen
+the FCISolver to this attribute, e.g.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">fci</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span> <span class="o">=</span> <span class="n">fci</span><span class="o">.</span><span class="n">solver</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">singlet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span> <span class="o">=</span> <span class="n">fci</span><span class="o">.</span><span class="n">direct_spin1</span><span class="o">.</span><span class="n">FCISolver</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can control FCISolver by setting e.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span><span class="o">.</span><span class="n">max_cycle</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">fcisolver</span><span class="o">.</span><span class="n">conv_tol</span> <span class="o">=</span> <span class="mf">1e-7</span>
+</pre></div>
+</div>
+<p class="last">For more details of the parameter for FCISolver, See <code class="xref py py-mod docutils literal"><span class="pre">fci</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Saved results</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>e_tot</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Total MCSCF energy (electronic energy plus nuclear repulsion)</dd>
+<dt>e_cas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>CAS space FCI energy</dd>
+<dt>ci</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>CAS space FCI coefficients</dd>
+<dt>mo_coeff</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>When canonicalization is specified, the orbitals are canonical
+orbitals which make the general Fock matrix (Fock operator on top
+of MCSCF 1-particle density matrix) diagonalized within each
+subspace (core, active, external).  If natorb (natural orbitals in
+active space) is specified, the active segment of the mo_coeff is
+natural orbitls.</dd>
+<dt>mo_energy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>Diagonal elements of general Fock matrix (in mo_coeff
+representation).</dd>
+</dl>
+</div></blockquote>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">scf</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASCI</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">-108.980200816243354</span>
+<span class="go">CASSCF</span>
+</pre></div>
+</div>
+<p>Extra attributes for CASSCF:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>conv_tol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Converge threshold.  Default is 1e-7</dd>
+<dt>conv_tol_grad</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Converge threshold for CI gradients and orbital rotation gradients.
+Default is 1e-4</dd>
+<dt>max_stepsize</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>The step size for orbital rotation.  Small step (0.005 - 0.05) is prefered.
+Default is 0.03.</dd>
+<dt>max_cycle_macro</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Max number of macro iterations.  Default is 50.</dd>
+<dt>max_cycle_micro</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Max number of micro iterations in each macro iteration.  Depending on
+systems, increasing this value might reduce the total macro
+iterations.  Generally, 2 - 5 steps should be enough.  Default is 3.</dd>
+<dt>ah_level_shift</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float, for AH solver.</span><dd>Level shift for the Davidson diagonalization in AH solver.  Default is 1e-8.</dd>
+<dt>ah_conv_tol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float, for AH solver.</span><dd>converge threshold for AH solver.  Default is 1e-12.</dd>
+<dt>ah_max_cycle</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float, for AH solver.</span><dd>Max number of iterations allowd in AH solver.  Default is 30.</dd>
+<dt>ah_lindep</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float, for AH solver.</span><dd>Linear dependence threshold for AH solver.  Default is 1e-14.</dd>
+<dt>ah_start_tol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">flat, for AH solver.</span><dd>In AH solver, the orbital rotation is started without completely solving the AH problem.
+This value is to control the start point. Default is 0.2.</dd>
+<dt>ah_start_cycle</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int, for AH solver.</span><dd><p class="first">In AH solver, the orbital rotation is started without completely solving the AH problem.
+This value is to control the start point. Default is 2.</p>
+<p><code class="docutils literal"><span class="pre">ah_conv_tol</span></code>, <code class="docutils literal"><span class="pre">ah_max_cycle</span></code>, <code class="docutils literal"><span class="pre">ah_lindep</span></code>, <code class="docutils literal"><span class="pre">ah_start_tol</span></code> and <code class="docutils literal"><span class="pre">ah_start_cycle</span></code>
+can affect the accuracy and performance of CASSCF solver.  Lower
+<code class="docutils literal"><span class="pre">ah_conv_tol</span></code> and <code class="docutils literal"><span class="pre">ah_lindep</span></code> might improve the accuracy of CASSCF
+optimization, but decrease the performance.</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">UHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">scf</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">conv_tol</span> <span class="o">=</span> <span class="mf">1e-10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">ah_conv_tol</span> <span class="o">=</span> <span class="mf">1e-5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">-109.044401898486001</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">ah_conv_tol</span> <span class="o">=</span> <span class="mf">1e-10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">-109.044401887945668</span>
+</pre></div>
+</div>
+</dd>
+<dt>chkfile</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>Checkpoint file to save the intermediate orbitals during the CASSCF optimization.
+Default is the checkpoint file of mean field object.</dd>
+<dt>ci_response_space</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>subspace size to solve the CI vector response.  Default is 3.</dd>
+<dt>callback</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">function(envs_dict) =&gt; None</span><dd>callback function takes one dict as the argument which is
+generated by the builtin function <code class="xref py py-func docutils literal"><span class="pre">locals()</span></code>, so that the
+callback function can access all local variables in the current
+envrionment.</dd>
+<dt>scale_restoration</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>When a step of orbital rotation moves out of trust region, the
+orbital optimization will be restored to previous state and the
+step size of the orbital rotation needs to be reduced.
+scale_restoration controls how much to scale down the step size.</dd>
+</dl>
+</div></blockquote>
+<p>Saved results</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>e_tot</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Total MCSCF energy (electronic energy plus nuclear repulsion)</dd>
+<dt>e_cas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>CAS space FCI energy</dd>
+<dt>ci</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>CAS space FCI coefficients</dd>
+<dt>mo_coeff</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>Optimized CASSCF orbitals coefficients. When canonicalization is
+specified, the returned orbitals make the general Fock matrix
+(Fock operator on top of MCSCF 1-particle density matrix)
+diagonalized within each subspace (core, active, external).
+If natorb (natural orbitals in active space) is specified,
+the active segment of the mo_coeff is natural orbitls.</dd>
+<dt>mo_energy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>Diagonal elements of general Fock matrix (in mo_coeff
+representation).</dd>
+</dl>
+</div></blockquote>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">scf</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">-109.044401882238134</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">Gradients</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><p>Non-relativistic restricted Hartree-Fock gradients</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">Hessian</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><p>Non-relativistic restricted Hartree-Fock hessian</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">TDA</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><p>Tamm-Dancoff approximation</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><dl class="first last docutils">
+<dt>conv_tol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Diagonalization convergence tolerance.  Default is 1e-9.</dd>
+<dt>nstates</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of TD states to be computed. Default is 3.</dd>
+</dl>
+</dd>
+</dl>
+<p>Saved results:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>converged</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Diagonalization converged or not</dd>
+<dt>e</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">1D array</span><dd>excitation energy for each excited state.</dd>
+<dt>xy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">A list of two 2D arrays</span><dd>The two 2D arrays are Excitation coefficients X (shape [nocc,nvir])
+and de-excitation coefficients Y (shape [nocc,nvir]) for each
+excited state.  (X,Y) are normalized to 1/2 in RHF/RKS methods and
+normalized to 1 for UHF/UKS methods. In the TDA calculation, Y = 0.</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">TDHF</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><p>Time-dependent Hartree-Fock</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><dl class="first last docutils">
+<dt>conv_tol</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Diagonalization convergence tolerance.  Default is 1e-9.</dd>
+<dt>nstates</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of TD states to be computed. Default is 3.</dd>
+</dl>
+</dd>
+</dl>
+<p>Saved results:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>converged</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Diagonalization converged or not</dd>
+<dt>e</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">1D array</span><dd>excitation energy for each excited state.</dd>
+<dt>xy</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">A list of two 2D arrays</span><dd>The two 2D arrays are Excitation coefficients X (shape [nocc,nvir])
+and de-excitation coefficients Y (shape [nocc,nvir]) for each
+excited state.  (X,Y) are normalized to 1/2 in RHF/RKS methods and
+normalized to 1 for UHF/UKS methods. In the TDA calculation, Y = 0.</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">convert_from_</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#RHF.convert_from_"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Convert the input mean-field object to RHF/ROHF</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">get_jk</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>with_j=True</em>, <em>with_k=True</em>, <em>omega=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#RHF.get_jk"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Compute J, K matrices for all input density matrices</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><p class="first">mol : an instance of <code class="xref py py-class docutils literal"><span class="pre">Mole</span></code></p>
@@ -2042,6 +3301,14 @@ envrionment.</dd>
 <dt>vhfopt :</dt>
 <dd>A class which holds precomputed quantities to optimize the
 computation of J, K matrices</dd>
+<dt>with_j</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">boolean</span><dd>Whether to compute J matrices</dd>
+<dt>with_k</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">boolean</span><dd>Whether to compute K matrices</dd>
+<dt>omega</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Parameter of range-seperated Coulomb operator: erf( omega * r12 ) / r12.
+If specified, integration are evaluated based on the long-range
+part of the range-seperated Coulomb operator.</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
@@ -2057,6 +3324,58 @@ input density matrices.</dd>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">hf</span><span class="o">.</span><span class="n">get_jk</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">dms</span><span class="p">,</span> <span class="n">hermi</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="go">(3, 2, 2)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">get_veff</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>dm_last=0</em>, <em>vhf_last=0</em>, <em>hermi=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#RHF.get_veff"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Hartree-Fock potential matrix for the given density matrix</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">mol : an instance of <code class="xref py py-class docutils literal"><span class="pre">Mole</span></code></p>
+<dl class="last docutils">
+<dt>dm</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray or list of ndarrays</span><dd>A density matrix or a list of density matrices</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>dm_last</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray or a list of ndarrays or 0</span><dd>The density matrix baseline.  If not 0, this function computes the
+increment of HF potential w.r.t. the reference HF potential matrix.</dd>
+<dt>vhf_last</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray or a list of ndarrays or 0</span><dd>The reference HF potential matrix.</dd>
+<dt>hermi</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd><p class="first">Whether J, K matrix is hermitian</p>
+<div class="last line-block">
+<div class="line">0 : no hermitian or symmetric</div>
+<div class="line">1 : hermitian</div>
+<div class="line">2 : anti-hermitian</div>
+</div>
+</dd>
+<dt>vhfopt :</dt>
+<dd>A class which holds precomputed quantities to optimize the
+computation of J, K matrices</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>matrix Vhf = 2*J - K.  Vhf can be a list matrices, corresponding to the
+input density matrices.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf.scf</span> <span class="k">import</span> <span class="n">_vhf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; H 0 0 1.1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dm0</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">mol</span><span class="o">.</span><span class="n">nao_nr</span><span class="p">(),</span><span class="n">mol</span><span class="o">.</span><span class="n">nao_nr</span><span class="p">()))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vhf0</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">hf</span><span class="o">.</span><span class="n">get_veff</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">dm0</span><span class="p">,</span> <span class="n">hermi</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dm1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">mol</span><span class="o">.</span><span class="n">nao_nr</span><span class="p">(),</span><span class="n">mol</span><span class="o">.</span><span class="n">nao_nr</span><span class="p">()))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vhf1</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">hf</span><span class="o">.</span><span class="n">get_veff</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">dm1</span><span class="p">,</span> <span class="n">hermi</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vhf2</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">hf</span><span class="o">.</span><span class="n">get_veff</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">dm1</span><span class="p">,</span> <span class="n">dm_last</span><span class="o">=</span><span class="n">dm0</span><span class="p">,</span> <span class="n">vhf_last</span><span class="o">=</span><span class="n">vhf0</span><span class="p">,</span> <span class="n">hermi</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">vhf1</span><span class="p">,</span> <span class="n">vhf2</span><span class="p">)</span>
+<span class="go">True</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -2175,6 +3494,46 @@ envrionment.</dd>
 </div>
 <dl class="method">
 <dt>
+<code class="descname">QMMM</code><span class="sig-paren">(</span><em>scf_method</em>, <em>coords</em>, <em>charges</em>, <em>unit=None</em><span class="sig-paren">)</span></dt>
+<dd><p>Modify the QM method using the (non-relativistic) potential generated
+by MM charges. Note the static Coulomb interactions of the background
+charges are not included in the total energy.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">scf_method : a HF or DFT object</p>
+<dl class="last docutils">
+<dt>coords</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">2D array, shape (N,3)</span><dd>MM particle coordinates</dd>
+<dt>charges</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">1D array</span><dd>MM particle charges</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>unit</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>Bohr, AU, Ang (case insensitive). Default is the same to mol.unit</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>Same method object as the input scf_method with modified 1e Hamiltonian</dd>
+<dt>Note:</dt>
+<dd>1. if MM charge and X2C correction are used together, function mm_charge
+needs to be applied after X2C decoration (.x2c method), eg
+mf = mm_charge(scf.RHF(mol).x2c()), [(0.5,0.6,0.8)], [-0.5]).
+2. Once mm_charge function is applied on the SCF object, it
+affects all the post-HF calculations eg MP2, CCSD, MCSCF etc</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">mm_charge</span><span class="p">(</span><span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">mol</span><span class="p">),</span> <span class="p">[(</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.8</span><span class="p">)],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+<span class="go">-101.940495711284</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
 <code class="descname">analyze</code><span class="sig-paren">(</span><em>verbose=None</em>, <em>with_meta_lowdin=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.analyze"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Analyze the given SCF object:  print orbital energies, occupancies;
 print orbital coefficients; Mulliken population analysis; Diople moment.</p>
@@ -2247,6 +3606,7 @@ HF potential</p>
   <span class="o">+</span> \<span class="n">frac</span><span class="p">{</span><span class="mi">1</span><span class="p">}{</span><span class="mi">2</span><span class="p">}</span>\<span class="n">sum_</span><span class="p">{</span><span class="n">ijkl</span><span class="p">}</span> \<span class="n">gamma_</span><span class="p">{</span><span class="n">ji</span><span class="p">}</span>\<span class="n">gamma_</span><span class="p">{</span><span class="n">lk</span><span class="p">}</span> \<span class="n">langle</span> <span class="n">ik</span><span class="o">||</span><span class="n">jl</span>\<span class="n">rangle</span>
 </pre></div>
 </div>
+<p>Note this function has side effects which cause mf.scf_summary updated.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd>mf : an instance of SCF class</dd>
@@ -2282,6 +3642,7 @@ HF potential</p>
 <code class="descname">energy_tot</code><span class="sig-paren">(</span><em>mf</em>, <em>dm=None</em>, <em>h1e=None</em>, <em>vhf=None</em><span class="sig-paren">)</span></dt>
 <dd><p>Total Hartree-Fock energy, electronic part plus nuclear repulstion
 See <code class="xref py py-func docutils literal"><span class="pre">scf.hf.energy_elec()</span></code> for the electron part</p>
+<p>Note this function has side effects which cause mf.scf_summary updated.</p>
 </dd></dl>
 
 <dl class="method">
@@ -2348,14 +3709,14 @@ to get_fock function during the SCF iteration)</p>
 
 <dl class="method">
 <dt>
-<code class="descname">get_j</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.get_j"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Compute J matrix for the given density matrix.</p>
+<code class="descname">get_j</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>omega=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.get_j"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Compute J matrices for all input density matrices</p>
 </dd></dl>
 
 <dl class="method">
 <dt>
-<code class="descname">get_jk</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.get_jk"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Compute J, K matrices for the given density matrix</p>
+<code class="descname">get_jk</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>with_j=True</em>, <em>with_k=True</em>, <em>omega=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.get_jk"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Compute J, K matrices for all input density matrices</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><p class="first">mol : an instance of <code class="xref py py-class docutils literal"><span class="pre">Mole</span></code></p>
@@ -2377,6 +3738,14 @@ to get_fock function during the SCF iteration)</p>
 <dt>vhfopt :</dt>
 <dd>A class which holds precomputed quantities to optimize the
 computation of J, K matrices</dd>
+<dt>with_j</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">boolean</span><dd>Whether to compute J matrices</dd>
+<dt>with_k</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">boolean</span><dd>Whether to compute K matrices</dd>
+<dt>omega</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Parameter of range-seperated Coulomb operator: erf( omega * r12 ) / r12.
+If specified, integration are evaluated based on the long-range
+part of the range-seperated Coulomb operator.</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
@@ -2398,8 +3767,8 @@ input density matrices.</dd>
 
 <dl class="method">
 <dt>
-<code class="descname">get_k</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.get_k"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Compute K matrix for the given density matrix.</p>
+<code class="descname">get_k</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>omega=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.get_k"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Compute K matrices for all input density matrices</p>
 </dd></dl>
 
 <dl class="method">
@@ -2602,6 +3971,15 @@ three methods</p>
 </dd>
 </dl>
 </dd>
+<dt>Returns:</dt>
+<dd><p class="first">A list : pop, charges</p>
+<dl class="last docutils">
+<dt>pop</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken population on each atomic orbitals</dd>
+<dt>charges</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken charges</dd>
+</dl>
+</dd>
 </dl>
 </dd></dl>
 
@@ -2614,6 +3992,17 @@ three methods</p>
 <p>Mulliken charges</p>
 <div class="math">
 \[\delta_i = \sum_j M_{ij}\]</div>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><p class="first">A list : pop, charges</p>
+<dl class="last docutils">
+<dt>pop</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken population on each atomic orbitals</dd>
+<dt>charges</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken charges</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -2643,6 +4032,15 @@ three methods</p>
 <div class="line">&#8216;scf&#8217;   : Fraction-averaged RHF</div>
 </div>
 </dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><p class="first">A list : pop, charges</p>
+<dl class="last docutils">
+<dt>pop</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken population on each atomic orbitals</dd>
+<dt>charges</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken charges</dd>
 </dl>
 </dd>
 </dl>
@@ -2683,7 +4081,22 @@ three methods</p>
 </dd>
 </dl>
 </dd>
+<dt>Returns:</dt>
+<dd><p class="first">A list : pop, charges</p>
+<dl class="last docutils">
+<dt>pop</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken population on each atomic orbitals</dd>
+<dt>charges</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken charges</dd>
 </dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">reset</code><span class="sig-paren">(</span><em>mol=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.reset"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Reset mol and clean up relevant attributes for scanner mode</p>
 </dd></dl>
 
 <dl class="method">
@@ -2713,30 +4126,48 @@ three methods</p>
 
 <dl class="method">
 <dt>
-<code class="descname">update</code><span class="sig-paren">(</span><em>chkfile=None</em><span class="sig-paren">)</span></dt>
-<dd><p>Read attributes from the chkfile then replace the attributes of
-current object.  It&#8217;s an alias of function <a href="#id10"><span class="problematic" id="id11">update_from_chk_</span></a>.</p>
+<code class="descname">to_ghf</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.to_ghf"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Convert the input mean-field object to a GHF/GKS object</p>
 </dd></dl>
 
 <dl class="method">
 <dt>
-<code class="descname">update_</code><span class="sig-paren">(</span><em>chkfile=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.update_"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descname">to_rhf</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.to_rhf"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Convert the input mean-field object to a RHF/ROHF/RKS/ROKS object</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">to_uhf</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.to_uhf"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Convert the input mean-field object to a UHF/UKS object</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>chkfile=None</em><span class="sig-paren">)</span></dt>
 <dd><p>Read attributes from the chkfile then replace the attributes of
 current object.  It&#8217;s an alias of function <a href="#id12"><span class="problematic" id="id13">update_from_chk_</span></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt>
-<code class="descname">update_from_chk</code><span class="sig-paren">(</span><em>chkfile=None</em><span class="sig-paren">)</span></dt>
+<code class="descname">update_</code><span class="sig-paren">(</span><em>chkfile=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#SCF.update_"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Read attributes from the chkfile then replace the attributes of
 current object.  It&#8217;s an alias of function <a href="#id14"><span class="problematic" id="id15">update_from_chk_</span></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt>
-<code class="descname">update_from_chk_</code><span class="sig-paren">(</span><em>chkfile=None</em><span class="sig-paren">)</span></dt>
+<code class="descname">update_from_chk</code><span class="sig-paren">(</span><em>chkfile=None</em><span class="sig-paren">)</span></dt>
 <dd><p>Read attributes from the chkfile then replace the attributes of
 current object.  It&#8217;s an alias of function <a href="#id16"><span class="problematic" id="id17">update_from_chk_</span></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">update_from_chk_</code><span class="sig-paren">(</span><em>chkfile=None</em><span class="sig-paren">)</span></dt>
+<dd><p>Read attributes from the chkfile then replace the attributes of
+current object.  It&#8217;s an alias of function <a href="#id18"><span class="problematic" id="id19">update_from_chk_</span></a>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -2799,7 +4230,7 @@ dm : a 2D ndarrays density matrices</dd>
 
 <dl class="function">
 <dt id="pyscf.scf.hf.dot_eri_dm">
-<code class="descclassname">pyscf.scf.hf.</code><code class="descname">dot_eri_dm</code><span class="sig-paren">(</span><em>eri</em>, <em>dm</em>, <em>hermi=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#dot_eri_dm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.dot_eri_dm" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyscf.scf.hf.</code><code class="descname">dot_eri_dm</code><span class="sig-paren">(</span><em>eri</em>, <em>dm</em>, <em>hermi=0</em>, <em>with_j=True</em>, <em>with_k=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#dot_eri_dm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.dot_eri_dm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute J, K matrices in terms of the given 2-electron integrals and
 density matrix:</p>
 <p>J ~ numpy.einsum(&#8216;pqrs,qp-&gt;rs&#8217;, eri, dm)
@@ -2862,6 +4293,7 @@ HF potential</p>
   <span class="o">+</span> \<span class="n">frac</span><span class="p">{</span><span class="mi">1</span><span class="p">}{</span><span class="mi">2</span><span class="p">}</span>\<span class="n">sum_</span><span class="p">{</span><span class="n">ijkl</span><span class="p">}</span> \<span class="n">gamma_</span><span class="p">{</span><span class="n">ji</span><span class="p">}</span>\<span class="n">gamma_</span><span class="p">{</span><span class="n">lk</span><span class="p">}</span> \<span class="n">langle</span> <span class="n">ik</span><span class="o">||</span><span class="n">jl</span>\<span class="n">rangle</span>
 </pre></div>
 </div>
+<p>Note this function has side effects which cause mf.scf_summary updated.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd>mf : an instance of SCF class</dd>
@@ -2897,6 +4329,7 @@ HF potential</p>
 <code class="descclassname">pyscf.scf.hf.</code><code class="descname">energy_tot</code><span class="sig-paren">(</span><em>mf</em>, <em>dm=None</em>, <em>h1e=None</em>, <em>vhf=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#energy_tot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.energy_tot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Total Hartree-Fock energy, electronic part plus nuclear repulstion
 See <code class="xref py py-func docutils literal"><span class="pre">scf.hf.energy_elec()</span></code> for the electron part</p>
+<p>Note this function has side effects which cause mf.scf_summary updated.</p>
 </dd></dl>
 
 <dl class="function">
@@ -2980,8 +4413,8 @@ to get_fock function during the SCF iteration)</p>
 
 <dl class="function">
 <dt id="pyscf.scf.hf.get_jk">
-<code class="descclassname">pyscf.scf.hf.</code><code class="descname">get_jk</code><span class="sig-paren">(</span><em>mol</em>, <em>dm</em>, <em>hermi=1</em>, <em>vhfopt=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#get_jk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.get_jk" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute J, K matrices for the given density matrix</p>
+<code class="descclassname">pyscf.scf.hf.</code><code class="descname">get_jk</code><span class="sig-paren">(</span><em>mol</em>, <em>dm</em>, <em>hermi=1</em>, <em>vhfopt=None</em>, <em>with_j=True</em>, <em>with_k=True</em>, <em>omega=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/hf.html#get_jk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.hf.get_jk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute J, K matrices for all input density matrices</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><p class="first">mol : an instance of <code class="xref py py-class docutils literal"><span class="pre">Mole</span></code></p>
@@ -3003,6 +4436,14 @@ to get_fock function during the SCF iteration)</p>
 <dt>vhfopt :</dt>
 <dd>A class which holds precomputed quantities to optimize the
 computation of J, K matrices</dd>
+<dt>with_j</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">boolean</span><dd>Whether to compute J matrices</dd>
+<dt>with_k</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">boolean</span><dd>Whether to compute K matrices</dd>
+<dt>omega</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Parameter of range-seperated Coulomb operator: erf( omega * r12 ) / r12.
+If specified, integration are evaluated based on the long-range
+part of the range-seperated Coulomb operator.</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
@@ -3293,6 +4734,15 @@ three methods</p>
 </dd>
 </dl>
 </dd>
+<dt>Returns:</dt>
+<dd><p class="first">A list : pop, charges</p>
+<dl class="last docutils">
+<dt>pop</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken population on each atomic orbitals</dd>
+<dt>charges</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken charges</dd>
+</dl>
+</dd>
 </dl>
 </dd></dl>
 
@@ -3305,6 +4755,17 @@ three methods</p>
 <p>Mulliken charges</p>
 <div class="math">
 \[\delta_i = \sum_j M_{ij}\]</div>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><p class="first">A list : pop, charges</p>
+<dl class="last docutils">
+<dt>pop</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken population on each atomic orbitals</dd>
+<dt>charges</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken charges</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
@@ -3334,6 +4795,15 @@ three methods</p>
 <div class="line">&#8216;scf&#8217;   : Fraction-averaged RHF</div>
 </div>
 </dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><p class="first">A list : pop, charges</p>
+<dl class="last docutils">
+<dt>pop</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken population on each atomic orbitals</dd>
+<dt>charges</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">nparray</span><dd>Mulliken charges</dd>
 </dl>
 </dd>
 </dl>
@@ -3464,6 +4934,18 @@ envrionment.</dd>
 </div>
 <dl class="method">
 <dt>
+<code class="descname">Gradients</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><p>Non-relativistic unrestricted Hartree-Fock gradients</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">Hessian</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><p>Non-relativistic UHF hessian</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
 <code class="descname">canonicalize</code><span class="sig-paren">(</span><em>mf</em>, <em>mo_coeff</em>, <em>mo_occ</em>, <em>fock=None</em><span class="sig-paren">)</span></dt>
 <dd><p>Canonicalization diagonalizes the UHF Fock matrix within occupied,
 virtual subspaces separatedly (without change occupancy).</p>
@@ -3512,6 +4994,7 @@ They are used to calculate asymmetric density matrix</dd>
 <dt>
 <code class="descname">energy_elec</code><span class="sig-paren">(</span><em>mf</em>, <em>dm=None</em>, <em>h1e=None</em>, <em>vhf=None</em><span class="sig-paren">)</span></dt>
 <dd><p>Electronic energy of Unrestricted Hartree-Fock</p>
+<p>Note this function has side effects which cause mf.scf_summary updated.</p>
 <dl class="docutils">
 <dt>Returns:</dt>
 <dd>Hartree-Fock electronic energy and the 2-electron part contribution</dd>
@@ -3520,7 +5003,7 @@ They are used to calculate asymmetric density matrix</dd>
 
 <dl class="method">
 <dt>
-<code class="descname">get_jk</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/uhf.html#UHF.get_jk"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descname">get_jk</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>with_j=True</em>, <em>with_k=True</em>, <em>omega=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/uhf.html#UHF.get_jk"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Coulomb (J) and exchange (K)</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -3821,6 +5304,7 @@ They are used to calculate asymmetric density matrix</dd>
 <dt id="pyscf.scf.uhf.energy_elec">
 <code class="descclassname">pyscf.scf.uhf.</code><code class="descname">energy_elec</code><span class="sig-paren">(</span><em>mf</em>, <em>dm=None</em>, <em>h1e=None</em>, <em>vhf=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/uhf.html#energy_elec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.uhf.energy_elec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Electronic energy of Unrestricted Hartree-Fock</p>
+<p>Note this function has side effects which cause mf.scf_summary updated.</p>
 <dl class="docutils">
 <dt>Returns:</dt>
 <dd>Hartree-Fock electronic energy and the 2-electron part contribution</dd>
@@ -4819,6 +6303,12 @@ envrionment.</dd>
 </pre></div>
 </div>
 <dl class="method">
+<dt id="pyscf.scf.dhf.UHF.Gradients">
+<code class="descname">Gradients</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.dhf.UHF.Gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unrestricted Dirac-Hartree-Fock gradients</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyscf.scf.dhf.UHF.dip_moment">
 <code class="descname">dip_moment</code><span class="sig-paren">(</span><em>mol=None</em>, <em>dm=None</em>, <em>unit='Debye'</em>, <em>verbose=3</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/dhf.html#UHF.dip_moment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.dhf.UHF.dip_moment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dipole moment calculation</p>
@@ -4858,6 +6348,12 @@ dm : a 2D ndarrays density matrices</dd>
 <p>Mulliken charges</p>
 <div class="math">
 \[\delta_i = \sum_j M_{ij}\]</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.scf.dhf.UHF.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><em>mol</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/dhf.html#UHF.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.dhf.UHF.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset mol and clean up relevant attributes for scanner mode</p>
 </dd></dl>
 
 </dd></dl>
@@ -5061,6 +6557,17 @@ Determine occupation of alpha and beta electrons based on energy spectrum</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyscf.scf.addons.fast_newton">
+<code class="descclassname">pyscf.scf.addons.</code><code class="descname">fast_newton</code><span class="sig-paren">(</span><em>mf</em>, <em>mo_coeff=None</em>, <em>mo_occ=None</em>, <em>dm0=None</em>, <em>auxbasis=None</em>, <em>dual_basis=None</em>, <em>**newton_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/scf/addons.html#fast_newton"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.scf.addons.fast_newton" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a wrap function which combines several operations. This
+function first setup the initial guess
+from density fitting calculation then use  for
+Newton solver and call Newton solver.
+Newton solver attributes [max_cycle_inner, max_stepsize, ah_start_tol,
+ah_conv_tol, ah_grad_trust_region, ...] can be passed through <a href="#id2"><span class="problematic" id="id3">**</span></a>newton_kwargs.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyscf.scf.addons.float_occ">
 <code class="descclassname">pyscf.scf.addons.</code><code class="descname">float_occ</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.scf.addons.float_occ" title="Permalink to this definition">¶</a></dt>
 <dd><p>For UHF, allowing the Sz value being changed during SCF iteration.
@@ -5240,7 +6747,7 @@ Ref: JCP 116, 8255</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

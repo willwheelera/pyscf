@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>8. mcscf — Multi-configurational self-consistent field &mdash; PySCF 1.5.0 documentation</title>
+  <title>8. mcscf — Multi-configurational self-consistent field &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
         <link rel="next" title="9. fci — Full configuration interaction" href="fci.html"/>
         <link rel="prev" title="7. ao2mo — Integral transformations" href="ao2mo.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -201,6 +201,8 @@
   <div class="section" id="module-pyscf.mcscf">
 <span id="mcscf-multi-configurational-self-consistent-field"></span><h1>8. mcscf &#8212; Multi-configurational self-consistent field<a class="headerlink" href="#module-pyscf.mcscf" title="Permalink to this headline">¶</a></h1>
 <p>CASCI and CASSCF</p>
+<p>When using results of this code for publications, please cite the following paper:
+&#8220;A general second order complete active space self-consistent-field solver for large-scale systems&#8221;, Q. Sun, J. Yang, and G. K.-L. Chan, Chem. Phys. Lett. 683, 291 (2017).</p>
 <p>Simple usage:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">mcscf</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -513,12 +515,18 @@ parameter can be automatically determined.</dd>
 <dt>ncore</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">int or tuple of int</span><dd>Core electron number.  In UHF-CASSCF, it&#8217;s a tuple to indicate the different core eletron numbers.</dd>
 <dt>natorb</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to restore the natural orbital in CAS space.  Default is not.
-Be very careful to set this parameter when CASCI/CASSCF are combined
-with DMRG solver because this parameter changes the orbital ordering
-which DMRG relies on.</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to transform natural orbital in active space.  Be cautious
+of this parameter when CASCI/CASSCF are combined with DMRG solver
+or selected CI solver because DMRG and selected CI are not invariant
+to the rotation in active space.
+False by default.</dd>
 <dt>canonicalization</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to canonicalize orbitals.  Default is True.</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to canonicalize orbitals. Note that canonicalization does
+not change the orbitals in active space by default. It only
+diagonalizes core and external space of the general Fock matirx.
+To get the natural orbitals in active space, attribute natorb
+need to be enabled.
+True by default.</dd>
 <dt>sorting_mo_energy</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to sort the orbitals based on the diagonal elements of the
 general Fock matrix.  Default is False.</dd>
@@ -576,6 +584,12 @@ representation).</dd>
 </pre></div>
 </div>
 <dl class="method">
+<dt id="pyscf.mcscf.casci.CASCI.Gradients">
+<code class="descname">Gradients</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.mcscf.casci.CASCI.Gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic restricted Hartree-Fock gradients</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyscf.mcscf.casci.CASCI.as_scanner">
 <code class="descname">as_scanner</code><span class="sig-paren">(</span><em>mc</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.mcscf.casci.CASCI.as_scanner" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generating a scanner for CASCI PES.</p>
@@ -599,8 +613,9 @@ are automatically applied in the solver.</p>
 <dl class="method">
 <dt id="pyscf.mcscf.casci.CASCI.canonicalize">
 <code class="descname">canonicalize</code><span class="sig-paren">(</span><em>mc</em>, <em>mo_coeff=None</em>, <em>ci=None</em>, <em>eris=None</em>, <em>sort=False</em>, <em>cas_natorb=False</em>, <em>casdm1=None</em>, <em>verbose=3</em>, <em>with_meta_lowdin=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.mcscf.casci.CASCI.canonicalize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Canonicalized CASCI/CASSCF orbitals of effecitve Fock matrix.
-Effective Fock matrix is built with one-particle density matrix (see
+<dd><p>Canonicalized CASCI/CASSCF orbitals of effecitive Fock matrix and
+update CI coefficients accordingly.</p>
+<p>Effective Fock matrix is built with one-particle density matrix (see
 also <code class="xref py py-func docutils literal"><span class="pre">mcscf.casci.get_fock()</span></code>). For state-average CASCI/CASSCF object,
 the canonicalized orbitals are based on the state-average density matrix.
 To obtain canonicalized orbitals for an individual state, you need to pass
@@ -618,15 +633,18 @@ To obtain canonicalized orbitals for an individual state, you need to pass
 <dd>overhead of computing integrals. It can be generated by
 <code class="xref py py-func docutils literal"><span class="pre">mc.ao2mo()</span></code> method.</dd>
 <dt>sort (bool): Whether the canonicalized orbitals are sorted based on</dt>
-<dd>orbital energy (diagonal part of the effective Fock matrix)
-within each subspace (core, active, external). If the point group
-symmetry is not available in the system, the orbitals are always
-sorted. When the point group symmetry is available, sort=False
-will keep the symmetry label of input orbitals and only sort the
-orbitals in each symmetry block while sort=True will reorder all
-orbitals in each subspace and the symmetry labels may be changed.</dd>
-<dt>cas_natorb (bool): Whether to transform the active orbitals to natual</dt>
-<dd>orbitals</dd>
+<dd>the orbital energy (diagonal part of the effective Fock matrix)
+within each subspace (core, active, external). If point group
+symmetry is not available in the system, orbitals are always
+sorted. When point group symmetry is available, sort=False will
+preserve the symmetry label of input orbitals and only sort the
+orbitals in each symmetry sector. sort=True will reorder all
+orbitals over all symmetry sectors in each subspace and the
+symmetry labels may be changed.</dd>
+<dt>cas_natorb (bool): Whether to transform active orbitals to natual</dt>
+<dd>orbitals. If enabled, the output orbitals in active space are
+transformed to natural orbitals and CI coefficients are updated
+accordingly.</dd>
 <dt>casdm1 (ndarray): 1-particle density matrix in active space. This</dt>
 <dd>density matrix is used to build effective fock matrix. Without
 input casdm1, the density matrix is computed with the input ci
@@ -647,8 +665,9 @@ The orbital energies are the diagonal terms of effective Fock matrix.</dd>
 <dl class="method">
 <dt id="pyscf.mcscf.casci.CASCI.canonicalize_">
 <code class="descname">canonicalize_</code><span class="sig-paren">(</span><em>mo_coeff=None</em>, <em>ci=None</em>, <em>eris=None</em>, <em>sort=False</em>, <em>cas_natorb=False</em>, <em>casdm1=None</em>, <em>verbose=None</em>, <em>with_meta_lowdin=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/mcscf/casci.html#CASCI.canonicalize_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.mcscf.casci.CASCI.canonicalize_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Canonicalized CASCI/CASSCF orbitals of effecitve Fock matrix.
-Effective Fock matrix is built with one-particle density matrix (see
+<dd><p>Canonicalized CASCI/CASSCF orbitals of effecitive Fock matrix and
+update CI coefficients accordingly.</p>
+<p>Effective Fock matrix is built with one-particle density matrix (see
 also <code class="xref py py-func docutils literal"><span class="pre">mcscf.casci.get_fock()</span></code>). For state-average CASCI/CASSCF object,
 the canonicalized orbitals are based on the state-average density matrix.
 To obtain canonicalized orbitals for an individual state, you need to pass
@@ -666,15 +685,18 @@ To obtain canonicalized orbitals for an individual state, you need to pass
 <dd>overhead of computing integrals. It can be generated by
 <code class="xref py py-func docutils literal"><span class="pre">mc.ao2mo()</span></code> method.</dd>
 <dt>sort (bool): Whether the canonicalized orbitals are sorted based on</dt>
-<dd>orbital energy (diagonal part of the effective Fock matrix)
-within each subspace (core, active, external). If the point group
-symmetry is not available in the system, the orbitals are always
-sorted. When the point group symmetry is available, sort=False
-will keep the symmetry label of input orbitals and only sort the
-orbitals in each symmetry block while sort=True will reorder all
-orbitals in each subspace and the symmetry labels may be changed.</dd>
-<dt>cas_natorb (bool): Whether to transform the active orbitals to natual</dt>
-<dd>orbitals</dd>
+<dd>the orbital energy (diagonal part of the effective Fock matrix)
+within each subspace (core, active, external). If point group
+symmetry is not available in the system, orbitals are always
+sorted. When point group symmetry is available, sort=False will
+preserve the symmetry label of input orbitals and only sort the
+orbitals in each symmetry sector. sort=True will reorder all
+orbitals over all symmetry sectors in each subspace and the
+symmetry labels may be changed.</dd>
+<dt>cas_natorb (bool): Whether to transform active orbitals to natual</dt>
+<dd>orbitals. If enabled, the output orbitals in active space are
+transformed to natural orbitals and CI coefficients are updated
+accordingly.</dd>
 <dt>casdm1 (ndarray): 1-particle density matrix in active space. This</dt>
 <dd>density matrix is used to build effective fock matrix. Without
 input casdm1, the density matrix is computed with the input ci
@@ -695,7 +717,8 @@ The orbital energies are the diagonal terms of effective Fock matrix.</dd>
 <dl class="method">
 <dt id="pyscf.mcscf.casci.CASCI.cas_natorb">
 <code class="descname">cas_natorb</code><span class="sig-paren">(</span><em>mo_coeff=None</em>, <em>ci=None</em>, <em>eris=None</em>, <em>sort=False</em>, <em>casdm1=None</em>, <em>verbose=None</em>, <em>with_meta_lowdin=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/mcscf/casci.html#CASCI.cas_natorb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.mcscf.casci.CASCI.cas_natorb" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transform active orbitals to natrual orbitals, and update the CI wfn</p>
+<dd><p>Transform active orbitals to natrual orbitals, and update the CI wfn
+accordingly</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd>mc : a CASSCF/CASCI object or RHF object</dd>
@@ -715,7 +738,8 @@ natural orbitals.</dd>
 <dl class="method">
 <dt id="pyscf.mcscf.casci.CASCI.cas_natorb_">
 <code class="descname">cas_natorb_</code><span class="sig-paren">(</span><em>mo_coeff=None</em>, <em>ci=None</em>, <em>eris=None</em>, <em>sort=False</em>, <em>casdm1=None</em>, <em>verbose=None</em>, <em>with_meta_lowdin=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/mcscf/casci.html#CASCI.cas_natorb_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.mcscf.casci.CASCI.cas_natorb_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transform active orbitals to natrual orbitals, and update the CI wfn</p>
+<dd><p>Transform active orbitals to natrual orbitals, and update the CI wfn
+accordingly</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd>mc : a CASSCF/CASCI object or RHF object</dd>
@@ -893,6 +917,27 @@ it&#8217;s consist of two lists, for alpha and beta spin.</dd>
 </dd></dl>
 
 <dl class="method">
+<dt id="pyscf.mcscf.casci.CASCI.state_average">
+<code class="descname">state_average</code><span class="sig-paren">(</span><em>weights=(0.5</em>, <em>0.5)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/mcscf/casci.html#CASCI.state_average"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.mcscf.casci.CASCI.state_average" title="Permalink to this definition">¶</a></dt>
+<dd><p>State average over the energy.  The energy funcitonal is
+E = w1&lt;psi1|H|psi1&gt; + w2&lt;psi2|H|psi2&gt; + ...</p>
+<p>Note we may need change the FCI solver to</p>
+<p>mc.fcisolver = fci.solver(mol, False)</p>
+<p>before calling state_average_(mc), to mix the singlet and triplet states</p>
+<p>MRH, 04/08/2019: Instead of turning casscf._finalize into an instance attribute
+that points to the previous casscf object, I&#8217;m going to make a whole new child class.
+This will have the added benefit of making state_average and <a href="#id1"><span class="problematic" id="id2">state_average_</span></a>
+actually behave differently for the first time (until now they <em>both</em> modified the
+casscf object inplace). I&#8217;m also going to assign the weights argument as a member
+of the mc child class because an accurate second-order CASSCF algorithm for state-averaged
+calculations requires that the gradient and Hessian be computed for CI vectors of each root
+individually and then multiplied by that root&#8217;s weight. The second derivatives computed
+by newton_casscf.py need to be extended to state-averaged calculations in order to be
+used as intermediates for calculations of the gradient of a single root in the context
+of the SA-CASSCF method; see: Mol. Phys. 99, 103 (2001).</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyscf.mcscf.casci.CASCI.state_average_">
 <code class="descname">state_average_</code><span class="sig-paren">(</span><em>weights=(0.5</em>, <em>0.5)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/mcscf/casci.html#CASCI.state_average_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.mcscf.casci.CASCI.state_average_" title="Permalink to this definition">¶</a></dt>
 <dd><p>State average over the energy.  The energy funcitonal is
@@ -900,6 +945,17 @@ E = w1&lt;psi1|H|psi1&gt; + w2&lt;psi2|H|psi2&gt; + ...</p>
 <p>Note we may need change the FCI solver to</p>
 <p>mc.fcisolver = fci.solver(mol, False)</p>
 <p>before calling state_average_(mc), to mix the singlet and triplet states</p>
+<p>MRH, 04/08/2019: Instead of turning casscf._finalize into an instance attribute
+that points to the previous casscf object, I&#8217;m going to make a whole new child class.
+This will have the added benefit of making state_average and <a href="#id3"><span class="problematic" id="id4">state_average_</span></a>
+actually behave differently for the first time (until now they <em>both</em> modified the
+casscf object inplace). I&#8217;m also going to assign the weights argument as a member
+of the mc child class because an accurate second-order CASSCF algorithm for state-averaged
+calculations requires that the gradient and Hessian be computed for CI vectors of each root
+individually and then multiplied by that root&#8217;s weight. The second derivatives computed
+by newton_casscf.py need to be extended to state-averaged calculations in order to be
+used as intermediates for calculations of the gradient of a single root in the context
+of the SA-CASSCF method; see: Mol. Phys. 99, 103 (2001).</p>
 </dd></dl>
 
 <dl class="method">
@@ -939,8 +995,9 @@ are automatically applied in the solver.</p>
 <dl class="function">
 <dt id="pyscf.mcscf.casci.canonicalize">
 <code class="descclassname">pyscf.mcscf.casci.</code><code class="descname">canonicalize</code><span class="sig-paren">(</span><em>mc</em>, <em>mo_coeff=None</em>, <em>ci=None</em>, <em>eris=None</em>, <em>sort=False</em>, <em>cas_natorb=False</em>, <em>casdm1=None</em>, <em>verbose=3</em>, <em>with_meta_lowdin=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/mcscf/casci.html#canonicalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.mcscf.casci.canonicalize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Canonicalized CASCI/CASSCF orbitals of effecitve Fock matrix.
-Effective Fock matrix is built with one-particle density matrix (see
+<dd><p>Canonicalized CASCI/CASSCF orbitals of effecitive Fock matrix and
+update CI coefficients accordingly.</p>
+<p>Effective Fock matrix is built with one-particle density matrix (see
 also <code class="xref py py-func docutils literal"><span class="pre">mcscf.casci.get_fock()</span></code>). For state-average CASCI/CASSCF object,
 the canonicalized orbitals are based on the state-average density matrix.
 To obtain canonicalized orbitals for an individual state, you need to pass
@@ -958,15 +1015,18 @@ To obtain canonicalized orbitals for an individual state, you need to pass
 <dd>overhead of computing integrals. It can be generated by
 <code class="xref py py-func docutils literal"><span class="pre">mc.ao2mo()</span></code> method.</dd>
 <dt>sort (bool): Whether the canonicalized orbitals are sorted based on</dt>
-<dd>orbital energy (diagonal part of the effective Fock matrix)
-within each subspace (core, active, external). If the point group
-symmetry is not available in the system, the orbitals are always
-sorted. When the point group symmetry is available, sort=False
-will keep the symmetry label of input orbitals and only sort the
-orbitals in each symmetry block while sort=True will reorder all
-orbitals in each subspace and the symmetry labels may be changed.</dd>
-<dt>cas_natorb (bool): Whether to transform the active orbitals to natual</dt>
-<dd>orbitals</dd>
+<dd>the orbital energy (diagonal part of the effective Fock matrix)
+within each subspace (core, active, external). If point group
+symmetry is not available in the system, orbitals are always
+sorted. When point group symmetry is available, sort=False will
+preserve the symmetry label of input orbitals and only sort the
+orbitals in each symmetry sector. sort=True will reorder all
+orbitals over all symmetry sectors in each subspace and the
+symmetry labels may be changed.</dd>
+<dt>cas_natorb (bool): Whether to transform active orbitals to natual</dt>
+<dd>orbitals. If enabled, the output orbitals in active space are
+transformed to natural orbitals and CI coefficients are updated
+accordingly.</dd>
 <dt>casdm1 (ndarray): 1-particle density matrix in active space. This</dt>
 <dd>density matrix is used to build effective fock matrix. Without
 input casdm1, the density matrix is computed with the input ci
@@ -987,7 +1047,8 @@ The orbital energies are the diagonal terms of effective Fock matrix.</dd>
 <dl class="function">
 <dt id="pyscf.mcscf.casci.cas_natorb">
 <code class="descclassname">pyscf.mcscf.casci.</code><code class="descname">cas_natorb</code><span class="sig-paren">(</span><em>mc</em>, <em>mo_coeff=None</em>, <em>ci=None</em>, <em>eris=None</em>, <em>sort=False</em>, <em>casdm1=None</em>, <em>verbose=None</em>, <em>with_meta_lowdin=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/mcscf/casci.html#cas_natorb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.mcscf.casci.cas_natorb" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transform active orbitals to natrual orbitals, and update the CI wfn</p>
+<dd><p>Transform active orbitals to natrual orbitals, and update the CI wfn
+accordingly</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd>mc : a CASSCF/CASCI object or RHF object</dd>
@@ -1118,12 +1179,18 @@ parameter can be automatically determined.</dd>
 <dt>ncore</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">int or tuple of int</span><dd>Core electron number.  In UHF-CASSCF, it&#8217;s a tuple to indicate the different core eletron numbers.</dd>
 <dt>natorb</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to restore the natural orbital in CAS space.  Default is not.
-Be very careful to set this parameter when CASCI/CASSCF are combined
-with DMRG solver because this parameter changes the orbital ordering
-which DMRG relies on.</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to transform natural orbital in active space.  Be cautious
+of this parameter when CASCI/CASSCF are combined with DMRG solver
+or selected CI solver because DMRG and selected CI are not invariant
+to the rotation in active space.
+False by default.</dd>
 <dt>canonicalization</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to canonicalize orbitals.  Default is True.</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to canonicalize orbitals. Note that canonicalization does
+not change the orbitals in active space by default. It only
+diagonalizes core and external space of the general Fock matirx.
+To get the natural orbitals in active space, attribute natorb
+need to be enabled.
+True by default.</dd>
 <dt>sorting_mo_energy</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to sort the orbitals based on the diagonal elements of the
 general Fock matrix.  Default is False.</dd>
@@ -1241,6 +1308,11 @@ Default is the checkpoint file of mean field object.</dd>
 generated by the builtin function <code class="xref py py-func docutils literal"><span class="pre">locals()</span></code>, so that the
 callback function can access all local variables in the current
 envrionment.</dd>
+<dt>scale_restoration</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>When a step of orbital rotation moves out of trust region, the
+orbital optimization will be restored to previous state and the
+step size of the orbital rotation needs to be reduced.
+scale_restoration controls how much to scale down the step size.</dd>
 </dl>
 </div></blockquote>
 <p>Saved results</p>
@@ -1274,6 +1346,12 @@ representation).</dd>
 <span class="go">-109.044401882238134</span>
 </pre></div>
 </div>
+<dl class="method">
+<dt id="pyscf.mcscf.mc1step.CASSCF.Gradients">
+<code class="descname">Gradients</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.mcscf.mc1step.CASSCF.Gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-relativistic restricted Hartree-Fock gradients</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyscf.mcscf.mc1step.CASSCF.as_scanner">
 <code class="descname">as_scanner</code><span class="sig-paren">(</span><em>mc</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.mcscf.mc1step.CASSCF.as_scanner" title="Permalink to this definition">¶</a></dt>
@@ -1416,12 +1494,18 @@ parameter can be automatically determined.</dd>
 <dt>ncore</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">int or tuple of int</span><dd>Core electron number.  In UHF-CASSCF, it&#8217;s a tuple to indicate the different core eletron numbers.</dd>
 <dt>natorb</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to restore the natural orbital in CAS space.  Default is not.
-Be very careful to set this parameter when CASCI/CASSCF are combined
-with DMRG solver because this parameter changes the orbital ordering
-which DMRG relies on.</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to transform natural orbital in active space.  Be cautious
+of this parameter when CASCI/CASSCF are combined with DMRG solver
+or selected CI solver because DMRG and selected CI are not invariant
+to the rotation in active space.
+False by default.</dd>
 <dt>canonicalization</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to canonicalize orbitals.  Default is True.</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to canonicalize orbitals. Note that canonicalization does
+not change the orbitals in active space by default. It only
+diagonalizes core and external space of the general Fock matirx.
+To get the natural orbitals in active space, attribute natorb
+need to be enabled.
+True by default.</dd>
 <dt>sorting_mo_energy</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to sort the orbitals based on the diagonal elements of the
 general Fock matrix.  Default is False.</dd>
@@ -1539,6 +1623,11 @@ Default is the checkpoint file of mean field object.</dd>
 generated by the builtin function <code class="xref py py-func docutils literal"><span class="pre">locals()</span></code>, so that the
 callback function can access all local variables in the current
 envrionment.</dd>
+<dt>scale_restoration</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>When a step of orbital rotation moves out of trust region, the
+orbital optimization will be restored to previous state and the
+step size of the orbital rotation needs to be reduced.
+scale_restoration controls how much to scale down the step size.</dd>
 </dl>
 </div></blockquote>
 <p>Saved results</p>
@@ -1863,34 +1952,41 @@ The second is the corresponding 2S+1</dd>
 
 <dl class="function">
 <dt id="pyscf.mcscf.addons.state_average">
-<code class="descclassname">pyscf.mcscf.addons.</code><code class="descname">state_average</code><span class="sig-paren">(</span><em>casscf</em>, <em>weights=(0.5</em>, <em>0.5)</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.mcscf.addons.state_average" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyscf.mcscf.addons.</code><code class="descname">state_average</code><span class="sig-paren">(</span><em>casscf</em>, <em>weights=(0.5</em>, <em>0.5)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/mcscf/addons.html#state_average"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.mcscf.addons.state_average" title="Permalink to this definition">¶</a></dt>
 <dd><p>State average over the energy.  The energy funcitonal is
 E = w1&lt;psi1|H|psi1&gt; + w2&lt;psi2|H|psi2&gt; + ...</p>
 <p>Note we may need change the FCI solver to</p>
 <p>mc.fcisolver = fci.solver(mol, False)</p>
 <p>before calling state_average_(mc), to mix the singlet and triplet states</p>
+<p>MRH, 04/08/2019: Instead of turning casscf._finalize into an instance attribute
+that points to the previous casscf object, I&#8217;m going to make a whole new child class.
+This will have the added benefit of making state_average and <a href="#id5"><span class="problematic" id="id6">state_average_</span></a>
+actually behave differently for the first time (until now they <em>both</em> modified the
+casscf object inplace). I&#8217;m also going to assign the weights argument as a member
+of the mc child class because an accurate second-order CASSCF algorithm for state-averaged
+calculations requires that the gradient and Hessian be computed for CI vectors of each root
+individually and then multiplied by that root&#8217;s weight. The second derivatives computed
+by newton_casscf.py need to be extended to state-averaged calculations in order to be
+used as intermediates for calculations of the gradient of a single root in the context
+of the SA-CASSCF method; see: Mol. Phys. 99, 103 (2001).</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pyscf.mcscf.addons.state_average_">
 <code class="descclassname">pyscf.mcscf.addons.</code><code class="descname">state_average_</code><span class="sig-paren">(</span><em>casscf</em>, <em>weights=(0.5</em>, <em>0.5)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/mcscf/addons.html#state_average_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.mcscf.addons.state_average_" title="Permalink to this definition">¶</a></dt>
-<dd><p>State average over the energy.  The energy funcitonal is
-E = w1&lt;psi1|H|psi1&gt; + w2&lt;psi2|H|psi2&gt; + ...</p>
-<p>Note we may need change the FCI solver to</p>
-<p>mc.fcisolver = fci.solver(mol, False)</p>
-<p>before calling state_average_(mc), to mix the singlet and triplet states</p>
+<dd><p>Inplace version of state_average</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pyscf.mcscf.addons.state_average_mix">
-<code class="descclassname">pyscf.mcscf.addons.</code><code class="descname">state_average_mix</code><span class="sig-paren">(</span><em>casscf</em>, <em>fcisolvers</em>, <em>weights=(0.5</em>, <em>0.5)</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.mcscf.addons.state_average_mix" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyscf.mcscf.addons.</code><code class="descname">state_average_mix</code><span class="sig-paren">(</span><em>casscf</em>, <em>fcisolvers</em>, <em>weights=(0.5</em>, <em>0.5)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/mcscf/addons.html#state_average_mix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.mcscf.addons.state_average_mix" title="Permalink to this definition">¶</a></dt>
 <dd><p>State-average CASSCF over multiple FCI solvers.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pyscf.mcscf.addons.state_average_mix_">
 <code class="descclassname">pyscf.mcscf.addons.</code><code class="descname">state_average_mix_</code><span class="sig-paren">(</span><em>casscf</em>, <em>fcisolvers</em>, <em>weights=(0.5</em>, <em>0.5)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/mcscf/addons.html#state_average_mix_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.mcscf.addons.state_average_mix_" title="Permalink to this definition">¶</a></dt>
-<dd><p>State-average CASSCF over multiple FCI solvers.</p>
+<dd><p>Inplace version of state_average</p>
 </dd></dl>
 
 <dl class="function">
@@ -1963,7 +2059,7 @@ E = w1&lt;psi1|H|psi1&gt; + w2&lt;psi2|H|psi2&gt; + ...</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

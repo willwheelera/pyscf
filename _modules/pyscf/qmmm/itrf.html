@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyscf.qmmm.itrf &mdash; PySCF 1.5.0 documentation</title>
+  <title>pyscf.qmmm.itrf &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -181,7 +181,7 @@
             
   <h1>Source code for pyscf.qmmm.itrf</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="c1"># Copyright 2014-2018 The PySCF Developers. All Rights Reserved.</span>
+<span class="c1"># Copyright 2014-2019 The PySCF Developers. All Rights Reserved.</span>
 <span class="c1">#</span>
 <span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
 <span class="c1"># you may not use this file except in compliance with the License.</span>
@@ -207,6 +207,9 @@
 <span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">lib</span>
 <span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span>
 <span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">df</span>
+<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">scf</span>
+<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">mcscf</span>
+<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">grad</span>
 <span class="kn">from</span> <span class="nn">pyscf.lib</span> <span class="k">import</span> <span class="n">logger</span>
 
 
@@ -243,10 +246,7 @@
 <span class="sd">    &gt;&gt;&gt; mf.kernel()</span>
 <span class="sd">    -101.940495711284</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="kn">from</span> <span class="nn">pyscf.scf</span> <span class="k">import</span> <span class="n">hf</span>
-    <span class="kn">from</span> <span class="nn">pyscf.mcscf</span> <span class="k">import</span> <span class="n">casci</span>
-    <span class="k">assert</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">scf_method</span><span class="p">,</span> <span class="n">hf</span><span class="o">.</span><span class="n">SCF</span><span class="p">)</span> <span class="ow">or</span>
-           <span class="nb">isinstance</span><span class="p">(</span><span class="n">scf_method</span><span class="p">,</span> <span class="n">casci</span><span class="o">.</span><span class="n">CASCI</span><span class="p">))</span>
+    <span class="k">assert</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">scf_method</span><span class="p">,</span> <span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">hf</span><span class="o">.</span><span class="n">SCF</span><span class="p">,</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">casci</span><span class="o">.</span><span class="n">CASCI</span><span class="p">)))</span>
 
     <span class="k">if</span> <span class="n">unit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">unit</span> <span class="o">=</span> <span class="n">scf_method</span><span class="o">.</span><span class="n">mol</span><span class="o">.</span><span class="n">unit</span>
@@ -257,14 +257,25 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">coords</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="n">unit</span>
     <span class="n">charges</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">charges</span><span class="p">)</span>
-    <span class="n">method_class</span> <span class="o">=</span> <span class="n">scf_method</span><span class="o">.</span><span class="vm">__class__</span>
 
-    <span class="k">class</span> <span class="nc">QMMM</span><span class="p">(</span><span class="n">method_class</span><span class="p">,</span> <span class="n">_QMMM</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scf_method</span><span class="p">,</span> <span class="n">scf</span><span class="o">.</span><span class="n">hf</span><span class="o">.</span><span class="n">SCF</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scf_method</span><span class="p">,</span> <span class="n">_QMMM</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">scf_method</span>
+
+        <span class="n">method_class</span> <span class="o">=</span> <span class="n">scf_method</span><span class="o">.</span><span class="vm">__class__</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scf_method</span><span class="o">.</span><span class="n">_scf</span><span class="p">,</span> <span class="n">_QMMM</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">scf_method</span>
+
+        <span class="n">method_class</span> <span class="o">=</span> <span class="n">scf_method</span><span class="o">.</span><span class="n">_scf</span><span class="o">.</span><span class="vm">__class__</span>
+
+    <span class="k">class</span> <span class="nc">QMMM</span><span class="p">(</span><span class="n">_QMMM</span><span class="p">,</span> <span class="n">method_class</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scf_method</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">scf_method</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">dump_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="n">method_class</span><span class="o">.</span><span class="n">dump_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">dump_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="n">method_class</span><span class="o">.</span><span class="n">dump_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;** Add background charges for </span><span class="si">%s</span><span class="s1"> **&#39;</span><span class="p">,</span>
                         <span class="n">method_class</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="n">logger</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span>
@@ -275,7 +286,7 @@
 
         <span class="k">def</span> <span class="nf">get_hcore</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">mol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">mol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mol</span>
-            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">scf_method</span><span class="p">,</span> <span class="s1">&#39;get_hcore&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">method_class</span><span class="p">,</span> <span class="s1">&#39;get_hcore&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
                 <span class="n">h1e</span> <span class="o">=</span> <span class="n">method_class</span><span class="o">.</span><span class="n">get_hcore</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>  <span class="c1"># DO NOT modify post-HF objects to avoid the MM charges applied twice</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;mm_charge function cannot be applied on post-HF methods&#39;</span><span class="p">)</span>
@@ -293,10 +304,13 @@
                 <span class="n">nao</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">nao</span>
                 <span class="n">max_memory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_memory</span> <span class="o">-</span> <span class="n">lib</span><span class="o">.</span><span class="n">current_memory</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="n">blksize</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">max_memory</span><span class="o">*</span><span class="mf">1e6</span><span class="o">/</span><span class="mi">8</span><span class="o">/</span><span class="n">nao</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
+                <span class="n">cintopt</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">moleintor</span><span class="o">.</span><span class="n">make_cintopt</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">_atm</span><span class="p">,</span> <span class="n">mol</span><span class="o">.</span><span class="n">_bas</span><span class="p">,</span>
+                                                     <span class="n">mol</span><span class="o">.</span><span class="n">_env</span><span class="p">,</span> <span class="n">intor</span><span class="p">)</span>
                 <span class="n">v</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="k">for</span> <span class="n">i0</span><span class="p">,</span> <span class="n">i1</span> <span class="ow">in</span> <span class="n">lib</span><span class="o">.</span><span class="n">prange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">charges</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">blksize</span><span class="p">):</span>
                     <span class="n">fakemol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">fakemol_for_charges</span><span class="p">(</span><span class="n">coords</span><span class="p">[</span><span class="n">i0</span><span class="p">:</span><span class="n">i1</span><span class="p">])</span>
-                    <span class="n">j3c</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">incore</span><span class="o">.</span><span class="n">aux_e2</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">fakemol</span><span class="p">,</span> <span class="n">intor</span><span class="o">=</span><span class="n">intor</span><span class="p">,</span> <span class="n">aosym</span><span class="o">=</span><span class="s1">&#39;s2ij&#39;</span><span class="p">)</span>
+                    <span class="n">j3c</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">incore</span><span class="o">.</span><span class="n">aux_e2</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">fakemol</span><span class="p">,</span> <span class="n">intor</span><span class="o">=</span><span class="n">intor</span><span class="p">,</span>
+                                           <span class="n">aosym</span><span class="o">=</span><span class="s1">&#39;s2ij&#39;</span><span class="p">,</span> <span class="n">cintopt</span><span class="o">=</span><span class="n">cintopt</span><span class="p">)</span>
                     <span class="n">v</span> <span class="o">+=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;xk,k-&gt;x&#39;</span><span class="p">,</span> <span class="n">j3c</span><span class="p">,</span> <span class="o">-</span><span class="n">charges</span><span class="p">[</span><span class="n">i0</span><span class="p">:</span><span class="n">i1</span><span class="p">])</span>
                 <span class="n">v</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">unpack_tril</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">h1e</span> <span class="o">+</span> <span class="n">v</span>
@@ -313,8 +327,15 @@
         <span class="k">def</span> <span class="nf">nuc_grad_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="n">scf_grad</span> <span class="o">=</span> <span class="n">method_class</span><span class="o">.</span><span class="n">nuc_grad_method</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">mm_charge_grad</span><span class="p">(</span><span class="n">scf_grad</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">charges</span><span class="p">,</span> <span class="s1">&#39;Bohr&#39;</span><span class="p">)</span>
+        <span class="n">Gradients</span> <span class="o">=</span> <span class="n">nuc_grad_method</span>
 
-    <span class="k">return</span> <span class="n">QMMM</span><span class="p">()</span></div>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scf_method</span><span class="p">,</span> <span class="n">scf</span><span class="o">.</span><span class="n">hf</span><span class="o">.</span><span class="n">SCF</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">QMMM</span><span class="p">(</span><span class="n">scf_method</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">scf_method</span><span class="o">.</span><span class="n">_scf</span> <span class="o">=</span> <span class="n">QMMM</span><span class="p">(</span><span class="n">scf_method</span><span class="o">.</span><span class="n">_scf</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="n">scf_method</span><span class="o">.</span><span class="n">mo_coeff</span> <span class="o">=</span> <span class="n">scf_method</span><span class="o">.</span><span class="n">_scf</span><span class="o">.</span><span class="n">mo_coeff</span>
+        <span class="n">scf_method</span><span class="o">.</span><span class="n">mo_energy</span> <span class="o">=</span> <span class="n">scf_method</span><span class="o">.</span><span class="n">_scf</span><span class="o">.</span><span class="n">mo_energy</span>
+        <span class="k">return</span> <span class="n">scf_method</span></div>
 <span class="n">add_mm_charges</span> <span class="o">=</span> <span class="n">mm_charge</span>
 
 <div class="viewcode-block" id="mm_charge_grad"><a class="viewcode-back" href="../../../qmmm.html#pyscf.qmmm.itrf.mm_charge_grad">[docs]</a><span class="k">def</span> <span class="nf">mm_charge_grad</span><span class="p">(</span><span class="n">scf_grad</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">charges</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -348,8 +369,7 @@
 <span class="sd">    [[-0.25912357 -0.29235976 -0.38245077]</span>
 <span class="sd">     [-1.70497052 -1.89423883  1.2794798 ]]</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="kn">from</span> <span class="nn">pyscf.grad</span> <span class="k">import</span> <span class="n">rhf</span> <span class="k">as</span> <span class="n">rhf_grad</span>
-    <span class="k">assert</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">scf_grad</span><span class="p">,</span> <span class="n">rhf_grad</span><span class="o">.</span><span class="n">Gradients</span><span class="p">))</span>
+    <span class="k">assert</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">scf_grad</span><span class="p">,</span> <span class="n">grad</span><span class="o">.</span><span class="n">rhf</span><span class="o">.</span><span class="n">Gradients</span><span class="p">))</span>
     <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">scf_grad</span><span class="o">.</span><span class="n">base</span><span class="p">,</span> <span class="s1">&#39;with_x2c&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;X2C with QM/MM charges&#39;</span><span class="p">)</span>
 
@@ -363,14 +383,14 @@
         <span class="n">coords</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="n">unit</span>
     <span class="n">charges</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">charges</span><span class="p">)</span>
 
-    <span class="k">class</span> <span class="nc">QMMM</span><span class="p">(</span><span class="n">scf_grad</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">_QMMMGrad</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">grad_class</span> <span class="o">=</span> <span class="n">scf_grad</span><span class="o">.</span><span class="vm">__class__</span>
+    <span class="k">class</span> <span class="nc">QMMM</span><span class="p">(</span><span class="n">_QMMMGrad</span><span class="p">,</span> <span class="n">grad_class</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scf_grad</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">scf_grad</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">dump_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="n">scf_grad</span><span class="o">.</span><span class="n">dump_flags</span><span class="p">()</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;** Add background charges for </span><span class="si">%s</span><span class="s1"> **&#39;</span><span class="p">,</span>
-                        <span class="n">scf_grad</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">dump_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="n">grad_class</span><span class="o">.</span><span class="n">dump_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;** Add background charges for </span><span class="si">%s</span><span class="s1"> **&#39;</span><span class="p">,</span> <span class="n">grad_class</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="n">logger</span><span class="o">.</span><span class="n">DEBUG1</span><span class="p">:</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">debug1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Charge      Location&#39;</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">charges</span><span class="p">):</span>
@@ -380,7 +400,7 @@
         <span class="k">def</span> <span class="nf">get_hcore</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
             <span class="sd">&#39;&#39;&#39; (QM 1e grad) + &lt;-d/dX i|q_mm/r_mm|j&gt;&#39;&#39;&#39;</span>
             <span class="k">if</span> <span class="n">mol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">mol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mol</span>
-            <span class="n">g_qm</span> <span class="o">=</span> <span class="n">scf_grad</span><span class="o">.</span><span class="n">get_hcore</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+            <span class="n">g_qm</span> <span class="o">=</span> <span class="n">grad_class</span><span class="o">.</span><span class="n">get_hcore</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="p">)</span>
             <span class="n">nao</span> <span class="o">=</span> <span class="n">g_qm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">pyscf</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span>
                 <span class="n">v</span> <span class="o">=</span> <span class="mi">0</span>
@@ -395,16 +415,19 @@
                 <span class="n">nao</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">nao</span>
                 <span class="n">max_memory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_memory</span> <span class="o">-</span> <span class="n">lib</span><span class="o">.</span><span class="n">current_memory</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="n">blksize</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">max_memory</span><span class="o">*</span><span class="mf">1e6</span><span class="o">/</span><span class="mi">8</span><span class="o">/</span><span class="n">nao</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
+                <span class="n">cintopt</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">moleintor</span><span class="o">.</span><span class="n">make_cintopt</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">_atm</span><span class="p">,</span> <span class="n">mol</span><span class="o">.</span><span class="n">_bas</span><span class="p">,</span>
+                                                     <span class="n">mol</span><span class="o">.</span><span class="n">_env</span><span class="p">,</span> <span class="n">intor</span><span class="p">)</span>
                 <span class="n">v</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="k">for</span> <span class="n">i0</span><span class="p">,</span> <span class="n">i1</span> <span class="ow">in</span> <span class="n">lib</span><span class="o">.</span><span class="n">prange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">charges</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">blksize</span><span class="p">):</span>
                     <span class="n">fakemol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">fakemol_for_charges</span><span class="p">(</span><span class="n">coords</span><span class="p">[</span><span class="n">i0</span><span class="p">:</span><span class="n">i1</span><span class="p">])</span>
-                    <span class="n">j3c</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">incore</span><span class="o">.</span><span class="n">aux_e2</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">fakemol</span><span class="p">,</span> <span class="n">intor</span><span class="p">,</span> <span class="n">aosym</span><span class="o">=</span><span class="s1">&#39;s1&#39;</span><span class="p">,</span> <span class="n">comp</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+                    <span class="n">j3c</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">incore</span><span class="o">.</span><span class="n">aux_e2</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">fakemol</span><span class="p">,</span> <span class="n">intor</span><span class="p">,</span> <span class="n">aosym</span><span class="o">=</span><span class="s1">&#39;s1&#39;</span><span class="p">,</span>
+                                           <span class="n">comp</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">cintopt</span><span class="o">=</span><span class="n">cintopt</span><span class="p">)</span>
                     <span class="n">v</span> <span class="o">+=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ipqk,k-&gt;ipq&#39;</span><span class="p">,</span> <span class="n">j3c</span><span class="p">,</span> <span class="n">charges</span><span class="p">[</span><span class="n">i0</span><span class="p">:</span><span class="n">i1</span><span class="p">])</span>
             <span class="k">return</span> <span class="n">g_qm</span> <span class="o">+</span> <span class="n">v</span>
 
         <span class="k">def</span> <span class="nf">grad_nuc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">atmlst</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">mol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">mol</span> <span class="o">=</span> <span class="n">scf_grad</span><span class="o">.</span><span class="n">mol</span>
-            <span class="n">g_qm</span> <span class="o">=</span> <span class="n">scf_grad</span><span class="o">.</span><span class="n">grad_nuc</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">atmlst</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">mol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">mol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mol</span>
+            <span class="n">g_qm</span> <span class="o">=</span> <span class="n">grad_class</span><span class="o">.</span><span class="n">grad_nuc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="p">,</span> <span class="n">atmlst</span><span class="p">)</span>
 <span class="c1"># nuclei lattice interaction</span>
             <span class="n">g_mm</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">mol</span><span class="o">.</span><span class="n">natm</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">natm</span><span class="p">):</span>
@@ -415,13 +438,18 @@
             <span class="k">if</span> <span class="n">atmlst</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">g_mm</span> <span class="o">=</span> <span class="n">g_mm</span><span class="p">[</span><span class="n">atmlst</span><span class="p">]</span>
             <span class="k">return</span> <span class="n">g_qm</span> <span class="o">+</span> <span class="n">g_mm</span>
-    <span class="k">return</span> <span class="n">QMMM</span><span class="p">()</span></div>
+    <span class="k">return</span> <span class="n">QMMM</span><span class="p">(</span><span class="n">scf_grad</span><span class="p">)</span></div>
 
 <span class="c1"># A tag to label the derived class</span>
 <span class="k">class</span> <span class="nc">_QMMM</span><span class="p">:</span>
     <span class="k">pass</span>
 <span class="k">class</span> <span class="nc">_QMMMGrad</span><span class="p">:</span>
     <span class="k">pass</span>
+
+<span class="c1"># Inject QMMM interface wrapper to other modules</span>
+<span class="n">scf</span><span class="o">.</span><span class="n">hf</span><span class="o">.</span><span class="n">SCF</span><span class="o">.</span><span class="n">QMMM</span> <span class="o">=</span> <span class="n">mm_charge</span>
+<span class="n">mcscf</span><span class="o">.</span><span class="n">casci</span><span class="o">.</span><span class="n">CASCI</span><span class="o">.</span><span class="n">QMMM</span> <span class="o">=</span> <span class="n">mm_charge</span>
+<span class="n">grad</span><span class="o">.</span><span class="n">rhf</span><span class="o">.</span><span class="n">Gradients</span><span class="o">.</span><span class="n">QMMM</span> <span class="o">=</span> <span class="n">mm_charge_grad</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">scf</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="n">grad</span>
@@ -438,6 +466,7 @@
     <span class="n">mf</span> <span class="o">=</span> <span class="n">mm_charge</span><span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">),</span> <span class="n">coords</span><span class="p">,</span> <span class="n">charges</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">())</span> <span class="c1"># -76.3206550372</span>
 
+    <span class="n">g</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">nuc_grad_method</span><span class="p">()</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
     <span class="n">mfs</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">as_scanner</span><span class="p">()</span>
     <span class="n">e1</span> <span class="o">=</span> <span class="n">mfs</span><span class="p">(</span><span class="s1">&#39;&#39;&#39; O                  0.00100000    0.00000000   -0.11081188</span>
 <span class="s1">             H                 -0.00000000   -0.84695236    0.59109389</span>
@@ -445,14 +474,12 @@
     <span class="n">e2</span> <span class="o">=</span> <span class="n">mfs</span><span class="p">(</span><span class="s1">&#39;&#39;&#39; O                 -0.00100000    0.00000000   -0.11081188</span>
 <span class="s1">             H                 -0.00000000   -0.84695236    0.59109389</span>
 <span class="s1">             H                 -0.00000000    0.89830571    0.52404783 &#39;&#39;&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">((</span><span class="n">e1</span> <span class="o">-</span> <span class="n">e2</span><span class="p">)</span><span class="o">/</span><span class="mf">0.002</span> <span class="o">*</span> <span class="n">lib</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">BOHR</span><span class="p">)</span>
-    <span class="n">mf</span><span class="o">.</span><span class="n">nuc_grad_method</span><span class="p">()</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-
+    <span class="nb">print</span><span class="p">((</span><span class="n">e1</span> <span class="o">-</span> <span class="n">e2</span><span class="p">)</span><span class="o">/</span><span class="mf">0.002</span> <span class="o">*</span> <span class="n">lib</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">BOHR</span><span class="p">,</span> <span class="n">g</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="n">mycc</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="n">ccsd</span><span class="o">.</span><span class="n">CCSD</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span>
     <span class="n">ecc</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span> <span class="o">=</span> <span class="n">mycc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span> <span class="c1"># ecc = -0.228939687075</span>
 
-    <span class="n">mycc</span><span class="o">.</span><span class="n">nuc_grad_method</span><span class="p">()</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">mycc</span><span class="o">.</span><span class="n">nuc_grad_method</span><span class="p">()</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
     <span class="n">ccs</span> <span class="o">=</span> <span class="n">mycc</span><span class="o">.</span><span class="n">as_scanner</span><span class="p">()</span>
     <span class="n">e1</span> <span class="o">=</span> <span class="n">ccs</span><span class="p">(</span><span class="s1">&#39;&#39;&#39; O                  0.00100000    0.00000000   -0.11081188</span>
 <span class="s1">             H                 -0.00000000   -0.84695236    0.59109389</span>
@@ -460,7 +487,7 @@
     <span class="n">e2</span> <span class="o">=</span> <span class="n">ccs</span><span class="p">(</span><span class="s1">&#39;&#39;&#39; O                 -0.00100000    0.00000000   -0.11081188</span>
 <span class="s1">             H                 -0.00000000   -0.84695236    0.59109389</span>
 <span class="s1">             H                 -0.00000000    0.89830571    0.52404783 &#39;&#39;&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">((</span><span class="n">e1</span> <span class="o">-</span> <span class="n">e2</span><span class="p">)</span><span class="o">/</span><span class="mf">0.002</span> <span class="o">*</span> <span class="n">lib</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">BOHR</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">((</span><span class="n">e1</span> <span class="o">-</span> <span class="n">e2</span><span class="p">)</span><span class="o">/</span><span class="mf">0.002</span> <span class="o">*</span> <span class="n">lib</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">BOHR</span><span class="p">,</span> <span class="n">g</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
 
 </pre></div>
 
@@ -498,7 +525,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

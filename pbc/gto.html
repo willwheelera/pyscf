@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>21.1. pbc.gto — Crystal cell structure &mdash; PySCF 1.5.0 documentation</title>
+  <title>21.1. pbc.gto — Crystal cell structure &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="../index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="../index.html"/>
         <link rel="up" title="21. pbc — Periodic boundary conditions" href="../pbc.html"/>
         <link rel="next" title="21.2. pbc.scf — Mean-field with periodic boundary condition" href="scf.html"/>
         <link rel="prev" title="21. pbc — Periodic boundary conditions" href="../pbc.html"/> 
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -445,8 +445,8 @@ a lattice vector.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyscf.pbc.gto.Cell.eval_gto">
-<code class="descname">eval_gto</code><span class="sig-paren">(</span><em>eval_name</em>, <em>coords</em>, <em>comp=None</em>, <em>kpts=None</em>, <em>kpt=None</em>, <em>shls_slice=None</em>, <em>non0tab=None</em>, <em>ao_loc=None</em>, <em>out=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/gto/cell.html#Cell.eval_gto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.gto.Cell.eval_gto" title="Permalink to this definition">¶</a></dt>
+<dt id="pyscf.pbc.gto.Cell.eval_ao">
+<code class="descname">eval_ao</code><span class="sig-paren">(</span><em>eval_name</em>, <em>coords</em>, <em>comp=None</em>, <em>kpts=None</em>, <em>kpt=None</em>, <em>shls_slice=None</em>, <em>non0tab=None</em>, <em>ao_loc=None</em>, <em>out=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.pbc.gto.Cell.eval_ao" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate PBC-AO function value on the given grids,</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -474,6 +474,88 @@ a lattice vector.</dd>
 </tr>
 <tr class="row-odd"><td>&#8220;GTOval_ip_cart&#8221;</td>
 <td>nabla sum_T exp(ik*T) <a href="#id7"><span class="problematic" id="id8">|</span></a>AO&gt;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="last docutils">
+<dt>atm</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int32 ndarray</span><dd>libcint integral function argument</dd>
+<dt>bas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int32 ndarray</span><dd>libcint integral function argument</dd>
+<dt>env</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float64 ndarray</span><dd>libcint integral function argument</dd>
+<dt>coords</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">2D array, shape (N,3)</span><dd>The coordinates of the grids.</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>shls_slice</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">2-element list</span><dd>(shl_start, shl_end).
+If given, only part of AOs (shl_start &lt;= shell_id &lt; shl_end) are
+evaluated.  By default, all shells defined in cell will be evaluated.</dd>
+<dt>non0tab</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">2D bool array</span><dd>mask array to indicate whether the AO values are zero.  The mask
+array can be obtained by calling <code class="xref py py-func docutils literal"><span class="pre">dft.gen_grid.make_mask()</span></code></dd>
+<dt>out</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>If provided, results are written into this array.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>A list of 2D (or 3D) arrays to hold the AO values on grids.  Each
+element of the list corresponds to a k-point and it has the shape
+(N,nao) Or shape (*,N,nao).</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cell</span> <span class="o">=</span> <span class="n">pbc</span><span class="o">.</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="n">atom</span><span class="o">=</span><span class="s1">&#39;He 1 1 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;6-31g&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coords</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">get_uniform_grids</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kpts</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">make_kpts</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ao_value</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">pbc_eval_gto</span><span class="p">(</span><span class="s2">&quot;GTOval_sph&quot;</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">kpts</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">ao_value</span><span class="p">)</span>
+<span class="go">27</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ao_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(100, 2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ao_value</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">pbc_eval_gto</span><span class="p">(</span><span class="s2">&quot;GTOval_ig_sph&quot;</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">kpts</span><span class="p">,</span> <span class="n">comp</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ao_value</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">ao_value</span><span class="p">)</span>
+<span class="go">27</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ao_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 100, 2)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.pbc.gto.Cell.eval_gto">
+<code class="descname">eval_gto</code><span class="sig-paren">(</span><em>eval_name</em>, <em>coords</em>, <em>comp=None</em>, <em>kpts=None</em>, <em>kpt=None</em>, <em>shls_slice=None</em>, <em>non0tab=None</em>, <em>ao_loc=None</em>, <em>out=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/gto/cell.html#Cell.eval_gto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.gto.Cell.eval_gto" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate PBC-AO function value on the given grids,</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">eval_name : str</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="49%" />
+<col width="51%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Function</th>
+<th class="head">Expression</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#8220;GTOval_sph&#8221;</td>
+<td>sum_T exp(ik*T) <a href="#id9"><span class="problematic" id="id10">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-odd"><td>&#8220;GTOval_ip_sph&#8221;</td>
+<td>nabla sum_T exp(ik*T) <a href="#id11"><span class="problematic" id="id12">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-even"><td>&#8220;GTOval_cart&#8221;</td>
+<td>sum_T exp(ik*T) <a href="#id13"><span class="problematic" id="id14">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-odd"><td>&#8220;GTOval_ip_cart&#8221;</td>
+<td>nabla sum_T exp(ik*T) <a href="#id15"><span class="problematic" id="id16">|</span></a>AO&gt;</td>
 </tr>
 </tbody>
 </table>
@@ -898,6 +980,88 @@ with <code class="xref py py-mod docutils literal"><span class="pre">pickle</spa
 </dd></dl>
 
 <dl class="method">
+<dt id="pyscf.pbc.gto.Cell.pbc_eval_ao">
+<code class="descname">pbc_eval_ao</code><span class="sig-paren">(</span><em>eval_name</em>, <em>coords</em>, <em>comp=None</em>, <em>kpts=None</em>, <em>kpt=None</em>, <em>shls_slice=None</em>, <em>non0tab=None</em>, <em>ao_loc=None</em>, <em>out=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.pbc.gto.Cell.pbc_eval_ao" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate PBC-AO function value on the given grids,</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">eval_name : str</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="49%" />
+<col width="51%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Function</th>
+<th class="head">Expression</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#8220;GTOval_sph&#8221;</td>
+<td>sum_T exp(ik*T) <a href="#id17"><span class="problematic" id="id18">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-odd"><td>&#8220;GTOval_ip_sph&#8221;</td>
+<td>nabla sum_T exp(ik*T) <a href="#id19"><span class="problematic" id="id20">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-even"><td>&#8220;GTOval_cart&#8221;</td>
+<td>sum_T exp(ik*T) <a href="#id21"><span class="problematic" id="id22">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-odd"><td>&#8220;GTOval_ip_cart&#8221;</td>
+<td>nabla sum_T exp(ik*T) <a href="#id23"><span class="problematic" id="id24">|</span></a>AO&gt;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="last docutils">
+<dt>atm</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int32 ndarray</span><dd>libcint integral function argument</dd>
+<dt>bas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int32 ndarray</span><dd>libcint integral function argument</dd>
+<dt>env</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float64 ndarray</span><dd>libcint integral function argument</dd>
+<dt>coords</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">2D array, shape (N,3)</span><dd>The coordinates of the grids.</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>shls_slice</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">2-element list</span><dd>(shl_start, shl_end).
+If given, only part of AOs (shl_start &lt;= shell_id &lt; shl_end) are
+evaluated.  By default, all shells defined in cell will be evaluated.</dd>
+<dt>non0tab</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">2D bool array</span><dd>mask array to indicate whether the AO values are zero.  The mask
+array can be obtained by calling <code class="xref py py-func docutils literal"><span class="pre">dft.gen_grid.make_mask()</span></code></dd>
+<dt>out</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>If provided, results are written into this array.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>A list of 2D (or 3D) arrays to hold the AO values on grids.  Each
+element of the list corresponds to a k-point and it has the shape
+(N,nao) Or shape (*,N,nao).</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cell</span> <span class="o">=</span> <span class="n">pbc</span><span class="o">.</span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="n">atom</span><span class="o">=</span><span class="s1">&#39;He 1 1 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;6-31g&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coords</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">get_uniform_grids</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kpts</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">make_kpts</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ao_value</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">pbc_eval_gto</span><span class="p">(</span><span class="s2">&quot;GTOval_sph&quot;</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">kpts</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">ao_value</span><span class="p">)</span>
+<span class="go">27</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ao_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(100, 2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ao_value</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">pbc_eval_gto</span><span class="p">(</span><span class="s2">&quot;GTOval_ig_sph&quot;</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">kpts</span><span class="p">,</span> <span class="n">comp</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ao_value</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">ao_value</span><span class="p">)</span>
+<span class="go">27</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ao_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 100, 2)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyscf.pbc.gto.Cell.pbc_eval_gto">
 <code class="descname">pbc_eval_gto</code><span class="sig-paren">(</span><em>eval_name</em>, <em>coords</em>, <em>comp=None</em>, <em>kpts=None</em>, <em>kpt=None</em>, <em>shls_slice=None</em>, <em>non0tab=None</em>, <em>ao_loc=None</em>, <em>out=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/gto/cell.html#Cell.pbc_eval_gto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.gto.Cell.pbc_eval_gto" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate PBC-AO function value on the given grids,</p>
@@ -917,16 +1081,16 @@ with <code class="xref py py-mod docutils literal"><span class="pre">pickle</spa
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>&#8220;GTOval_sph&#8221;</td>
-<td>sum_T exp(ik*T) <a href="#id9"><span class="problematic" id="id10">|</span></a>AO&gt;</td>
+<td>sum_T exp(ik*T) <a href="#id25"><span class="problematic" id="id26">|</span></a>AO&gt;</td>
 </tr>
 <tr class="row-odd"><td>&#8220;GTOval_ip_sph&#8221;</td>
-<td>nabla sum_T exp(ik*T) <a href="#id11"><span class="problematic" id="id12">|</span></a>AO&gt;</td>
+<td>nabla sum_T exp(ik*T) <a href="#id27"><span class="problematic" id="id28">|</span></a>AO&gt;</td>
 </tr>
 <tr class="row-even"><td>&#8220;GTOval_cart&#8221;</td>
-<td>sum_T exp(ik*T) <a href="#id13"><span class="problematic" id="id14">|</span></a>AO&gt;</td>
+<td>sum_T exp(ik*T) <a href="#id29"><span class="problematic" id="id30">|</span></a>AO&gt;</td>
 </tr>
 <tr class="row-odd"><td>&#8220;GTOval_ip_cart&#8221;</td>
-<td>nabla sum_T exp(ik*T) <a href="#id15"><span class="problematic" id="id16">|</span></a>AO&gt;</td>
+<td>nabla sum_T exp(ik*T) <a href="#id31"><span class="problematic" id="id32">|</span></a>AO&gt;</td>
 </tr>
 </tbody>
 </table>
@@ -1238,7 +1402,7 @@ in the same calculation.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

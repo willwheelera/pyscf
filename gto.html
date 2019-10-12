@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4. gto — Molecular structure and GTO basis &mdash; PySCF 1.5.0 documentation</title>
+  <title>4. gto — Molecular structure and GTO basis &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
         <link rel="next" title="5. lib — Helper functions, parameters, and C extensions" href="lib.html"/>
         <link rel="prev" title="3. Installation" href="install.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -546,7 +546,9 @@ manipulate the libcint arguments.</p>
 <dt>charge</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Charge of molecule. It affects the electron numbers</dd>
 <dt>spin</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>2S, num. alpha electrons - num. beta electrons</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or None</span><dd>2S, num. alpha electrons - num. beta electrons to control
+multiplicity. If spin = None is set, multiplicity will be guessed
+based on the neutral molecule.</dd>
 <dt>symmetry</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">bool or str</span><dd>Whether to use symmetry.  When this variable is set to True, the
 molecule will be rotated and the highest rotation axis will be
@@ -650,6 +652,67 @@ each element reperesents one shell</dd>
 <span class="go">&lt;class &#39;pyscf.gto.mole.Mole&#39;&gt; has no attributes Charge</span>
 </pre></div>
 </div>
+<dl class="method">
+<dt id="pyscf.gto.mole.Mole.ao2mo">
+<code class="descname">ao2mo</code><span class="sig-paren">(</span><em>mo_coeffs</em>, <em>erifile=None</em>, <em>dataname='eri_mo'</em>, <em>intor='int2e'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.ao2mo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.Mole.ao2mo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Integral transformation for arbitrary orbitals and arbitrary
+integrals.  See more detalied documentation in func:<cite>ao2mo.kernel</cite>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>mo_coeffs (an np array or a list of arrays)</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">A matrix of orbital</span><dd>coefficients if it is a numpy ndarray, or four sets of orbital
+coefficients, corresponding to the four indices of (ij|kl).</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>erifile (str or h5py File or h5py Group object)</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">The file/object</span><dd>to store the transformed integrals.  If not given, the return
+value is an array (in memory) of the transformed integrals.</dd>
+<dt>dataname</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd><em>Note</em> this argument is effective if erifile is given.
+The dataset name in the erifile (ref the hierarchy of HDF5 format
+<a class="reference external" href="http://www.hdfgroup.org/HDF5/doc1.6/UG/09_Groups.html">http://www.hdfgroup.org/HDF5/doc1.6/UG/09_Groups.html</a>).  By assigning
+different dataname, the existed integral file can be reused.  If
+the erifile contains the specified dataname, the old integrals
+will be replaced by the new one under the key dataname.</dd>
+<dt>intor (str)</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">integral name Name of the 2-electron integral.  Ref</span><dd>to <code class="xref py py-func docutils literal"><span class="pre">getints_by_shell()</span></code>
+for the complete list of available 2-electron integral names</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>An array of transformed integrals if erifile is not given.
+Otherwise, return the file/fileobject if erifile is assigned.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">pyscf</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;O 0 0 0; H 0 1 0; H 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;sto3g&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mo1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">mol</span><span class="o">.</span><span class="n">nao_nr</span><span class="p">(),</span> <span class="mi">10</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mo2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">mol</span><span class="o">.</span><span class="n">nao_nr</span><span class="p">(),</span> <span class="mi">8</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eri1</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">ao2mo</span><span class="p">(</span><span class="n">mo1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">eri1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(55, 55)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eri1</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">ao2mo</span><span class="p">(</span><span class="n">mo1</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">eri1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(100, 100)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eri1</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">ao2mo</span><span class="p">(</span><span class="n">eri</span><span class="p">,</span> <span class="p">(</span><span class="n">mo1</span><span class="p">,</span><span class="n">mo2</span><span class="p">,</span><span class="n">mo2</span><span class="p">,</span><span class="n">mo2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">eri1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(80, 36)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eri1</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">ao2mo</span><span class="p">(</span><span class="n">eri</span><span class="p">,</span> <span class="p">(</span><span class="n">mo1</span><span class="p">,</span><span class="n">mo2</span><span class="p">,</span><span class="n">mo2</span><span class="p">,</span><span class="n">mo2</span><span class="p">),</span> <span class="n">erifile</span><span class="o">=</span><span class="s1">&#39;water.h5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyscf.gto.mole.Mole.ao_labels">
 <code class="descname">ao_labels</code><span class="sig-paren">(</span><em>mol</em>, <em>fmt=True</em>, <em>base=0</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.gto.mole.Mole.ao_labels" title="Permalink to this definition">¶</a></dt>
@@ -768,7 +831,7 @@ Number of electrons screened by ECP can be obtained by charge(atom_symbol)-atom_
 
 <dl class="method">
 <dt id="pyscf.gto.mole.Mole.atom_coord">
-<code class="descname">atom_coord</code><span class="sig-paren">(</span><em>atm_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.atom_coord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.Mole.atom_coord" title="Permalink to this definition">¶</a></dt>
+<code class="descname">atom_coord</code><span class="sig-paren">(</span><em>atm_id</em>, <em>unit='Bohr'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.atom_coord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.Mole.atom_coord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Coordinates (ndarray) of the given atom id</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -788,7 +851,7 @@ Number of electrons screened by ECP can be obtained by charge(atom_symbol)-atom_
 
 <dl class="method">
 <dt id="pyscf.gto.mole.Mole.atom_coords">
-<code class="descname">atom_coords</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.atom_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.Mole.atom_coords" title="Permalink to this definition">¶</a></dt>
+<code class="descname">atom_coords</code><span class="sig-paren">(</span><em>unit='Bohr'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.atom_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.Mole.atom_coords" title="Permalink to this definition">¶</a></dt>
 <dd><p>np.asarray([mol.atom_coords(i) for i in range(mol.natm)])</p>
 </dd></dl>
 
@@ -1069,7 +1132,7 @@ If kappa is 0, return 4l+2</p>
 
 <dl class="method">
 <dt id="pyscf.gto.mole.Mole.build">
-<code class="descname">build</code><span class="sig-paren">(</span><em>dump_input=True</em>, <em>parse_arg=True</em>, <em>verbose=None</em>, <em>output=None</em>, <em>max_memory=None</em>, <em>atom=None</em>, <em>basis=None</em>, <em>unit=None</em>, <em>nucmod=None</em>, <em>ecp=None</em>, <em>charge=None</em>, <em>spin=None</em>, <em>symmetry=None</em>, <em>symmetry_subgroup=None</em>, <em>cart=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.Mole.build" title="Permalink to this definition">¶</a></dt>
+<code class="descname">build</code><span class="sig-paren">(</span><em>dump_input=True</em>, <em>parse_arg=True</em>, <em>verbose=None</em>, <em>output=None</em>, <em>max_memory=None</em>, <em>atom=None</em>, <em>basis=None</em>, <em>unit=None</em>, <em>nucmod=None</em>, <em>ecp=None</em>, <em>charge=None</em>, <em>spin=0</em>, <em>symmetry=None</em>, <em>symmetry_subgroup=None</em>, <em>cart=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.Mole.build" title="Permalink to this definition">¶</a></dt>
 <dd><p>Setup moleclue and initialize some control parameters.  Whenever you
 change the value of the attributes of <a class="reference internal" href="#pyscf.gto.mole.Mole" title="pyscf.gto.mole.Mole"><code class="xref py py-class docutils literal"><span class="pre">Mole</span></code></a>, you need call
 this function to refresh the internal data of Mole.</p>
@@ -1096,7 +1159,9 @@ this function to refresh the internal data of Mole.</p>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Charge of molecule. It affects the electron numbers
 If given, overwrite <code class="xref py py-attr docutils literal"><span class="pre">Mole.charge</span></code></dd>
 <dt>spin</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>2S, num. alpha electrons - num. beta electrons
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>2S, num. alpha electrons - num. beta electrons to control
+multiplicity. If setting spin = None , multiplicity will be
+guessed based on the neutral molecule.
 If given, overwrite <code class="xref py py-attr docutils literal"><span class="pre">Mole.spin</span></code></dd>
 <dt>symmetry</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">bool or str</span><dd>Whether to use symmetry.  If given a string of point group
@@ -1170,6 +1235,12 @@ delimiter.  Then call compressor function to abstract each block.</p>
 <dd><p>Serialize Mole object to a JSON formatted str.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="pyscf.gto.mole.Mole.elements">
+<code class="descname">elements</code><a class="headerlink" href="#pyscf.gto.mole.Mole.elements" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of elements in the molecule</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyscf.gto.mole.Mole.energy_nuc">
 <code class="descname">energy_nuc</code><span class="sig-paren">(</span><em>mol</em>, <em>charges=None</em>, <em>coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.gto.mole.Mole.energy_nuc" title="Permalink to this definition">¶</a></dt>
@@ -1198,8 +1269,8 @@ delimiter.  Then call compressor function to abstract each block.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyscf.gto.mole.Mole.eval_gto">
-<code class="descname">eval_gto</code><span class="sig-paren">(</span><em>mol</em>, <em>eval_name</em>, <em>coords</em>, <em>comp=None</em>, <em>shls_slice=None</em>, <em>non0tab=None</em>, <em>ao_loc=None</em>, <em>out=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.gto.mole.Mole.eval_gto" title="Permalink to this definition">¶</a></dt>
+<dt id="pyscf.gto.mole.Mole.eval_ao">
+<code class="descname">eval_ao</code><span class="sig-paren">(</span><em>mol</em>, <em>eval_name</em>, <em>coords</em>, <em>comp=None</em>, <em>shls_slice=None</em>, <em>non0tab=None</em>, <em>ao_loc=None</em>, <em>out=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.gto.mole.Mole.eval_ao" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate AO function value on the given grids,</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -1241,6 +1312,101 @@ delimiter.  Then call compressor function to abstract each block.</p>
 <tr class="row-odd"><td>&#8220;GTOval_ip_cart&#8221;</td>
 <td>3</td>
 <td>nabla <a href="#id12"><span class="problematic" id="id13">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-even"><td>&#8220;GTOval_ig_cart&#8221;</td>
+<td>3</td>
+<td>(#C(0 1) g)|AO&gt;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="last docutils">
+<dt>atm</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int32 ndarray</span><dd>libcint integral function argument</dd>
+<dt>bas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int32 ndarray</span><dd>libcint integral function argument</dd>
+<dt>env</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float64 ndarray</span><dd>libcint integral function argument</dd>
+<dt>coords</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">2D array, shape (N,3)</span><dd>The coordinates of the grids.</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>comp</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of the components of the operator</dd>
+<dt>shls_slice</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">2-element list</span><dd>(shl_start, shl_end).
+If given, only part of AOs (shl_start &lt;= shell_id &lt; shl_end) are
+evaluated.  By default, all shells defined in mol will be evaluated.</dd>
+<dt>non0tab</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">2D bool array</span><dd>mask array to indicate whether the AO values are zero.  The mask
+array can be obtained by calling <code class="xref py py-func docutils literal"><span class="pre">dft.gen_grid.make_mask()</span></code></dd>
+<dt>out</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>If provided, results are written into this array.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>2D array of shape (N,nao) Or 3D array of shape (*,N,nao) to store AO
+values on grids.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;O 0 0 0; H 0 0 1; H 0 1 0&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coords</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>  <span class="c1"># 100 random points</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ao_value</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">eval_gto</span><span class="p">(</span><span class="s2">&quot;GTOval_sph&quot;</span><span class="p">,</span> <span class="n">coords</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ao_value</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(100, 24)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ao_value</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">eval_gto</span><span class="p">(</span><span class="s2">&quot;GTOval_ig_sph&quot;</span><span class="p">,</span> <span class="n">coords</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ao_value</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(3, 100, 24)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.gto.mole.Mole.eval_gto">
+<code class="descname">eval_gto</code><span class="sig-paren">(</span><em>mol</em>, <em>eval_name</em>, <em>coords</em>, <em>comp=None</em>, <em>shls_slice=None</em>, <em>non0tab=None</em>, <em>ao_loc=None</em>, <em>out=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.gto.mole.Mole.eval_gto" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate AO function value on the given grids,</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">eval_name : str</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="13%" />
+<col width="49%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Function</th>
+<th class="head">comp</th>
+<th class="head">Expression</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#8220;GTOval_sph&#8221;</td>
+<td>1</td>
+<td><a href="#id14"><span class="problematic" id="id15">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-odd"><td>&#8220;GTOval_ip_sph&#8221;</td>
+<td>3</td>
+<td>nabla <a href="#id16"><span class="problematic" id="id17">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-even"><td>&#8220;GTOval_ig_sph&#8221;</td>
+<td>3</td>
+<td>(#C(0 1) g) <a href="#id18"><span class="problematic" id="id19">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-odd"><td>&#8220;GTOval_ipig_sph&#8221;</td>
+<td>3</td>
+<td>(#C(0 1) nabla g) <a href="#id20"><span class="problematic" id="id21">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-even"><td>&#8220;GTOval_cart&#8221;</td>
+<td>1</td>
+<td><a href="#id22"><span class="problematic" id="id23">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-odd"><td>&#8220;GTOval_ip_cart&#8221;</td>
+<td>3</td>
+<td>nabla <a href="#id24"><span class="problematic" id="id25">|</span></a>AO&gt;</td>
 </tr>
 <tr class="row-even"><td>&#8220;GTOval_ig_cart&#8221;</td>
 <td>3</td>
@@ -1357,7 +1523,7 @@ to spearate the individual terms for an atom.  Blank line will be ignored.</p>
 <dt>origin</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>new axis origin.</dd>
 <dt>axes</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>(new_x, new_y, new_z), each entry is a length-3 array</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>(new_x, new_y, new_z), new coordinates</dd>
 <dt>unit</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">str or number</span><dd>If unit is one of strings (B, b, Bohr, bohr, AU, au), the coordinates
 of the input atoms are the atomic unit;  If unit is one of strings
@@ -1367,7 +1533,19 @@ as the Bohr value (in angstrom), which should be around 0.53</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
-<dd>&#8220;atoms&#8221; in the internal format as <code class="xref py py-attr docutils literal"><span class="pre">_atom</span></code></dd>
+<dd><dl class="first last docutils">
+<dt>&#8220;atoms&#8221; in the internal format. The internal format is</dt>
+<dd><div class="first last line-block">
+<div class="line">atom = [[atom1, (x, y, z)],</div>
+<div class="line-block">
+<div class="line">[atom2, (x, y, z)],</div>
+<div class="line">...</div>
+<div class="line">[atomN, (x, y, z)]]</div>
+</div>
+</div>
+</dd>
+</dl>
+</dd>
 </dl>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gto</span><span class="o">.</span><span class="n">format_atom</span><span class="p">(</span><span class="s1">&#39;9,0,0,0; h@1 0 0 1&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
@@ -1383,7 +1561,7 @@ as the Bohr value (in angstrom), which should be around 0.53</dd>
 <code class="descname">format_basis</code><span class="sig-paren">(</span><em>basis_tab</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.format_basis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.Mole.format_basis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert the input <code class="xref py py-attr docutils literal"><span class="pre">Mole.basis</span></code> to the internal data format.</p>
 <dl class="docutils">
-<dt><a href="#id14"><span class="problematic" id="id15">``</span></a>{ atom: [(l, ((-exp, c_1, c_2, ..),</dt>
+<dt><a href="#id26"><span class="problematic" id="id27">``</span></a>{ atom: [(l, ((-exp, c_1, c_2, ..),</dt>
 <dd><blockquote class="first">
 <div>(-exp, c_1, c_2, ..))),</div></blockquote>
 <dl class="last docutils">
@@ -1424,7 +1602,7 @@ as the Bohr value (in angstrom), which should be around 0.53</dd>
 <blockquote>
 <div><blockquote>
 <div><dl class="docutils">
-<dt>((l,  # l=-1 for UL, l&gt;=0 for Ul to indicate <a href="#id32"><span class="problematic" id="id33">|l&gt;&lt;l|</span></a></dt>
+<dt>((l,  # l=-1 for UL, l&gt;=0 for Ul to indicate <a href="#id56"><span class="problematic" id="id57">|l&gt;&lt;l|</span></a></dt>
 <dd><dl class="first last docutils">
 <dt>(((exp_1, c_1),  # for r^0</dt>
 <dd><blockquote class="first">
@@ -1444,6 +1622,18 @@ as the Bohr value (in angstrom), which should be around 0.53</dd>
 </div></blockquote>
 <p>...}</p>
 </div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.gto.mole.Mole.fromfile">
+<code class="descname">fromfile</code><span class="sig-paren">(</span><em>filename</em>, <em>format=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.fromfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.Mole.fromfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the Mole object based on the input geometry file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.gto.mole.Mole.fromstring">
+<code class="descname">fromstring</code><span class="sig-paren">(</span><em>string</em>, <em>format='xyz'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.fromstring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.Mole.fromstring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the Mole object based on the input geometry string</p>
 </dd></dl>
 
 <dl class="method">
@@ -1633,7 +1823,7 @@ complete list of available 1-electron integral names</dd>
 
 <dl class="method">
 <dt id="pyscf.gto.mole.Mole.kernel">
-<code class="descname">kernel</code><span class="sig-paren">(</span><em>dump_input=True</em>, <em>parse_arg=True</em>, <em>verbose=None</em>, <em>output=None</em>, <em>max_memory=None</em>, <em>atom=None</em>, <em>basis=None</em>, <em>unit=None</em>, <em>nucmod=None</em>, <em>ecp=None</em>, <em>charge=None</em>, <em>spin=None</em>, <em>symmetry=None</em>, <em>symmetry_subgroup=None</em>, <em>cart=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.gto.mole.Mole.kernel" title="Permalink to this definition">¶</a></dt>
+<code class="descname">kernel</code><span class="sig-paren">(</span><em>dump_input=True</em>, <em>parse_arg=True</em>, <em>verbose=None</em>, <em>output=None</em>, <em>max_memory=None</em>, <em>atom=None</em>, <em>basis=None</em>, <em>unit=None</em>, <em>nucmod=None</em>, <em>ecp=None</em>, <em>charge=None</em>, <em>spin=0</em>, <em>symmetry=None</em>, <em>symmetry_subgroup=None</em>, <em>cart=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.gto.mole.Mole.kernel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Setup moleclue and initialize some control parameters.  Whenever you
 change the value of the attributes of <a class="reference internal" href="#pyscf.gto.mole.Mole" title="pyscf.gto.mole.Mole"><code class="xref py py-class docutils literal"><span class="pre">Mole</span></code></a>, you need call
 this function to refresh the internal data of Mole.</p>
@@ -1660,7 +1850,9 @@ this function to refresh the internal data of Mole.</p>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Charge of molecule. It affects the electron numbers
 If given, overwrite <code class="xref py py-attr docutils literal"><span class="pre">Mole.charge</span></code></dd>
 <dt>spin</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>2S, num. alpha electrons - num. beta electrons
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>2S, num. alpha electrons - num. beta electrons to control
+multiplicity. If setting spin = None , multiplicity will be
+guessed based on the neutral molecule.
 If given, overwrite <code class="xref py py-attr docutils literal"><span class="pre">Mole.spin</span></code></dd>
 <dt>symmetry</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">bool or str</span><dd>Whether to use symmetry.  If given a string of point group
@@ -2158,6 +2350,36 @@ element in the list corresponds to one shell of the original Mole (Cell).</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="pyscf.gto.mole.Mole.tofile">
+<code class="descname">tofile</code><span class="sig-paren">(</span><em>mol</em>, <em>filename</em>, <em>format=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.gto.mole.Mole.tofile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write molecular geometry to a file of the required format.</p>
+<dl class="docutils">
+<dt>Supported output formats:</dt>
+<dd><div class="first last line-block">
+<div class="line">raw: Each line is  &lt;symobl&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt;</div>
+<div class="line">xyz: XYZ cartesian coordinates format</div>
+<div class="line">zmat: Z-matrix format</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.gto.mole.Mole.tostring">
+<code class="descname">tostring</code><span class="sig-paren">(</span><em>mol</em>, <em>format='raw'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.gto.mole.Mole.tostring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert molecular geometry to a string of the required format.</p>
+<dl class="docutils">
+<dt>Supported output formats:</dt>
+<dd><div class="first last line-block">
+<div class="line">raw: Each line is  &lt;symobl&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt;</div>
+<div class="line">xyz: XYZ cartesian coordinates format</div>
+<div class="line">zmat: Z-matrix format</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyscf.gto.mole.Mole.tot_electrons">
 <code class="descname">tot_electrons</code><span class="sig-paren">(</span><em>mol</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.gto.mole.Mole.tot_electrons" title="Permalink to this definition">¶</a></dt>
 <dd><p>Total number of electrons for the given molecule</p>
@@ -2209,8 +2431,9 @@ See also <code class="xref py py-func docutils literal"><span class="pre">mol.se
 <dl class="method">
 <dt id="pyscf.gto.mole.Mole.with_range_coulomb">
 <code class="descname">with_range_coulomb</code><span class="sig-paren">(</span><em>omega</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.with_range_coulomb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.Mole.with_range_coulomb" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retuen a temporary mol context which has the rquired
-range-separated Coulomb parameter omega.
+<dd><p>Retuen a temporary mol context which has the required parameter
+omega for long range part of range-separated Coulomb operator.
+If omega = None, it will be treated as the regular Coulomb operator.
 See also <code class="xref py py-func docutils literal"><span class="pre">mol.set_range_coulomb()</span></code></p>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">mol</span><span class="o">.</span><span class="n">with_range_coulomb</span><span class="p">(</span><span class="n">omega</span><span class="o">=</span><span class="mf">1.5</span><span class="p">):</span>
@@ -2222,8 +2445,9 @@ See also <code class="xref py py-func docutils literal"><span class="pre">mol.se
 <dl class="method">
 <dt id="pyscf.gto.mole.Mole.with_rinv_as_nucleus">
 <code class="descname">with_rinv_as_nucleus</code><span class="sig-paren">(</span><em>atm_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.with_rinv_as_nucleus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.Mole.with_rinv_as_nucleus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retuen a temporary mol context which has the rquired origin of 1/r
-operator and the required nuclear charge distribution on 1/r.</p>
+<dd><p>Retuen a temporary mol context in which the rinv operator (1/r) is
+treated like the Coulomb potential of a Gaussian charge distribution
+rho(r) = Norm * exp(-zeta * r^2) at the place of the input atm_id.</p>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">mol</span><span class="o">.</span><span class="n">with_rinv_as_nucleus</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">mol</span><span class="o">.</span><span class="n">intor</span><span class="p">(</span><span class="s1">&#39;int1e_rinv&#39;</span><span class="p">)</span>
@@ -2260,8 +2484,8 @@ context.  See also <code class="xref py py-func docutils literal"><span class="p
 <dl class="method">
 <dt id="pyscf.gto.mole.Mole.with_rinv_zeta">
 <code class="descname">with_rinv_zeta</code><span class="sig-paren">(</span><em>zeta</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.with_rinv_zeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.Mole.with_rinv_zeta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retuen a temporary mol context which has the rquired charge
-distribution on the &#8220;rinv_origin&#8221;: rho(r) = Norm * exp(-zeta * r^2).
+<dd><p>Retuen a temporary mol context which has the rquired Gaussian charge
+distribution placed at &#8220;rinv_origin&#8221;: rho(r) = Norm * exp(-zeta * r^2).
 See also <code class="xref py py-func docutils literal"><span class="pre">mol.set_rinv_zeta()</span></code></p>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">mol</span><span class="o">.</span><span class="n">with_rinv_zeta</span><span class="p">(</span><span class="n">zeta</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span> <span class="n">mol</span><span class="o">.</span><span class="n">with_rinv_origin</span><span class="p">((</span><span class="mf">1.</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)):</span>
@@ -2618,7 +2842,7 @@ to spearate the individual terms for an atom.  Blank line will be ignored.</p>
 <dt>origin</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>new axis origin.</dd>
 <dt>axes</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>(new_x, new_y, new_z), each entry is a length-3 array</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>(new_x, new_y, new_z), new coordinates</dd>
 <dt>unit</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">str or number</span><dd>If unit is one of strings (B, b, Bohr, bohr, AU, au), the coordinates
 of the input atoms are the atomic unit;  If unit is one of strings
@@ -2628,7 +2852,19 @@ as the Bohr value (in angstrom), which should be around 0.53</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
-<dd>&#8220;atoms&#8221; in the internal format as <code class="xref py py-attr docutils literal"><span class="pre">_atom</span></code></dd>
+<dd><dl class="first last docutils">
+<dt>&#8220;atoms&#8221; in the internal format. The internal format is</dt>
+<dd><div class="first last line-block">
+<div class="line">atom = [[atom1, (x, y, z)],</div>
+<div class="line-block">
+<div class="line">[atom2, (x, y, z)],</div>
+<div class="line">...</div>
+<div class="line">[atomN, (x, y, z)]]</div>
+</div>
+</div>
+</dd>
+</dl>
+</dd>
 </dl>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gto</span><span class="o">.</span><span class="n">format_atom</span><span class="p">(</span><span class="s1">&#39;9,0,0,0; h@1 0 0 1&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
@@ -2644,7 +2880,7 @@ as the Bohr value (in angstrom), which should be around 0.53</dd>
 <code class="descclassname">pyscf.gto.mole.</code><code class="descname">format_basis</code><span class="sig-paren">(</span><em>basis_tab</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#format_basis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.format_basis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert the input <code class="xref py py-attr docutils literal"><span class="pre">Mole.basis</span></code> to the internal data format.</p>
 <dl class="docutils">
-<dt><a href="#id16"><span class="problematic" id="id17">``</span></a>{ atom: [(l, ((-exp, c_1, c_2, ..),</dt>
+<dt><a href="#id28"><span class="problematic" id="id29">``</span></a>{ atom: [(l, ((-exp, c_1, c_2, ..),</dt>
 <dd><blockquote class="first">
 <div>(-exp, c_1, c_2, ..))),</div></blockquote>
 <dl class="last docutils">
@@ -2685,7 +2921,7 @@ as the Bohr value (in angstrom), which should be around 0.53</dd>
 <blockquote>
 <div><blockquote>
 <div><dl class="docutils">
-<dt>((l,  # l=-1 for UL, l&gt;=0 for Ul to indicate <a href="#id34"><span class="problematic" id="id35">|l&gt;&lt;l|</span></a></dt>
+<dt>((l,  # l=-1 for UL, l&gt;=0 for Ul to indicate <a href="#id58"><span class="problematic" id="id59">|l&gt;&lt;l|</span></a></dt>
 <dd><dl class="first last docutils">
 <dt>(((exp_1, c_1),  # for r^0</dt>
 <dd><blockquote class="first">
@@ -2721,6 +2957,38 @@ as the Bohr value (in angstrom), which should be around 0.53</dd>
 <span class="go">[&#39;H&#39;, array([ 0.53449526,  0.30859098,  2.83668811])]</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.gto.mole.fromfile">
+<code class="descclassname">pyscf.gto.mole.</code><code class="descname">fromfile</code><span class="sig-paren">(</span><em>filename</em>, <em>format=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#fromfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.fromfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read molecular geometry from a file
+(in testing)</p>
+<dl class="docutils">
+<dt>Supported formats:</dt>
+<dd><div class="first last line-block">
+<div class="line">raw: Each line is  &lt;symobl&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt;</div>
+<div class="line">xyz: XYZ cartesian coordinates format</div>
+<div class="line">zmat: Z-matrix format</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.gto.mole.fromstring">
+<code class="descclassname">pyscf.gto.mole.</code><code class="descname">fromstring</code><span class="sig-paren">(</span><em>string</em>, <em>format='xyz'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#fromstring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.fromstring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the string of the specified format to internal format
+(in testing)</p>
+<dl class="docutils">
+<dt>Supported formats:</dt>
+<dd><div class="first last line-block">
+<div class="line">raw: Each line is  &lt;symobl&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt;</div>
+<div class="line">xyz: XYZ cartesian coordinates format</div>
+<div class="line">zmat: Z-matrix format</div>
+</div>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
@@ -3186,6 +3454,36 @@ element in the list corresponds to one shell of the original Mole (Cell).</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyscf.gto.mole.tofile">
+<code class="descclassname">pyscf.gto.mole.</code><code class="descname">tofile</code><span class="sig-paren">(</span><em>mol</em>, <em>filename</em>, <em>format=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#tofile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.tofile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write molecular geometry to a file of the required format.</p>
+<dl class="docutils">
+<dt>Supported output formats:</dt>
+<dd><div class="first last line-block">
+<div class="line">raw: Each line is  &lt;symobl&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt;</div>
+<div class="line">xyz: XYZ cartesian coordinates format</div>
+<div class="line">zmat: Z-matrix format</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.gto.mole.tostring">
+<code class="descclassname">pyscf.gto.mole.</code><code class="descname">tostring</code><span class="sig-paren">(</span><em>mol</em>, <em>format='raw'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#tostring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.tostring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert molecular geometry to a string of the required format.</p>
+<dl class="docutils">
+<dt>Supported output formats:</dt>
+<dd><div class="first last line-block">
+<div class="line">raw: Each line is  &lt;symobl&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt;</div>
+<div class="line">xyz: XYZ cartesian coordinates format</div>
+<div class="line">zmat: Z-matrix format</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyscf.gto.mole.tot_electrons">
 <code class="descclassname">pyscf.gto.mole.</code><code class="descname">tot_electrons</code><span class="sig-paren">(</span><em>mol</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#tot_electrons"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.gto.mole.tot_electrons" title="Permalink to this definition">¶</a></dt>
 <dd><p>Total number of electrons for the given molecule</p>
@@ -3207,7 +3505,7 @@ element in the list corresponds to one shell of the original Mole (Cell).</p>
 <dd><p>Uncontract internal format _basis</p>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gto</span><span class="o">.</span><span class="n">uncontract</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;sto3g&#39;</span><span class="p">,</span> <span class="s1">&#39;He&#39;</span><span class="p">))</span>
-<span class="go">[[0, [6.3624213899999997, 1]], [0, [1.1589229999999999, 1]], [0, [0.31364978999999998, 1]]]</span>
+<span class="go">[[0, [6.36242139, 1]], [0, [1.158923, 1]], [0, [0.31364979, 1]]]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -3218,7 +3516,7 @@ element in the list corresponds to one shell of the original Mole (Cell).</p>
 <dd><p>Uncontract internal format _basis</p>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gto</span><span class="o">.</span><span class="n">uncontract</span><span class="p">(</span><span class="n">gto</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;sto3g&#39;</span><span class="p">,</span> <span class="s1">&#39;He&#39;</span><span class="p">))</span>
-<span class="go">[[0, [6.3624213899999997, 1]], [0, [1.1589229999999999, 1]], [0, [0.31364978999999998, 1]]]</span>
+<span class="go">[[0, [6.36242139, 1]], [0, [1.158923, 1]], [0, [0.31364979, 1]]]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -3278,7 +3576,9 @@ arguments for <a class="reference internal" href="#pyscf.gto.mole.Mole" title="p
 <dt>charge</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Charge of molecule. It affects the electron numbers</dd>
 <dt>spin</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>2S, num. alpha electrons - num. beta electrons</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or None</span><dd>2S, num. alpha electrons - num. beta electrons to control
+multiplicity. If spin = None is set, multiplicity will be guessed
+based on the neutral molecule.</dd>
 <dt>symmetry</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">bool or str</span><dd>Whether to use symmetry.  When this variable is set to True, the
 molecule will be rotated and the highest rotation axis will be
@@ -3382,6 +3682,67 @@ each element reperesents one shell</dd>
 <span class="go">&lt;class &#39;pyscf.gto.mole.Mole&#39;&gt; has no attributes Charge</span>
 </pre></div>
 </div>
+<dl class="method">
+<dt>
+<code class="descname">ao2mo</code><span class="sig-paren">(</span><em>mo_coeffs</em>, <em>erifile=None</em>, <em>dataname='eri_mo'</em>, <em>intor='int2e'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.ao2mo"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Integral transformation for arbitrary orbitals and arbitrary
+integrals.  See more detalied documentation in func:<cite>ao2mo.kernel</cite>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>mo_coeffs (an np array or a list of arrays)</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">A matrix of orbital</span><dd>coefficients if it is a numpy ndarray, or four sets of orbital
+coefficients, corresponding to the four indices of (ij|kl).</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>erifile (str or h5py File or h5py Group object)</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">The file/object</span><dd>to store the transformed integrals.  If not given, the return
+value is an array (in memory) of the transformed integrals.</dd>
+<dt>dataname</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd><em>Note</em> this argument is effective if erifile is given.
+The dataset name in the erifile (ref the hierarchy of HDF5 format
+<a class="reference external" href="http://www.hdfgroup.org/HDF5/doc1.6/UG/09_Groups.html">http://www.hdfgroup.org/HDF5/doc1.6/UG/09_Groups.html</a>).  By assigning
+different dataname, the existed integral file can be reused.  If
+the erifile contains the specified dataname, the old integrals
+will be replaced by the new one under the key dataname.</dd>
+<dt>intor (str)</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">integral name Name of the 2-electron integral.  Ref</span><dd>to <code class="xref py py-func docutils literal"><span class="pre">getints_by_shell()</span></code>
+for the complete list of available 2-electron integral names</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>An array of transformed integrals if erifile is not given.
+Otherwise, return the file/fileobject if erifile is assigned.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyscf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">pyscf</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;O 0 0 0; H 0 1 0; H 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;sto3g&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mo1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">mol</span><span class="o">.</span><span class="n">nao_nr</span><span class="p">(),</span> <span class="mi">10</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mo2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">mol</span><span class="o">.</span><span class="n">nao_nr</span><span class="p">(),</span> <span class="mi">8</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eri1</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">ao2mo</span><span class="p">(</span><span class="n">mo1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">eri1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(55, 55)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eri1</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">ao2mo</span><span class="p">(</span><span class="n">mo1</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">eri1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(100, 100)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eri1</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">ao2mo</span><span class="p">(</span><span class="n">eri</span><span class="p">,</span> <span class="p">(</span><span class="n">mo1</span><span class="p">,</span><span class="n">mo2</span><span class="p">,</span><span class="n">mo2</span><span class="p">,</span><span class="n">mo2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">eri1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(80, 36)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eri1</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">ao2mo</span><span class="p">(</span><span class="n">eri</span><span class="p">,</span> <span class="p">(</span><span class="n">mo1</span><span class="p">,</span><span class="n">mo2</span><span class="p">,</span><span class="n">mo2</span><span class="p">,</span><span class="n">mo2</span><span class="p">),</span> <span class="n">erifile</span><span class="o">=</span><span class="s1">&#39;water.h5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
 <dl class="method">
 <dt>
 <code class="descname">ao_labels</code><span class="sig-paren">(</span><em>mol</em>, <em>fmt=True</em>, <em>base=0</em><span class="sig-paren">)</span></dt>
@@ -3500,7 +3861,7 @@ Number of electrons screened by ECP can be obtained by charge(atom_symbol)-atom_
 
 <dl class="method">
 <dt>
-<code class="descname">atom_coord</code><span class="sig-paren">(</span><em>atm_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.atom_coord"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descname">atom_coord</code><span class="sig-paren">(</span><em>atm_id</em>, <em>unit='Bohr'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.atom_coord"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Coordinates (ndarray) of the given atom id</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -3520,7 +3881,7 @@ Number of electrons screened by ECP can be obtained by charge(atom_symbol)-atom_
 
 <dl class="method">
 <dt>
-<code class="descname">atom_coords</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.atom_coords"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descname">atom_coords</code><span class="sig-paren">(</span><em>unit='Bohr'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.atom_coords"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>np.asarray([mol.atom_coords(i) for i in range(mol.natm)])</p>
 </dd></dl>
 
@@ -3801,7 +4162,7 @@ If kappa is 0, return 4l+2</p>
 
 <dl class="method">
 <dt>
-<code class="descname">build</code><span class="sig-paren">(</span><em>dump_input=True</em>, <em>parse_arg=True</em>, <em>verbose=None</em>, <em>output=None</em>, <em>max_memory=None</em>, <em>atom=None</em>, <em>basis=None</em>, <em>unit=None</em>, <em>nucmod=None</em>, <em>ecp=None</em>, <em>charge=None</em>, <em>spin=None</em>, <em>symmetry=None</em>, <em>symmetry_subgroup=None</em>, <em>cart=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.build"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descname">build</code><span class="sig-paren">(</span><em>dump_input=True</em>, <em>parse_arg=True</em>, <em>verbose=None</em>, <em>output=None</em>, <em>max_memory=None</em>, <em>atom=None</em>, <em>basis=None</em>, <em>unit=None</em>, <em>nucmod=None</em>, <em>ecp=None</em>, <em>charge=None</em>, <em>spin=0</em>, <em>symmetry=None</em>, <em>symmetry_subgroup=None</em>, <em>cart=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.build"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Setup moleclue and initialize some control parameters.  Whenever you
 change the value of the attributes of <a class="reference internal" href="#pyscf.gto.mole.Mole" title="pyscf.gto.mole.Mole"><code class="xref py py-class docutils literal"><span class="pre">Mole</span></code></a>, you need call
 this function to refresh the internal data of Mole.</p>
@@ -3828,7 +4189,9 @@ this function to refresh the internal data of Mole.</p>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Charge of molecule. It affects the electron numbers
 If given, overwrite <code class="xref py py-attr docutils literal"><span class="pre">Mole.charge</span></code></dd>
 <dt>spin</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>2S, num. alpha electrons - num. beta electrons
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>2S, num. alpha electrons - num. beta electrons to control
+multiplicity. If setting spin = None , multiplicity will be
+guessed based on the neutral molecule.
 If given, overwrite <code class="xref py py-attr docutils literal"><span class="pre">Mole.spin</span></code></dd>
 <dt>symmetry</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">bool or str</span><dd>Whether to use symmetry.  If given a string of point group
@@ -3902,6 +4265,12 @@ delimiter.  Then call compressor function to abstract each block.</p>
 <dd><p>Serialize Mole object to a JSON formatted str.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt>
+<code class="descname">elements</code></dt>
+<dd><p>A list of elements in the molecule</p>
+</dd></dl>
+
 <dl class="method">
 <dt>
 <code class="descname">energy_nuc</code><span class="sig-paren">(</span><em>mol</em>, <em>charges=None</em>, <em>coords=None</em><span class="sig-paren">)</span></dt>
@@ -3931,6 +4300,101 @@ delimiter.  Then call compressor function to abstract each block.</p>
 
 <dl class="method">
 <dt>
+<code class="descname">eval_ao</code><span class="sig-paren">(</span><em>mol</em>, <em>eval_name</em>, <em>coords</em>, <em>comp=None</em>, <em>shls_slice=None</em>, <em>non0tab=None</em>, <em>ao_loc=None</em>, <em>out=None</em><span class="sig-paren">)</span></dt>
+<dd><p>Evaluate AO function value on the given grids,</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">eval_name : str</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="13%" />
+<col width="49%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Function</th>
+<th class="head">comp</th>
+<th class="head">Expression</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#8220;GTOval_sph&#8221;</td>
+<td>1</td>
+<td><a href="#id30"><span class="problematic" id="id31">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-odd"><td>&#8220;GTOval_ip_sph&#8221;</td>
+<td>3</td>
+<td>nabla <a href="#id32"><span class="problematic" id="id33">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-even"><td>&#8220;GTOval_ig_sph&#8221;</td>
+<td>3</td>
+<td>(#C(0 1) g) <a href="#id34"><span class="problematic" id="id35">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-odd"><td>&#8220;GTOval_ipig_sph&#8221;</td>
+<td>3</td>
+<td>(#C(0 1) nabla g) <a href="#id36"><span class="problematic" id="id37">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-even"><td>&#8220;GTOval_cart&#8221;</td>
+<td>1</td>
+<td><a href="#id38"><span class="problematic" id="id39">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-odd"><td>&#8220;GTOval_ip_cart&#8221;</td>
+<td>3</td>
+<td>nabla <a href="#id40"><span class="problematic" id="id41">|</span></a>AO&gt;</td>
+</tr>
+<tr class="row-even"><td>&#8220;GTOval_ig_cart&#8221;</td>
+<td>3</td>
+<td>(#C(0 1) g)|AO&gt;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="last docutils">
+<dt>atm</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int32 ndarray</span><dd>libcint integral function argument</dd>
+<dt>bas</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int32 ndarray</span><dd>libcint integral function argument</dd>
+<dt>env</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float64 ndarray</span><dd>libcint integral function argument</dd>
+<dt>coords</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">2D array, shape (N,3)</span><dd>The coordinates of the grids.</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>comp</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of the components of the operator</dd>
+<dt>shls_slice</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">2-element list</span><dd>(shl_start, shl_end).
+If given, only part of AOs (shl_start &lt;= shell_id &lt; shl_end) are
+evaluated.  By default, all shells defined in mol will be evaluated.</dd>
+<dt>non0tab</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">2D bool array</span><dd>mask array to indicate whether the AO values are zero.  The mask
+array can be obtained by calling <code class="xref py py-func docutils literal"><span class="pre">dft.gen_grid.make_mask()</span></code></dd>
+<dt>out</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>If provided, results are written into this array.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>2D array of shape (N,nao) Or 3D array of shape (*,N,nao) to store AO
+values on grids.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;O 0 0 0; H 0 0 1; H 0 1 0&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coords</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>  <span class="c1"># 100 random points</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ao_value</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">eval_gto</span><span class="p">(</span><span class="s2">&quot;GTOval_sph&quot;</span><span class="p">,</span> <span class="n">coords</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ao_value</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(100, 24)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ao_value</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">eval_gto</span><span class="p">(</span><span class="s2">&quot;GTOval_ig_sph&quot;</span><span class="p">,</span> <span class="n">coords</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ao_value</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(3, 100, 24)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
 <code class="descname">eval_gto</code><span class="sig-paren">(</span><em>mol</em>, <em>eval_name</em>, <em>coords</em>, <em>comp=None</em>, <em>shls_slice=None</em>, <em>non0tab=None</em>, <em>ao_loc=None</em>, <em>out=None</em><span class="sig-paren">)</span></dt>
 <dd><p>Evaluate AO function value on the given grids,</p>
 <dl class="docutils">
@@ -3952,27 +4416,27 @@ delimiter.  Then call compressor function to abstract each block.</p>
 <tbody valign="top">
 <tr class="row-even"><td>&#8220;GTOval_sph&#8221;</td>
 <td>1</td>
-<td><a href="#id18"><span class="problematic" id="id19">|</span></a>AO&gt;</td>
+<td><a href="#id42"><span class="problematic" id="id43">|</span></a>AO&gt;</td>
 </tr>
 <tr class="row-odd"><td>&#8220;GTOval_ip_sph&#8221;</td>
 <td>3</td>
-<td>nabla <a href="#id20"><span class="problematic" id="id21">|</span></a>AO&gt;</td>
+<td>nabla <a href="#id44"><span class="problematic" id="id45">|</span></a>AO&gt;</td>
 </tr>
 <tr class="row-even"><td>&#8220;GTOval_ig_sph&#8221;</td>
 <td>3</td>
-<td>(#C(0 1) g) <a href="#id22"><span class="problematic" id="id23">|</span></a>AO&gt;</td>
+<td>(#C(0 1) g) <a href="#id46"><span class="problematic" id="id47">|</span></a>AO&gt;</td>
 </tr>
 <tr class="row-odd"><td>&#8220;GTOval_ipig_sph&#8221;</td>
 <td>3</td>
-<td>(#C(0 1) nabla g) <a href="#id24"><span class="problematic" id="id25">|</span></a>AO&gt;</td>
+<td>(#C(0 1) nabla g) <a href="#id48"><span class="problematic" id="id49">|</span></a>AO&gt;</td>
 </tr>
 <tr class="row-even"><td>&#8220;GTOval_cart&#8221;</td>
 <td>1</td>
-<td><a href="#id26"><span class="problematic" id="id27">|</span></a>AO&gt;</td>
+<td><a href="#id50"><span class="problematic" id="id51">|</span></a>AO&gt;</td>
 </tr>
 <tr class="row-odd"><td>&#8220;GTOval_ip_cart&#8221;</td>
 <td>3</td>
-<td>nabla <a href="#id28"><span class="problematic" id="id29">|</span></a>AO&gt;</td>
+<td>nabla <a href="#id52"><span class="problematic" id="id53">|</span></a>AO&gt;</td>
 </tr>
 <tr class="row-even"><td>&#8220;GTOval_ig_cart&#8221;</td>
 <td>3</td>
@@ -4089,7 +4553,7 @@ to spearate the individual terms for an atom.  Blank line will be ignored.</p>
 <dt>origin</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>new axis origin.</dd>
 <dt>axes</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>(new_x, new_y, new_z), each entry is a length-3 array</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>(new_x, new_y, new_z), new coordinates</dd>
 <dt>unit</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">str or number</span><dd>If unit is one of strings (B, b, Bohr, bohr, AU, au), the coordinates
 of the input atoms are the atomic unit;  If unit is one of strings
@@ -4099,7 +4563,19 @@ as the Bohr value (in angstrom), which should be around 0.53</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
-<dd>&#8220;atoms&#8221; in the internal format as <code class="xref py py-attr docutils literal"><span class="pre">_atom</span></code></dd>
+<dd><dl class="first last docutils">
+<dt>&#8220;atoms&#8221; in the internal format. The internal format is</dt>
+<dd><div class="first last line-block">
+<div class="line">atom = [[atom1, (x, y, z)],</div>
+<div class="line-block">
+<div class="line">[atom2, (x, y, z)],</div>
+<div class="line">...</div>
+<div class="line">[atomN, (x, y, z)]]</div>
+</div>
+</div>
+</dd>
+</dl>
+</dd>
 </dl>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gto</span><span class="o">.</span><span class="n">format_atom</span><span class="p">(</span><span class="s1">&#39;9,0,0,0; h@1 0 0 1&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
@@ -4115,7 +4591,7 @@ as the Bohr value (in angstrom), which should be around 0.53</dd>
 <code class="descname">format_basis</code><span class="sig-paren">(</span><em>basis_tab</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.format_basis"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Convert the input <code class="xref py py-attr docutils literal"><span class="pre">Mole.basis</span></code> to the internal data format.</p>
 <dl class="docutils">
-<dt><a href="#id30"><span class="problematic" id="id31">``</span></a>{ atom: [(l, ((-exp, c_1, c_2, ..),</dt>
+<dt><a href="#id54"><span class="problematic" id="id55">``</span></a>{ atom: [(l, ((-exp, c_1, c_2, ..),</dt>
 <dd><blockquote class="first">
 <div>(-exp, c_1, c_2, ..))),</div></blockquote>
 <dl class="last docutils">
@@ -4156,7 +4632,7 @@ as the Bohr value (in angstrom), which should be around 0.53</dd>
 <blockquote>
 <div><blockquote>
 <div><dl class="docutils">
-<dt>((l,  # l=-1 for UL, l&gt;=0 for Ul to indicate <a href="#id36"><span class="problematic" id="id37">|l&gt;&lt;l|</span></a></dt>
+<dt>((l,  # l=-1 for UL, l&gt;=0 for Ul to indicate <a href="#id60"><span class="problematic" id="id61">|l&gt;&lt;l|</span></a></dt>
 <dd><dl class="first last docutils">
 <dt>(((exp_1, c_1),  # for r^0</dt>
 <dd><blockquote class="first">
@@ -4176,6 +4652,18 @@ as the Bohr value (in angstrom), which should be around 0.53</dd>
 </div></blockquote>
 <p>...}</p>
 </div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">fromfile</code><span class="sig-paren">(</span><em>filename</em>, <em>format=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.fromfile"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Update the Mole object based on the input geometry file</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">fromstring</code><span class="sig-paren">(</span><em>string</em>, <em>format='xyz'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.fromstring"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Update the Mole object based on the input geometry string</p>
 </dd></dl>
 
 <dl class="method">
@@ -4365,7 +4853,7 @@ complete list of available 1-electron integral names</dd>
 
 <dl class="method">
 <dt>
-<code class="descname">kernel</code><span class="sig-paren">(</span><em>dump_input=True</em>, <em>parse_arg=True</em>, <em>verbose=None</em>, <em>output=None</em>, <em>max_memory=None</em>, <em>atom=None</em>, <em>basis=None</em>, <em>unit=None</em>, <em>nucmod=None</em>, <em>ecp=None</em>, <em>charge=None</em>, <em>spin=None</em>, <em>symmetry=None</em>, <em>symmetry_subgroup=None</em>, <em>cart=None</em><span class="sig-paren">)</span></dt>
+<code class="descname">kernel</code><span class="sig-paren">(</span><em>dump_input=True</em>, <em>parse_arg=True</em>, <em>verbose=None</em>, <em>output=None</em>, <em>max_memory=None</em>, <em>atom=None</em>, <em>basis=None</em>, <em>unit=None</em>, <em>nucmod=None</em>, <em>ecp=None</em>, <em>charge=None</em>, <em>spin=0</em>, <em>symmetry=None</em>, <em>symmetry_subgroup=None</em>, <em>cart=None</em><span class="sig-paren">)</span></dt>
 <dd><p>Setup moleclue and initialize some control parameters.  Whenever you
 change the value of the attributes of <a class="reference internal" href="#pyscf.gto.mole.Mole" title="pyscf.gto.mole.Mole"><code class="xref py py-class docutils literal"><span class="pre">Mole</span></code></a>, you need call
 this function to refresh the internal data of Mole.</p>
@@ -4392,7 +4880,9 @@ this function to refresh the internal data of Mole.</p>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Charge of molecule. It affects the electron numbers
 If given, overwrite <code class="xref py py-attr docutils literal"><span class="pre">Mole.charge</span></code></dd>
 <dt>spin</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>2S, num. alpha electrons - num. beta electrons
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>2S, num. alpha electrons - num. beta electrons to control
+multiplicity. If setting spin = None , multiplicity will be
+guessed based on the neutral molecule.
 If given, overwrite <code class="xref py py-attr docutils literal"><span class="pre">Mole.spin</span></code></dd>
 <dt>symmetry</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">bool or str</span><dd>Whether to use symmetry.  If given a string of point group
@@ -4891,6 +5381,36 @@ element in the list corresponds to one shell of the original Mole (Cell).</p>
 
 <dl class="method">
 <dt>
+<code class="descname">tofile</code><span class="sig-paren">(</span><em>mol</em>, <em>filename</em>, <em>format=None</em><span class="sig-paren">)</span></dt>
+<dd><p>Write molecular geometry to a file of the required format.</p>
+<dl class="docutils">
+<dt>Supported output formats:</dt>
+<dd><div class="first last line-block">
+<div class="line">raw: Each line is  &lt;symobl&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt;</div>
+<div class="line">xyz: XYZ cartesian coordinates format</div>
+<div class="line">zmat: Z-matrix format</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">tostring</code><span class="sig-paren">(</span><em>mol</em>, <em>format='raw'</em><span class="sig-paren">)</span></dt>
+<dd><p>Convert molecular geometry to a string of the required format.</p>
+<dl class="docutils">
+<dt>Supported output formats:</dt>
+<dd><div class="first last line-block">
+<div class="line">raw: Each line is  &lt;symobl&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt;</div>
+<div class="line">xyz: XYZ cartesian coordinates format</div>
+<div class="line">zmat: Z-matrix format</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
 <code class="descname">tot_electrons</code><span class="sig-paren">(</span><em>mol</em><span class="sig-paren">)</span></dt>
 <dd><p>Total number of electrons for the given molecule</p>
 <dl class="docutils">
@@ -4941,8 +5461,9 @@ See also <code class="xref py py-func docutils literal"><span class="pre">mol.se
 <dl class="method">
 <dt>
 <code class="descname">with_range_coulomb</code><span class="sig-paren">(</span><em>omega</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.with_range_coulomb"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Retuen a temporary mol context which has the rquired
-range-separated Coulomb parameter omega.
+<dd><p>Retuen a temporary mol context which has the required parameter
+omega for long range part of range-separated Coulomb operator.
+If omega = None, it will be treated as the regular Coulomb operator.
 See also <code class="xref py py-func docutils literal"><span class="pre">mol.set_range_coulomb()</span></code></p>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">mol</span><span class="o">.</span><span class="n">with_range_coulomb</span><span class="p">(</span><span class="n">omega</span><span class="o">=</span><span class="mf">1.5</span><span class="p">):</span>
@@ -4954,8 +5475,9 @@ See also <code class="xref py py-func docutils literal"><span class="pre">mol.se
 <dl class="method">
 <dt>
 <code class="descname">with_rinv_as_nucleus</code><span class="sig-paren">(</span><em>atm_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.with_rinv_as_nucleus"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Retuen a temporary mol context which has the rquired origin of 1/r
-operator and the required nuclear charge distribution on 1/r.</p>
+<dd><p>Retuen a temporary mol context in which the rinv operator (1/r) is
+treated like the Coulomb potential of a Gaussian charge distribution
+rho(r) = Norm * exp(-zeta * r^2) at the place of the input atm_id.</p>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">mol</span><span class="o">.</span><span class="n">with_rinv_as_nucleus</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">mol</span><span class="o">.</span><span class="n">intor</span><span class="p">(</span><span class="s1">&#39;int1e_rinv&#39;</span><span class="p">)</span>
@@ -4992,8 +5514,8 @@ context.  See also <code class="xref py py-func docutils literal"><span class="p
 <dl class="method">
 <dt>
 <code class="descname">with_rinv_zeta</code><span class="sig-paren">(</span><em>zeta</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/gto/mole.html#Mole.with_rinv_zeta"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Retuen a temporary mol context which has the rquired charge
-distribution on the &#8220;rinv_origin&#8221;: rho(r) = Norm * exp(-zeta * r^2).
+<dd><p>Retuen a temporary mol context which has the rquired Gaussian charge
+distribution placed at &#8220;rinv_origin&#8221;: rho(r) = Norm * exp(-zeta * r^2).
 See also <code class="xref py py-func docutils literal"><span class="pre">mol.set_rinv_zeta()</span></code></p>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">mol</span><span class="o">.</span><span class="n">with_rinv_zeta</span><span class="p">(</span><span class="n">zeta</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span> <span class="n">mol</span><span class="o">.</span><span class="n">with_rinv_origin</span><span class="p">((</span><span class="mf">1.</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)):</span>
@@ -5575,6 +6097,19 @@ Empty lines, or the lines started with #, or the lines of &#8220;BASIS SET&#8221
 <span class="gp">... </span><span class="s2">&quot;&quot;&quot;</span><span class="p">)}</span>
 </pre></div>
 </div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gto</span><span class="o">.</span><span class="n">basis</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="gp">... </span><span class="s2">He    S</span>
+<span class="gp">... </span><span class="s2">     13.6267000              0.1752300</span>
+<span class="gp">... </span><span class="s2">      1.9993500              0.8934830</span>
+<span class="gp">... </span><span class="s2">      0.3829930              0.0000000</span>
+<span class="gp">... </span><span class="s2">He    S</span>
+<span class="gp">... </span><span class="s2">     13.6267000              0.0000000</span>
+<span class="gp">... </span><span class="s2">      1.9993500              0.0000000</span>
+<span class="gp">... </span><span class="s2">      0.3829930              1.0000000</span>
+<span class="gp">... </span><span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">optimize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">[[0, [13.6267, 0.17523, 0.0], [1.99935, 0.893483, 0.0], [0.382993, 0.0, 1.0]]]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -5626,7 +6161,7 @@ Empty lines, or the lines started with #, or the lines of &#8220;BASIS SET&#8221
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

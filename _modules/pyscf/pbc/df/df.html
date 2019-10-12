@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyscf.pbc.df.df &mdash; PySCF 1.5.0 documentation</title>
+  <title>pyscf.pbc.df.df &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="../../../../index.html"/>
         <link rel="up" title="Module code" href="../../../index.html"/> 
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -181,7 +181,7 @@
             
   <h1>Source code for pyscf.pbc.df.df</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="c1"># Copyright 2014-2018 The PySCF Developers. All Rights Reserved.</span>
+<span class="c1"># Copyright 2014-2019 The PySCF Developers. All Rights Reserved.</span>
 <span class="c1">#</span>
 <span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
 <span class="c1"># you may not use this file except in compliance with the License.</span>
@@ -234,7 +234,9 @@
 <span class="kn">from</span> <span class="nn">pyscf.pbc.df</span> <span class="k">import</span> <span class="n">df_ao2mo</span>
 <span class="kn">from</span> <span class="nn">pyscf.pbc.df.aft</span> <span class="k">import</span> <span class="n">estimate_eta</span><span class="p">,</span> <span class="n">get_nuc</span>
 <span class="kn">from</span> <span class="nn">pyscf.pbc.df.df_jk</span> <span class="k">import</span> <span class="n">zdotCN</span><span class="p">,</span> <span class="n">zdotNN</span><span class="p">,</span> <span class="n">zdotNC</span>
-<span class="kn">from</span> <span class="nn">pyscf.pbc.lib.kpts_helper</span> <span class="k">import</span> <span class="n">is_zero</span><span class="p">,</span> <span class="n">gamma_point</span><span class="p">,</span> <span class="n">member</span><span class="p">,</span> <span class="n">unique</span>
+<span class="kn">from</span> <span class="nn">pyscf.pbc.lib.kpts_helper</span> <span class="k">import</span> <span class="p">(</span><span class="n">is_zero</span><span class="p">,</span> <span class="n">gamma_point</span><span class="p">,</span> <span class="n">member</span><span class="p">,</span> <span class="n">unique</span><span class="p">,</span>
+                                       <span class="n">KPT_DIFF_TOL</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">pyscf.pbc.df.aft</span> <span class="k">import</span> <span class="n">_sub_df_jk_</span>
 <span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">__config__</span>
 
 <span class="n">LINEAR_DEP_THR</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">__config__</span><span class="p">,</span> <span class="s1">&#39;pbc_df_df_DF_lindep&#39;</span><span class="p">,</span> <span class="mf">1e-9</span><span class="p">)</span>
@@ -356,6 +358,7 @@
     <span class="n">kptjs</span> <span class="o">=</span> <span class="n">kptij_lst</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">kpt_ji</span> <span class="o">=</span> <span class="n">kptjs</span> <span class="o">-</span> <span class="n">kptis</span>
     <span class="n">uniq_kpts</span><span class="p">,</span> <span class="n">uniq_index</span><span class="p">,</span> <span class="n">uniq_inverse</span> <span class="o">=</span> <span class="n">unique</span><span class="p">(</span><span class="n">kpt_ji</span><span class="p">)</span>
+
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Num uniq kpts </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">uniq_kpts</span><span class="p">))</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug2</span><span class="p">(</span><span class="s1">&#39;uniq_kpts </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">uniq_kpts</span><span class="p">)</span>
     <span class="c1"># j2c ~ (-kpt_ji | kpt_ji)</span>
@@ -385,24 +388,7 @@
         <span class="n">fswap</span><span class="p">[</span><span class="s1">&#39;j2c/</span><span class="si">%d</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">fuse</span><span class="p">(</span><span class="n">fuse</span><span class="p">(</span><span class="n">j2c</span><span class="p">[</span><span class="n">k</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
     <span class="n">j2c</span> <span class="o">=</span> <span class="n">coulG</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="n">feri</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">cderi_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
-    <span class="n">feri</span><span class="p">[</span><span class="s1">&#39;j3c-kptij&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kptij_lst</span>
-    <span class="n">nsegs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fswap</span><span class="p">[</span><span class="s1">&#39;j3c-junk/0&#39;</span><span class="p">])</span>
-    <span class="k">def</span> <span class="nf">make_kpt</span><span class="p">(</span><span class="n">uniq_kptji_id</span><span class="p">):</span>  <span class="c1"># kpt = kptj - kpti</span>
-        <span class="n">kpt</span> <span class="o">=</span> <span class="n">uniq_kpts</span><span class="p">[</span><span class="n">uniq_kptji_id</span><span class="p">]</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">debug1</span><span class="p">(</span><span class="s1">&#39;kpt = </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">kpt</span><span class="p">)</span>
-        <span class="n">adapted_ji_idx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">uniq_inverse</span> <span class="o">==</span> <span class="n">uniq_kptji_id</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">adapted_kptjs</span> <span class="o">=</span> <span class="n">kptjs</span><span class="p">[</span><span class="n">adapted_ji_idx</span><span class="p">]</span>
-        <span class="n">nkptj</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">adapted_kptjs</span><span class="p">)</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">debug1</span><span class="p">(</span><span class="s1">&#39;adapted_ji_idx = </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">adapted_ji_idx</span><span class="p">)</span>
-
-        <span class="n">shls_slice</span> <span class="o">=</span> <span class="p">(</span><span class="n">auxcell</span><span class="o">.</span><span class="n">nbas</span><span class="p">,</span> <span class="n">fused_cell</span><span class="o">.</span><span class="n">nbas</span><span class="p">)</span>
-        <span class="n">Gaux</span> <span class="o">=</span> <span class="n">ft_ao</span><span class="o">.</span><span class="n">ft_ao</span><span class="p">(</span><span class="n">fused_cell</span><span class="p">,</span> <span class="n">Gv</span><span class="p">,</span> <span class="n">shls_slice</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">gxyz</span><span class="p">,</span> <span class="n">Gvbase</span><span class="p">,</span> <span class="n">kpt</span><span class="p">)</span>
-        <span class="n">wcoulG</span> <span class="o">=</span> <span class="n">mydf</span><span class="o">.</span><span class="n">weighted_coulG</span><span class="p">(</span><span class="n">kpt</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">mesh</span><span class="p">)</span>
-        <span class="n">Gaux</span> <span class="o">*=</span> <span class="n">wcoulG</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">kLR</span> <span class="o">=</span> <span class="n">Gaux</span><span class="o">.</span><span class="n">real</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
-        <span class="n">kLI</span> <span class="o">=</span> <span class="n">Gaux</span><span class="o">.</span><span class="n">imag</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
-        <span class="n">Gaux</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">def</span> <span class="nf">cholesky_decomposed_metric</span><span class="p">(</span><span class="n">uniq_kptji_id</span><span class="p">):</span>
         <span class="n">j2c</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">fswap</span><span class="p">[</span><span class="s1">&#39;j2c/</span><span class="si">%d</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">uniq_kptji_id</span><span class="p">])</span>
         <span class="n">j2c_negative</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">try</span><span class="p">:</span>
@@ -414,7 +400,7 @@
             <span class="c1">#      &#39;It is likely that mesh is not enough.\n&#39;</span>
             <span class="c1">#      &#39;===================================&#39;)</span>
             <span class="c1">#log.error(msg)</span>
-            <span class="c1">#raise scipy.linalg.LinAlgError(&#39;\n&#39;.join([e.message, msg]))</span>
+            <span class="c1">#raise scipy.linalg.LinAlgError(&#39;\n&#39;.join([str(e), msg]))</span>
             <span class="n">w</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">j2c</span><span class="p">)</span>
             <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;DF metric linear dependency for kpt </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">uniq_kptji_id</span><span class="p">)</span>
             <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;cond = </span><span class="si">%.4g</span><span class="s1">, drop </span><span class="si">%d</span><span class="s1"> bfns&#39;</span><span class="p">,</span>
@@ -428,6 +414,28 @@
                     <span class="n">j2c_negative</span> <span class="o">=</span> <span class="p">(</span><span class="n">v</span><span class="p">[:,</span><span class="n">idx</span><span class="p">]</span><span class="o">/</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="n">w</span><span class="p">[</span><span class="n">idx</span><span class="p">]))</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
             <span class="n">w</span> <span class="o">=</span> <span class="n">v</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="n">j2ctag</span> <span class="o">=</span> <span class="s1">&#39;eig&#39;</span>
+        <span class="k">return</span> <span class="n">j2c</span><span class="p">,</span> <span class="n">j2c_negative</span><span class="p">,</span> <span class="n">j2ctag</span>
+
+    <span class="n">feri</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">cderi_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+    <span class="n">feri</span><span class="p">[</span><span class="s1">&#39;j3c-kptij&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kptij_lst</span>
+    <span class="n">nsegs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fswap</span><span class="p">[</span><span class="s1">&#39;j3c-junk/0&#39;</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">make_kpt</span><span class="p">(</span><span class="n">uniq_kptji_id</span><span class="p">,</span> <span class="n">cholesky_j2c</span><span class="p">):</span>
+        <span class="n">kpt</span> <span class="o">=</span> <span class="n">uniq_kpts</span><span class="p">[</span><span class="n">uniq_kptji_id</span><span class="p">]</span>  <span class="c1"># kpt = kptj - kpti</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug1</span><span class="p">(</span><span class="s1">&#39;kpt = </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">kpt</span><span class="p">)</span>
+        <span class="n">adapted_ji_idx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">uniq_inverse</span> <span class="o">==</span> <span class="n">uniq_kptji_id</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">adapted_kptjs</span> <span class="o">=</span> <span class="n">kptjs</span><span class="p">[</span><span class="n">adapted_ji_idx</span><span class="p">]</span>
+        <span class="n">nkptj</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">adapted_kptjs</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug1</span><span class="p">(</span><span class="s1">&#39;adapted_ji_idx = </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">adapted_ji_idx</span><span class="p">)</span>
+
+        <span class="n">j2c</span><span class="p">,</span> <span class="n">j2c_negative</span><span class="p">,</span> <span class="n">j2ctag</span> <span class="o">=</span> <span class="n">cholesky_j2c</span>
+
+        <span class="n">shls_slice</span> <span class="o">=</span> <span class="p">(</span><span class="n">auxcell</span><span class="o">.</span><span class="n">nbas</span><span class="p">,</span> <span class="n">fused_cell</span><span class="o">.</span><span class="n">nbas</span><span class="p">)</span>
+        <span class="n">Gaux</span> <span class="o">=</span> <span class="n">ft_ao</span><span class="o">.</span><span class="n">ft_ao</span><span class="p">(</span><span class="n">fused_cell</span><span class="p">,</span> <span class="n">Gv</span><span class="p">,</span> <span class="n">shls_slice</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">gxyz</span><span class="p">,</span> <span class="n">Gvbase</span><span class="p">,</span> <span class="n">kpt</span><span class="p">)</span>
+        <span class="n">wcoulG</span> <span class="o">=</span> <span class="n">mydf</span><span class="o">.</span><span class="n">weighted_coulG</span><span class="p">(</span><span class="n">kpt</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">mesh</span><span class="p">)</span>
+        <span class="n">Gaux</span> <span class="o">*=</span> <span class="n">wcoulG</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">kLR</span> <span class="o">=</span> <span class="n">Gaux</span><span class="o">.</span><span class="n">real</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+        <span class="n">kLI</span> <span class="o">=</span> <span class="n">Gaux</span><span class="o">.</span><span class="n">imag</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+        <span class="n">Gaux</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="n">is_zero</span><span class="p">(</span><span class="n">kpt</span><span class="p">):</span>  <span class="c1"># kpti == kptj</span>
             <span class="n">aosym</span> <span class="o">=</span> <span class="s1">&#39;s2&#39;</span>
@@ -525,8 +533,57 @@
         <span class="k">for</span> <span class="n">ji</span> <span class="ow">in</span> <span class="n">adapted_ji_idx</span><span class="p">:</span>
             <span class="k">del</span><span class="p">(</span><span class="n">fswap</span><span class="p">[</span><span class="s1">&#39;j3c-junk/</span><span class="si">%d</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">ji</span><span class="p">])</span>
 
+    <span class="c1"># Wrapped around boundary and symmetry between k and -k can be used</span>
+    <span class="c1"># explicitly for the metric integrals.  We consider this symmetry</span>
+    <span class="c1"># because it is used in the df_ao2mo module when contracting two 3-index</span>
+    <span class="c1"># integral tensors to the 4-index 2e integral tensor. If the symmetry</span>
+    <span class="c1"># related k-points are treated separately, the resultant 3-index tensors</span>
+    <span class="c1"># may have inconsistent dimension due to the numerial noise when handling</span>
+    <span class="c1"># linear dependency of j2c.</span>
+    <span class="k">def</span> <span class="nf">conj_j2c</span><span class="p">(</span><span class="n">cholesky_j2c</span><span class="p">):</span>
+        <span class="n">j2c</span><span class="p">,</span> <span class="n">j2c_negative</span><span class="p">,</span> <span class="n">j2ctag</span> <span class="o">=</span> <span class="n">cholesky_j2c</span>
+        <span class="k">if</span> <span class="n">j2c_negative</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">j2c</span><span class="o">.</span><span class="n">conj</span><span class="p">(),</span> <span class="kc">None</span><span class="p">,</span> <span class="n">j2ctag</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">j2c</span><span class="o">.</span><span class="n">conj</span><span class="p">(),</span> <span class="n">j2c_negative</span><span class="o">.</span><span class="n">conj</span><span class="p">(),</span> <span class="n">j2ctag</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">lattice_vectors</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">kconserve_indices</span><span class="p">(</span><span class="n">kpt</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;search which (kpts+kpt) satisfies momentum conservation&#39;&#39;&#39;</span>
+        <span class="n">kdif</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;wx,ix-&gt;wi&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">uniq_kpts</span> <span class="o">+</span> <span class="n">kpt</span><span class="p">)</span>
+        <span class="n">kdif_int</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span><span class="n">kdif</span><span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;wi-&gt;i&#39;</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">kdif</span> <span class="o">-</span> <span class="n">kdif_int</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">KPT_DIFF_TOL</span>
+        <span class="n">uniq_kptji_ids</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">uniq_kptji_ids</span>
+
+    <span class="n">done</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">uniq_kpts</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">kpt</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">uniq_kpts</span><span class="p">):</span>
-        <span class="n">make_kpt</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">done</span><span class="p">[</span><span class="n">k</span><span class="p">]:</span>
+            <span class="k">continue</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug1</span><span class="p">(</span><span class="s1">&#39;Cholesky decomposition for j2c at kpt </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+        <span class="n">cholesky_j2c</span> <span class="o">=</span> <span class="n">cholesky_decomposed_metric</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+        <span class="c1"># The k-point k&#39; which has (k - k&#39;) * a = 2n pi. Metric integrals have the</span>
+        <span class="c1"># symmetry S = S</span>
+        <span class="n">uniq_kptji_ids</span> <span class="o">=</span> <span class="n">kconserve_indices</span><span class="p">(</span><span class="o">-</span><span class="n">kpt</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug1</span><span class="p">(</span><span class="s2">&quot;Symmetry pattern (k - </span><span class="si">%s</span><span class="s2">)*a= 2n pi&quot;</span><span class="p">,</span> <span class="n">kpt</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug1</span><span class="p">(</span><span class="s2">&quot;    make_kpt for uniq_kptji_ids </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">uniq_kptji_ids</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">uniq_kptji_id</span> <span class="ow">in</span> <span class="n">uniq_kptji_ids</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">done</span><span class="p">[</span><span class="n">uniq_kptji_id</span><span class="p">]:</span>
+                <span class="n">make_kpt</span><span class="p">(</span><span class="n">uniq_kptji_id</span><span class="p">,</span> <span class="n">cholesky_j2c</span><span class="p">)</span>
+        <span class="n">done</span><span class="p">[</span><span class="n">uniq_kptji_ids</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># The k-point k&#39; which has (k + k&#39;) * a = 2n pi. Metric integrals have the</span>
+        <span class="c1"># symmetry S = S*</span>
+        <span class="n">uniq_kptji_ids</span> <span class="o">=</span> <span class="n">kconserve_indices</span><span class="p">(</span><span class="n">kpt</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug1</span><span class="p">(</span><span class="s2">&quot;Symmetry pattern (k + </span><span class="si">%s</span><span class="s2">)*a= 2n pi&quot;</span><span class="p">,</span> <span class="n">kpt</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug1</span><span class="p">(</span><span class="s2">&quot;    make_kpt for </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">uniq_kptji_ids</span><span class="p">)</span>
+        <span class="n">cholesky_j2c</span> <span class="o">=</span> <span class="n">conj_j2c</span><span class="p">(</span><span class="n">cholesky_j2c</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">uniq_kptji_id</span> <span class="ow">in</span> <span class="n">uniq_kptji_ids</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">done</span><span class="p">[</span><span class="n">uniq_kptji_id</span><span class="p">]:</span>
+                <span class="n">make_kpt</span><span class="p">(</span><span class="n">uniq_kptji_id</span><span class="p">,</span> <span class="n">cholesky_j2c</span><span class="p">)</span>
+        <span class="n">done</span><span class="p">[</span><span class="n">uniq_kptji_ids</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="n">feri</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
@@ -555,6 +612,11 @@
             <span class="n">eta_guess</span> <span class="o">=</span> <span class="n">estimate_eta</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">cell</span><span class="o">.</span><span class="n">precision</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">eta_cell</span> <span class="o">&lt;</span> <span class="n">eta_guess</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">eta</span> <span class="o">=</span> <span class="n">eta_cell</span>
+                <span class="c1"># TODO? Round off mesh to the nearest odd numbers.</span>
+                <span class="c1"># Odd number of grids is preferred because even number of</span>
+                <span class="c1"># grids may break the conjugation symmetry between the</span>
+                <span class="c1"># k-points k and -k.</span>
+                <span class="c1">#?self.mesh = [(n//2)*2+1 for n in cell.mesh]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">mesh</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">eta</span> <span class="o">=</span> <span class="n">eta_guess</span>
@@ -582,6 +644,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_cderi_to_save</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">lib</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">TMPDIR</span><span class="p">)</span>
 <span class="c1"># If _cderi is specified, the 3C-integral tensor will be read from this file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cderi</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rsh_df</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Range separated Coulomb DF objects</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
     <span class="nd">@property</span>
@@ -594,6 +657,15 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">auxcell</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_cderi</span> <span class="o">=</span> <span class="kc">None</span>
 
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cell</span> <span class="o">=</span> <span class="n">cell</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auxcell</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cderi</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cderi_to_save</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">lib</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">TMPDIR</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rsh_df</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">gs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="p">]</span>
@@ -603,8 +675,8 @@
                       <span class="s1">&#39;mesh = the number of PWs (=2*gs+1) for each direction.&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">dump_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">log</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">new_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">dump_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">log</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">new_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
         <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;******** </span><span class="si">%s</span><span class="s1"> ********&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
         <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;mesh = </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%d</span><span class="s1"> PWs)&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="p">))</span>
@@ -755,8 +827,6 @@
             <span class="n">blksize</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">blksize</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">blockdim</span><span class="p">))</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug3</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;max_memory </span><span class="si">%d</span><span class="s1"> MB, blksize </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">max_memory</span><span class="p">,</span> <span class="n">blksize</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">unpack</span><span class="p">:</span>
-            <span class="n">buf</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">blksize</span><span class="p">,</span><span class="n">nao</span><span class="o">*</span><span class="p">(</span><span class="n">nao</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">))</span>
         <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">Lpq</span><span class="p">,</span> <span class="n">b0</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">bufR</span><span class="p">,</span> <span class="n">bufI</span><span class="p">):</span>
             <span class="n">Lpq</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">Lpq</span><span class="p">[</span><span class="n">b0</span><span class="p">:</span><span class="n">b1</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">is_real</span><span class="p">:</span>
@@ -783,6 +853,8 @@
         <span class="n">LpqR</span> <span class="o">=</span> <span class="n">LpqI</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">with</span> <span class="n">_load3c</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cderi</span><span class="p">,</span> <span class="s1">&#39;j3c&#39;</span><span class="p">,</span> <span class="n">kpti_kptj</span><span class="p">,</span> <span class="s1">&#39;j3c-kptij&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">j3c</span><span class="p">:</span>
             <span class="n">naux</span> <span class="o">=</span> <span class="n">j3c</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">unpack</span><span class="p">:</span>
+                <span class="n">buf</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">min</span><span class="p">(</span><span class="n">blksize</span><span class="p">,</span> <span class="n">naux</span><span class="p">),</span> <span class="n">nao</span> <span class="o">*</span> <span class="p">(</span><span class="n">nao</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))</span>
             <span class="k">for</span> <span class="n">b0</span><span class="p">,</span> <span class="n">b1</span> <span class="ow">in</span> <span class="n">lib</span><span class="o">.</span><span class="n">prange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">naux</span><span class="p">,</span> <span class="n">blksize</span><span class="p">):</span>
                 <span class="n">LpqR</span><span class="p">,</span> <span class="n">LpqI</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">j3c</span><span class="p">,</span> <span class="n">b0</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">LpqR</span><span class="p">,</span> <span class="n">LpqI</span><span class="p">)</span>
                 <span class="k">yield</span> <span class="n">LpqR</span><span class="p">,</span> <span class="n">LpqI</span><span class="p">,</span> <span class="mi">1</span>
@@ -794,6 +866,8 @@
             <span class="k">with</span> <span class="n">_load3c</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cderi</span><span class="p">,</span> <span class="s1">&#39;j3c-&#39;</span><span class="p">,</span> <span class="n">kpti_kptj</span><span class="p">,</span> <span class="s1">&#39;j3c-kptij&#39;</span><span class="p">,</span>
                          <span class="n">ignore_key_error</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">j3c</span><span class="p">:</span>
                 <span class="n">naux</span> <span class="o">=</span> <span class="n">j3c</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">unpack</span><span class="p">:</span>
+                    <span class="n">buf</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">min</span><span class="p">(</span><span class="n">blksize</span><span class="p">,</span> <span class="n">naux</span><span class="p">),</span> <span class="n">nao</span> <span class="o">*</span> <span class="p">(</span><span class="n">nao</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))</span>
                 <span class="k">for</span> <span class="n">b0</span><span class="p">,</span> <span class="n">b1</span> <span class="ow">in</span> <span class="n">lib</span><span class="o">.</span><span class="n">prange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">naux</span><span class="p">,</span> <span class="n">blksize</span><span class="p">):</span>
                     <span class="n">LpqR</span><span class="p">,</span> <span class="n">LpqI</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">j3c</span><span class="p">,</span> <span class="n">b0</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">LpqR</span><span class="p">,</span> <span class="n">LpqI</span><span class="p">)</span>
                     <span class="k">yield</span> <span class="n">LpqR</span><span class="p">,</span> <span class="n">LpqI</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span>
@@ -803,8 +877,17 @@
     <span class="n">get_nuc</span> <span class="o">=</span> <span class="n">aft</span><span class="o">.</span><span class="n">get_nuc</span>
     <span class="n">get_pp</span> <span class="o">=</span> <span class="n">aft</span><span class="o">.</span><span class="n">get_pp</span>
 
+    <span class="c1"># Note: Special exxdiv by default should not be used for an arbitrary</span>
+    <span class="c1"># input density matrix. When the df object was used with the molecular</span>
+    <span class="c1"># post-HF code, get_jk was often called with an incomplete DM (e.g. the</span>
+    <span class="c1"># core DM in CASCI). An SCF level exxdiv treatment is inadequate for</span>
+    <span class="c1"># post-HF methods.</span>
     <span class="k">def</span> <span class="nf">get_jk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dm</span><span class="p">,</span> <span class="n">hermi</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">kpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kpts_band</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-               <span class="n">with_j</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">with_k</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exxdiv</span><span class="o">=</span><span class="s1">&#39;ewald&#39;</span><span class="p">):</span>
+               <span class="n">with_j</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">with_k</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exxdiv</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">omega</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># J/K for RSH functionals</span>
+            <span class="k">return</span> <span class="n">_sub_df_jk_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dm</span><span class="p">,</span> <span class="n">hermi</span><span class="p">,</span> <span class="n">kpts</span><span class="p">,</span> <span class="n">kpts_band</span><span class="p">,</span>
+                               <span class="n">with_j</span><span class="p">,</span> <span class="n">with_k</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">exxdiv</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">kpts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kpts</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
                 <span class="c1"># Gamma-point calculation by default</span>
@@ -1062,6 +1145,7 @@
 <span class="k">def</span> <span class="nf">_gaussian_int</span><span class="p">(</span><span class="n">cell</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Regular gaussian integral \int g(r) dr^3&#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="n">ft_ao</span><span class="o">.</span><span class="n">ft_ao</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)))[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span>
+
 </pre></div>
 
            </div>
@@ -1098,7 +1182,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>13. tddft — Time dependent density functional theory &mdash; PySCF 1.5.0 documentation</title>
+  <title>13. tddft — Time dependent density functional theory &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
         <link rel="next" title="14. cc — Coupled cluster" href="cc.html"/>
         <link rel="prev" title="12. dft — Density functional theory" href="dft.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -349,6 +349,18 @@ NTOs.</dd>
 <dd><p>Transition dipole moments in the velocity gauge (imaginary part only)</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="pyscf.tdscf.rhf.TDA.transition_velocity_octupole">
+<code class="descname">transition_velocity_octupole</code><span class="sig-paren">(</span><em>tdobj</em>, <em>xy=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.tdscf.rhf.TDA.transition_velocity_octupole" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transition octupole moments in the velocity gauge (imaginary part only)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.tdscf.rhf.TDA.transition_velocity_quadrupole">
+<code class="descname">transition_velocity_quadrupole</code><span class="sig-paren">(</span><em>tdobj</em>, <em>xy=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.tdscf.rhf.TDA.transition_velocity_quadrupole" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transition quadrupole moments in the velocity gauge (imaginary part only)</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -567,6 +579,12 @@ NTOs.</dd>
 
 </dd></dl>
 
+<dl class="function">
+<dt id="pyscf.tdscf.rks.tddft">
+<code class="descclassname">pyscf.tdscf.rks.</code><code class="descname">tddft</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/rks.html#tddft"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.rks.tddft" title="Permalink to this definition">¶</a></dt>
+<dd><p>Driver to create TDDFT or TDDFTNoHybrid object</p>
+</dd></dl>
+
 </div>
 </div>
 
@@ -614,7 +632,7 @@ NTOs.</dd>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

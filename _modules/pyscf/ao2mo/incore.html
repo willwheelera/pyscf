@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyscf.ao2mo.incore &mdash; PySCF 1.5.0 documentation</title>
+  <title>pyscf.ao2mo.incore &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -382,13 +382,15 @@
         <span class="k">return</span> <span class="n">eri1</span>
 
     <span class="k">if</span> <span class="n">eri_ao</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="n">nao_pair</span><span class="o">**</span><span class="mi">2</span><span class="p">:</span> <span class="c1"># 4-fold symmetry</span>
+        <span class="c1"># half_e1 first transforms the indices which are contiguous in memory</span>
+        <span class="c1"># transpose the 4-fold integrals to make ij the contiguous indices</span>
+        <span class="n">eri_ao</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">eri_ao</span><span class="p">)</span>
         <span class="n">ftrans</span> <span class="o">=</span> <span class="n">_ao2mo</span><span class="o">.</span><span class="n">libao2mo</span><span class="o">.</span><span class="n">AO2MOtranse1_incore_s4</span>
     <span class="k">elif</span> <span class="n">eri_ao</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="n">nao_pair</span><span class="o">*</span><span class="p">(</span><span class="n">nao_pair</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">:</span>
         <span class="n">ftrans</span> <span class="o">=</span> <span class="n">_ao2mo</span><span class="o">.</span><span class="n">libao2mo</span><span class="o">.</span><span class="n">AO2MOtranse1_incore_s8</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">pyscf.ao2mo.addons</span> <span class="k">import</span> <span class="n">restore</span>
-        <span class="n">eri_ao</span> <span class="o">=</span> <span class="n">restore</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">eri_ao</span><span class="p">,</span> <span class="n">nao</span><span class="p">)</span>
-        <span class="n">ftrans</span> <span class="o">=</span> <span class="n">_ao2mo</span><span class="o">.</span><span class="n">libao2mo</span><span class="o">.</span><span class="n">AO2MOtranse1_incore_s4</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
     <span class="k">if</span> <span class="n">ijmosym</span> <span class="o">==</span> <span class="s1">&#39;s2&#39;</span><span class="p">:</span>
         <span class="n">fmmm</span> <span class="o">=</span> <span class="n">_ao2mo</span><span class="o">.</span><span class="n">libao2mo</span><span class="o">.</span><span class="n">AO2MOmmm_nr_s2_s2</span>
     <span class="k">elif</span> <span class="n">nmoi</span> <span class="o">&lt;=</span> <span class="n">nmoj</span><span class="p">:</span>
@@ -397,27 +399,27 @@
         <span class="n">fmmm</span> <span class="o">=</span> <span class="n">_ao2mo</span><span class="o">.</span><span class="n">libao2mo</span><span class="o">.</span><span class="n">AO2MOmmm_nr_s2_igtj</span>
     <span class="n">fdrv</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">_ao2mo</span><span class="o">.</span><span class="n">libao2mo</span><span class="p">,</span> <span class="s1">&#39;AO2MOnr_e1incore_drv&#39;</span><span class="p">)</span>
 
-    <span class="n">bufs</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">BLOCK</span><span class="p">,</span> <span class="n">nij_pair</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">blk0</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nao_pair</span><span class="p">,</span> <span class="n">BLOCK</span><span class="p">):</span>
-        <span class="n">blk1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">blk0</span><span class="o">+</span><span class="n">BLOCK</span><span class="p">,</span> <span class="n">nao_pair</span><span class="p">)</span>
-        <span class="n">buf</span> <span class="o">=</span> <span class="n">bufs</span><span class="p">[:</span><span class="n">blk1</span><span class="o">-</span><span class="n">blk0</span><span class="p">]</span>
+    <span class="n">buf</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">BLOCK</span><span class="p">,</span> <span class="n">nij_pair</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">p0</span><span class="p">,</span> <span class="n">p1</span> <span class="ow">in</span> <span class="n">lib</span><span class="o">.</span><span class="n">prange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nao_pair</span><span class="p">,</span> <span class="n">BLOCK</span><span class="p">):</span>
         <span class="n">fdrv</span><span class="p">(</span><span class="n">ftrans</span><span class="p">,</span> <span class="n">fmmm</span><span class="p">,</span>
              <span class="n">buf</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">),</span>
              <span class="n">eri_ao</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">),</span>
              <span class="n">moij</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">),</span>
-             <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="n">blk0</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="n">blk1</span><span class="o">-</span><span class="n">blk0</span><span class="p">),</span>
+             <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="n">p0</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="n">p1</span><span class="o">-</span><span class="n">p0</span><span class="p">),</span>
              <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="n">nao</span><span class="p">),</span>
              <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="n">ijshape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="n">ijshape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
              <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="n">ijshape</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="n">ijshape</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
-        <span class="n">eri1</span><span class="p">[:,</span><span class="n">blk0</span><span class="p">:</span><span class="n">blk1</span><span class="p">]</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">eri1</span><span class="p">[:,</span><span class="n">p0</span><span class="p">:</span><span class="n">p1</span><span class="p">]</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[:</span><span class="n">p1</span><span class="o">-</span><span class="n">p0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
     <span class="k">return</span> <span class="n">eri1</span></div>
 
 <span class="k">def</span> <span class="nf">iden_coeffs</span><span class="p">(</span><span class="n">mo1</span><span class="p">,</span> <span class="n">mo2</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">mo1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">id</span><span class="p">(</span><span class="n">mo2</span><span class="p">)</span> <span class="ow">or</span>
-            <span class="p">(</span><span class="n">mo1</span><span class="o">.</span><span class="n">shape</span><span class="o">==</span><span class="n">mo2</span><span class="o">.</span><span class="n">shape</span> <span class="ow">and</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mo1</span><span class="o">-</span><span class="n">mo2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-13</span><span class="p">))</span>
+            <span class="p">(</span><span class="n">mo1</span><span class="o">.</span><span class="n">shape</span><span class="o">==</span><span class="n">mo2</span><span class="o">.</span><span class="n">shape</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mo1</span><span class="o">-</span><span class="n">mo2</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">1e-13</span><span class="p">))</span>
 
 
 <span class="k">def</span> <span class="nf">_conc_mos</span><span class="p">(</span><span class="n">moi</span><span class="p">,</span> <span class="n">moj</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">result_type</span><span class="p">(</span><span class="n">moi</span><span class="p">,</span> <span class="n">moj</span><span class="p">)</span> <span class="o">!=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">double</span><span class="p">:</span>
+        <span class="n">compact</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">nmoi</span> <span class="o">=</span> <span class="n">moi</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">nmoj</span> <span class="o">=</span> <span class="n">moj</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">compact</span> <span class="ow">and</span> <span class="n">iden_coeffs</span><span class="p">(</span><span class="n">moi</span><span class="p">,</span> <span class="n">moj</span><span class="p">):</span>
@@ -492,7 +494,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

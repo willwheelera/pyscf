@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyscf.pbc.scf.kuhf &mdash; PySCF 1.5.0 documentation</title>
+  <title>pyscf.pbc.scf.kuhf &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="../../../../index.html"/>
         <link rel="up" title="Module code" href="../../../index.html"/> 
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -181,7 +181,7 @@
             
   <h1>Source code for pyscf.pbc.scf.kuhf</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="c1"># Copyright 2014-2018 The PySCF Developers. All Rights Reserved.</span>
+<span class="c1"># Copyright 2014-2019 The PySCF Developers. All Rights Reserved.</span>
 <span class="c1">#</span>
 <span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
 <span class="c1"># you may not use this file except in compliance with the License.</span>
@@ -363,6 +363,8 @@
     <span class="n">e1</span><span class="o">+=</span> <span class="mf">1.</span><span class="o">/</span><span class="n">nkpts</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;kij,kji&#39;</span><span class="p">,</span> <span class="n">dm_kpts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">h1e_kpts</span><span class="p">)</span>
     <span class="n">e_coul</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="n">nkpts</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;kij,kji&#39;</span><span class="p">,</span> <span class="n">dm_kpts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vhf_kpts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="mf">0.5</span>
     <span class="n">e_coul</span><span class="o">+=</span> <span class="mf">1.</span><span class="o">/</span><span class="n">nkpts</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;kij,kji&#39;</span><span class="p">,</span> <span class="n">dm_kpts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">vhf_kpts</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="mf">0.5</span>
+    <span class="n">mf</span><span class="o">.</span><span class="n">scf_summary</span><span class="p">[</span><span class="s1">&#39;e1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">e1</span><span class="o">.</span><span class="n">real</span>
+    <span class="n">mf</span><span class="o">.</span><span class="n">scf_summary</span><span class="p">[</span><span class="s1">&#39;e2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">e_coul</span><span class="o">.</span><span class="n">real</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="s1">&#39;E1 = </span><span class="si">%s</span><span class="s1">  E_coul = </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">e1</span><span class="p">,</span> <span class="n">e_coul</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">CHECK_COULOMB_IMAG</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">e_coul</span><span class="o">.</span><span class="n">imag</span> <span class="o">&gt;</span> <span class="n">mf</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">precision</span><span class="o">*</span><span class="mi">10</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="s2">&quot;Coulomb energy has imaginary part </span><span class="si">%s</span><span class="s2">. &quot;</span>
@@ -373,7 +375,7 @@
 
 <div class="viewcode-block" id="mulliken_meta"><a class="viewcode-back" href="../../../../pbc/scf.html#pyscf.pbc.scf.kuhf.mulliken_meta">[docs]</a><span class="k">def</span> <span class="nf">mulliken_meta</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">dm_ao_kpts</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">logger</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
                   <span class="n">pre_orth_method</span><span class="o">=</span><span class="n">PRE_ORTH_METHOD</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Mulliken population analysis, based on meta-Lowdin AOs.</span>
+    <span class="sd">&#39;&#39;&#39;A modified Mulliken population analysis, based on meta-Lowdin AOs.</span>
 
 <span class="sd">    Note this function only computes the Mulliken population for the gamma</span>
 <span class="sd">    point density matrix.</span>
@@ -382,7 +384,11 @@
     <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">khf</span><span class="o">.</span><span class="n">get_ovlp</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
     <span class="n">log</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">new_logger</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">note</span><span class="p">(</span><span class="s1">&#39;Analyze output for the gamma point&#39;</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">note</span><span class="p">(</span><span class="s1">&#39;Analyze output for *gamma point*.&#39;</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;    To include the contributions from k-points, transform to a &#39;</span>
+             <span class="s1">&#39;supercell then run the population analysis on the supercell</span><span class="se">\n</span><span class="s1">&#39;</span>
+             <span class="s1">&#39;        from pyscf.pbc.tools import k2gamma</span><span class="se">\n</span><span class="s1">&#39;</span>
+             <span class="s1">&#39;        k2gamma.k2gamma(mf).mulliken_meta()&#39;</span><span class="p">)</span>
     <span class="n">log</span><span class="o">.</span><span class="n">note</span><span class="p">(</span><span class="s2">&quot;KUHF mulliken_meta&quot;</span><span class="p">)</span>
     <span class="n">dm_ao_gamma</span> <span class="o">=</span> <span class="n">dm_ao_kpts</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,:,:]</span><span class="o">.</span><span class="n">real</span>
     <span class="n">s_gamma</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,:]</span><span class="o">.</span><span class="n">real</span>
@@ -402,7 +408,7 @@
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="n">fock</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">dm</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">make_rdm1</span><span class="p">(</span><span class="n">mo_coeff_kpts</span><span class="p">,</span> <span class="n">mo_occ_kpts</span><span class="p">)</span>
-        <span class="n">fock</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">get_hcore</span><span class="p">()</span> <span class="o">+</span> <span class="n">mf</span><span class="o">.</span><span class="n">get_jk</span><span class="p">(</span><span class="n">mf</span><span class="o">.</span><span class="n">cell</span><span class="p">,</span> <span class="n">dm</span><span class="p">)</span>
+        <span class="n">fock</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">get_fock</span><span class="p">(</span><span class="n">dm</span><span class="o">=</span><span class="n">dm</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">eig_</span><span class="p">(</span><span class="n">fock</span><span class="p">,</span> <span class="n">mo_coeff</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">es</span><span class="p">,</span> <span class="n">cs</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -495,7 +501,7 @@
             <span class="n">occs</span> <span class="o">=</span> <span class="p">([</span><span class="n">occa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">where</span><span class="p">],</span> <span class="p">[</span><span class="n">occb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">where</span><span class="p">])</span>
             <span class="k">return</span> <span class="n">make_rdm1</span><span class="p">(</span><span class="n">mos</span><span class="p">,</span> <span class="n">occs</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mo</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;ndim&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">mo</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># KRHF</span>
+    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mo</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;ndim&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># KRHF</span>
         <span class="n">mo_occa</span> <span class="o">=</span> <span class="p">[(</span><span class="n">occ</span><span class="o">&gt;</span><span class="mf">1e-8</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">double</span><span class="p">)</span> <span class="k">for</span> <span class="n">occ</span> <span class="ow">in</span> <span class="n">mo_occ</span><span class="p">]</span>
         <span class="n">mo_occb</span> <span class="o">=</span> <span class="p">[</span><span class="n">occ</span><span class="o">-</span><span class="n">mo_occa</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">occ</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mo_occ</span><span class="p">)]</span>
         <span class="n">dm</span> <span class="o">=</span> <span class="n">makedm</span><span class="p">((</span><span class="n">mo</span><span class="p">,</span> <span class="n">mo</span><span class="p">),</span> <span class="p">(</span><span class="n">mo_occa</span><span class="p">,</span> <span class="n">mo_occb</span><span class="p">))</span>
@@ -523,12 +529,7 @@
     <span class="n">dm_kpts</span> <span class="o">=</span> <span class="n">dm_kpts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">dm_kpts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">khf</span><span class="o">.</span><span class="n">dip_moment</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">dm_kpts</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">grids</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">kpts</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="get_rho"><a class="viewcode-back" href="../../../../pbc/scf.html#pyscf.pbc.scf.kuhf.get_rho">[docs]</a><span class="k">def</span> <span class="nf">get_rho</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="n">dm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">grids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kpts</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Compute density in real space</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="n">dm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">dm</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">make_rdm1</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">khf</span><span class="o">.</span><span class="n">get_rho</span><span class="p">(</span><span class="n">dm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">dm</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">grids</span><span class="p">,</span> <span class="n">kpts</span><span class="p">)</span></div>
+<span class="n">get_rho</span> <span class="o">=</span> <span class="n">khf</span><span class="o">.</span><span class="n">get_rho</span>
 
 
 <div class="viewcode-block" id="KUHF"><a class="viewcode-back" href="../../../../pbc/scf.html#pyscf.pbc.scf.kuhf.KUHF">[docs]</a><span class="k">class</span> <span class="nc">KUHF</span><span class="p">(</span><span class="n">pbcuhf</span><span class="o">.</span><span class="n">UHF</span><span class="p">,</span> <span class="n">khf</span><span class="o">.</span><span class="n">KSCF</span><span class="p">):</span>
@@ -562,8 +563,8 @@
     <span class="k">def</span> <span class="nf">nelec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_nelec</span> <span class="o">=</span> <span class="n">x</span>
 
-    <span class="k">def</span> <span class="nf">dump_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">khf</span><span class="o">.</span><span class="n">KSCF</span><span class="o">.</span><span class="n">dump_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">dump_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">khf</span><span class="o">.</span><span class="n">KSCF</span><span class="o">.</span><span class="n">dump_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;number of electrons per unit cell  &#39;</span>
                     <span class="s1">&#39;alpha = </span><span class="si">%d</span><span class="s1"> beta = </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">nelec</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
@@ -575,14 +576,15 @@
         <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span>
         <span class="n">dm_kpts</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;1e&#39;</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;1e&#39;</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;hcore&#39;</span><span class="p">:</span>
             <span class="n">dm_kpts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_guess_by_1e</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="s1">&#39;natm&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;No atom found in cell. Use 1e initial guess&#39;</span><span class="p">)</span>
             <span class="n">dm_kpts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_guess_by_1e</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">key</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;atom&#39;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;atom&#39;</span><span class="p">:</span>
             <span class="n">dm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_guess_by_atom</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">key</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;chk&#39;</span><span class="p">):</span>
+        <span class="k">elif</span> <span class="n">key</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;chk&#39;</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">dm_kpts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_chk</span><span class="p">()</span>
             <span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
@@ -595,26 +597,25 @@
         <span class="k">if</span> <span class="n">dm_kpts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">nao</span> <span class="o">=</span> <span class="n">dm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">nkpts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kpts</span><span class="p">)</span>
-            <span class="n">dm_kpts</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">dm</span><span class="p">]</span><span class="o">*</span><span class="n">nkpts</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">nkpts</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">nao</span><span class="p">,</span><span class="n">nao</span><span class="p">)</span>
-            <span class="n">dm_kpts</span> <span class="o">=</span> <span class="n">dm_kpts</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+            <span class="c1"># dm[spin,nao,nao] at gamma point -&gt; dm_kpts[spin,nkpts,nao,nao]</span>
+            <span class="n">dm_kpts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">dm</span><span class="p">[:,</span><span class="kc">None</span><span class="p">,:,:],</span> <span class="n">nkpts</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="n">dm_kpts</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">*=</span> <span class="mf">1.01</span>
-            <span class="n">dm_kpts</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">*=</span> <span class="mf">0.99</span>  <span class="c1"># To break spin symmetry</span>
+            <span class="n">dm_kpts</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">*=</span> <span class="mf">0.99</span>  <span class="c1"># To slightly break spin symmetry</span>
             <span class="k">assert</span> <span class="n">dm_kpts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span>
 
-        <span class="k">if</span> <span class="n">cell</span><span class="o">.</span><span class="n">dimension</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="n">ne</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;xkij,kji-&gt;xk&#39;</span><span class="p">,</span> <span class="n">dm_kpts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ovlp</span><span class="p">(</span><span class="n">cell</span><span class="p">))</span><span class="o">.</span><span class="n">real</span>
-            <span class="c1"># FIXME: consider the fractional num_electron or not? This maybe</span>
-            <span class="c1"># relates to the charged system.</span>
-            <span class="n">nkpts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kpts</span><span class="p">)</span>
-            <span class="n">nelec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nelec</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">nkpts</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">ne</span> <span class="o">-</span> <span class="n">nelec</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-7</span><span class="p">):</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Big error detected in the electron number &#39;</span>
-                            <span class="s1">&#39;of initial guess density matrix (Ne/cell = </span><span class="si">%g</span><span class="s1">)!</span><span class="se">\n</span><span class="s1">&#39;</span>
-                            <span class="s1">&#39;  This can cause huge error in Fock matrix and &#39;</span>
-                            <span class="s1">&#39;lead to instability in SCF for low-dimensional &#39;</span>
-                            <span class="s1">&#39;systems.</span><span class="se">\n</span><span class="s1">  DM is normalized to correct number &#39;</span>
-                            <span class="s1">&#39;of electrons&#39;</span><span class="p">,</span> <span class="n">ne</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
-                <span class="n">dm_kpts</span> <span class="o">*=</span> <span class="p">(</span><span class="n">nelec</span><span class="o">/</span><span class="n">ne</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ne</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;xkij,kji-&gt;x&#39;</span><span class="p">,</span> <span class="n">dm_kpts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ovlp</span><span class="p">(</span><span class="n">cell</span><span class="p">))</span><span class="o">.</span><span class="n">real</span>
+        <span class="c1"># FIXME: consider the fractional num_electron or not? This maybe</span>
+        <span class="c1"># relates to the charged system.</span>
+        <span class="n">nkpts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kpts</span><span class="p">)</span>
+        <span class="n">nelec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nelec</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">ne</span> <span class="o">-</span> <span class="n">nelec</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-7</span><span class="o">*</span><span class="n">nkpts</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Big error detected in the electron number &#39;</span>
+                        <span class="s1">&#39;of initial guess density matrix (Ne/cell = </span><span class="si">%g</span><span class="s1">)!</span><span class="se">\n</span><span class="s1">&#39;</span>
+                        <span class="s1">&#39;  This can cause huge error in Fock matrix and &#39;</span>
+                        <span class="s1">&#39;lead to instability in SCF for low-dimensional &#39;</span>
+                        <span class="s1">&#39;systems.</span><span class="se">\n</span><span class="s1">  DM is normalized wrt the number &#39;</span>
+                        <span class="s1">&#39;of electrons </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">ne</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">/</span><span class="n">nkpts</span><span class="p">,</span> <span class="n">nelec</span><span class="o">/</span><span class="n">nkpts</span><span class="p">)</span>
+            <span class="n">dm_kpts</span> <span class="o">*=</span> <span class="p">(</span><span class="n">nelec</span> <span class="o">/</span> <span class="n">ne</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">dm_kpts</span>
 
     <span class="n">get_hcore</span> <span class="o">=</span> <span class="n">khf</span><span class="o">.</span><span class="n">KSCF</span><span class="o">.</span><span class="n">get_hcore</span>
@@ -626,6 +627,8 @@
     <span class="n">get_fermi</span> <span class="o">=</span> <span class="n">get_fermi</span>
     <span class="n">get_occ</span> <span class="o">=</span> <span class="n">get_occ</span>
     <span class="n">energy_elec</span> <span class="o">=</span> <span class="n">energy_elec</span>
+
+    <span class="n">get_rho</span> <span class="o">=</span> <span class="n">khf</span><span class="o">.</span><span class="n">KSCF</span><span class="o">.</span><span class="n">get_rho</span>
 
     <span class="k">def</span> <span class="nf">get_veff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dm_kpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dm_last</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vhf_last</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hermi</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                  <span class="n">kpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kpts_band</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -701,21 +704,23 @@
         <span class="k">if</span> <span class="n">kpts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">kpts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span>
         <span class="k">return</span> <span class="n">init_guess_by_chkfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="p">,</span> <span class="n">chk</span><span class="p">,</span> <span class="n">project</span><span class="p">,</span> <span class="n">kpts</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">mulliken_meta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">logger</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
+    <span class="nd">@lib</span><span class="o">.</span><span class="n">with_doc</span><span class="p">(</span><span class="n">mulliken_meta</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+<div class="viewcode-block" id="KUHF.mulliken_meta"><a class="viewcode-back" href="../../../../pbc/scf.html#pyscf.pbc.scf.kuhf.KUHF.mulliken_meta">[docs]</a>    <span class="k">def</span> <span class="nf">mulliken_meta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">logger</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
                       <span class="n">pre_orth_method</span><span class="o">=</span><span class="n">PRE_ORTH_METHOD</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span>
         <span class="k">if</span> <span class="n">dm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">dm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_rdm1</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ovlp</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">mulliken_meta</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">dm</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-                             <span class="n">pre_orth_method</span><span class="o">=</span><span class="n">pre_orth_method</span><span class="p">)</span>
+                             <span class="n">pre_orth_method</span><span class="o">=</span><span class="n">pre_orth_method</span><span class="p">)</span></div>
 
-    <span class="n">get_rho</span> <span class="o">=</span> <span class="n">get_rho</span>
+    <span class="k">def</span> <span class="nf">mulliken_pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="nd">@lib</span><span class="o">.</span><span class="n">with_doc</span><span class="p">(</span><span class="n">dip_moment</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
 <div class="viewcode-block" id="KUHF.dip_moment"><a class="viewcode-back" href="../../../../pbc/scf.html#pyscf.pbc.scf.kuhf.KUHF.dip_moment">[docs]</a>    <span class="k">def</span> <span class="nf">dip_moment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;Debye&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">logger</span><span class="o">.</span><span class="n">NOTE</span><span class="p">,</span>
                    <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">dm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">dm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_rdm1</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span>
+        <span class="k">if</span> <span class="n">dm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">dm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_rdm1</span><span class="p">()</span>
         <span class="n">rho</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;rho&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">rho</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">rho</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_rho</span><span class="p">(</span><span class="n">dm</span><span class="p">)</span>
@@ -823,7 +828,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

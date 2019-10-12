@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>18. tools &mdash; PySCF 1.5.0 documentation</title>
+  <title>18. tools &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
         <link rel="next" title="19. grad — Analytical nuclear gradients" href="grad.html"/>
         <link rel="prev" title="17. fciqmcscf" href="fciqmcscf.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -191,6 +191,7 @@
 <span id="tools"></span><h1>18. tools<a class="headerlink" href="#module-pyscf.tools" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-pyscf.tools.fcidump">
 <span id="fcidump"></span><h2>18.1. FCIDUMP<a class="headerlink" href="#module-pyscf.tools.fcidump" title="Permalink to this headline">¶</a></h2>
+<p>FCIDUMP functions (write, read) for real Hamiltonian</p>
 <dl class="function">
 <dt id="pyscf.tools.fcidump.from_chkfile">
 <code class="descclassname">pyscf.tools.fcidump.</code><code class="descname">from_chkfile</code><span class="sig-paren">(</span><em>filename</em>, <em>chkfile</em>, <em>tol=1e-15</em>, <em>float_format=' %.16g'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tools/fcidump.html#from_chkfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tools.fcidump.from_chkfile" title="Permalink to this definition">¶</a></dt>
@@ -297,7 +298,7 @@ AtomN ZN x y z          # ...
 Data on grids           # (N1*N2) lines of records, each line has N3 elements</p>
 <dl class="class">
 <dt id="pyscf.tools.cubegen.Cube">
-<em class="property">class </em><code class="descclassname">pyscf.tools.cubegen.</code><code class="descname">Cube</code><span class="sig-paren">(</span><em>mol</em>, <em>nx=80</em>, <em>ny=80</em>, <em>nz=80</em>, <em>resolution=None</em>, <em>margin=3.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tools/cubegen.html#Cube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tools.cubegen.Cube" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyscf.tools.cubegen.</code><code class="descname">Cube</code><span class="sig-paren">(</span><em>mol</em>, <em>nx=80</em>, <em>ny=80</em>, <em>nz=80</em>, <em>resolution=None</em>, <em>margin=3.0</em>, <em>origin=None</em>, <em>extent=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tools/cubegen.html#Cube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tools.cubegen.Cube" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read-write of the Gaussian CUBE files</p>
 <dl class="method">
 <dt id="pyscf.tools.cubegen.Cube.get_coords">
@@ -335,11 +336,16 @@ in the file.</p>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of grid point divisions in x direction.
 Note this is function of the molecule&#8217;s size; a larger molecule
 will have a coarser representation than a smaller one for the
-same value.</dd>
+same value. Conflicts to keyword resolution.</dd>
 <dt>ny</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of grid point divisions in y direction.</dd>
 <dt>nz</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of grid point divisions in z direction.</dd>
+<dt>resolution: float</dt>
+<dd>Resolution of the mesh grid in the cube box. If resolution is
+given in the input, the input nx/ny/nz have no effects.  The value
+of nx/ny/nz will be determined by the resolution and the cube box
+size.</dd>
 </dl>
 </dd>
 </dl>
@@ -367,11 +373,16 @@ cube format.</p>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of grid point divisions in x direction.
 Note this is function of the molecule&#8217;s size; a larger molecule
 will have a coarser representation than a smaller one for the
-same value.</dd>
+same value. Conflicts to keyword resolution.</dd>
 <dt>ny</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of grid point divisions in y direction.</dd>
 <dt>nz</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of grid point divisions in z direction.</dd>
+<dt>resolution: float</dt>
+<dd>Resolution of the mesh grid in the cube box. If resolution is
+given in the input, the input nx/ny/nz have no effects.  The value
+of nx/ny/nz will be determined by the resolution and the cube box
+size.</dd>
 </dl>
 </dd>
 </dl>
@@ -398,11 +409,16 @@ same value.</dd>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of grid point divisions in x direction.
 Note this is function of the molecule&#8217;s size; a larger molecule
 will have a coarser representation than a smaller one for the
-same value.</dd>
+same value. Conflicts to keyword resolution.</dd>
 <dt>ny</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of grid point divisions in y direction.</dd>
 <dt>nz</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of grid point divisions in z direction.</dd>
+<dt>resolution: float</dt>
+<dd>Resolution of the mesh grid in the cube box. If resolution is
+given in the input, the input nx/ny/nz have no effects.  The value
+of nx/ny/nz will be determined by the resolution and the cube box
+size.</dd>
 </dl>
 </dd>
 </dl>
@@ -606,7 +622,7 @@ mol.stdout if mol is an object initialized from <code class="xref py py-class do
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

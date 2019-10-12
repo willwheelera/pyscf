@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>7. ao2mo — Integral transformations &mdash; PySCF 1.5.0 documentation</title>
+  <title>7. ao2mo — Integral transformations &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
         <link rel="next" title="8. mcscf — Multi-configurational self-consistent field" href="mcscf.html"/>
         <link rel="prev" title="6. scf — Mean-field methods" href="scf.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -420,7 +420,7 @@ and return the &#8220;plain&#8221; MO integrals</dd>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">ao2mo</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">h5py</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="n">h5file</span><span class="p">,</span> <span class="n">dataname</span><span class="o">=</span><span class="s1">&#39;eri_mo&#39;</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">f5</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">h5file</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">f5</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">h5file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;dataset </span><span class="si">%s</span><span class="s1">, shape </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">f5</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="nb">str</span><span class="p">(</span><span class="n">f5</span><span class="p">[</span><span class="n">dataname</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)))</span>
 <span class="gp">... </span>    <span class="n">f5</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;O 0 0 0; H 0 1 0; H 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;sto3g&#39;</span><span class="p">)</span>
@@ -593,7 +593,7 @@ and return the &#8220;plain&#8221; MO integrals</dd>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">ao2mo</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">h5py</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="n">h5file</span><span class="p">,</span> <span class="n">dataname</span><span class="o">=</span><span class="s1">&#39;eri_mo&#39;</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">f5</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">h5file</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">f5</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">h5file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;dataset </span><span class="si">%s</span><span class="s1">, shape </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">f5</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="nb">str</span><span class="p">(</span><span class="n">f5</span><span class="p">[</span><span class="n">dataname</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)))</span>
 <span class="gp">... </span>    <span class="n">f5</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;O 0 0 0; H 0 1 0; H 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;sto3g&#39;</span><span class="p">)</span>
@@ -684,7 +684,7 @@ have 4-fold symmetry.</dd>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">ao2mo</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">h5py</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="n">h5file</span><span class="p">,</span> <span class="n">dataname</span><span class="o">=</span><span class="s1">&#39;eri_mo&#39;</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">f5</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">h5file</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">f5</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">h5file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;dataset </span><span class="si">%s</span><span class="s1">, shape </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">f5</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="nb">str</span><span class="p">(</span><span class="n">f5</span><span class="p">[</span><span class="n">dataname</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)))</span>
 <span class="gp">... </span>    <span class="n">f5</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;O 0 0 0; H 0 1 0; H 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;sto3g&#39;</span><span class="p">)</span>
@@ -891,7 +891,7 @@ while (ij|kl) != (kl|ij) is not required.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

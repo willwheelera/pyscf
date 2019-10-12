@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyscf.fci.rdm &mdash; PySCF 1.5.0 documentation</title>
+  <title>pyscf.fci.rdm &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -210,6 +210,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">lib</span>
 <span class="kn">from</span> <span class="nn">pyscf.fci</span> <span class="k">import</span> <span class="n">cistring</span>
+<span class="kn">from</span> <span class="nn">pyscf.fci.addons</span> <span class="k">import</span> <span class="n">_unpack_nelec</span>
 
 <span class="n">librdm</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">load_library</span><span class="p">(</span><span class="s1">&#39;libfci&#39;</span><span class="p">)</span>
 
@@ -537,17 +538,6 @@
                 <span class="n">rdm4</span><span class="p">[:,</span><span class="n">q</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="n">u</span><span class="p">,:]</span> <span class="o">-=</span> <span class="n">rdm1</span><span class="o">.</span><span class="n">T</span>
     <span class="k">return</span> <span class="n">rdm1</span><span class="p">,</span> <span class="n">rdm2</span><span class="p">,</span> <span class="n">rdm3</span><span class="p">,</span> <span class="n">rdm4</span>
 
-<span class="k">def</span> <span class="nf">_unpack_nelec</span><span class="p">(</span><span class="n">nelec</span><span class="p">,</span> <span class="n">spin</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">spin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">spin</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">nelec</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">nelec</span><span class="p">))</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nelec</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">number</span><span class="p">)):</span>
-        <span class="n">nelecb</span> <span class="o">=</span> <span class="p">(</span><span class="n">nelec</span><span class="o">-</span><span class="n">spin</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span>
-        <span class="n">neleca</span> <span class="o">=</span> <span class="n">nelec</span> <span class="o">-</span> <span class="n">nelecb</span>
-        <span class="n">nelec</span> <span class="o">=</span> <span class="n">neleca</span><span class="p">,</span> <span class="n">nelecb</span>
-    <span class="k">return</span> <span class="n">nelec</span>
-
 </pre></div>
 
            </div>
@@ -584,7 +574,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

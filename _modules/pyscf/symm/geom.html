@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyscf.symm.geom &mdash; PySCF 1.5.0 documentation</title>
+  <title>pyscf.symm.geom &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -181,7 +181,7 @@
             
   <h1>Source code for pyscf.symm.geom</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="c1"># Copyright 2014-2018 The PySCF Developers. All Rights Reserved.</span>
+<span class="c1"># Copyright 2014-2019 The PySCF Developers. All Rights Reserved.</span>
 <span class="c1">#</span>
 <span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
 <span class="c1"># you may not use this file except in compliance with the License.</span>
@@ -208,7 +208,7 @@
 <span class="c1"># type of cartesian functions.  Based on the degeneracy of cartesian function</span>
 <span class="c1"># basis, one can quickly filter out a few candidates of point groups for the</span>
 <span class="c1"># given molecule.  Regular operations (rotation, mirror etc) can be applied</span>
-<span class="c1"># next to identify the symmetry.  Current implementation only checks the</span>
+<span class="c1"># then to identify the symmetry.  Current implementation only checks the</span>
 <span class="c1"># rotation functions and it&#39;s roughly enough for D2h and subgroups.</span>
 <span class="c1"># </span>
 <span class="c1"># There are special cases this detection method may break down, eg two H8 cube</span>
@@ -312,20 +312,24 @@
     <span class="n">w1</span><span class="p">,</span> <span class="n">u1</span> <span class="o">=</span> <span class="n">rawsys</span><span class="o">.</span><span class="n">cartesian_tensor</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">axes</span> <span class="o">=</span> <span class="n">u1</span><span class="o">.</span><span class="n">T</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;principal inertia moments </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">w1</span><span class="p">)</span>
+    <span class="n">charge_center</span> <span class="o">=</span> <span class="n">rawsys</span><span class="o">.</span><span class="n">charge_center</span>
 
     <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">tol</span><span class="p">):</span>
         <span class="n">gpname</span> <span class="o">=</span> <span class="s1">&#39;SO3&#39;</span>
-        <span class="k">return</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">rawsys</span><span class="o">.</span><span class="n">charge_center</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">charge_center</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 
     <span class="k">elif</span> <span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">w1</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">tol</span><span class="p">):</span> <span class="c1"># linear molecule</span>
         <span class="k">if</span> <span class="n">rawsys</span><span class="o">.</span><span class="n">has_icenter</span><span class="p">():</span>
             <span class="n">gpname</span> <span class="o">=</span> <span class="s1">&#39;Dooh&#39;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">gpname</span> <span class="o">=</span> <span class="s1">&#39;Coov&#39;</span>
-        <span class="k">return</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">rawsys</span><span class="o">.</span><span class="n">charge_center</span><span class="p">,</span> <span class="n">axes</span>
+        <span class="k">return</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">charge_center</span><span class="p">,</span> <span class="n">axes</span>
 
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">w1_degeneracy</span> <span class="o">=</span> <span class="n">_degeneracy</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span> <span class="n">decimals</span><span class="p">)</span>
+        <span class="n">w1_degeneracy</span><span class="p">,</span> <span class="n">w1_degen_values</span> <span class="o">=</span> <span class="n">_degeneracy</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span> <span class="n">decimals</span><span class="p">)</span>
+        <span class="n">w2</span><span class="p">,</span> <span class="n">u2</span> <span class="o">=</span> <span class="n">rawsys</span><span class="o">.</span><span class="n">cartesian_tensor</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">w2_degeneracy</span><span class="p">,</span> <span class="n">w2_degen_values</span> <span class="o">=</span> <span class="n">_degeneracy</span><span class="p">(</span><span class="n">w2</span><span class="p">,</span> <span class="n">decimals</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;2d tensor </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">w2</span><span class="p">)</span>
 
         <span class="n">n</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">c2x</span> <span class="o">=</span> <span class="kc">None</span>
@@ -333,25 +337,23 @@
         <span class="k">if</span> <span class="mi">3</span> <span class="ow">in</span> <span class="n">w1_degeneracy</span><span class="p">:</span> <span class="c1"># T, O, I</span>
             <span class="c1"># Because rotation vectors Rx Ry Rz are 3-degenerated representation</span>
             <span class="c1"># See http://www.webqc.org/symmetrypointgroup-td.html</span>
-            <span class="n">w2</span><span class="p">,</span> <span class="n">u2</span> <span class="o">=</span> <span class="n">rawsys</span><span class="o">.</span><span class="n">cartesian_tensor</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-            <span class="n">w3</span><span class="p">,</span> <span class="n">u3</span> <span class="o">=</span> <span class="n">rawsys</span><span class="o">.</span><span class="n">cartesian_tensor</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-            <span class="n">w2_degeneracy</span> <span class="o">=</span> <span class="n">_degeneracy</span><span class="p">(</span><span class="n">w2</span><span class="p">,</span> <span class="n">decimals</span><span class="p">)</span>
-            <span class="n">w3_degeneracy</span> <span class="o">=</span> <span class="n">_degeneracy</span><span class="p">(</span><span class="n">w3</span><span class="p">,</span> <span class="n">decimals</span><span class="p">)</span>
 
-            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;2d tensor </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">w2</span><span class="p">)</span>
+            <span class="n">w3</span><span class="p">,</span> <span class="n">u3</span> <span class="o">=</span> <span class="n">rawsys</span><span class="o">.</span><span class="n">cartesian_tensor</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">w3_degeneracy</span><span class="p">,</span> <span class="n">w3_degen_values</span> <span class="o">=</span> <span class="n">_degeneracy</span><span class="p">(</span><span class="n">w3</span><span class="p">,</span> <span class="n">decimals</span><span class="p">)</span>
             <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;3d tensor </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">w3</span><span class="p">)</span>
             <span class="k">if</span> <span class="p">(</span><span class="mi">5</span> <span class="ow">in</span> <span class="n">w2_degeneracy</span> <span class="ow">and</span>
                 <span class="mi">4</span> <span class="ow">in</span> <span class="n">w3_degeneracy</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">w3_degeneracy</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">):</span>  <span class="c1"># I group</span>
                 <span class="n">gpname</span><span class="p">,</span> <span class="n">new_axes</span> <span class="o">=</span> <span class="n">_search_i_group</span><span class="p">(</span><span class="n">rawsys</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">gpname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">rawsys</span><span class="o">.</span><span class="n">charge_center</span><span class="p">,</span> <span class="n">_refine</span><span class="p">(</span><span class="n">new_axes</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">charge_center</span><span class="p">,</span> <span class="n">_refine</span><span class="p">(</span><span class="n">new_axes</span><span class="p">)</span>
 
             <span class="k">elif</span> <span class="mi">3</span> <span class="ow">in</span> <span class="n">w2_degeneracy</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">w2_degeneracy</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">:</span>  <span class="c1"># T/O group</span>
                 <span class="n">gpname</span><span class="p">,</span> <span class="n">new_axes</span> <span class="o">=</span> <span class="n">_search_ot_group</span><span class="p">(</span><span class="n">rawsys</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">gpname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">rawsys</span><span class="o">.</span><span class="n">charge_center</span><span class="p">,</span> <span class="n">_refine</span><span class="p">(</span><span class="n">new_axes</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">charge_center</span><span class="p">,</span> <span class="n">_refine</span><span class="p">(</span><span class="n">new_axes</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="mi">2</span> <span class="ow">in</span> <span class="n">w1_degeneracy</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="mi">2</span> <span class="ow">in</span> <span class="n">w1_degeneracy</span> <span class="ow">and</span>
+              <span class="n">numpy</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">w2_degeneracy</span><span class="p">[</span><span class="n">w2_degen_values</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)):</span>
             <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">w1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">w1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">atol</span><span class="o">=</span><span class="n">tol</span><span class="p">):</span>
                 <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]]</span>
             <span class="n">n</span> <span class="o">=</span> <span class="n">rawsys</span><span class="o">.</span><span class="n">search_c_highest</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span>
@@ -407,7 +409,7 @@
                 <span class="n">gpname</span> <span class="o">=</span> <span class="s1">&#39;S</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">gpname</span> <span class="o">=</span> <span class="s1">&#39;C</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">n</span>
-            <span class="k">return</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">rawsys</span><span class="o">.</span><span class="n">charge_center</span><span class="p">,</span> <span class="n">_refine</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">charge_center</span><span class="p">,</span> <span class="n">_refine</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="n">is_c2x</span> <span class="o">=</span> <span class="n">rawsys</span><span class="o">.</span><span class="n">has_rotation</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
@@ -444,7 +446,9 @@
                     <span class="n">gpname</span> <span class="o">=</span> <span class="s1">&#39;Cs&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">gpname</span> <span class="o">=</span> <span class="s1">&#39;C1&#39;</span>
-    <span class="k">return</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">rawsys</span><span class="o">.</span><span class="n">charge_center</span><span class="p">,</span> <span class="n">axes</span></div>
+                    <span class="n">axes</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+                    <span class="n">charge_center</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">charge_center</span><span class="p">,</span> <span class="n">axes</span></div>
 
 
 <span class="c1"># reduce to D2h and its subgroups</span>
@@ -938,8 +942,8 @@
 <span class="k">def</span> <span class="nf">_degeneracy</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">decimals</span><span class="p">):</span>
     <span class="n">e</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">decimals</span><span class="p">)</span>
     <span class="n">u</span><span class="p">,</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">degen</span> <span class="o">=</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">idx</span><span class="o">==</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">u</span><span class="p">))]</span>
-    <span class="k">return</span> <span class="n">degen</span>
+    <span class="n">degen</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">numpy</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">idx</span><span class="o">==</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">u</span><span class="p">))])</span>
+    <span class="k">return</span> <span class="n">degen</span><span class="p">,</span> <span class="n">u</span>
 
 <span class="k">def</span> <span class="nf">_pseudo_vectors</span><span class="p">(</span><span class="n">vs</span><span class="p">):</span>
     <span class="n">idy0</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">vs</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span><span class="o">&lt;</span><span class="n">TOLERANCE</span>
@@ -1044,7 +1048,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

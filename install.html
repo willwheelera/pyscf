@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>3. Installation &mdash; PySCF 1.5.0 documentation</title>
+  <title>3. Installation &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
         <link rel="next" title="4. gto — Molecular structure and GTO basis" href="gto.html"/>
         <link rel="prev" title="2. Tutorial" href="tutorial.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -472,13 +472,13 @@ Barbry and Peter Koval.  You can enable this module with a cmake flag:</p>
 <div class="section" id="dmrg-solver">
 <h3>3.9.2. DMRG solver<a class="headerlink" href="#dmrg-solver" title="Permalink to this headline">¶</a></h3>
 <p>Density matrix renormalization group (DMRG) implementations Block
-(<a class="reference external" href="http://chemists.princeton.edu/chan/software/block-code-for-dmrg">http://chemists.princeton.edu/chan/software/block-code-for-dmrg</a>) and
+(<a class="reference external" href="https://sanshar.github.io/Block">https://sanshar.github.io/Block</a>) and
 CheMPS2 (<a class="reference external" href="http://sebwouters.github.io/CheMPS2/index.html">http://sebwouters.github.io/CheMPS2/index.html</a>)
 are efficient DMRG solvers for ab initio quantum chemistry problem.
-<a class="reference external" href="http://sanshar.github.io/Block/build.html">Installing Block</a> requires
+<a class="reference external" href="https://sanshar.github.io/Block/build.html">Installing Block</a> requires
 C++11 compiler.  If C++11 is not supported by your compiler, you can
 register and download the precompiled Block binary from
-<a class="reference external" href="http://chemists.princeton.edu/chan/software/block-code-for-dmrg">http://chemists.princeton.edu/chan/software/block-code-for-dmrg</a>.
+<a class="reference external" href="https://sanshar.github.io/Block/build.html">https://sanshar.github.io/Block/build.html</a>.
 Before using the Block or CheMPS2, you need create a configuration file
 <code class="docutils literal"><span class="pre">pyscf/dmrgscf/settings.py</span></code>  (as shown by settings.py.example) to store
 the path where the DMRG solver was installed.</p>
@@ -516,7 +516,7 @@ functionals.</p>
 <h3>3.9.7. TBLIS<a class="headerlink" href="#tblis" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://github.com/devinamatthews/tblis">TBLIS</a> provides a native algorithm
 to perform tensor contraction for arbitrary high dimensional tensors. The native
-algorithm does not need to translate the tensors into matrices and call the BLAS
+algorithm does not need to transform tensors into matrices then call the BLAS
 libraries for the matrix contraction.  Tensor transposing and data moving are
 largely avoided in TBLIS tensor library.  The interface to TBLIS offers an
 efficient implementation for <code class="xref py py-func docutils literal"><span class="pre">numpy.einsum()</span></code> style tensor contraction.
@@ -595,7 +595,7 @@ is the main developer of XianCI program.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

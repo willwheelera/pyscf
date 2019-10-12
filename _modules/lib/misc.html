@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lib.misc &mdash; PySCF 1.5.0 documentation</title>
+  <title>lib.misc &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="../../index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -214,6 +214,13 @@
 <span class="kn">import</span> <span class="nn">ctypes</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="k">import</span> <span class="n">Thread</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="k">import</span> <span class="n">Queue</span><span class="p">,</span> <span class="n">Process</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="k">import</span> <span class="n">ThreadPoolExecutor</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">ThreadPoolExecutor</span> <span class="o">=</span> <span class="kc">None</span>
+
 <span class="kn">from</span> <span class="nn">pyscf.lib</span> <span class="k">import</span> <span class="n">param</span>
 <span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">__config__</span>
 
@@ -221,6 +228,8 @@
     <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;h5py-</span><span class="si">%s</span><span class="s1"> is found in your environment. &#39;</span>
                      <span class="s1">&#39;h5py-</span><span class="si">%s</span><span class="s1"> has bug in threading mode.</span><span class="se">\n</span><span class="s1">&#39;</span>
                      <span class="s1">&#39;Async-IO is disabled.</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">((</span><span class="n">h5py</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">version</span><span class="p">,)</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">h5py</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">version</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;3.&#39;</span><span class="p">:</span>
+    <span class="n">h5py</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span><span class="o">.</span><span class="n">default_file_mode</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span>
 
 <span class="n">c_double_p</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">)</span>
 <span class="n">c_int_p</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">)</span>
@@ -263,6 +272,11 @@
 <span class="k">def</span> <span class="nf">num_threads</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Set the number of OMP threads.  If argument is not specified, the</span>
 <span class="sd">    function will return the total number of available OMP threads.</span>
+
+<span class="sd">    It&#39;s recommended to call this function to set OMP threads than</span>
+<span class="sd">    &quot;os.environ[&#39;OMP_NUM_THREADS&#39;] = int(n)&quot;. This is because environment</span>
+<span class="sd">    variables like OMP_NUM_THREADS were read when a module was imported. They</span>
+<span class="sd">    cannot be reset through os.environ after the module was loaded.</span>
 
 <span class="sd">    Examples:</span>
 
@@ -523,7 +537,7 @@
 
 <span class="sd">    &gt;&gt;&gt; import os</span>
 <span class="sd">    &gt;&gt;&gt; from pyscf import lib</span>
-<span class="sd">    &gt;&gt;&gt; with lib.capture_stdout as out:</span>
+<span class="sd">    &gt;&gt;&gt; with lib.capture_stdout() as out:</span>
 <span class="sd">    ...     os.system(&#39;ls&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; print(out.read())</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -655,7 +669,7 @@
 <span class="sd">        method set is the object itself.  This allows a series of</span>
 <span class="sd">        functions/methods to be executed in pipe.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="c1">#if hasattr(self, &#39;_keys&#39;):</span>
+        <span class="c1">#if getattr(self, &#39;_keys&#39;, None):</span>
         <span class="c1">#    for k,v in kwargs.items():</span>
         <span class="c1">#        setattr(self, k, v)</span>
         <span class="c1">#        if k not in self._keys:</span>
@@ -665,6 +679,9 @@
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1"># An alias to .set method</span>
+    <span class="fm">__call__</span> <span class="o">=</span> <span class="nb">set</span>
 
     <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -687,7 +704,7 @@
 <span class="sd">        of functions/methods to be executed in pipe.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span>  <span class="c1"># logger.QUIET</span>
-            <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_keys&#39;</span><span class="p">)):</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_keys&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)):</span>
             <span class="n">check_sanity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
@@ -756,13 +773,14 @@
 <span class="sd">    overloaded in the child class. Using &quot;alias&quot; can make sure that the</span>
 <span class="sd">    overloaded mehods were called when calling the aliased method.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="nf">aliased_fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="k">def</span> <span class="nf">aliased_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">alias_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">aliased_fn</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">alias_name</span>
 
-    <span class="n">doc_str</span> <span class="o">=</span> <span class="s1">&#39;An alias to method </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="n">doc_str</span> <span class="o">=</span> <span class="s1">&#39;An alias to method </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fname</span>
     <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
         <span class="kn">from</span> <span class="nn">inspect</span> <span class="k">import</span> <span class="n">signature</span>
         <span class="n">sig</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">signature</span><span class="p">(</span><span class="n">fn</span><span class="p">))</span>
@@ -777,6 +795,21 @@
 
     <span class="n">aliased_fn</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">doc_str</span>
     <span class="k">return</span> <span class="n">aliased_fn</span>
+
+<span class="k">def</span> <span class="nf">class_as_method</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    The statement &quot;fn1 = alias(Class)&quot; is equivalent to:</span>
+
+<span class="sd">    .. code-block:: python</span>
+<span class="sd">        def fn1(self, *args, **kwargs):</span>
+<span class="sd">            return Class(self, *args, **kwargs)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">fn</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__doc__</span>
+    <span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="n">fn</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__module__</span>
+    <span class="k">return</span> <span class="n">fn</span>
 
 <span class="k">def</span> <span class="nf">import_as_method</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">default_keys</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
@@ -855,8 +888,6 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">threading</span> <span class="k">import</span> <span class="n">Thread</span>
-<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="k">import</span> <span class="n">Queue</span><span class="p">,</span> <span class="n">Process</span>
 <span class="k">class</span> <span class="nc">ProcessWithReturnValue</span><span class="p">(</span><span class="n">Process</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span>
                  <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -870,10 +901,10 @@
                 <span class="k">raise</span> <span class="n">e</span>
         <span class="n">Process</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">qwrap</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Process</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ProcessRuntimeError</span><span class="p">(</span><span class="s1">&#39;Error on process </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ProcessRuntimeError</span><span class="p">(</span><span class="s1">&#39;Error on process </span><span class="si">%s</span><span class="s1">:</span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">Process</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
     <span class="n">get</span> <span class="o">=</span> <span class="n">join</span>
 
@@ -893,10 +924,10 @@
                 <span class="k">raise</span> <span class="n">e</span>
         <span class="n">Thread</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">qwrap</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Thread</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ThreadRuntimeError</span><span class="p">(</span><span class="s1">&#39;Error on thread </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ThreadRuntimeError</span><span class="p">(</span><span class="s1">&#39;Error on thread </span><span class="si">%s</span><span class="s1">:</span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">Thread</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 <span class="c1"># Note: If the return value of target is huge, Queue.get may raise</span>
 <span class="c1"># SystemError: NULL result without error in PyObject_Call</span>
 <span class="c1"># It is because return value is cached somewhere by pickle but pickle is</span>
@@ -916,10 +947,9 @@
                 <span class="k">raise</span> <span class="n">e</span>
         <span class="n">Thread</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">qwrap</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Thread</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ThreadRuntimeError</span><span class="p">(</span><span class="s1">&#39;Error on thread </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">Thread</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ThreadRuntimeError</span><span class="p">(</span><span class="s1">&#39;Error on thread </span><span class="si">%s</span><span class="s1">:</span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">))</span>
 
 <span class="k">class</span> <span class="nc">ThreadRuntimeError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
     <span class="k">pass</span>
@@ -965,7 +995,8 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">fns</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fns</span> <span class="o">=</span> <span class="n">fns</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fns</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sync</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sync&#39;</span><span class="p">,</span> <span class="ow">not</span> <span class="n">ASYNC_IO</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">h5py</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">version</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2.2.&#39;</span><span class="p">:</span> <span class="c1"># h5py-2.2.* has bug in threading mode</span>
@@ -978,6 +1009,10 @@
 
     <span class="k">else</span><span class="p">:</span>
         <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">fns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fns</span>
+            <span class="n">handlers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span>
+            <span class="n">ntasks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fns</span><span class="p">)</span>
+
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sync</span> <span class="ow">or</span> <span class="n">imp</span><span class="o">.</span><span class="n">lock_held</span><span class="p">():</span>
 <span class="c1"># Some modules like nosetests, coverage etc</span>
 <span class="c1">#   python -m unittest test_xxx.py  or  nosetests test_xxx.py</span>
@@ -986,29 +1021,52 @@
 <span class="c1"># https://github.com/paramiko/paramiko/issues/104</span>
 <span class="c1"># https://docs.python.org/2/library/threading.html#importing-in-threaded-code</span>
 <span class="c1"># Disable the asynchoronous mode for safe importing</span>
-                <span class="k">def</span> <span class="nf">def_async_fn</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
-                    <span class="k">return</span> <span class="n">fn</span>
+                <span class="k">def</span> <span class="nf">def_async_fn</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">fns</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># Enable back-ground mode</span>
-                <span class="k">def</span> <span class="nf">def_async_fn</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+            <span class="k">elif</span> <span class="n">ThreadPoolExecutor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># async mode, old python</span>
+                <span class="k">def</span> <span class="nf">def_async_fn</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
                     <span class="k">def</span> <span class="nf">async_fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">ThreadWithTraceBack</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">fn</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
-                                                           <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-                        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ThreadWithTraceBack</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">fns</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
+                                                               <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+                        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="k">return</span> <span class="n">async_fn</span>
+
+            <span class="k">else</span><span class="p">:</span> <span class="c1"># multiple executors in async mode, python 2.7.12 or newer</span>
+                <span class="n">executor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="n">ntasks</span><span class="p">)</span>
+                <span class="k">def</span> <span class="nf">def_async_fn</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+                    <span class="k">def</span> <span class="nf">async_fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="n">handlers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="k">try</span><span class="p">:</span>
+                                <span class="n">handlers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+                            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                                <span class="k">raise</span> <span class="n">ThreadRuntimeError</span><span class="p">(</span><span class="s1">&#39;Error on thread </span><span class="si">%s</span><span class="s1">:</span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span>
+                                                         <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+                        <span class="n">handlers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">fns</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="n">handlers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
                     <span class="k">return</span> <span class="n">async_fn</span>
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fns</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">def_async_fn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">return</span> <span class="n">def_async_fn</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="p">[</span><span class="n">def_async_fn</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fns</span><span class="p">]</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">def_async_fn</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ntasks</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">handler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">ThreadPoolExecutor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">handler</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">handler</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">ThreadRuntimeError</span><span class="p">(</span><span class="s1">&#39;Error on thread </span><span class="si">%s</span><span class="s1">:</span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">H5TmpFile</span><span class="p">(</span><span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">):</span>
@@ -1171,7 +1229,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

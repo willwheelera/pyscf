@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>21.2. pbc.scf — Mean-field with periodic boundary condition &mdash; PySCF 1.5.0 documentation</title>
+  <title>21.2. pbc.scf — Mean-field with periodic boundary condition &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="../index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="../index.html"/>
         <link rel="up" title="21. pbc — Periodic boundary conditions" href="../pbc.html"/>
         <link rel="next" title="21.3. pbc.dft" href="dft.html"/>
         <link rel="prev" title="21.1. pbc.gto — Crystal cell structure" href="gto.html"/> 
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -436,7 +436,7 @@ and J/K matrices are computed based on the 4-index integrals.</dd>
 <dl class="method">
 <dt id="pyscf.pbc.scf.hf.SCF.dip_moment">
 <code class="descname">dip_moment</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>unit='Debye'</em>, <em>verbose=3</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/hf.html#SCF.dip_moment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.hf.SCF.dip_moment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dipole moment in the unit cell.</p>
+<dd><p>Dipole moment in the unit cell (is it well defined)?</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><p class="first">cell : an instance of <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code></p>
@@ -465,7 +465,7 @@ and J/K matrices are computed based on the 4-index integrals.</dd>
 
 <dl class="method">
 <dt id="pyscf.pbc.scf.hf.SCF.get_j">
-<code class="descname">get_j</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>kpt=None</em>, <em>kpts_band=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/hf.html#SCF.get_j"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.hf.SCF.get_j" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_j</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>kpt=None</em>, <em>kpts_band=None</em>, <em>omega=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/hf.html#SCF.get_j"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.hf.SCF.get_j" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute J matrix for the given density matrix and k-point (kpt).
 When kpts_band is given, the J matrices on kpts_band are evaluated.</p>
 <blockquote>
@@ -476,7 +476,7 @@ if kpts_band is given otherwise p and q are orbitals on kpt.</p>
 
 <dl class="method">
 <dt id="pyscf.pbc.scf.hf.SCF.get_jk">
-<code class="descname">get_jk</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>kpt=None</em>, <em>kpts_band=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/hf.html#SCF.get_jk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.hf.SCF.get_jk" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_jk</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>kpt=None</em>, <em>kpts_band=None</em>, <em>with_j=True</em>, <em>with_k=True</em>, <em>omega=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/hf.html#SCF.get_jk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.hf.SCF.get_jk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get Coulomb (J) and exchange (K) following <code class="xref py py-func docutils literal"><span class="pre">scf.hf.RHF.get_jk_()</span></code>.
 for particular k-point (kpt).</p>
 <p>When kpts_band is given, the J, K matrices on kpts_band are evaluated.</p>
@@ -489,7 +489,7 @@ if kpts_band is given otherwise p and q are orbitals on kpt.</p>
 
 <dl class="method">
 <dt id="pyscf.pbc.scf.hf.SCF.get_jk_incore">
-<code class="descname">get_jk_incore</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>verbose=5</em>, <em>kpt=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/hf.html#SCF.get_jk_incore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.hf.SCF.get_jk_incore" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_jk_incore</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>kpt=None</em>, <em>omega=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/hf.html#SCF.get_jk_incore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.hf.SCF.get_jk_incore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get Coulomb (J) and exchange (K) following <code class="xref py py-func docutils literal"><span class="pre">scf.hf.RHF.get_jk_()</span></code>.</p>
 <p><em>Incore</em> version of Coulomb and exchange build only.
 Currently RHF always uses PBC AO integrals (unlike RKS), since
@@ -498,7 +498,7 @@ exchange is currently computed by building PBC AO integrals.</p>
 
 <dl class="method">
 <dt id="pyscf.pbc.scf.hf.SCF.get_k">
-<code class="descname">get_k</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>kpt=None</em>, <em>kpts_band=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/hf.html#SCF.get_k"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.hf.SCF.get_k" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_k</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>kpt=None</em>, <em>kpts_band=None</em>, <em>omega=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/hf.html#SCF.get_k"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.hf.SCF.get_k" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute K matrix for the given density matrix.</p>
 </dd></dl>
 
@@ -515,12 +515,30 @@ exchange is currently computed by building PBC AO integrals.</p>
 See <code class="xref py py-func docutils literal"><span class="pre">scf.hf.get_veff()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">scf.hf.RHF.get_veff()</span></code></p>
 </dd></dl>
 
+<dl class="method">
+<dt id="pyscf.pbc.scf.hf.SCF.to_ghf">
+<code class="descname">to_ghf</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/hf.html#SCF.to_ghf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.hf.SCF.to_ghf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the input mean-field object to a GHF/GKS object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.pbc.scf.hf.SCF.to_rhf">
+<code class="descname">to_rhf</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/hf.html#SCF.to_rhf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.hf.SCF.to_rhf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the input mean-field object to a RHF/ROHF/RKS/ROKS object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.pbc.scf.hf.SCF.to_uhf">
+<code class="descname">to_uhf</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/hf.html#SCF.to_uhf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.hf.SCF.to_uhf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the input mean-field object to a UHF/UKS object</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="function">
 <dt id="pyscf.pbc.scf.hf.dip_moment">
 <code class="descclassname">pyscf.pbc.scf.hf.</code><code class="descname">dip_moment</code><span class="sig-paren">(</span><em>cell</em>, <em>dm</em>, <em>unit='Debye'</em>, <em>verbose=3</em>, <em>grids=None</em>, <em>rho=None</em>, <em>kpt=array([ 0.</em>, <em>0.</em>, <em>0.])</em>, <em>origin=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/hf.html#dip_moment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.hf.dip_moment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dipole moment in the unit cell.</p>
+<dd><p>Dipole moment in the unit cell (is it well defined)?</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><p class="first">cell : an instance of <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code></p>
@@ -589,7 +607,7 @@ density matrix (both order and shape).</dd>
 
 <dl class="function">
 <dt id="pyscf.pbc.scf.hf.get_jk">
-<code class="descclassname">pyscf.pbc.scf.hf.</code><code class="descname">get_jk</code><span class="sig-paren">(</span><em>mf</em>, <em>cell</em>, <em>dm</em>, <em>hermi=1</em>, <em>vhfopt=None</em>, <em>kpt=array([ 0.</em>, <em>0.</em>, <em>0.])</em>, <em>kpts_band=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/hf.html#get_jk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.hf.get_jk" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyscf.pbc.scf.hf.</code><code class="descname">get_jk</code><span class="sig-paren">(</span><em>mf</em>, <em>cell</em>, <em>dm</em>, <em>hermi=1</em>, <em>vhfopt=None</em>, <em>kpt=array([ 0.</em>, <em>0.</em>, <em>0.])</em>, <em>kpts_band=None</em>, <em>with_j=True</em>, <em>with_k=True</em>, <em>omega=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/hf.html#get_jk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.hf.get_jk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the Coulomb (J) and exchange (K) AO matrices for the given density matrix.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -663,6 +681,12 @@ basis defined by <code class="docutils literal"><span class="pre">cell</span></c
 <dd><p>Makov-Payne correction (Phys. Rev. B, 51, 4014)</p>
 </dd></dl>
 
+<dl class="function">
+<dt id="pyscf.pbc.scf.hf.normalize_dm_">
+<code class="descclassname">pyscf.pbc.scf.hf.</code><code class="descname">normalize_dm_</code><span class="sig-paren">(</span><em>mf</em>, <em>dm</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/hf.html#normalize_dm_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.hf.normalize_dm_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale density matrix to make it produce the correct number of electrons.</p>
+</dd></dl>
+
 <span class="target" id="module-pyscf.pbc.scf.uhf"></span><p>Unrestricted Hartree-Fock for periodic systems at a single k-point</p>
 <dl class="docutils">
 <dt>See Also:</dt>
@@ -697,6 +721,7 @@ basis defined by <code class="docutils literal"><span class="pre">cell</span></c
 <code class="descname">energy_tot</code><span class="sig-paren">(</span><em>mf</em>, <em>dm=None</em>, <em>h1e=None</em>, <em>vhf=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.pbc.scf.uhf.UHF.energy_tot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Total Hartree-Fock energy, electronic part plus nuclear repulstion
 See <code class="xref py py-func docutils literal"><span class="pre">scf.hf.energy_elec()</span></code> for the electron part</p>
+<p>Note this function has side effects which cause mf.scf_summary updated.</p>
 </dd></dl>
 
 <dl class="method">
@@ -717,7 +742,7 @@ See <code class="xref py py-func docutils literal"><span class="pre">scf.hf.ener
 
 <dl class="method">
 <dt id="pyscf.pbc.scf.uhf.UHF.get_j">
-<code class="descname">get_j</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>kpt=None</em>, <em>kpts_band=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.pbc.scf.uhf.UHF.get_j" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_j</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>kpt=None</em>, <em>kpts_band=None</em>, <em>omega=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.pbc.scf.uhf.UHF.get_j" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute J matrix for the given density matrix and k-point (kpt).
 When kpts_band is given, the J matrices on kpts_band are evaluated.</p>
 <blockquote>
@@ -728,7 +753,7 @@ if kpts_band is given otherwise p and q are orbitals on kpt.</p>
 
 <dl class="method">
 <dt id="pyscf.pbc.scf.uhf.UHF.get_jk">
-<code class="descname">get_jk</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>kpt=None</em>, <em>kpts_band=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.pbc.scf.uhf.UHF.get_jk" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_jk</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>kpt=None</em>, <em>kpts_band=None</em>, <em>with_j=True</em>, <em>with_k=True</em>, <em>omega=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.pbc.scf.uhf.UHF.get_jk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get Coulomb (J) and exchange (K) following <code class="xref py py-func docutils literal"><span class="pre">scf.hf.RHF.get_jk_()</span></code>.
 for particular k-point (kpt).</p>
 <p>When kpts_band is given, the J, K matrices on kpts_band are evaluated.</p>
@@ -741,7 +766,7 @@ if kpts_band is given otherwise p and q are orbitals on kpt.</p>
 
 <dl class="method">
 <dt id="pyscf.pbc.scf.uhf.UHF.get_jk_incore">
-<code class="descname">get_jk_incore</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>verbose=5</em>, <em>kpt=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.pbc.scf.uhf.UHF.get_jk_incore" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_jk_incore</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>kpt=None</em>, <em>omega=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.pbc.scf.uhf.UHF.get_jk_incore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get Coulomb (J) and exchange (K) following <code class="xref py py-func docutils literal"><span class="pre">scf.hf.RHF.get_jk_()</span></code>.</p>
 <p><em>Incore</em> version of Coulomb and exchange build only.
 Currently RHF always uses PBC AO integrals (unlike RKS), since
@@ -750,7 +775,7 @@ exchange is currently computed by building PBC AO integrals.</p>
 
 <dl class="method">
 <dt id="pyscf.pbc.scf.uhf.UHF.get_k">
-<code class="descname">get_k</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>kpt=None</em>, <em>kpts_band=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.pbc.scf.uhf.UHF.get_k" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_k</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>hermi=1</em>, <em>kpt=None</em>, <em>kpts_band=None</em>, <em>omega=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.pbc.scf.uhf.UHF.get_k" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute K matrix for the given density matrix.</p>
 </dd></dl>
 
@@ -758,6 +783,40 @@ exchange is currently computed by building PBC AO integrals.</p>
 <dt id="pyscf.pbc.scf.uhf.UHF.get_rho">
 <code class="descname">get_rho</code><span class="sig-paren">(</span><em>mf</em>, <em>dm=None</em>, <em>grids=None</em>, <em>kpt=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.pbc.scf.uhf.UHF.get_rho" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute density in real space</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.pbc.scf.uhf.UHF.make_rdm1">
+<code class="descname">make_rdm1</code><span class="sig-paren">(</span><em>mo_coeff=None</em>, <em>mo_occ=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/scf/uhf.html#UHF.make_rdm1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.uhf.UHF.make_rdm1" title="Permalink to this definition">¶</a></dt>
+<dd><p>One-particle density matrix</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>A list of 2D ndarrays for alpha and beta spins</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.pbc.scf.uhf.UHF.stability">
+<code class="descname">stability</code><span class="sig-paren">(</span><em>internal=True</em>, <em>external=False</em>, <em>verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/scf/uhf.html#UHF.stability"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.uhf.UHF.stability" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stability analysis for RHF/RKS method.</p>
+<p>See also pyscf.scf.stability.uhf_stability function.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>mf : UHF or UKS object</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>internal</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Internal stability, within the UHF space.</dd>
+<dt>external</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>External stability. Including the UHF -&gt; GHF and real -&gt; complex
+stability analysis.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>New orbitals that are more close to the stable condition.  The return
+value includes two set of orbitals.  The first corresponds to the
+internal stablity and the second corresponds to the external stability.</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -774,12 +833,6 @@ exchange is currently computed by building PBC AO integrals.</p>
 <dt>Return:</dt>
 <dd>A list: the dipole moment on x, y and z components</dd>
 </dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyscf.pbc.scf.uhf.get_rho">
-<code class="descclassname">pyscf.pbc.scf.uhf.</code><code class="descname">get_rho</code><span class="sig-paren">(</span><em>mf</em>, <em>dm=None</em>, <em>grids=None</em>, <em>kpt=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/uhf.html#get_rho"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.uhf.get_rho" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute density in real space</p>
 </dd></dl>
 
 <dl class="function">
@@ -816,7 +869,7 @@ e.g. mo_coeff is (nkpts, nao, nao) ndarray</p>
 <dl class="method">
 <dt id="pyscf.pbc.scf.khf.KSCF.dip_moment">
 <code class="descname">dip_moment</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>unit='Debye'</em>, <em>verbose=3</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/khf.html#KSCF.dip_moment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.khf.KSCF.dip_moment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dipole moment in the unit cell.</p>
+<dd><p>Dipole moment in the unit cell (is it well defined)?</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><p class="first">cell : an instance of <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code></p>
@@ -907,6 +960,24 @@ in sequential patches of the 1D array</p>
 See <code class="xref py py-func docutils literal"><span class="pre">scf.hf.get_veff()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">scf.hf.RHF.get_veff()</span></code></p>
 </dd></dl>
 
+<dl class="method">
+<dt id="pyscf.pbc.scf.khf.KSCF.to_ghf">
+<code class="descname">to_ghf</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/khf.html#KSCF.to_ghf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.khf.KSCF.to_ghf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the input mean-field object to a KGHF/KGKS object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.pbc.scf.khf.KSCF.to_rhf">
+<code class="descname">to_rhf</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/khf.html#KSCF.to_rhf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.khf.KSCF.to_rhf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the input mean-field object to a KRHF/KROHF/KRKS/KROKS object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.pbc.scf.khf.KSCF.to_uhf">
+<code class="descname">to_uhf</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/khf.html#KSCF.to_uhf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.khf.KSCF.to_uhf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the input mean-field object to a KUHF/KUKS object</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="function">
@@ -919,7 +990,7 @@ print orbital coefficients; Mulliken population analysis; Dipole moment</p>
 <dl class="function">
 <dt id="pyscf.pbc.scf.khf.dip_moment">
 <code class="descclassname">pyscf.pbc.scf.khf.</code><code class="descname">dip_moment</code><span class="sig-paren">(</span><em>cell</em>, <em>dm_kpts</em>, <em>unit='Debye'</em>, <em>verbose=3</em>, <em>grids=None</em>, <em>rho=None</em>, <em>kpts=array([[ 0.</em>, <em>0.</em>, <em>0.]])</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/khf.html#dip_moment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.khf.dip_moment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dipole moment in the unit cell.</p>
+<dd><p>Dipole moment in the unit cell (is it well defined)?</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><p class="first">cell : an instance of <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code></p>
@@ -989,7 +1060,7 @@ or list of vj if the input dm_kpts is a list of DMs</dd>
 
 <dl class="function">
 <dt id="pyscf.pbc.scf.khf.get_jk">
-<code class="descclassname">pyscf.pbc.scf.khf.</code><code class="descname">get_jk</code><span class="sig-paren">(</span><em>mf</em>, <em>cell</em>, <em>dm_kpts</em>, <em>kpts</em>, <em>kpts_band=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/khf.html#get_jk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.khf.get_jk" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyscf.pbc.scf.khf.</code><code class="descname">get_jk</code><span class="sig-paren">(</span><em>mf</em>, <em>cell</em>, <em>dm_kpts</em>, <em>kpts</em>, <em>kpts_band=None</em>, <em>with_j=True</em>, <em>with_k=True</em>, <em>omega=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/khf.html#get_jk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.khf.get_jk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the Coulomb (J) and exchange (K) AO matrices at sampled k-points.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -1060,7 +1131,7 @@ basis defined by <code class="docutils literal"><span class="pre">cell</span></c
 <dl class="function">
 <dt id="pyscf.pbc.scf.khf.mulliken_meta">
 <code class="descclassname">pyscf.pbc.scf.khf.</code><code class="descname">mulliken_meta</code><span class="sig-paren">(</span><em>cell</em>, <em>dm_ao_kpts</em>, <em>verbose=5</em>, <em>pre_orth_method='ANO'</em>, <em>s=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/khf.html#mulliken_meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.khf.mulliken_meta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mulliken population analysis, based on meta-Lowdin AOs.</p>
+<dd><p>A modified Mulliken population analysis, based on meta-Lowdin AOs.</p>
 <p>Note this function only computes the Mulliken population for the gamma
 point density matrix.</p>
 </dd></dl>
@@ -1164,6 +1235,14 @@ virtual subspaces separatedly (without change occupancy).</p>
 <dt id="pyscf.pbc.scf.kuhf.KUHF.get_rho">
 <code class="descname">get_rho</code><span class="sig-paren">(</span><em>mf</em>, <em>dm=None</em>, <em>grids=None</em>, <em>kpts=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.pbc.scf.kuhf.KUHF.get_rho" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute density in real space</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.pbc.scf.kuhf.KUHF.mulliken_meta">
+<code class="descname">mulliken_meta</code><span class="sig-paren">(</span><em>cell=None</em>, <em>dm=None</em>, <em>verbose=5</em>, <em>pre_orth_method='ANO'</em>, <em>s=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/kuhf.html#KUHF.mulliken_meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.kuhf.KUHF.mulliken_meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>A modified Mulliken population analysis, based on meta-Lowdin AOs.</p>
+<p>Note this function only computes the Mulliken population for the gamma
+point density matrix.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1314,12 +1393,6 @@ virtual subspaces separatedly (without change occupancy).</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyscf.pbc.scf.kuhf.get_rho">
-<code class="descclassname">pyscf.pbc.scf.kuhf.</code><code class="descname">get_rho</code><span class="sig-paren">(</span><em>mf</em>, <em>dm=None</em>, <em>grids=None</em>, <em>kpts=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/kuhf.html#get_rho"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.kuhf.get_rho" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute density in real space</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="pyscf.pbc.scf.kuhf.init_guess_by_chkfile">
 <code class="descclassname">pyscf.pbc.scf.kuhf.</code><code class="descname">init_guess_by_chkfile</code><span class="sig-paren">(</span><em>cell</em>, <em>chkfile_name</em>, <em>project=None</em>, <em>kpts=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/kuhf.html#init_guess_by_chkfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.kuhf.init_guess_by_chkfile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read the KHF results from checkpoint file, then project it to the
@@ -1343,7 +1416,7 @@ basis defined by <code class="docutils literal"><span class="pre">cell</span></c
 <dl class="function">
 <dt id="pyscf.pbc.scf.kuhf.mulliken_meta">
 <code class="descclassname">pyscf.pbc.scf.kuhf.</code><code class="descname">mulliken_meta</code><span class="sig-paren">(</span><em>cell</em>, <em>dm_ao_kpts</em>, <em>verbose=5</em>, <em>pre_orth_method='ANO'</em>, <em>s=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/scf/kuhf.html#mulliken_meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.scf.kuhf.mulliken_meta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mulliken population analysis, based on meta-Lowdin AOs.</p>
+<dd><p>A modified Mulliken population analysis, based on meta-Lowdin AOs.</p>
 <p>Note this function only computes the Mulliken population for the gamma
 point density matrix.</p>
 </dd></dl>
@@ -1395,7 +1468,7 @@ point density matrix.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

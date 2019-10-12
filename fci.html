@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>9. fci — Full configuration interaction &mdash; PySCF 1.5.0 documentation</title>
+  <title>9. fci — Full configuration interaction &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
         <link rel="next" title="10. symm – Point group symmetry and spin symmetry" href="symm.html"/>
         <link rel="prev" title="8. mcscf — Multi-configurational self-consistent field" href="mcscf.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -313,13 +313,17 @@ vector.</p>
 <dl class="method">
 <dt id="pyscf.fci.direct_spin1.FCISolver.contract_2e">
 <code class="descname">contract_2e</code><span class="sig-paren">(</span><em>eri</em>, <em>fcivec</em>, <em>norb</em>, <em>nelec</em>, <em>link_index=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/fci/direct_spin1.html#FCISolver.contract_2e"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.fci.direct_spin1.FCISolver.contract_2e" title="Permalink to this definition">¶</a></dt>
-<dd><p>Contract the 2-electron Hamiltonian with a FCI vector to get a new FCI
-vector.</p>
-<p>Note the input arg eri is NOT the 2e hamiltonian matrix, the 2e hamiltonian is</p>
+<dd><p>Contract the 4-index tensor eri[pqrs] with a FCI vector</p>
 <div class="math">
-\[\begin{split}h2e &amp;= eri_{pq,rs} p^+ q r^+ s \\
-    &amp;= (pq|rs) p^+ r^+ s q - (pq|rs) \delta_{qr} p^+ s\end{split}\]</div>
-<p>So eri is defined as</p>
+\[ \begin{align}\begin{aligned}\begin{split}|output\rangle = E_{pq} E_{rs} eri_{pq,rs} |CI\rangle \\\end{split}\\\begin{split}E_{pq}E_{rs} = E_{pr,qs} + \delta_{qr} E_{ps} \\\end{split}\\E_{pq} = p^+ q + \bar{p}^+ \bar{q}\\E_{pr,qs} = p^+ r^+ s q + \bar{p}^+ r^+ s \bar{q} + ...\end{aligned}\end{align} \]</div>
+<p><span class="math">\(p,q,...\)</span> means spin-up orbitals and <span class="math">\(\bar{p}, \bar{q}\)</span> means
+spin-down orbitals.</p>
+<p>Note the input argument eri is NOT the 2e hamiltonian tensor. 2e hamiltonian is</p>
+<div class="math">
+\[\begin{split}h2e &amp;= (pq|rs) E_{pr,qs} \\
+    &amp;= (pq|rs) (E_{pq}E_{rs} - \delta_{qr} E_{ps}) \\
+    &amp;= eri_{pq,rs} E_{pq}E_{rs} \\\end{split}\]</div>
+<p>So the relation between eri and hamiltonian (the 2e-integral tensor) is</p>
 <div class="math">
 \[eri_{pq,rs} = (pq|rs) - (1/Nelec) \sum_q (pq|qs)\]</div>
 <p>to restore the symmetry between pq and rs,</p>
@@ -484,13 +488,17 @@ vector.</p>
 <dl class="function">
 <dt id="pyscf.fci.direct_spin1.contract_2e">
 <code class="descclassname">pyscf.fci.direct_spin1.</code><code class="descname">contract_2e</code><span class="sig-paren">(</span><em>eri</em>, <em>fcivec</em>, <em>norb</em>, <em>nelec</em>, <em>link_index=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/fci/direct_spin1.html#contract_2e"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.fci.direct_spin1.contract_2e" title="Permalink to this definition">¶</a></dt>
-<dd><p>Contract the 2-electron Hamiltonian with a FCI vector to get a new FCI
-vector.</p>
-<p>Note the input arg eri is NOT the 2e hamiltonian matrix, the 2e hamiltonian is</p>
+<dd><p>Contract the 4-index tensor eri[pqrs] with a FCI vector</p>
 <div class="math">
-\[\begin{split}h2e &amp;= eri_{pq,rs} p^+ q r^+ s \\
-    &amp;= (pq|rs) p^+ r^+ s q - (pq|rs) \delta_{qr} p^+ s\end{split}\]</div>
-<p>So eri is defined as</p>
+\[ \begin{align}\begin{aligned}\begin{split}|output\rangle = E_{pq} E_{rs} eri_{pq,rs} |CI\rangle \\\end{split}\\\begin{split}E_{pq}E_{rs} = E_{pr,qs} + \delta_{qr} E_{ps} \\\end{split}\\E_{pq} = p^+ q + \bar{p}^+ \bar{q}\\E_{pr,qs} = p^+ r^+ s q + \bar{p}^+ r^+ s \bar{q} + ...\end{aligned}\end{align} \]</div>
+<p><span class="math">\(p,q,...\)</span> means spin-up orbitals and <span class="math">\(\bar{p}, \bar{q}\)</span> means
+spin-down orbitals.</p>
+<p>Note the input argument eri is NOT the 2e hamiltonian tensor. 2e hamiltonian is</p>
+<div class="math">
+\[\begin{split}h2e &amp;= (pq|rs) E_{pr,qs} \\
+    &amp;= (pq|rs) (E_{pq}E_{rs} - \delta_{qr} E_{ps}) \\
+    &amp;= eri_{pq,rs} E_{pq}E_{rs} \\\end{split}\]</div>
+<p>So the relation between eri and hamiltonian (the 2e-integral tensor) is</p>
 <div class="math">
 \[eri_{pq,rs} = (pq|rs) - (1/Nelec) \sum_q (pq|qs)\]</div>
 <p>to restore the symmetry between pq and rs,</p>
@@ -663,13 +671,17 @@ vector.</p>
 <dl class="function">
 <dt id="pyscf.fci.direct_spin0.contract_2e">
 <code class="descclassname">pyscf.fci.direct_spin0.</code><code class="descname">contract_2e</code><span class="sig-paren">(</span><em>eri</em>, <em>fcivec</em>, <em>norb</em>, <em>nelec</em>, <em>link_index=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/fci/direct_spin0.html#contract_2e"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.fci.direct_spin0.contract_2e" title="Permalink to this definition">¶</a></dt>
-<dd><p>Contract the 2-electron Hamiltonian with a FCI vector to get a new FCI
-vector.</p>
-<p>Note the input arg eri is NOT the 2e hamiltonian matrix, the 2e hamiltonian is</p>
+<dd><p>Contract the 4-index tensor eri[pqrs] with a FCI vector</p>
 <div class="math">
-\[\begin{split}h2e &amp;= eri_{pq,rs} p^+ q r^+ s \\
-    &amp;= (pq|rs) p^+ r^+ s q - (pq|rs) \delta_{qr} p^+ s\end{split}\]</div>
-<p>So eri is defined as</p>
+\[ \begin{align}\begin{aligned}\begin{split}|output\rangle = E_{pq} E_{rs} eri_{pq,rs} |CI\rangle \\\end{split}\\\begin{split}E_{pq}E_{rs} = E_{pr,qs} + \delta_{qr} E_{ps} \\\end{split}\\E_{pq} = p^+ q + \bar{p}^+ \bar{q}\\E_{pr,qs} = p^+ r^+ s q + \bar{p}^+ r^+ s \bar{q} + ...\end{aligned}\end{align} \]</div>
+<p><span class="math">\(p,q,...\)</span> means spin-up orbitals and <span class="math">\(\bar{p}, \bar{q}\)</span> means
+spin-down orbitals.</p>
+<p>Note the input argument eri is NOT the 2e hamiltonian tensor. 2e hamiltonian is</p>
+<div class="math">
+\[\begin{split}h2e &amp;= (pq|rs) E_{pr,qs} \\
+    &amp;= (pq|rs) (E_{pq}E_{rs} - \delta_{qr} E_{ps}) \\
+    &amp;= eri_{pq,rs} E_{pq}E_{rs} \\\end{split}\]</div>
+<p>So the relation between eri and hamiltonian (the 2e-integral tensor) is</p>
 <div class="math">
 \[eri_{pq,rs} = (pq|rs) - (1/Nelec) \sum_q (pq|qs)\]</div>
 <p>to restore the symmetry between pq and rs,</p>
@@ -864,7 +876,7 @@ It is identical to a call to <code class="docutils literal"><span class="pre">re
 
 <dl class="function">
 <dt id="pyscf.fci.cistring.gen_strings4orblist">
-<code class="descclassname">pyscf.fci.cistring.</code><code class="descname">gen_strings4orblist</code><span class="sig-paren">(</span><em>orb_list</em>, <em>nelec</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/fci/cistring.html#gen_strings4orblist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.fci.cistring.gen_strings4orblist" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyscf.fci.cistring.</code><code class="descname">gen_strings4orblist</code><span class="sig-paren">(</span><em>orb_list</em>, <em>nelec</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.fci.cistring.gen_strings4orblist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate string from the given orbital list.</p>
 <dl class="docutils">
 <dt>Returns:</dt>
@@ -874,9 +886,29 @@ orbital, bit-1 means occupied and bit-0 means unoccupied.  The lowest
 (right-most) bit corresponds to the lowest orbital in the orb_list.</dd>
 </dl>
 <p>Exampels:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="nb">bin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">gen_strings4orblist</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="mi">2</span><span class="p">)]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="nb">bin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">make_strings</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="mi">2</span><span class="p">)]</span>
 <span class="go">[0b11, 0b101, 0b110, 0b1001, 0b1010, 0b1100]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="nb">bin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">gen_strings4orblist</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="mi">2</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="nb">bin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">make_strings</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="mi">2</span><span class="p">)]</span>
+<span class="go">[0b1010, 0b1001, 0b11, 0b1100, 0b110, 0b101]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.fci.cistring.make_strings">
+<code class="descclassname">pyscf.fci.cistring.</code><code class="descname">make_strings</code><span class="sig-paren">(</span><em>orb_list</em>, <em>nelec</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/fci/cistring.html#make_strings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.fci.cistring.make_strings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate string from the given orbital list.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>list of int64.  One int64 element represents one string in binary format.
+The binary format takes the convention that the one bit stands for one
+orbital, bit-1 means occupied and bit-0 means unoccupied.  The lowest
+(right-most) bit corresponds to the lowest orbital in the orb_list.</dd>
+</dl>
+<p>Exampels:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="nb">bin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">make_strings</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="mi">2</span><span class="p">)]</span>
+<span class="go">[0b11, 0b101, 0b110, 0b1001, 0b1010, 0b1100]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="nb">bin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">make_strings</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="mi">2</span><span class="p">)]</span>
 <span class="go">[0b1010, 0b1001, 0b11, 0b1100, 0b110, 0b101]</span>
 </pre></div>
 </div>
@@ -886,7 +918,7 @@ orbital, bit-1 means occupied and bit-0 means unoccupied.  The lowest
 <dt id="pyscf.fci.cistring.reform_linkstr_index">
 <code class="descclassname">pyscf.fci.cistring.</code><code class="descname">reform_linkstr_index</code><span class="sig-paren">(</span><em>link_index</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/fci/cistring.html#reform_linkstr_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.fci.cistring.reform_linkstr_index" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compress the (a, i) pair index in linkstr_index to a lower triangular
-index, to match the 4-fold symmetry of integrals.</p>
+index. The compressed indices can match the 4-fold symmetry of integrals.</p>
 </dd></dl>
 
 <dl class="function">
@@ -1141,12 +1173,6 @@ has different number of columns to the input CI coefficients.</dd>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyscf.fci.addons.energy">
-<code class="descclassname">pyscf.fci.addons.</code><code class="descname">energy</code><span class="sig-paren">(</span><em>h1e</em>, <em>eri</em>, <em>fcivec</em>, <em>norb</em>, <em>nelec</em>, <em>link_index=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/fci/addons.html#energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.fci.addons.energy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the FCI electronic energy for given Hamiltonian and FCI vector.</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="pyscf.fci.addons.fix_spin_">
 <code class="descclassname">pyscf.fci.addons.</code><code class="descname">fix_spin_</code><span class="sig-paren">(</span><em>fciobj</em>, <em>shift=0.2</em>, <em>ss=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/fci/addons.html#fix_spin_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.fci.addons.fix_spin_" title="Permalink to this definition">¶</a></dt>
 <dd><p>If FCI solver cannot stay on spin eigenfunction, this function can
@@ -1216,19 +1242,6 @@ given CI coefficients.</p>
 </dl>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyscf.fci.addons.reorder">
-<code class="descclassname">pyscf.fci.addons.</code><code class="descname">reorder</code><span class="sig-paren">(</span><em>ci</em>, <em>nelec</em>, <em>orbidxa</em>, <em>orbidxb=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/fci/addons.html#reorder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.fci.addons.reorder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reorder the CI coefficients, to adapt the reordered orbitals (The relation
-of the reordered orbitals and original orbitals is  new = old[idx]).  Eg.</p>
-<p>The orbital ordering indices <code class="docutils literal"><span class="pre">orbidx</span> <span class="pre">=</span> <span class="pre">[2,0,1]</span></code> indicates the map
-old orbital  a b c  -&gt;   new orbital  c a b.  The strings are reordered as
-old-strings   0b011, 0b101, 0b110 ==  (1,2), (1,3), (2,3)   &lt;= apply orbidx to get orb-strings
-orb-strings   (3,1), (3,2), (1,2) ==  0B101, 0B110, 0B011   &lt;= by gen_strings4orblist
-then argsort to translate the string representation to the address
-[2(=0B011), 0(=0B101), 1(=0B110)]</p>
 </dd></dl>
 
 <dl class="function">
@@ -1355,7 +1368,7 @@ one-particle basis</dd>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

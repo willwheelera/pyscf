@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyscf.symm.basis &mdash; PySCF 1.5.0 documentation</title>
+  <title>pyscf.symm.basis &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -208,6 +208,16 @@
 <span class="kn">from</span> <span class="nn">pyscf.symm</span> <span class="k">import</span> <span class="n">geom</span>
 <span class="kn">from</span> <span class="nn">pyscf.symm</span> <span class="k">import</span> <span class="n">param</span>
 
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tot_parity_odd&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;symm_adapted_basis&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;dump_symm_adapted_basis&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;symmetrize_matrix&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;linearmole_symm_descent&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;linearmole_irrep_symb2id&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;linearmole_irrep_id2symb&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;linearmole_symm_adapted_basis&#39;</span><span class="p">,</span>
+          <span class="p">]</span>
+
 <span class="n">OP_PARITY_ODD</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;E&#39;</span>  <span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
     <span class="s1">&#39;C2x&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
@@ -227,22 +237,27 @@
         <span class="n">gx</span><span class="p">,</span><span class="n">gy</span><span class="p">,</span><span class="n">gz</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">SPHERIC_GTO_PARITY_ODD</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">l</span><span class="o">+</span><span class="n">m</span><span class="p">]</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">ox</span> <span class="ow">and</span> <span class="n">gx</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="n">oy</span> <span class="ow">and</span> <span class="n">gy</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="n">oz</span> <span class="ow">and</span> <span class="n">gz</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">symm_adapted_basis</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">eql_atom_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">eql_atom_ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">eql_atom_ids</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">symm_identical_atoms</span><span class="p">(</span><span class="n">gpname</span><span class="p">,</span> <span class="n">mol</span><span class="o">.</span><span class="n">_atom</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">symm_adapted_basis</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">orig</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">gpname</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;Dooh&#39;</span><span class="p">,</span> <span class="s1">&#39;Coov&#39;</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">linearmole_symm_adapted_basis</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">eql_atom_ids</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">linearmole_symm_adapted_basis</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">orig</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">)</span>
+
+    <span class="c1"># prop_atoms are the atoms relocated wrt the charge center with proper</span>
+    <span class="c1"># orientation</span>
+    <span class="k">if</span> <span class="n">coordinates</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">prop_atoms</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">format_atom</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">_atom</span><span class="p">,</span> <span class="n">orig</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">,</span> <span class="s1">&#39;Bohr&#39;</span><span class="p">)</span>
+    <span class="n">eql_atom_ids</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">symm_identical_atoms</span><span class="p">(</span><span class="n">gpname</span><span class="p">,</span> <span class="n">prop_atoms</span><span class="p">)</span>
 
     <span class="n">ops</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">param</span><span class="o">.</span><span class="n">D2H_OPS</span><span class="p">[</span><span class="n">op</span><span class="p">]</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">param</span><span class="o">.</span><span class="n">OPERATOR_TABLE</span><span class="p">[</span><span class="n">gpname</span><span class="p">]])</span>
     <span class="n">chartab</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">param</span><span class="o">.</span><span class="n">CHARACTER_TABLE</span><span class="p">[</span><span class="n">gpname</span><span class="p">]])</span>
     <span class="n">nirrep</span> <span class="o">=</span> <span class="n">chartab</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()</span>
     <span class="n">aoslice</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">aoslice_by_atom</span><span class="p">()</span>
     <span class="n">nao</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">nao_nr</span><span class="p">()</span>
-    <span class="n">atom_coords</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">atom_coords</span><span class="p">()</span>
+    <span class="n">atom_coords</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">prop_atoms</span><span class="p">])</span>
 
     <span class="n">sodic</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span>
     <span class="k">for</span> <span class="n">atom_ids</span> <span class="ow">in</span> <span class="n">eql_atom_ids</span><span class="p">:</span>
-        <span class="n">r0</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">atom_coord</span><span class="p">(</span><span class="n">atom_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">r0</span> <span class="o">=</span> <span class="n">atom_coords</span><span class="p">[</span><span class="n">atom_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
         <span class="n">op_coords</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;x,nxy-&gt;ny&#39;</span><span class="p">,</span> <span class="n">r0</span><span class="p">,</span> <span class="n">ops</span><span class="p">)</span>
 <span class="c1"># Using ops to generate other atoms from atom_ids[0]</span>
         <span class="n">coords0</span> <span class="o">=</span> <span class="n">atom_coords</span><span class="p">[</span><span class="n">atom_ids</span><span class="p">]</span>
@@ -285,13 +300,66 @@
                     <span class="n">c</span><span class="p">[</span><span class="n">ip</span><span class="p">:]</span> <span class="o">=</span> <span class="n">cbase</span><span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="n">ir</span><span class="p">,:</span><span class="n">nao</span><span class="o">-</span><span class="n">ip</span><span class="p">]</span> <span class="o">/</span> <span class="n">norms</span><span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="n">ir</span><span class="p">]</span>
                     <span class="n">sodic</span><span class="p">[</span><span class="n">ir</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
                 <span class="n">ip</span> <span class="o">+=</span> <span class="n">degen</span>
+
+    <span class="n">ao_loc</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">ao_loc_nr</span><span class="p">()</span>
+    <span class="n">l_idx</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">ANG_OF</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">_bas</span><span class="p">[:,</span><span class="n">ANG_OF</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">ao_loc</span><span class="p">[</span><span class="n">ib</span><span class="p">],</span> <span class="n">ao_loc</span><span class="p">[</span><span class="n">ib</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+               <span class="k">for</span> <span class="n">ib</span> <span class="ow">in</span> <span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">_bas</span><span class="p">[:,</span><span class="n">ANG_OF</span><span class="p">]</span> <span class="o">==</span> <span class="n">l</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="n">idx</span><span class="p">:</span>
+            <span class="n">l_idx</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+
+    <span class="n">Ds</span> <span class="o">=</span> <span class="n">_ao_rotation_matrices</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">)</span>
     <span class="n">so</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">irrep_ids</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">ir</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sodic</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">irrep_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ir</span><span class="p">)</span>
-            <span class="n">so</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+            <span class="n">c_ir</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">nso</span> <span class="o">=</span> <span class="n">c_ir</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">l_idx</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="n">c_ir</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">Ds</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">nso</span><span class="p">)</span>
+                <span class="n">c_ir</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;nm,smp-&gt;snp&#39;</span><span class="p">,</span> <span class="n">Ds</span><span class="p">[</span><span class="n">l</span><span class="p">],</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">nso</span><span class="p">)</span>
+
+            <span class="n">so</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_ir</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">so</span><span class="p">,</span> <span class="n">irrep_ids</span>
+
+<span class="k">def</span> <span class="nf">_ao_rotation_matrices</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Cache the rotation matrices&#39;&#39;&#39;</span>
+    <span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">lib</span>
+    <span class="kn">from</span> <span class="nn">pyscf.symm.Dmatrix</span> <span class="k">import</span> <span class="n">Dmatrix</span><span class="p">,</span> <span class="n">get_euler_angles</span>
+    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">gamma</span> <span class="o">=</span> <span class="n">get_euler_angles</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">axes</span><span class="p">)</span>
+    <span class="n">ANG_OF</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">l_max</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">_bas</span><span class="p">[:,</span><span class="n">ANG_OF</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">mol</span><span class="o">.</span><span class="n">cart</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">Dmatrix</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">reorder_p</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">l_max</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+
+    <span class="n">pp</span> <span class="o">=</span> <span class="n">Dmatrix</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">reorder_p</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">Ds</span> <span class="o">=</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))]</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">l_max</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="c1"># All possible x,y,z combinations</span>
+        <span class="n">cidx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">cartesian_prod</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">*</span> <span class="n">l</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">addr</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">affine</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+            <span class="n">nd</span> <span class="o">=</span> <span class="n">affine</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+            <span class="n">affine</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ik,jl-&gt;ijkl&#39;</span><span class="p">,</span> <span class="n">affine</span><span class="p">,</span> <span class="n">pp</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">nd</span><span class="p">,</span> <span class="n">nd</span><span class="p">)</span>
+            <span class="n">addr</span> <span class="o">=</span> <span class="n">addr</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="n">cidx</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="n">uniq_addr</span><span class="p">,</span> <span class="n">rev_addr</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ncart</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="k">assert</span> <span class="n">ncart</span> <span class="o">==</span> <span class="n">uniq_addr</span><span class="o">.</span><span class="n">size</span>
+        <span class="n">trans</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">ncart</span><span class="p">,</span><span class="n">ncart</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rev_addr</span><span class="p">):</span>
+            <span class="n">trans</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+=</span> <span class="n">affine</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">uniq_addr</span><span class="p">]</span>
+        <span class="n">Ds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trans</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Ds</span>
 
 <span class="k">def</span> <span class="nf">dump_symm_adapted_basis</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">so</span><span class="p">):</span>
     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;TODO&#39;</span><span class="p">)</span>
@@ -443,11 +511,15 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> is not proper for linear molecule.&#39;</span> <span class="o">%</span> <span class="n">gpname</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">linearmole_symm_adapted_basis</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">eql_atom_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">linearmole_symm_adapted_basis</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">gpname</span><span class="p">,</span> <span class="n">orig</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">assert</span><span class="p">(</span><span class="n">gpname</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;Dooh&#39;</span><span class="p">,</span> <span class="s1">&#39;Coov&#39;</span><span class="p">))</span>
     <span class="k">assert</span><span class="p">(</span><span class="ow">not</span> <span class="n">mol</span><span class="o">.</span><span class="n">cart</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">eql_atom_ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">eql_atom_ids</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">symm_identical_atoms</span><span class="p">(</span><span class="n">gpname</span><span class="p">,</span> <span class="n">mol</span><span class="o">.</span><span class="n">_atom</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">coordinates</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">prop_atoms</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">format_atom</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">_atom</span><span class="p">,</span> <span class="n">orig</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">,</span> <span class="s1">&#39;Bohr&#39;</span><span class="p">)</span>
+    <span class="n">eql_atom_ids</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">symm_identical_atoms</span><span class="p">(</span><span class="n">gpname</span><span class="p">,</span> <span class="n">prop_atoms</span><span class="p">)</span>
+
     <span class="n">aoslice</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">aoslice_by_atom</span><span class="p">()</span>
     <span class="n">basoff</span> <span class="o">=</span> <span class="n">aoslice</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">nao</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">nao_nr</span><span class="p">()</span>
@@ -602,15 +674,33 @@
                             <span class="n">add_so</span><span class="p">(</span><span class="s1">&#39;E</span><span class="si">%d</span><span class="s1">y&#39;</span><span class="o">%</span><span class="n">m</span><span class="p">,</span> <span class="n">identity</span><span class="p">(</span><span class="n">idy0</span><span class="p">))</span>
                 <span class="n">ip</span> <span class="o">+=</span> <span class="n">nc</span> <span class="o">*</span> <span class="n">degen</span>
 
-    <span class="n">so</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">irrep_ids</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">irrep_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">sodic</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
     <span class="k">for</span> <span class="n">irname</span> <span class="ow">in</span> <span class="n">irrep_names</span><span class="p">:</span>
         <span class="n">irrep_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">linearmole_irrep_symb2id</span><span class="p">(</span><span class="n">gpname</span><span class="p">,</span> <span class="n">irname</span><span class="p">))</span>
-    <span class="n">idx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">irrep_ids</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
-        <span class="n">so</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">sodic</span><span class="p">[</span><span class="n">irrep_names</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-    <span class="n">irrep_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">irrep_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">]</span>
+    <span class="n">irrep_idx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">irrep_ids</span><span class="p">)</span>
+    <span class="n">irrep_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">irrep_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">irrep_idx</span><span class="p">]</span>
+
+    <span class="n">ao_loc</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">ao_loc_nr</span><span class="p">()</span>
+    <span class="n">l_idx</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">ANG_OF</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">_bas</span><span class="p">[:,</span><span class="n">ANG_OF</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">ao_loc</span><span class="p">[</span><span class="n">ib</span><span class="p">],</span> <span class="n">ao_loc</span><span class="p">[</span><span class="n">ib</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+               <span class="k">for</span> <span class="n">ib</span> <span class="ow">in</span> <span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">_bas</span><span class="p">[:,</span><span class="n">ANG_OF</span><span class="p">]</span> <span class="o">==</span> <span class="n">l</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="n">idx</span><span class="p">:</span>
+            <span class="n">l_idx</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+
+    <span class="n">Ds</span> <span class="o">=</span> <span class="n">_ao_rotation_matrices</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">)</span>
+    <span class="n">so</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">irrep_idx</span><span class="p">:</span>
+        <span class="n">c_ir</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">sodic</span><span class="p">[</span><span class="n">irrep_names</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">nso</span> <span class="o">=</span> <span class="n">c_ir</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">l_idx</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">c_ir</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">Ds</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">nso</span><span class="p">)</span>
+            <span class="n">c_ir</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;nm,smp-&gt;snp&#39;</span><span class="p">,</span> <span class="n">Ds</span><span class="p">[</span><span class="n">l</span><span class="p">],</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">nso</span><span class="p">)</span>
+
+        <span class="n">so</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_ir</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">so</span><span class="p">,</span> <span class="n">irrep_ids</span>
 
 
@@ -687,7 +777,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

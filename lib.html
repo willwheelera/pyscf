@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5. lib — Helper functions, parameters, and C extensions &mdash; PySCF 1.5.0 documentation</title>
+  <title>5. lib — Helper functions, parameters, and C extensions &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
         <link rel="next" title="6. scf — Mean-field methods" href="scf.html"/>
         <link rel="prev" title="4. gto — Molecular structure and GTO basis" href="gto.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -688,6 +688,7 @@ to the upper triangular part to make the matrix anti-hermitian</div>
 <dd><p>Davidson diagonalization method to solve  a c = e c.  Ref
 [1] E.R. Davidson, J. Comput. Phys. 17 (1), 87-94 (1975).
 [2] <a class="reference external" href="http://people.inf.ethz.ch/arbenz/ewp/Lnotes/chapter11.pdf">http://people.inf.ethz.ch/arbenz/ewp/Lnotes/chapter11.pdf</a></p>
+<p>Note: This function has an overhead of memory usage ~4*x0.size*nroots</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><dl class="first last docutils">
@@ -774,6 +775,7 @@ is a list of arrays for the lowest <code class="xref py py-attr docutils literal
 <dd><p>Davidson diagonalization method to solve  a c = e c.  Ref
 [1] E.R. Davidson, J. Comput. Phys. 17 (1), 87-94 (1975).
 [2] <a class="reference external" href="http://people.inf.ethz.ch/arbenz/ewp/Lnotes/chapter11.pdf">http://people.inf.ethz.ch/arbenz/ewp/Lnotes/chapter11.pdf</a></p>
+<p>Note: This function has an overhead of memory usage ~4*x0.size*nroots</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><dl class="first last docutils">
@@ -1277,10 +1279,9 @@ envrionment.</dd>
 
 <dl class="function">
 <dt id="lib.linalg_helper.pick_real_eigs">
-<code class="descclassname">lib.linalg_helper.</code><code class="descname">pick_real_eigs</code><span class="sig-paren">(</span><em>w</em>, <em>v</em>, <em>nroots</em>, <em>x0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#pick_real_eigs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.pick_real_eigs" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">lib.linalg_helper.</code><code class="descname">pick_real_eigs</code><span class="sig-paren">(</span><em>w</em>, <em>v</em>, <em>nroots</em>, <em>envs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/linalg_helper.html#pick_real_eigs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.linalg_helper.pick_real_eigs" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function searchs the real eigenvalues or eigenvalues with small
-imaginary component, then constructs approximate real eigenvectors if
-quasi-real eigenvalues were found.</p>
+imaginary component.</p>
 </dd></dl>
 
 <dl class="function">
@@ -1344,7 +1345,7 @@ be saved recursively as the HDF5 group/dataset structure.</dd>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">lib</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ci</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Ci&#39;</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;op&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">),</span> <span class="s1">&#39;irrep&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Ag&#39;</span><span class="p">,</span> <span class="s1">&#39;Au&#39;</span><span class="p">)}}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lib</span><span class="o">.</span><span class="n">chkfile</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;symm.chk&#39;</span><span class="p">,</span> <span class="s1">&#39;symm&#39;</span><span class="p">,</span> <span class="n">ci</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;symm.chk&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;symm.chk&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 <span class="go">[&#39;symm&#39;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;symm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
@@ -1626,6 +1627,10 @@ specified).</p>
 <code class="descclassname">lib.</code><code class="descname">num_threads</code><span class="sig-paren">(</span><em>n=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/lib/misc.html#num_threads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.num_threads" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the number of OMP threads.  If argument is not specified, the
 function will return the total number of available OMP threads.</p>
+<p>It&#8217;s recommended to call this function to set OMP threads than
+&#8220;os.environ[&#8216;OMP_NUM_THREADS&#8217;] = int(n)&#8221;. This is because environment
+variables like OMP_NUM_THREADS were read when a module was imported. They
+cannot be reset through os.environ after the module was loaded.</p>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">lib</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">num_threads</span><span class="p">())</span>
@@ -1671,7 +1676,7 @@ context, the number OpenMP threads will be restored.</p>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">lib</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">capture_stdout</span> <span class="k">as</span> <span class="n">out</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">capture_stdout</span><span class="p">()</span> <span class="k">as</span> <span class="n">out</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 </pre></div>
@@ -1757,7 +1762,7 @@ can be customized.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

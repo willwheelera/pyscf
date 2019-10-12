@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>1. An overview of PySCF &mdash; PySCF 1.5.0 documentation</title>
+  <title>1. An overview of PySCF &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
         <link rel="next" title="2. Tutorial" href="tutorial.html"/>
         <link rel="prev" title="Welcome to PySCF documentation!" href="index.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -222,6 +222,8 @@ based quantum chemistry programs.</p>
 }
 </pre></div>
 </div>
+<p>In addition, if you use Libcint to compute integrals, please cite the following paper:</p>
+<p>&#8220;Libcint: An efficient general integral library for Gaussian basis functions&#8221;, Q. Sun, J. Comp. Chem. 36, 1664 (2015).</p>
 </div>
 <div class="section" id="features">
 <h2>1.2. Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
@@ -472,12 +474,12 @@ return value, the package introduces the stream methods to pipe the computing
 stream.  A stream method of an object only return the object itself.  There are
 three general stream methods available for most method classes. They are:</p>
 <p>1 <code class="docutils literal"><span class="pre">.set</span></code> method to update object attributes, for example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">conv_tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">conv_tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>is identical to two lines of statements:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">conv_tol</span> <span class="o">=</span> <span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">5</span>
+<span class="n">mf</span><span class="o">.</span><span class="n">conv_tol</span> <span class="o">=</span> <span class="mf">1e-5</span>
 </pre></div>
 </div>
 <p>2 <code class="docutils literal"><span class="pre">.run</span></code> method to pass the call to the <code class="docutils literal"><span class="pre">.kernel</span></code> method.  If arguments are
@@ -485,12 +487,12 @@ presented in <code class="docutils literal"><span class="pre">.run</span></code>
 function.  If keyword arguments are given, <code class="docutils literal"><span class="pre">.run</span></code> method will first
 call <code class="docutils literal"><span class="pre">.set</span></code> method to update the attributes then execute the <code class="docutils literal"><span class="pre">.kernel</span></code>
 method.  For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">dm_init</span><span class="p">,</span> <span class="n">conv_tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">dm_init</span><span class="p">,</span> <span class="n">conv_tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>is identical to three lines of statements:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
-<span class="n">mf</span><span class="o">.</span><span class="n">conv_tol</span> <span class="o">=</span> <span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">5</span>
+<span class="n">mf</span><span class="o">.</span><span class="n">conv_tol</span> <span class="o">=</span> <span class="mf">1e-5</span>
 <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">dm_init</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -688,7 +690,7 @@ all nuclear gradients scanner.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

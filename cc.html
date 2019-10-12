@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>14. cc — Coupled cluster &mdash; PySCF 1.5.0 documentation</title>
+  <title>14. cc — Coupled cluster &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
         <link rel="next" title="15. ci — Configuration interaction" href="ci.html"/>
         <link rel="prev" title="13. tddft — Time dependent density functional theory" href="tddft.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -758,6 +758,18 @@ occupied and virtual orbitals can be frozen in CC calculation.</p>
 </dl>
 </div></blockquote>
 <dl class="method">
+<dt id="pyscf.cc.ccsd.CCSD.EOMEA_Ta">
+<code class="descname">EOMEA_Ta</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.cc.ccsd.CCSD.EOMEA_Ta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for EOM EACCSD(T)*(a) method by Matthews and Stanton.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.cc.ccsd.CCSD.EOMIP_Ta">
+<code class="descname">EOMIP_Ta</code><span class="sig-paren">(</span><em>obj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.cc.ccsd.CCSD.EOMIP_Ta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for EOM IPCCSD(T)*(a) method by Matthews and Stanton.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyscf.cc.ccsd.CCSD.as_scanner">
 <code class="descname">as_scanner</code><span class="sig-paren">(</span><em>cc</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.cc.ccsd.CCSD.as_scanner" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generating a scanner/solver for CCSD PES.</p>
@@ -851,6 +863,29 @@ automatically applied in the solver.</p>
 <dt id="pyscf.cc.ccsd.energy">
 <code class="descclassname">pyscf.cc.ccsd.</code><code class="descname">energy</code><span class="sig-paren">(</span><em>mycc</em>, <em>t1=None</em>, <em>t2=None</em>, <em>eris=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/cc/ccsd.html#energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.cc.ccsd.energy" title="Permalink to this definition">¶</a></dt>
 <dd><p>CCSD correlation energy</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.cc.ccsd.get_d1_diagnostic">
+<code class="descclassname">pyscf.cc.ccsd.</code><code class="descname">get_d1_diagnostic</code><span class="sig-paren">(</span><em>t1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/cc/ccsd.html#get_d1_diagnostic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.cc.ccsd.get_d1_diagnostic" title="Permalink to this definition">¶</a></dt>
+<dd><p>D1 diagnostic given in</p>
+<p>Janssen, et. al Chem. Phys. Lett. 290 (1998) 423</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.cc.ccsd.get_d2_diagnostic">
+<code class="descclassname">pyscf.cc.ccsd.</code><code class="descname">get_d2_diagnostic</code><span class="sig-paren">(</span><em>t2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/cc/ccsd.html#get_d2_diagnostic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.cc.ccsd.get_d2_diagnostic" title="Permalink to this definition">¶</a></dt>
+<dd><p>D2 diagnostic given in</p>
+<blockquote>
+<div>Nielsen, et. al Chem. Phys. Lett. 310 (1999) 568</div></blockquote>
+<p>Note: This is currently only defined in the literature for restricted
+closed-shell systems.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.cc.ccsd.get_t1_diagnostic">
+<code class="descclassname">pyscf.cc.ccsd.</code><code class="descname">get_t1_diagnostic</code><span class="sig-paren">(</span><em>t1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/cc/ccsd.html#get_t1_diagnostic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.cc.ccsd.get_t1_diagnostic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the t1 amplitude norm, normalized by number of correlated electrons.</p>
 </dd></dl>
 
 <dl class="function">
@@ -1033,7 +1068,7 @@ automatically applied in the solver.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

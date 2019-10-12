@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>12. dft — Density functional theory &mdash; PySCF 1.5.0 documentation</title>
+  <title>12. dft — Density functional theory &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+    <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
         <link rel="next" title="13. tddft — Time dependent density functional theory" href="tddft.html"/>
         <link rel="prev" title="11. df — Density fitting" href="df.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.5
+                1.7
               </div>
             
           
@@ -267,6 +267,79 @@ dynamically.</p>
 <span id="program-reference"></span><h2>12.2. Program reference<a class="headerlink" href="#module-pyscf.dft.rks" title="Permalink to this headline">¶</a></h2>
 <p>Non-relativistic restricted Kohn-Sham</p>
 <dl class="class">
+<dt id="pyscf.dft.rks.KohnShamDFT">
+<em class="property">class </em><code class="descclassname">pyscf.dft.rks.</code><code class="descname">KohnShamDFT</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/dft/rks.html#KohnShamDFT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.dft.rks.KohnShamDFT" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Attributes for Kohn-Sham DFT:</dt>
+<dd><dl class="first last docutils">
+<dt>xc</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>&#8216;X_name,C_name&#8217; for the XC functional.  Default is &#8216;lda,vwn&#8217;</dd>
+<dt>nlc</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>&#8216;NLC_name&#8217; for the NLC functional.  Default is &#8216;&#8217; (i.e., None)</dd>
+<dt>omega</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Omega of the range-separated Coulomb operator e^{-omega r_{12}^2} / r_{12}</dd>
+<dt>grids</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">Grids object</span><dd><p class="first">grids.level (0 - 9)  big number for large mesh grids. Default is 3</p>
+<dl class="docutils">
+<dt>radii_adjust</dt>
+<dd><div class="first last line-block">
+<div class="line">radi.treutler_atomic_radii_adjust (default)</div>
+<div class="line">radi.becke_atomic_radii_adjust</div>
+<div class="line">None : to switch off atomic radii adjustment</div>
+</div>
+</dd>
+<dt>grids.atomic_radii</dt>
+<dd><div class="first last line-block">
+<div class="line">radi.BRAGG_RADII  (default)</div>
+<div class="line">radi.COVALENT_RADII</div>
+<div class="line">None : to switch off atomic radii adjustment</div>
+</div>
+</dd>
+<dt>grids.radi_method  scheme for radial grids</dt>
+<dd><div class="first last line-block">
+<div class="line">radi.treutler  (default)</div>
+<div class="line">radi.delley</div>
+<div class="line">radi.mura_knowles</div>
+<div class="line">radi.gauss_chebyshev</div>
+</div>
+</dd>
+<dt>grids.becke_scheme  weight partition function</dt>
+<dd><div class="first last line-block">
+<div class="line">gen_grid.original_becke  (default)</div>
+<div class="line">gen_grid.stratmann</div>
+</div>
+</dd>
+<dt>grids.prune  scheme to reduce number of grids</dt>
+<dd><div class="first last line-block">
+<div class="line">gen_grid.nwchem_prune  (default)</div>
+<div class="line">gen_grid.sg1_prune</div>
+<div class="line">gen_grid.treutler_prune</div>
+<div class="line">None : to switch off grids pruning</div>
+</div>
+</dd>
+</dl>
+<p>grids.symmetry  True/False  to symmetrize mesh grids (TODO)</p>
+<p class="last">grids.atom_grid  Set (radial, angular) grids for particular atoms.
+Eg, grids.atom_grid = {&#8216;H&#8217;: (20,110)} will generate 20 radial
+grids and 110 angular grids for H atom.</p>
+</dd>
+<dt>small_rho_cutoff</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Drop grids if their contribution to total electrons smaller than
+this cutoff value.  Default is 1e-7.</dd>
+</dl>
+</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;O 0 0 0; H 0 0 1; H 0 1 0&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="s1">&#39;b3lyp&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+<span class="go">-76.415443079840458</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
 <dt id="pyscf.dft.rks.RKS">
 <em class="property">class </em><code class="descclassname">pyscf.dft.rks.</code><code class="descname">RKS</code><span class="sig-paren">(</span><em>mol</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/dft/rks.html#RKS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.dft.rks.RKS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Restricted Kohn-Sham
@@ -351,7 +424,7 @@ envrionment.</dd>
 </pre></div>
 </div>
 <dl class="docutils">
-<dt>Attributes for RKS:</dt>
+<dt>Attributes for Kohn-Sham DFT:</dt>
 <dd><dl class="first last docutils">
 <dt>xc</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>&#8216;X_name,C_name&#8217; for the XC functional.  Default is &#8216;lda,vwn&#8217;</dd>
@@ -423,6 +496,7 @@ this cutoff value.  Default is 1e-7.</dd>
 <dt id="pyscf.dft.rks.RKS.energy_elec">
 <code class="descname">energy_elec</code><span class="sig-paren">(</span><em>ks</em>, <em>dm=None</em>, <em>h1e=None</em>, <em>vhf=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.dft.rks.RKS.energy_elec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Electronic part of RKS energy.</p>
+<p>Note this function has side effects which cause mf.scf_summary updated.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><p class="first">ks : an instance of DFT class</p>
@@ -434,7 +508,7 @@ this cutoff value.  Default is 1e-7.</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
-<dd>RKS electronic energy and the 2-electron part contribution</dd>
+<dd>RKS electronic energy and the 2-electron contribution</dd>
 </dl>
 </dd></dl>
 
@@ -485,6 +559,7 @@ dm is a list of density matrices.</dd>
 <dt id="pyscf.dft.rks.energy_elec">
 <code class="descclassname">pyscf.dft.rks.</code><code class="descname">energy_elec</code><span class="sig-paren">(</span><em>ks</em>, <em>dm=None</em>, <em>h1e=None</em>, <em>vhf=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/dft/rks.html#energy_elec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.dft.rks.energy_elec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Electronic part of RKS energy.</p>
+<p>Note this function has side effects which cause mf.scf_summary updated.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><p class="first">ks : an instance of DFT class</p>
@@ -496,7 +571,7 @@ dm is a list of density matrices.</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
-<dd>RKS electronic energy and the 2-electron part contribution</dd>
+<dd>RKS electronic energy and the 2-electron contribution</dd>
 </dl>
 </dd></dl>
 
@@ -680,6 +755,12 @@ evaluated.  By default, all shells defined in mol will be evaluated.</dd>
 <dd>2D mask array of shape (N,nbas), where N is the number of grids, nbas
 is the number of shells.</dd>
 </dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.dft.gen_grid.Grids.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><em>mol=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/dft/gen_grid.html#Grids.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.dft.gen_grid.Grids.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset mol and clean up relevant attributes for scanner mode</p>
 </dd></dl>
 
 </dd></dl>
@@ -1398,7 +1479,10 @@ If &#8220;HF&#8221; was appeared in the string, it stands for the exact exchange
 <dt>hyb</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>hybrid functional coefficient</dd>
 <dt>rsh</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>coefficients for range-separated hybrid functional</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">a list of three floats</span><dd>coefficients (omega, alpha, beta) for range-separated hybrid functional.
+omega is the exponent factor in attenuated Coulomb operator e^{-omega r_{12}}/r_{12}
+alpha is the coefficient for long-range part, hybrid coefficient
+can be obtained by alpha + beta</dd>
 </dl>
 </dd>
 </dl>
@@ -1446,7 +1530,10 @@ If &#8220;HF&#8221; was appeared in the string, it stands for the exact exchange
 <dt>hyb</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>hybrid functional coefficient</dd>
 <dt>rsh</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>coefficients for range-separated hybrid functional</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">a list of three floats</span><dd>coefficients (omega, alpha, beta) for range-separated hybrid functional.
+omega is the exponent factor in attenuated Coulomb operator e^{-omega r_{12}}/r_{12}
+alpha is the coefficient for long-range part, hybrid coefficient
+can be obtained by alpha + beta</dd>
 </dl>
 </dd>
 </dl>
@@ -1475,7 +1562,7 @@ If &#8220;HF&#8221; was appeared in the string, it stands for the exact exchange
 
 <dl class="function">
 <dt id="pyscf.dft.libxc.eval_xc">
-<code class="descclassname">pyscf.dft.libxc.</code><code class="descname">eval_xc</code><span class="sig-paren">(</span><em>xc_code</em>, <em>rho</em>, <em>spin=0</em>, <em>relativity=0</em>, <em>deriv=1</em>, <em>verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/dft/libxc.html#eval_xc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.dft.libxc.eval_xc" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyscf.dft.libxc.</code><code class="descname">eval_xc</code><span class="sig-paren">(</span><em>xc_code</em>, <em>rho</em>, <em>spin=0</em>, <em>relativity=0</em>, <em>deriv=1</em>, <em>omega=None</em>, <em>verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/dft/libxc.html#eval_xc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.dft.libxc.eval_xc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interface to call libxc library to evaluate XC functional, potential
 and functional derivatives.</p>
 <ul class="simple">
@@ -1612,7 +1699,7 @@ example &#8216;0.5*b3lyp&#8217; is equivalent to
 correlation functional part is the same to putting &#8220;HF&#8221; in exchange
 part.</li>
 <li>String &#8220;RSH&#8221; means range-separated operator. Its format is
-RSH(alpha; beta; omega).  Another way to input RSH is to use keywords
+RSH(omega, alpha, beta).  Another way to input RSH is to use keywords
 SR_HF and LR_HF: &#8220;SR_HF(0.1) * alpha_plus_beta&#8221; and &#8220;LR_HF(0.1) *
 alpha&#8221; where the number in parenthesis is the value of omega.</li>
 <li>Be careful with the libxc convention on GGA functional, in which the LDA
@@ -1702,8 +1789,8 @@ v3rho2tau, v3rhosigmatau, v3rhotau2, v3sigma2tau, v3sigmatau2, v3tau3</li>
 <code class="descclassname">pyscf.dft.libxc.</code><code class="descname">rsh_coeff</code><span class="sig-paren">(</span><em>xc_code</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/dft/libxc.html#rsh_coeff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.dft.libxc.rsh_coeff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Range-separated parameter and HF exchange components: omega, alpha, beta</p>
 <dl class="docutils">
-<dt>Exc_RSH = c_SR * SR_HFX + c_LR * LR_HFX + (1-c_SR) * Ex_SR + (1-c_LR) * Ex_LR + Ec</dt>
-<dd>= alpha * HFX + beta * SR_HFX + (1-c_SR) * Ex_SR + (1-c_LR) * Ex_LR + Ec
+<dt>Exc_RSH = c_LR * LR_HFX + c_SR * SR_HFX + (1-c_SR) * Ex_SR + (1-c_LR) * Ex_LR + Ec</dt>
+<dd>= alpha * HFX   + beta * SR_HFX + (1-c_SR) * Ex_SR + (1-c_LR) * Ex_LR + Ec
 = alpha * LR_HFX + hyb * SR_HFX + (1-c_SR) * Ex_SR + (1-c_LR) * Ex_LR + Ec</dd>
 </dl>
 <p>SR_HFX = &lt; pi | e^{-omega r_{12}}/r_{12} | iq &gt;
@@ -1759,7 +1846,7 @@ beta = c_SR - c_LR = hyb - alpha</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.5.0',
+            VERSION:'1.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
