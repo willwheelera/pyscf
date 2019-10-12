@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>33.3. pbc.scf — Mean-field with periodic boundary condition &mdash; PySCF 1.7.0 documentation</title>
+  <title>34.3. pbc.scf — Mean-field with periodic boundary condition &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -33,9 +33,9 @@
 
   
     <link rel="top" title="PySCF 1.7.0 documentation" href="../index.html"/>
-        <link rel="up" title="33. pbc — Periodic boundary conditions" href="../pbc.html"/>
-        <link rel="next" title="33.4. pbc.dft — PBC density functional theory" href="dft.html"/>
-        <link rel="prev" title="33.2. pbc.ao2mo — PBC integral transformation" href="ao2mo.html"/> 
+        <link rel="up" title="34. pbc — Periodic boundary conditions" href="../pbc.html"/>
+        <link rel="next" title="34.4. pbc.dft — PBC density functional theory" href="dft.html"/>
+        <link rel="prev" title="34.2. pbc.ao2mo — PBC integral transformation" href="ao2mo.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -107,62 +107,66 @@
 <li class="toctree-l1"><a class="reference internal" href="../soscf.html">16. soscf &#8212; Second order Hartree-Fock solver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sgx.html">17. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tddft.html">18. tddft &#8212; Time dependent density functional theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mp.html">19. mp &#8212; MP2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ci.html">20. ci &#8212; Configuration interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../doci.html">21. doci &#8212; Doubly occupied configuration interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cc.html">22. cc &#8212; Coupled cluster</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gw.html">23. gw &#8212; Molecular G0W0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../fci.html">24. fci &#8212; Full configuration interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hci.html">25. hci &#8212; Interface to Heat-Bath selective CI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cornell_shci.html">26. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mcscf.html">27. mcscf &#8212; Multi-configurational self-consistent field</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dmrgscf.html">28. dmrgscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../fciqmcscf.html">29. fciqmcscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mrpt.html">30. mrpt &#8212; Multi-reference perturbation theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../x2c.html">32. x2c &#8212; exact-two-component approach</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../pbc.html">33. pbc &#8212; Periodic boundary conditions</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="gto.html">33.1. pbc.gto &#8212; Crystal cell structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ao2mo.html">33.2. pbc.ao2mo &#8212; PBC integral transformation</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">33.3. pbc.scf &#8212; Mean-field with periodic boundary condition</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gamma-point-and-single-k-point-calculation">33.3.1. Gamma point and single k-point calculation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mixing-with-molecular-program-for-post-hf-methods">33.3.1.1. Mixing with molecular program for post-HF methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tdscf.html">19. tdscf &#8212; Time dependent SCF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mp.html">20. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ci.html">21. ci &#8212; Configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doci.html">22. doci &#8212; Doubly occupied configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cc.html">23. cc &#8212; Coupled cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gw.html">24. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fci.html">25. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hci.html">26. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cornell_shci.html">27. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mcscf.html">28. mcscf &#8212; Multi-configurational self-consistent field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dmrgscf.html">29. dmrgscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fciqmcscf.html">30. fciqmcscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mrpt.html">31. mrpt &#8212; Multi-reference perturbation theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../icmpspt.html">32. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../x2c.html">33. x2c &#8212; exact-two-component approach</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../pbc.html">34. pbc &#8212; Periodic boundary conditions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="gto.html">34.1. pbc.gto &#8212; Crystal cell structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ao2mo.html">34.2. pbc.ao2mo &#8212; PBC integral transformation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">34.3. pbc.scf &#8212; Mean-field with periodic boundary condition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gamma-point-and-single-k-point-calculation">34.3.1. Gamma point and single k-point calculation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mixing-with-molecular-program-for-post-hf-methods">34.3.1.1. Mixing with molecular program for post-HF methods</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#k-point-sampling">33.3.2. k-point sampling</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#newton-solver">33.3.2.1. Newton solver</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smearing">33.3.2.2. Smearing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#k-point-sampling">34.3.2. k-point sampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#newton-solver">34.3.2.1. Newton solver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smearing">34.3.2.2. Smearing</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#exchange-divergence-treatment">33.3.3. Exchange divergence treatment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#with-df-for-density-fitting">33.3.4. <code class="docutils literal"><span class="pre">with_df</span></code> for density fitting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#stability-analysis">33.3.5. Stability analysis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.pbc.scf.hf">33.3.6. Program reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exchange-divergence-treatment">34.3.3. Exchange divergence treatment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#with-df-for-density-fitting">34.3.4. <code class="docutils literal"><span class="pre">with_df</span></code> for density fitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stability-analysis">34.3.5. Stability analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.pbc.scf.hf">34.3.6. Program reference</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="dft.html">33.4. pbc.dft  &#8212; PBC density functional theory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="df.html">33.5. pbc.df &#8212; PBC denisty fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tdscf.html">33.6. pbc.tdscf &#8212; PBC time dependent density functional theory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mp.html">33.7. pbc.mp &#8212; PBC perturbation theory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ci.html">33.8. pbc.ci &#8212; PBC configuration interaction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc.html">33.9. pbc.cc &#8212; PBC coupled cluster</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mpicc.html">33.10. pbc.mpicc &#8212; PBC coupled cluster for MPI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tools.html">33.11. pbc.tools &#8212; PBC tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mix_mol.html">33.12. Mixing PBC and molecular modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="prop.html">33.13. pbc.prop &#8212; PBC property</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gw.html">33.14. pbc.gw &#8212; GW with PBC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dft.html">34.4. pbc.dft  &#8212; PBC density functional theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="df.html">34.5. pbc.df &#8212; PBC denisty fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tdscf.html">34.6. pbc.tdscf &#8212; PBC time dependent density functional theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mp.html">34.7. pbc.mp &#8212; PBC perturbation theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci.html">34.8. pbc.ci &#8212; PBC configuration interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc.html">34.9. pbc.cc &#8212; PBC coupled cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mpicc.html">34.10. pbc.mpicc &#8212; PBC coupled cluster for MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">34.11. pbc.tools &#8212; PBC tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mix_mol.html">34.12. Mixing PBC and molecular modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop.html">34.13. pbc.prop &#8212; PBC property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gw.html">34.14. pbc.gw &#8212; GW with PBC</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../qmmm.html">34. qmmm &#8212; QM/MM interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../solvent.html">35. solvent &#8212; Solvent methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">36. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../geomopt.html">37. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../lo.html">38. lo &#8212; Orbital localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tools.html">39. tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced.html">40. Miscellaneous</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nao.html">42. nao &#8212; Numerical Atomic Orbitals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../lib.html">43. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qmmm.html">35. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solvent.html">36. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">37. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geomopt.html">38. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lo.html">39. lo &#8212; Orbital localization and analysis tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">40. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced.html">41. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ccn.html">42. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nao.html">43. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lib.html">44. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../prop.html">45. prop &#8212; Molecular properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data.html">46. data &#8212; Data for constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shciscf.html">47. shciscf &#8212; Semistochastic Heat Bath Configuration Interaction for SCF</a></li>
 </ul>
 
             
@@ -207,9 +211,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../pbc.html">33. pbc &#8212; Periodic boundary conditions</a> &raquo;</li>
+          <li><a href="../pbc.html">34. pbc &#8212; Periodic boundary conditions</a> &raquo;</li>
         
-      <li>33.3. pbc.scf &#8212; Mean-field with periodic boundary condition</li>
+      <li>34.3. pbc.scf &#8212; Mean-field with periodic boundary condition</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -229,11 +233,11 @@
            <div itemprop="articleBody">
             
   <div class="section" id="pbc-scf-mean-field-with-periodic-boundary-condition">
-<span id="pbc-scf"></span><h1>33.3. pbc.scf &#8212; Mean-field with periodic boundary condition<a class="headerlink" href="#pbc-scf-mean-field-with-periodic-boundary-condition" title="Permalink to this headline">¶</a></h1>
+<span id="pbc-scf"></span><h1>34.3. pbc.scf &#8212; Mean-field with periodic boundary condition<a class="headerlink" href="#pbc-scf-mean-field-with-periodic-boundary-condition" title="Permalink to this headline">¶</a></h1>
 <p>This module is an analogy to molecular <a class="reference internal" href="../scf.html#module-pyscf.scf" title="pyscf.scf"><code class="xref py py-mod docutils literal"><span class="pre">pyscf.scf</span></code></a> module to handle
 mean-filed calculation with periodic boundary condition.</p>
 <div class="section" id="gamma-point-and-single-k-point-calculation">
-<h2>33.3.1. Gamma point and single k-point calculation<a class="headerlink" href="#gamma-point-and-single-k-point-calculation" title="Permalink to this headline">¶</a></h2>
+<h2>34.3.1. Gamma point and single k-point calculation<a class="headerlink" href="#gamma-point-and-single-k-point-calculation" title="Permalink to this headline">¶</a></h2>
 <p>The usage of gamma point Hartree-Fock program is very close to that of the
 molecular program.  In the PBC gamma point calculation, one needs intialize
 <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code> object and the corresponding <code class="xref py py-class docutils literal"><span class="pre">pyscf.pbc.scf.hf.RHF</span></code> class:</p>
@@ -283,7 +287,7 @@ accuracy (see <a class="reference internal" href="#with-df"><span class="std std
 </li>
 </ul>
 <div class="section" id="mixing-with-molecular-program-for-post-hf-methods">
-<span id="mix-to-mol"></span><h3>33.3.1.1. Mixing with molecular program for post-HF methods<a class="headerlink" href="#mixing-with-molecular-program-for-post-hf-methods" title="Permalink to this headline">¶</a></h3>
+<span id="mix-to-mol"></span><h3>34.3.1.1. Mixing with molecular program for post-HF methods<a class="headerlink" href="#mixing-with-molecular-program-for-post-hf-methods" title="Permalink to this headline">¶</a></h3>
 <p>The gamma point HF code adopts the same code structure, the function and
 method names and the arguments&#8217; convention as the molecule SCF code.
 This desgin allows one mixing PBC HF object with the existed molecular post-HF
@@ -318,16 +322,16 @@ modules.</p>
 </div>
 </div>
 <div class="section" id="k-point-sampling">
-<h2>33.3.2. k-point sampling<a class="headerlink" href="#k-point-sampling" title="Permalink to this headline">¶</a></h2>
+<h2>34.3.2. k-point sampling<a class="headerlink" href="#k-point-sampling" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="newton-solver">
-<h3>33.3.2.1. Newton solver<a class="headerlink" href="#newton-solver" title="Permalink to this headline">¶</a></h3>
+<h3>34.3.2.1. Newton solver<a class="headerlink" href="#newton-solver" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="smearing">
-<h3>33.3.2.2. Smearing<a class="headerlink" href="#smearing" title="Permalink to this headline">¶</a></h3>
+<h3>34.3.2.2. Smearing<a class="headerlink" href="#smearing" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="exchange-divergence-treatment">
-<span id="exxdiv"></span><h2>33.3.3. Exchange divergence treatment<a class="headerlink" href="#exchange-divergence-treatment" title="Permalink to this headline">¶</a></h2>
+<span id="exxdiv"></span><h2>34.3.3. Exchange divergence treatment<a class="headerlink" href="#exchange-divergence-treatment" title="Permalink to this headline">¶</a></h2>
 <p>The PBC Hartree-Fock has slow convergence of exchange integral with respect to
 the number of k-points.  In the single k-point calculation,
 Generally, exxdiv leads to a shift in the total energy and the spectrum of
@@ -337,15 +341,15 @@ with molecular program eg the FCI solver, the exxdiv attribute may leads to
 inconsistency in the total energy.</p>
 </div>
 <div class="section" id="with-df-for-density-fitting">
-<span id="with-df"></span><h2>33.3.4. <code class="xref py py-attr docutils literal"><span class="pre">with_df</span></code> for density fitting<a class="headerlink" href="#with-df-for-density-fitting" title="Permalink to this headline">¶</a></h2>
+<span id="with-df"></span><h2>34.3.4. <code class="xref py py-attr docutils literal"><span class="pre">with_df</span></code> for density fitting<a class="headerlink" href="#with-df-for-density-fitting" title="Permalink to this headline">¶</a></h2>
 <p>Placing the <code class="xref py py-attr docutils literal"><span class="pre">with_df</span></code> attribute in SCF object to get the compatibility to
 molecule DF-SCF methods.</p>
 </div>
 <div class="section" id="stability-analysis">
-<h2>33.3.5. Stability analysis<a class="headerlink" href="#stability-analysis" title="Permalink to this headline">¶</a></h2>
+<h2>34.3.5. Stability analysis<a class="headerlink" href="#stability-analysis" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-pyscf.pbc.scf.hf">
-<span id="program-reference"></span><h2>33.3.6. Program reference<a class="headerlink" href="#module-pyscf.pbc.scf.hf" title="Permalink to this headline">¶</a></h2>
+<span id="program-reference"></span><h2>34.3.6. Program reference<a class="headerlink" href="#module-pyscf.pbc.scf.hf" title="Permalink to this headline">¶</a></h2>
 <p>Hartree-Fock for periodic systems at a single k-point</p>
 <dl class="docutils">
 <dt>See Also:</dt>
@@ -1379,10 +1383,10 @@ point density matrix.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="dft.html" class="btn btn-neutral float-right" title="33.4. pbc.dft — PBC density functional theory" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dft.html" class="btn btn-neutral float-right" title="34.4. pbc.dft — PBC density functional theory" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ao2mo.html" class="btn btn-neutral" title="33.2. pbc.ao2mo — PBC integral transformation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ao2mo.html" class="btn btn-neutral" title="34.2. pbc.ao2mo — PBC integral transformation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

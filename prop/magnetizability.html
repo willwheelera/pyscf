@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>44.3. magnetizability — &mdash; PySCF 1.7.0 documentation</title>
+  <title>45.3. magnetizability — &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -33,9 +33,9 @@
 
   
     <link rel="top" title="PySCF 1.7.0 documentation" href="../index.html"/>
-        <link rel="up" title="44. prop — Molecular properties" href="../prop.html"/>
-        <link rel="next" title="44.4. nsr —" href="nsr.html"/>
-        <link rel="prev" title="44.2. gtensor —" href="gtensor.html"/> 
+        <link rel="up" title="45. prop — Molecular properties" href="../prop.html"/>
+        <link rel="next" title="45.4. nsr —" href="nsr.html"/>
+        <link rel="prev" title="45.2. gtensor —" href="gtensor.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -107,55 +107,58 @@
 <li class="toctree-l1"><a class="reference internal" href="../soscf.html">16. soscf &#8212; Second order Hartree-Fock solver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sgx.html">17. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tddft.html">18. tddft &#8212; Time dependent density functional theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mp.html">19. mp &#8212; MP2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ci.html">20. ci &#8212; Configuration interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../doci.html">21. doci &#8212; Doubly occupied configuration interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cc.html">22. cc &#8212; Coupled cluster</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gw.html">23. gw &#8212; Molecular G0W0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../fci.html">24. fci &#8212; Full configuration interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hci.html">25. hci &#8212; Interface to Heat-Bath selective CI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cornell_shci.html">26. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mcscf.html">27. mcscf &#8212; Multi-configurational self-consistent field</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dmrgscf.html">28. dmrgscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../fciqmcscf.html">29. fciqmcscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mrpt.html">30. mrpt &#8212; Multi-reference perturbation theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../x2c.html">32. x2c &#8212; exact-two-component approach</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../pbc.html">33. pbc &#8212; Periodic boundary conditions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../qmmm.html">34. qmmm &#8212; QM/MM interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../solvent.html">35. solvent &#8212; Solvent methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">36. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../geomopt.html">37. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../lo.html">38. lo &#8212; Orbital localization and analysis tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tools.html">39. tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced.html">40. Miscellaneous</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nao.html">42. nao &#8212; Numerical Atomic Orbitals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../lib.html">43. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../prop.html">44. prop &#8212; Molecular properties</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="efg.html">44.1. efg &#8212;</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gtensor.html">44.2. gtensor &#8212;</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">44.3. magnetizability  &#8212;</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#examples">44.3.1. Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.prop.magnetizability">44.3.2. Program reference</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.magnetizability.rhf">44.3.2.1. rhf</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.magnetizability.rks">44.3.2.2. rks</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.magnetizability.uhf">44.3.2.3. uhf</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.magnetizability.uks">44.3.2.4. uks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tdscf.html">19. tdscf &#8212; Time dependent SCF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mp.html">20. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ci.html">21. ci &#8212; Configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doci.html">22. doci &#8212; Doubly occupied configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cc.html">23. cc &#8212; Coupled cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gw.html">24. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fci.html">25. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hci.html">26. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cornell_shci.html">27. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mcscf.html">28. mcscf &#8212; Multi-configurational self-consistent field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dmrgscf.html">29. dmrgscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fciqmcscf.html">30. fciqmcscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mrpt.html">31. mrpt &#8212; Multi-reference perturbation theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../icmpspt.html">32. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../x2c.html">33. x2c &#8212; exact-two-component approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pbc.html">34. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qmmm.html">35. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solvent.html">36. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">37. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geomopt.html">38. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lo.html">39. lo &#8212; Orbital localization and analysis tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">40. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced.html">41. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ccn.html">42. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nao.html">43. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lib.html">44. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../prop.html">45. prop &#8212; Molecular properties</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="efg.html">45.1. efg &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gtensor.html">45.2. gtensor &#8212;</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">45.3. magnetizability  &#8212;</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#examples">45.3.1. Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.prop.magnetizability">45.3.2. Program reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.magnetizability.rhf">45.3.2.1. rhf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.magnetizability.rks">45.3.2.2. rks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.magnetizability.uhf">45.3.2.3. uhf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.magnetizability.uks">45.3.2.4. uks</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="nsr.html">44.4. nsr &#8212;</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rotational_gtensor.html">44.5. rotational_gtensor &#8212;</a></li>
-<li class="toctree-l2"><a class="reference internal" href="zfs.html">44.6. zfs &#8212;</a></li>
-<li class="toctree-l2"><a class="reference internal" href="freq.html">44.7. freq &#8212;</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hfc.html">44.8. hfc &#8212;</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nmr.html">44.9. nmr &#8212;</a></li>
-<li class="toctree-l2"><a class="reference internal" href="polarizability.html">44.10. polarizability &#8212;</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ssc.html">44.11. ssc &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nsr.html">45.4. nsr &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rotational_gtensor.html">45.5. rotational_gtensor &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zfs.html">45.6. zfs &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freq.html">45.7. freq &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hfc.html">45.8. hfc &#8212; Hyperfine coupling tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nmr.html">45.9. nmr &#8212; NMR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="polarizability.html">45.10. polarizability &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ssc.html">45.11. ssc &#8212; Spin-spin coulping</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../data.html">46. data &#8212; Data for constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shciscf.html">47. shciscf &#8212; Semistochastic Heat Bath Configuration Interaction for SCF</a></li>
 </ul>
 
             
@@ -200,9 +203,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../prop.html">44. prop &#8212; Molecular properties</a> &raquo;</li>
+          <li><a href="../prop.html">45. prop &#8212; Molecular properties</a> &raquo;</li>
         
-      <li>44.3. magnetizability  &#8212;</li>
+      <li>45.3. magnetizability  &#8212;</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -222,17 +225,17 @@
            <div itemprop="articleBody">
             
   <div class="section" id="magnetizability">
-<h1>44.3. magnetizability  &#8212;<a class="headerlink" href="#magnetizability" title="Permalink to this headline">¶</a></h1>
+<h1>45.3. magnetizability  &#8212;<a class="headerlink" href="#magnetizability" title="Permalink to this headline">¶</a></h1>
 <p>The <code class="xref py py-mod docutils literal"><span class="pre">magnetizability</span></code> module implements magetizabilities
 for mean-field wavefunctions.</p>
 <div class="section" id="examples">
-<h2>44.3.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2>45.3.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>No example</p>
 </div>
 <div class="section" id="module-pyscf.prop.magnetizability">
-<span id="program-reference"></span><h2>44.3.2. Program reference<a class="headerlink" href="#module-pyscf.prop.magnetizability" title="Permalink to this headline">¶</a></h2>
+<span id="program-reference"></span><h2>45.3.2. Program reference<a class="headerlink" href="#module-pyscf.prop.magnetizability" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="module-pyscf.prop.magnetizability.rhf">
-<span id="rhf"></span><h3>44.3.2.1. rhf<a class="headerlink" href="#module-pyscf.prop.magnetizability.rhf" title="Permalink to this headline">¶</a></h3>
+<span id="rhf"></span><h3>45.3.2.1. rhf<a class="headerlink" href="#module-pyscf.prop.magnetizability.rhf" title="Permalink to this headline">¶</a></h3>
 <p>Non-relativistic magnetizability tensor for RHF
 (In testing)</p>
 <p>Refs:
@@ -270,14 +273,14 @@ given function is used to compute induced potential</dd>
 
 </div>
 <div class="section" id="module-pyscf.prop.magnetizability.rks">
-<span id="rks"></span><h3>44.3.2.2. rks<a class="headerlink" href="#module-pyscf.prop.magnetizability.rks" title="Permalink to this headline">¶</a></h3>
+<span id="rks"></span><h3>45.3.2.2. rks<a class="headerlink" href="#module-pyscf.prop.magnetizability.rks" title="Permalink to this headline">¶</a></h3>
 <p>Non-relativistic magnetizability tensor for DFT</p>
 <p>Refs:
 [1] R. Cammi, J. Chem. Phys., 109, 3185 (1998)
 [2] Todd A. Keith, Chem. Phys., 213, 123 (1996)</p>
 </div>
 <div class="section" id="module-pyscf.prop.magnetizability.uhf">
-<span id="uhf"></span><h3>44.3.2.3. uhf<a class="headerlink" href="#module-pyscf.prop.magnetizability.uhf" title="Permalink to this headline">¶</a></h3>
+<span id="uhf"></span><h3>45.3.2.3. uhf<a class="headerlink" href="#module-pyscf.prop.magnetizability.uhf" title="Permalink to this headline">¶</a></h3>
 <p>Non-relativistic magnetizability tensor for UHF
 (In testing)</p>
 <p>Refs:
@@ -307,7 +310,7 @@ given function is used to compute induced potential</dd>
 
 </div>
 <div class="section" id="module-pyscf.prop.magnetizability.uks">
-<span id="uks"></span><h3>44.3.2.4. uks<a class="headerlink" href="#module-pyscf.prop.magnetizability.uks" title="Permalink to this headline">¶</a></h3>
+<span id="uks"></span><h3>45.3.2.4. uks<a class="headerlink" href="#module-pyscf.prop.magnetizability.uks" title="Permalink to this headline">¶</a></h3>
 <p>Non-relativistic magnetizability tensor for UKS
 (In testing)</p>
 <p>Refs:
@@ -327,10 +330,10 @@ given function is used to compute induced potential</dd>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="nsr.html" class="btn btn-neutral float-right" title="44.4. nsr —" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="nsr.html" class="btn btn-neutral float-right" title="45.4. nsr —" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="gtensor.html" class="btn btn-neutral" title="44.2. gtensor —" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="gtensor.html" class="btn btn-neutral" title="45.2. gtensor —" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
