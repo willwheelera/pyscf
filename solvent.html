@@ -139,6 +139,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nao.html">42. nao &#8212; Numerical Atomic Orbitals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lib.html">43. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prop.html">44. prop &#8212; Molecular properties</a></li>
 </ul>
 
             
@@ -206,6 +207,21 @@
 <span id="solvent-solvent-methods"></span><h1>35. solvent &#8212; Solvent methods<a class="headerlink" href="#module-solvent" title="Permalink to this headline">¶</a></h1>
 <p>The <a class="reference internal" href="#module-solvent" title="solvent: Solvation via domain-decomposition COSMO for mean-field and correlated methods"><code class="xref py py-mod docutils literal"><span class="pre">solvent</span></code></a> implements the domain-decomposition COSMO solvent model
 for mean-field and correlated methods.</p>
+<p>To run a mean-field calculation with the implicit solvent model, one can try the
+following example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">dft</span>
+<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">solvent</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">C        0.000000    0.000000             -0.542500</span>
+<span class="s1">O        0.000000    0.000000              0.677500</span>
+<span class="s1">H        0.000000    0.9353074360871938   -1.082500</span>
+<span class="s1">H        0.000000   -0.9353074360871938   -1.082500</span>
+<span class="s1">            &#39;&#39;&#39;</span><span class="p">,</span>
+            <span class="n">verbose</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">solvent</span><span class="o">.</span><span class="n">ddCOSMO</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
 <div class="section" id="examples">
 <h2>35.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples

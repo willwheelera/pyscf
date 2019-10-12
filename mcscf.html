@@ -115,20 +115,21 @@
 <li class="toctree-l1"><a class="reference internal" href="hci.html">25. hci &#8212; Interface to Heat-Bath selective CI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cornell_shci.html">26. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">27. mcscf &#8212; Multi-configurational self-consistent field</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#casscf-active-space-solver">27.1. CASSCF active space solver</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#dmrg-solver">27.1.1. DMRG solver</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#fciqmc-solver">27.1.2. FCIQMC solver</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#state-average-fci-solver">27.1.3. State-average FCI solver</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#state-average-with-mixed-solver">27.1.4. State-average with mixed solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">27.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#casscf-active-space-solver">27.2. CASSCF active space solver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dmrg-solver">27.2.1. DMRG solver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fciqmc-solver">27.2.2. FCIQMC solver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#state-average-fci-solver">27.2.3. State-average FCI solver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#state-average-with-mixed-solver">27.2.4. State-average with mixed solver</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#symmetry-broken">27.2. Symmetry broken</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#initial-guess">27.3. Initial guess</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#canonical-orbitals">27.4. Canonical orbitals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#program-reference">27.5. Program reference</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.mcscf.casci">27.5.1. CASCI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.mcscf.mc1step">27.5.2. CASSCF</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.mcscf.addons">27.5.3. addons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#symmetry-broken">27.3. Symmetry broken</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#initial-guess">27.4. Initial guess</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#canonical-orbitals">27.5. Canonical orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#program-reference">27.6. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.mcscf.casci">27.6.1. CASCI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.mcscf.mc1step">27.6.2. CASSCF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.mcscf.addons">27.6.3. addons</a></li>
 </ul>
 </li>
 </ul>
@@ -149,6 +150,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nao.html">42. nao &#8212; Numerical Atomic Orbitals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lib.html">43. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prop.html">44. prop &#8212; Molecular properties</a></li>
 </ul>
 
             
@@ -212,9 +214,54 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-pyscf.mcscf">
-<span id="mcscf-multi-configurational-self-consistent-field"></span><h1>27. mcscf &#8212; Multi-configurational self-consistent field<a class="headerlink" href="#module-pyscf.mcscf" title="Permalink to this headline">¶</a></h1>
-<p>CASCI and CASSCF</p>
+  <div class="section" id="mcscf-multi-configurational-self-consistent-field">
+<h1>27. mcscf &#8212; Multi-configurational self-consistent field<a class="headerlink" href="#mcscf-multi-configurational-self-consistent-field" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="examples">
+<h2>27.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Relevant examples
+<code class="file docutils literal"><span class="pre">examples/mcscf/00-simple_casci.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/00-simple_casscf.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/01-for_expensive_fci.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/03-natural_orbital.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/04-density_matrix.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/10-define_cas_space.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/11-casscf_with_uhf_uks.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/12-c2_triplet_from_singlet_hf.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/13-load_chkfile.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/13-restart.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/14-project_init_guess.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/15-state_average.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/15-state_specific.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/15-transition_dm.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/16-density_fitting.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/17-approx_orbital_hessian.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/18-o2_spatial_spin_symmetry.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/18-spatial_spin_symmetry.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/19-frozen_core.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/20-change_symmetry.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/21-active_space_symmetry.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/21-nosymhf_then_symcasscf.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/22-x2c.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/23-local_spin.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/33-make_init_guess</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/34-init_guess_localization.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/40-customizing_hamiltonian.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/41-mcscf_custom_df_hamiltonian.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/41-state_average.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/42-compare_cas_space.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/43-avas.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/43-dmet_cas.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/44-mcscf_active_space_hamiltonian.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/50-casscf_then_dmrgscf.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/50-casscf_with_selected_ci.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/50-cornell_shci_casscf.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/50-dmrgscf_with_block.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/51-o2_triplet_by_various_fci.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/60-uhf_based_ucasscf.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/61-rcas_vs_ucas</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/70-casscf_hot_tuning.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/mcscf/70-casscf_optimize_scheduler.py</span></code></p>
+<span class="target" id="module-pyscf.mcscf"></span><p>CASCI and CASSCF</p>
 <p>When using results of this code for publications, please cite the following paper:
 &#8220;A general second order complete active space self-consistent-field solver for large-scale systems&#8221;, Q. Sun, J. Yang, and G. K.-L. Chan, Chem. Phys. Lett. 683, 291 (2017).</p>
 <p>Simple usage:</p>
@@ -386,29 +433,30 @@ MCSCF and CASSCF. 1-step (combined orbital and wavefunction
 optimization) and 2-step algorithms (alternating orbital and wavefunction
 optimization) are available. Different kinds of active space solvers can
 be used with this module.</p>
+</div>
 <div class="section" id="casscf-active-space-solver">
-<h2>27.1. CASSCF active space solver<a class="headerlink" href="#casscf-active-space-solver" title="Permalink to this headline">¶</a></h2>
+<h2>27.2. CASSCF active space solver<a class="headerlink" href="#casscf-active-space-solver" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="dmrg-solver">
-<h3>27.1.1. DMRG solver<a class="headerlink" href="#dmrg-solver" title="Permalink to this headline">¶</a></h3>
+<h3>27.2.1. DMRG solver<a class="headerlink" href="#dmrg-solver" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="fciqmc-solver">
-<h3>27.1.2. FCIQMC solver<a class="headerlink" href="#fciqmc-solver" title="Permalink to this headline">¶</a></h3>
+<h3>27.2.2. FCIQMC solver<a class="headerlink" href="#fciqmc-solver" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="state-average-fci-solver">
-<h3>27.1.3. State-average FCI solver<a class="headerlink" href="#state-average-fci-solver" title="Permalink to this headline">¶</a></h3>
+<h3>27.2.3. State-average FCI solver<a class="headerlink" href="#state-average-fci-solver" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="state-average-with-mixed-solver">
-<h3>27.1.4. State-average with mixed solver<a class="headerlink" href="#state-average-with-mixed-solver" title="Permalink to this headline">¶</a></h3>
+<h3>27.2.4. State-average with mixed solver<a class="headerlink" href="#state-average-with-mixed-solver" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="symmetry-broken">
-<h2>27.2. Symmetry broken<a class="headerlink" href="#symmetry-broken" title="Permalink to this headline">¶</a></h2>
+<h2>27.3. Symmetry broken<a class="headerlink" href="#symmetry-broken" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="initial-guess">
-<h2>27.3. Initial guess<a class="headerlink" href="#initial-guess" title="Permalink to this headline">¶</a></h2>
+<h2>27.4. Initial guess<a class="headerlink" href="#initial-guess" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="canonical-orbitals">
-<h2>27.4. Canonical orbitals<a class="headerlink" href="#canonical-orbitals" title="Permalink to this headline">¶</a></h2>
+<h2>27.5. Canonical orbitals<a class="headerlink" href="#canonical-orbitals" title="Permalink to this headline">¶</a></h2>
 <p>There are two relevant parameters for orbital canonicalization.  They are
 <code class="xref py py-attr docutils literal"><span class="pre">mc.canonicalization</span></code> and <code class="xref py py-attr docutils literal"><span class="pre">mc.natorb</span></code> (assuming the MCSCF object is <code class="docutils literal"><span class="pre">mc</span></code>).
 In the CASCI/CASSCF calculations, the resultant orbitals are stored in the
@@ -497,9 +545,9 @@ in the orbital ordering in the active space can lead to discontinuous potential
 energy curve.</p>
 </div>
 <div class="section" id="program-reference">
-<h2>27.5. Program reference<a class="headerlink" href="#program-reference" title="Permalink to this headline">¶</a></h2>
+<h2>27.6. Program reference<a class="headerlink" href="#program-reference" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="module-pyscf.mcscf.casci">
-<span id="casci"></span><h3>27.5.1. CASCI<a class="headerlink" href="#module-pyscf.mcscf.casci" title="Permalink to this headline">¶</a></h3>
+<span id="casci"></span><h3>27.6.1. CASCI<a class="headerlink" href="#module-pyscf.mcscf.casci" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="pyscf.mcscf.casci.CASCI">
 <em class="property">class </em><code class="descclassname">pyscf.mcscf.casci.</code><code class="descname">CASCI</code><span class="sig-paren">(</span><em>mf_or_mol</em>, <em>ncas</em>, <em>nelecas</em>, <em>ncore=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/mcscf/casci.html#CASCI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.mcscf.casci.CASCI" title="Permalink to this definition">¶</a></dt>
@@ -1163,7 +1211,7 @@ orbitals)</p>
 
 </div>
 <div class="section" id="module-pyscf.mcscf.mc1step">
-<span id="casscf"></span><h3>27.5.2. CASSCF<a class="headerlink" href="#module-pyscf.mcscf.mc1step" title="Permalink to this headline">¶</a></h3>
+<span id="casscf"></span><h3>27.6.2. CASSCF<a class="headerlink" href="#module-pyscf.mcscf.mc1step" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="pyscf.mcscf.mc1step.CASSCF">
 <em class="property">class </em><code class="descclassname">pyscf.mcscf.mc1step.</code><code class="descname">CASSCF</code><span class="sig-paren">(</span><em>mf_or_mol</em>, <em>ncas</em>, <em>nelecas</em>, <em>ncore=None</em>, <em>frozen=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/mcscf/mc1step.html#CASSCF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.mcscf.mc1step.CASSCF" title="Permalink to this definition">¶</a></dt>
@@ -1700,7 +1748,7 @@ See also <a class="reference internal" href="#pyscf.mcscf.addons.sort_mo_by_irre
 <span class="target" id="module-pyscf.mcscf.mc_ao2mo"></span><span class="target" id="module-pyscf.mcscf.umc_ao2mo"></span><p>MO integrals for UCASSCF methods</p>
 </div>
 <div class="section" id="module-pyscf.mcscf.addons">
-<span id="addons"></span><h3>27.5.3. addons<a class="headerlink" href="#module-pyscf.mcscf.addons" title="Permalink to this headline">¶</a></h3>
+<span id="addons"></span><h3>27.6.3. addons<a class="headerlink" href="#module-pyscf.mcscf.addons" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="pyscf.mcscf.addons.cas_natorb">
 <code class="descclassname">pyscf.mcscf.addons.</code><code class="descname">cas_natorb</code><span class="sig-paren">(</span><em>casscf</em>, <em>mo_coeff=None</em>, <em>ci=None</em>, <em>sort=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/mcscf/addons.html#cas_natorb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.mcscf.addons.cas_natorb" title="Permalink to this definition">¶</a></dt>

@@ -34,7 +34,7 @@
   
     <link rel="top" title="PySCF 1.7.0 documentation" href="../index.html"/>
         <link rel="up" title="44. prop — Molecular properties" href="../prop.html"/>
-        <link rel="next" title="44.8. hfc —" href="hfc.html"/>
+        <link rel="next" title="44.8. hfc — Hyperfine coupling tensor" href="hfc.html"/>
         <link rel="prev" title="44.6. zfs —" href="zfs.html"/> 
 
   
@@ -150,10 +150,10 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="hfc.html">44.8. hfc &#8212;</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nmr.html">44.9. nmr &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hfc.html">44.8. hfc &#8212; Hyperfine coupling tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nmr.html">44.9. nmr &#8212; NMR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="polarizability.html">44.10. polarizability &#8212;</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ssc.html">44.11. ssc &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ssc.html">44.11. ssc &#8212; Spin-spin coulping</a></li>
 </ul>
 </li>
 </ul>
@@ -225,6 +225,21 @@
 <h1>44.7. freq &#8212;<a class="headerlink" href="#freq" title="Permalink to this headline">¶</a></h1>
 <p>The <code class="xref py py-mod docutils literal"><span class="pre">freq</span></code> module handles vibrational frequencies for
 mean-field wavefunctions.</p>
+<p>To compute the frequency of a water molecule under restricted spin symmetry,
+first perform a restricted Kohn-Sham calculation using density functional
+theory module <a class="reference internal" href="../dft.html#module-dft" title="dft"><code class="xref py py-mod docutils literal"><span class="pre">dft</span></code></a>, then calculate the frequency using the restricted
+Kohn-Sham module <code class="xref py py-mod docutils literal"><span class="pre">rks</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">dft</span>
+<span class="kn">from</span> <span class="nn">pyscf.prop.freq</span> <span class="k">import</span> <span class="n">rks</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">            O 0 0      0</span>
+<span class="s1">            H 0 -0.757 0.587</span>
+<span class="s1">            H 0  0.757 0.587&#39;&#39;&#39;</span><span class="p">,</span>
+            <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">mf</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="n">w</span><span class="p">,</span> <span class="n">modes</span> <span class="o">=</span> <span class="n">rks</span><span class="o">.</span><span class="n">Freq</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+</pre></div>
+</div>
 <div class="section" id="examples">
 <h2>44.7.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples
@@ -261,7 +276,7 @@ mean-field wavefunctions.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="hfc.html" class="btn btn-neutral float-right" title="44.8. hfc —" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="hfc.html" class="btn btn-neutral float-right" title="44.8. hfc — Hyperfine coupling tensor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="zfs.html" class="btn btn-neutral" title="44.6. zfs —" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

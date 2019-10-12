@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>44.11. ssc — &mdash; PySCF 1.7.0 documentation</title>
+  <title>44.11. ssc — Spin-spin coulping &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -139,10 +139,10 @@
 <li class="toctree-l2"><a class="reference internal" href="rotational_gtensor.html">44.5. rotational_gtensor &#8212;</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zfs.html">44.6. zfs &#8212;</a></li>
 <li class="toctree-l2"><a class="reference internal" href="freq.html">44.7. freq &#8212;</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hfc.html">44.8. hfc &#8212;</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nmr.html">44.9. nmr &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hfc.html">44.8. hfc &#8212; Hyperfine coupling tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nmr.html">44.9. nmr &#8212; NMR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="polarizability.html">44.10. polarizability &#8212;</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">44.11. ssc &#8212;</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">44.11. ssc &#8212; Spin-spin coulping</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#examples">44.11.1. Examples</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyscf.prop.ssc">44.11.2. Program reference</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.ssc.dhf">44.11.2.1. dhf</a></li>
@@ -202,7 +202,7 @@
         
           <li><a href="../prop.html">44. prop &#8212; Molecular properties</a> &raquo;</li>
         
-      <li>44.11. ssc &#8212;</li>
+      <li>44.11. ssc &#8212; Spin-spin coulping</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -221,8 +221,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="ssc">
-<h1>44.11. ssc &#8212;<a class="headerlink" href="#ssc" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="ssc-spin-spin-coulping">
+<h1>44.11. ssc &#8212; Spin-spin coulping<a class="headerlink" href="#ssc-spin-spin-coulping" title="Permalink to this headline">¶</a></h1>
+<p>To compute the nuclear spin-spin coupling constants, one could follow the following example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">dft</span>
+<span class="kn">from</span> <span class="nn">pyscf.prop</span> <span class="k">import</span> <span class="n">ssc</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">            O 0 0      0</span>
+<span class="s1">            H 0 -0.757 0.587</span>
+<span class="s1">            H 0  0.757 0.587&#39;&#39;&#39;</span><span class="p">,</span>
+            <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">)</span>
+
+<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">UHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="n">ssc</span><span class="o">.</span><span class="n">UHF</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+
+<span class="n">mf</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">UKS</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xc</span><span class="o">=</span><span class="s1">&#39;b3lyp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="n">ssc</span><span class="o">.</span><span class="n">UKS</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+</pre></div>
+</div>
 <div class="section" id="examples">
 <h2>44.11.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples
