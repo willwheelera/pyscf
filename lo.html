@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>37. lo — Orbital localization &mdash; PySCF 1.7.0 documentation</title>
+  <title>38. lo — Orbital localization &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -33,8 +33,8 @@
 
   
     <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
-        <link rel="next" title="38. tools" href="tools.html"/>
-        <link rel="prev" title="36. geomopt — Geometry optimization" href="geomopt.html"/> 
+        <link rel="next" title="39. tools" href="tools.html"/>
+        <link rel="prev" title="37. geomopt — Geometry optimization" href="geomopt.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -119,26 +119,27 @@
 <li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">29. fciqmcscf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mrpt.html">30. mrpt &#8212; Multi-reference perturbation theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pbc.html">32. pbc &#8212; Periodic boundary conditions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="qmmm.html">33. qmmm &#8212; QM/MM interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="solvent.html">34. solvent &#8212; Solvent methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">35. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="geomopt.html">36. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">37. lo &#8212; Orbital localization</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#examples">37.1. Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo">37.2. Program reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.boys">37.3. Foster-Boys, Edmiston-Ruedenberg, Pipek-Mezey localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.orth">37.4. Meta-Lowdin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.nao">37.5. Natural atomic orbitals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.iao">37.6. Intrinsic Atomic Orbitals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.ibo">37.7. Intrinsic Bond Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="x2c.html">32. x2c &#8212; exact-two-component approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc.html">33. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qmmm.html">34. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solvent.html">35. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">36. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geomopt.html">37. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">38. lo &#8212; Orbital localization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">38.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo">38.2. Program reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.boys">38.3. Foster-Boys, Edmiston-Ruedenberg, Pipek-Mezey localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.orth">38.4. Meta-Lowdin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.nao">38.5. Natural atomic orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.iao">38.6. Intrinsic Atomic Orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.lo.ibo">38.7. Intrinsic Bond Orbitals</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tools.html">38. tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">39. Miscellaneous</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ccn.html">40. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nao.html">41. nao &#8212; Numerical Atomic Orbitals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lib.html">42. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">39. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">40. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nao.html">42. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.html">43. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
 </ul>
 
             
@@ -183,7 +184,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>37. lo &#8212; Orbital localization</li>
+      <li>38. lo &#8212; Orbital localization</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -203,9 +204,9 @@
            <div itemprop="articleBody">
             
   <div class="section" id="lo-orbital-localization">
-<h1>37. lo &#8212; Orbital localization<a class="headerlink" href="#lo-orbital-localization" title="Permalink to this headline">¶</a></h1>
+<h1>38. lo &#8212; Orbital localization<a class="headerlink" href="#lo-orbital-localization" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="examples">
-<h2>37.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2>38.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples
 <code class="file docutils literal"><span class="pre">examples/local_orb/01-pop_with_meta_lowdin.py</span></code>
 <code class="file docutils literal"><span class="pre">examples/local_orb/01-pop_with_nao.py</span></code>
@@ -217,10 +218,10 @@
 <code class="file docutils literal"><span class="pre">examples/local_orb/40-hubbard_model_PM_localization.py</span></code></p>
 </div>
 <div class="section" id="module-pyscf.lo">
-<span id="program-reference"></span><h2>37.2. Program reference<a class="headerlink" href="#module-pyscf.lo" title="Permalink to this headline">¶</a></h2>
+<span id="program-reference"></span><h2>38.2. Program reference<a class="headerlink" href="#module-pyscf.lo" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-pyscf.lo.boys">
-<span id="foster-boys-edmiston-ruedenberg-pipek-mezey-localization"></span><h2>37.3. Foster-Boys, Edmiston-Ruedenberg, Pipek-Mezey localization<a class="headerlink" href="#module-pyscf.lo.boys" title="Permalink to this headline">¶</a></h2>
+<span id="foster-boys-edmiston-ruedenberg-pipek-mezey-localization"></span><h2>38.3. Foster-Boys, Edmiston-Ruedenberg, Pipek-Mezey localization<a class="headerlink" href="#module-pyscf.lo.boys" title="Permalink to this headline">¶</a></h2>
 <p>Foster-Boys localization</p>
 <span class="target" id="module-pyscf.lo.edmiston"></span><p>Edmiston-Ruedenberg localization</p>
 <span class="target" id="module-pyscf.lo.pipek"></span><p>Pipek-Mezey localization</p>
@@ -249,7 +250,7 @@ localization of site-based population for hubbard model.</p>
 
 </div>
 <div class="section" id="module-pyscf.lo.orth">
-<span id="meta-lowdin"></span><h2>37.4. Meta-Lowdin<a class="headerlink" href="#module-pyscf.lo.orth" title="Permalink to this headline">¶</a></h2>
+<span id="meta-lowdin"></span><h2>38.4. Meta-Lowdin<a class="headerlink" href="#module-pyscf.lo.orth" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pyscf.lo.orth.lowdin">
 <code class="descclassname">pyscf.lo.orth.</code><code class="descname">lowdin</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/lo/orth.html#lowdin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.lo.orth.lowdin" title="Permalink to this definition">¶</a></dt>
@@ -319,7 +320,7 @@ projection or fraction-averaged atomic RHF calculation</p>
 
 </div>
 <div class="section" id="module-pyscf.lo.nao">
-<span id="natural-atomic-orbitals"></span><h2>37.5. Natural atomic orbitals<a class="headerlink" href="#module-pyscf.lo.nao" title="Permalink to this headline">¶</a></h2>
+<span id="natural-atomic-orbitals"></span><h2>38.5. Natural atomic orbitals<a class="headerlink" href="#module-pyscf.lo.nao" title="Permalink to this headline">¶</a></h2>
 <p>Natural atomic orbitals
 Ref:</p>
 <blockquote>
@@ -355,7 +356,7 @@ See data/elements.py for the default configuration.</p>
 
 </div>
 <div class="section" id="module-pyscf.lo.iao">
-<span id="intrinsic-atomic-orbitals"></span><h2>37.6. Intrinsic Atomic Orbitals<a class="headerlink" href="#module-pyscf.lo.iao" title="Permalink to this headline">¶</a></h2>
+<span id="intrinsic-atomic-orbitals"></span><h2>38.6. Intrinsic Atomic Orbitals<a class="headerlink" href="#module-pyscf.lo.iao" title="Permalink to this headline">¶</a></h2>
 <p>Intrinsic Atomic Orbitals
 ref. JCTC, 9, 4834</p>
 <dl class="function">
@@ -406,7 +407,7 @@ eg using <code class="xref py py-func docutils literal"><span class="pre">orth.l
 
 </div>
 <div class="section" id="module-pyscf.lo.ibo">
-<span id="intrinsic-bond-orbitals"></span><h2>37.7. Intrinsic Bond Orbitals<a class="headerlink" href="#module-pyscf.lo.ibo" title="Permalink to this headline">¶</a></h2>
+<span id="intrinsic-bond-orbitals"></span><h2>38.7. Intrinsic Bond Orbitals<a class="headerlink" href="#module-pyscf.lo.ibo" title="Permalink to this headline">¶</a></h2>
 <p>Intrinsic Bonding Orbitals
 ref. JCTC, 9, 4834</p>
 <p>Below here is work done by Paul Robinson.
@@ -528,10 +529,10 @@ module was used to maximize the IAO Mulliken charges.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tools.html" class="btn btn-neutral float-right" title="38. tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="tools.html" class="btn btn-neutral float-right" title="39. tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="geomopt.html" class="btn btn-neutral" title="36. geomopt — Geometry optimization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="geomopt.html" class="btn btn-neutral" title="37. geomopt — Geometry optimization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

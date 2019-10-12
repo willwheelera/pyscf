@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>33. qmmm — QM/MM interface &mdash; PySCF 1.7.0 documentation</title>
+  <title>34. qmmm — QM/MM interface &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -33,8 +33,8 @@
 
   
     <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
-        <link rel="next" title="34. solvent — Solvent methods" href="solvent.html"/>
-        <link rel="prev" title="32.14. pbc.gw — GW with PBC" href="pbc/gw.html"/> 
+        <link rel="next" title="35. solvent — Solvent methods" href="solvent.html"/>
+        <link rel="prev" title="33.14. pbc.gw — GW with PBC" href="pbc/gw.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -119,17 +119,18 @@
 <li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">29. fciqmcscf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mrpt.html">30. mrpt &#8212; Multi-reference perturbation theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pbc.html">32. pbc &#8212; Periodic boundary conditions</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">33. qmmm &#8212; QM/MM interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="solvent.html">34. solvent &#8212; Solvent methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">35. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="geomopt.html">36. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lo.html">37. lo &#8212; Orbital localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tools.html">38. tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">39. Miscellaneous</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ccn.html">40. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nao.html">41. nao &#8212; Numerical Atomic Orbitals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lib.html">42. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="x2c.html">32. x2c &#8212; exact-two-component approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc.html">33. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">34. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solvent.html">35. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">36. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geomopt.html">37. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lo.html">38. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">39. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">40. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nao.html">42. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.html">43. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
 </ul>
 
             
@@ -174,7 +175,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>33. qmmm &#8212; QM/MM interface</li>
+      <li>34. qmmm &#8212; QM/MM interface</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -194,7 +195,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-pyscf.qmmm.itrf">
-<span id="qmmm-qm-mm-interface"></span><h1>33. qmmm &#8212; QM/MM interface<a class="headerlink" href="#module-pyscf.qmmm.itrf" title="Permalink to this headline">¶</a></h1>
+<span id="qmmm-qm-mm-interface"></span><h1>34. qmmm &#8212; QM/MM interface<a class="headerlink" href="#module-pyscf.qmmm.itrf" title="Permalink to this headline">¶</a></h1>
 <p>QM part interface</p>
 <dl class="function">
 <dt id="pyscf.qmmm.itrf.add_mm_charges">
@@ -328,10 +329,10 @@ it affects all post-HF calculations eg MP2, CCSD, MCSCF etc</dd>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="solvent.html" class="btn btn-neutral float-right" title="34. solvent — Solvent methods" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="solvent.html" class="btn btn-neutral float-right" title="35. solvent — Solvent methods" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="pbc/gw.html" class="btn btn-neutral" title="32.14. pbc.gw — GW with PBC" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pbc/gw.html" class="btn btn-neutral" title="33.14. pbc.gw — GW with PBC" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

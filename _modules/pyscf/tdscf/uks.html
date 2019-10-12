@@ -118,17 +118,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../fciqmcscf.html">29. fciqmcscf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../mrpt.html">30. mrpt &#8212; Multi-reference perturbation theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../pbc.html">32. pbc &#8212; Periodic boundary conditions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../qmmm.html">33. qmmm &#8212; QM/MM interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../solvent.html">34. solvent &#8212; Solvent methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../semiempirical.html">35. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../geomopt.html">36. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../lo.html">37. lo &#8212; Orbital localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tools.html">38. tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../advanced.html">39. Miscellaneous</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../ccn.html">40. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nao.html">41. nao &#8212; Numerical Atomic Orbitals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../lib.html">42. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../x2c.html">32. x2c &#8212; exact-two-component approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pbc.html">33. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qmmm.html">34. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../solvent.html">35. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../semiempirical.html">36. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../geomopt.html">37. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lo.html">38. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tools.html">39. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../advanced.html">40. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nao.html">42. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lib.html">43. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
 </ul>
 
             
@@ -241,7 +242,7 @@
 <span class="n">RPA</span> <span class="o">=</span> <span class="n">TDUKS</span> <span class="o">=</span> <span class="n">TDDFT</span>
 
 
-<span class="k">class</span> <span class="nc">TDDFTNoHybrid</span><span class="p">(</span><span class="n">TDA</span><span class="p">):</span>
+<div class="viewcode-block" id="TDDFTNoHybrid"><a class="viewcode-back" href="../../../tddft.html#pyscf.dft.uks.TDDFTNoHybrid">[docs]</a><span class="k">class</span> <span class="nc">TDDFTNoHybrid</span><span class="p">(</span><span class="n">TDA</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Solve (A-B)(A+B)(X+Y) = (X+Y)w^2</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">def</span> <span class="nf">get_vind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mf</span><span class="p">):</span>
@@ -315,7 +316,7 @@
 
         <span class="k">return</span> <span class="n">vind</span><span class="p">,</span> <span class="n">hdiag</span>
 
-    <span class="k">def</span> <span class="nf">kernel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nstates</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="TDDFTNoHybrid.kernel"><a class="viewcode-back" href="../../../tddft.html#pyscf.dft.uks.TDDFTNoHybrid.kernel">[docs]</a>    <span class="k">def</span> <span class="nf">kernel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nstates</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;TDDFT diagonalization solver</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">cpu0</span> <span class="o">=</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">(),</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
@@ -390,11 +391,11 @@
 
         <span class="n">log</span><span class="o">.</span><span class="n">timer</span><span class="p">(</span><span class="s1">&#39;TDDFT&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">cpu0</span><span class="p">)</span>
         <span class="n">log</span><span class="o">.</span><span class="n">note</span><span class="p">(</span><span class="s1">&#39;Excited State energies (eV)</span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">*</span> <span class="n">nist</span><span class="o">.</span><span class="n">HARTREE2EV</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span></div>
 
     <span class="k">def</span> <span class="nf">nuc_grad_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">pyscf.grad</span> <span class="k">import</span> <span class="n">tduks</span>
-        <span class="k">return</span> <span class="n">tduks</span><span class="o">.</span><span class="n">Gradients</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tduks</span><span class="o">.</span><span class="n">Gradients</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 
 <span class="k">class</span> <span class="nc">dRPA</span><span class="p">(</span><span class="n">TDDFTNoHybrid</span><span class="p">):</span>
@@ -418,12 +419,12 @@
         <span class="n">TDA</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mf</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">tddft</span><span class="p">(</span><span class="n">mf</span><span class="p">):</span>
+<div class="viewcode-block" id="tddft"><a class="viewcode-back" href="../../../tddft.html#pyscf.dft.uks.tddft">[docs]</a><span class="k">def</span> <span class="nf">tddft</span><span class="p">(</span><span class="n">mf</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Driver to create TDDFT or TDDFTNoHybrid object&#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="n">mf</span><span class="o">.</span><span class="n">_numint</span><span class="o">.</span><span class="n">libxc</span><span class="o">.</span><span class="n">is_hybrid_xc</span><span class="p">(</span><span class="n">mf</span><span class="o">.</span><span class="n">xc</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">TDDFT</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">TDDFTNoHybrid</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">TDDFTNoHybrid</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span></div>
 
 <span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">dft</span>
 <span class="n">dft</span><span class="o">.</span><span class="n">uks</span><span class="o">.</span><span class="n">UKS</span><span class="o">.</span><span class="n">TDA</span>           <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">uks_symm</span><span class="o">.</span><span class="n">UKS</span><span class="o">.</span><span class="n">TDA</span>           <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">class_as_method</span><span class="p">(</span><span class="n">TDA</span><span class="p">)</span>

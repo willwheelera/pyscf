@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>32.1. pbc.gto — Crystal cell structure &mdash; PySCF 1.7.0 documentation</title>
+  <title>33.1. pbc.gto — Crystal cell structure &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -33,9 +33,9 @@
 
   
     <link rel="top" title="PySCF 1.7.0 documentation" href="../index.html"/>
-        <link rel="up" title="32. pbc — Periodic boundary conditions" href="../pbc.html"/>
-        <link rel="next" title="32.2. pbc.ao2mo — PBC integral transformation" href="ao2mo.html"/>
-        <link rel="prev" title="32. pbc — Periodic boundary conditions" href="../pbc.html"/> 
+        <link rel="up" title="33. pbc — Periodic boundary conditions" href="../pbc.html"/>
+        <link rel="next" title="33.2. pbc.ao2mo — PBC integral transformation" href="ao2mo.html"/>
+        <link rel="prev" title="33. pbc — Periodic boundary conditions" href="../pbc.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -120,43 +120,44 @@
 <li class="toctree-l1"><a class="reference internal" href="../fciqmcscf.html">29. fciqmcscf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mrpt.html">30. mrpt &#8212; Multi-reference perturbation theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../pbc.html">32. pbc &#8212; Periodic boundary conditions</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">32.1. pbc.gto &#8212; Crystal cell structure</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#cell-class">32.1.1. <code class="docutils literal"><span class="pre">Cell</span></code> class</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#attributes-and-methods">32.1.1.1. Attributes and methods</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#connection-to-mole-class">32.1.1.2. Connection to <code class="docutils literal"><span class="pre">Mole</span></code> class</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#serialization">32.1.1.3. Serialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../x2c.html">32. x2c &#8212; exact-two-component approach</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../pbc.html">33. pbc &#8212; Periodic boundary conditions</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">33.1. pbc.gto &#8212; Crystal cell structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cell-class">33.1.1. <code class="docutils literal"><span class="pre">Cell</span></code> class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#attributes-and-methods">33.1.1.1. Attributes and methods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#connection-to-mole-class">33.1.1.2. Connection to <code class="docutils literal"><span class="pre">Mole</span></code> class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#serialization">33.1.1.3. Serialization</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#basis-set">32.1.2. Basis set</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pseudo-potential">32.1.3. Pseudo potential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basis-set">33.1.2. Basis set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pseudo-potential">33.1.3. Pseudo potential</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="ao2mo.html">32.2. pbc.ao2mo &#8212; PBC integral transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scf.html">32.3. pbc.scf &#8212; Mean-field with periodic boundary condition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dft.html">32.4. pbc.dft  &#8212; PBC density functional theory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="df.html">32.5. pbc.df &#8212; PBC denisty fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tdscf.html">32.6. pbc.tdscf &#8212; PBC time dependent density functional theory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mp.html">32.7. pbc.mp &#8212; PBC perturbation theory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ci.html">32.8. pbc.ci &#8212; PBC configuration interaction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc.html">32.9. pbc.cc &#8212; PBC coupled cluster</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mpicc.html">32.10. pbc.mpicc &#8212; PBC coupled cluster for MPI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tools.html">32.11. pbc.tools &#8212; PBC tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mix_mol.html">32.12. Mixing PBC and molecular modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="prop.html">32.13. pbc.prop &#8212; PBC property</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gw.html">32.14. pbc.gw &#8212; GW with PBC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ao2mo.html">33.2. pbc.ao2mo &#8212; PBC integral transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scf.html">33.3. pbc.scf &#8212; Mean-field with periodic boundary condition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dft.html">33.4. pbc.dft  &#8212; PBC density functional theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="df.html">33.5. pbc.df &#8212; PBC denisty fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tdscf.html">33.6. pbc.tdscf &#8212; PBC time dependent density functional theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mp.html">33.7. pbc.mp &#8212; PBC perturbation theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci.html">33.8. pbc.ci &#8212; PBC configuration interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc.html">33.9. pbc.cc &#8212; PBC coupled cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mpicc.html">33.10. pbc.mpicc &#8212; PBC coupled cluster for MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">33.11. pbc.tools &#8212; PBC tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mix_mol.html">33.12. Mixing PBC and molecular modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop.html">33.13. pbc.prop &#8212; PBC property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gw.html">33.14. pbc.gw &#8212; GW with PBC</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../qmmm.html">33. qmmm &#8212; QM/MM interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../solvent.html">34. solvent &#8212; Solvent methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">35. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../geomopt.html">36. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../lo.html">37. lo &#8212; Orbital localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tools.html">38. tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced.html">39. Miscellaneous</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ccn.html">40. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nao.html">41. nao &#8212; Numerical Atomic Orbitals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../lib.html">42. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qmmm.html">34. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solvent.html">35. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">36. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geomopt.html">37. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lo.html">38. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">39. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced.html">40. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nao.html">42. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lib.html">43. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
 </ul>
 
             
@@ -201,9 +202,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../pbc.html">32. pbc &#8212; Periodic boundary conditions</a> &raquo;</li>
+          <li><a href="../pbc.html">33. pbc &#8212; Periodic boundary conditions</a> &raquo;</li>
         
-      <li>32.1. pbc.gto &#8212; Crystal cell structure</li>
+      <li>33.1. pbc.gto &#8212; Crystal cell structure</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -223,14 +224,14 @@
            <div itemprop="articleBody">
             
   <div class="section" id="pbc-gto-crystal-cell-structure">
-<span id="pbc-gto"></span><h1>32.1. pbc.gto &#8212; Crystal cell structure<a class="headerlink" href="#pbc-gto-crystal-cell-structure" title="Permalink to this headline">¶</a></h1>
+<span id="pbc-gto"></span><h1>33.1. pbc.gto &#8212; Crystal cell structure<a class="headerlink" href="#pbc-gto-crystal-cell-structure" title="Permalink to this headline">¶</a></h1>
 <p>This module provides functions to setup the basic information of a PBC calculation.  The
 <code class="xref py py-mod docutils literal"><span class="pre">pyscf.pbc.gto</span></code> module is analogous to the basic molecular <code class="xref py py-mod docutils literal"><span class="pre">pyscf.gto</span></code> module.
 The <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code> class for crystal structure unit cells is defined in this module and is
 analogous to the basic molecular <code class="xref py py-class docutils literal"><span class="pre">Mole</span></code> class.  Among other details, the basis set
 and pseudopotentials are parsed in this module.</p>
 <div class="section" id="cell-class">
-<h2>32.1.1. <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code> class<a class="headerlink" href="#cell-class" title="Permalink to this headline">¶</a></h2>
+<h2>33.1.1. <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code> class<a class="headerlink" href="#cell-class" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference internal" href="#pyscf.pbc.gto.Cell" title="pyscf.pbc.gto.Cell"><code class="xref py py-class docutils literal"><span class="pre">Cell</span></code></a> class is defined as an extension of the molecular
 <a class="reference internal" href="../gto.html#pyscf.gto.mole.Mole" title="pyscf.gto.mole.Mole"><code class="xref py py-class docutils literal"><span class="pre">pyscf.gto.mole.Mole</span></code></a> class.  The <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code> object offers much of the same
 functionality as the <code class="xref py py-class docutils literal"><span class="pre">Mole</span></code> object.  For example, one can use the <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code>
@@ -322,7 +323,7 @@ divergent integrals.  The Coulomb type PBC integrals should be evaluated with
 density fitting technique (see Chapter <a class="reference internal" href="df.html#pbc-df"><span class="std std-ref">pbc.df &#8212; PBC denisty fitting</span></a>).</p>
 </div>
 <div class="section" id="attributes-and-methods">
-<h3>32.1.1.1. Attributes and methods<a class="headerlink" href="#attributes-and-methods" title="Permalink to this headline">¶</a></h3>
+<h3>33.1.1.1. Attributes and methods<a class="headerlink" href="#attributes-and-methods" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="pyscf.pbc.gto.Cell">
 <em class="property">class </em><code class="descclassname">pyscf.pbc.gto.</code><code class="descname">Cell</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyscf/pbc/gto/cell.html#Cell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.pbc.gto.Cell" title="Permalink to this definition">¶</a></dt>
@@ -1160,7 +1161,7 @@ input arguments for <code class="xref py py-class docutils literal"><span class=
 
 </div>
 <div class="section" id="connection-to-mole-class">
-<span id="cell-to-mol"></span><h3>32.1.1.2. Connection to <code class="xref py py-class docutils literal"><span class="pre">Mole</span></code> class<a class="headerlink" href="#connection-to-mole-class" title="Permalink to this headline">¶</a></h3>
+<span id="cell-to-mol"></span><h3>33.1.1.2. Connection to <code class="xref py py-class docutils literal"><span class="pre">Mole</span></code> class<a class="headerlink" href="#connection-to-mole-class" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="#pyscf.pbc.gto.Cell" title="pyscf.pbc.gto.Cell"><code class="xref py py-class docutils literal"><span class="pre">Cell</span></code></a> class is compatible with the molecule
 <a class="reference internal" href="../gto.html#pyscf.gto.mole.Mole" title="pyscf.gto.mole.Mole"><code class="xref py py-class docutils literal"><span class="pre">pyscf.gto.mole.Mole</span></code></a> class.  They shared most data structure and
 methods.  It gives the freedom to mix the finite size calculation and the PBC
@@ -1178,7 +1179,7 @@ object in the molecule program, informations of the <code class="xref py py-clas
 faked <code class="xref py py-class docutils literal"><span class="pre">Mole</span></code> object may be lost.</p>
 </div>
 <div class="section" id="serialization">
-<h3>32.1.1.3. Serialization<a class="headerlink" href="#serialization" title="Permalink to this headline">¶</a></h3>
+<h3>33.1.1.3. Serialization<a class="headerlink" href="#serialization" title="Permalink to this headline">¶</a></h3>
 <p><code class="xref py py-class docutils literal"><span class="pre">Cell</span></code> class has two set of functions to serialize Cell object in
 different formats.</p>
 <ul class="simple">
@@ -1194,7 +1195,7 @@ two methods are defined in <code class="xref py py-class docutils literal"><span
 </div>
 </div>
 <div class="section" id="basis-set">
-<h2>32.1.2. Basis set<a class="headerlink" href="#basis-set" title="Permalink to this headline">¶</a></h2>
+<h2>33.1.2. Basis set<a class="headerlink" href="#basis-set" title="Permalink to this headline">¶</a></h2>
 <p>The pbc module supports all-electron calculation.  The all-electron basis sets
 developed by quantum chemistry community can be directly used in the pbc
 calculation.  The <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code> class supports to mix the QC all-electron basis
@@ -1208,7 +1209,7 @@ technique (<a class="reference internal" href="df.html#pbc-df"><span class="std 
 </div>
 </div>
 <div class="section" id="pseudo-potential">
-<span id="pseudo"></span><h2>32.1.3. Pseudo potential<a class="headerlink" href="#pseudo-potential" title="Permalink to this headline">¶</a></h2>
+<span id="pseudo"></span><h2>33.1.3. Pseudo potential<a class="headerlink" href="#pseudo-potential" title="Permalink to this headline">¶</a></h2>
 <p>Quantum chemistry community developed a wide range of pseudo potentials (which
 are called ECP, effective core potential) for heavy elements.  ECP works quite
 successful in finite system.  It has high flexibility to choose different core
@@ -1230,10 +1231,10 @@ in the same calculation.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ao2mo.html" class="btn btn-neutral float-right" title="32.2. pbc.ao2mo — PBC integral transformation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ao2mo.html" class="btn btn-neutral float-right" title="33.2. pbc.ao2mo — PBC integral transformation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../pbc.html" class="btn btn-neutral" title="32. pbc — Periodic boundary conditions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../pbc.html" class="btn btn-neutral" title="33. pbc — Periodic boundary conditions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

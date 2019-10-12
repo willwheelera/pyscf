@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>32.10. pbc.mpicc — PBC coupled cluster for MPI &mdash; PySCF 1.7.0 documentation</title>
+  <title>33.10. pbc.mpicc — PBC coupled cluster for MPI &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -33,9 +33,9 @@
 
   
     <link rel="top" title="PySCF 1.7.0 documentation" href="../index.html"/>
-        <link rel="up" title="32. pbc — Periodic boundary conditions" href="../pbc.html"/>
-        <link rel="next" title="32.11. pbc.tools — PBC tools" href="tools.html"/>
-        <link rel="prev" title="32.9. pbc.cc — PBC coupled cluster" href="cc.html"/> 
+        <link rel="up" title="33. pbc — Periodic boundary conditions" href="../pbc.html"/>
+        <link rel="next" title="33.11. pbc.tools — PBC tools" href="tools.html"/>
+        <link rel="prev" title="33.9. pbc.cc — PBC coupled cluster" href="cc.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -120,42 +120,43 @@
 <li class="toctree-l1"><a class="reference internal" href="../fciqmcscf.html">29. fciqmcscf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mrpt.html">30. mrpt &#8212; Multi-reference perturbation theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../pbc.html">32. pbc &#8212; Periodic boundary conditions</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="gto.html">32.1. pbc.gto &#8212; Crystal cell structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ao2mo.html">32.2. pbc.ao2mo &#8212; PBC integral transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scf.html">32.3. pbc.scf &#8212; Mean-field with periodic boundary condition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dft.html">32.4. pbc.dft  &#8212; PBC density functional theory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="df.html">32.5. pbc.df &#8212; PBC denisty fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tdscf.html">32.6. pbc.tdscf &#8212; PBC time dependent density functional theory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mp.html">32.7. pbc.mp &#8212; PBC perturbation theory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ci.html">32.8. pbc.ci &#8212; PBC configuration interaction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc.html">32.9. pbc.cc &#8212; PBC coupled cluster</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">32.10. pbc.mpicc &#8212; PBC coupled cluster for MPI</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#examples">32.10.1. Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#program-reference">32.10.2. Program reference</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#kccsd-rhf">32.10.2.1. kccsd_rhf</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#kintermediates-rhf">32.10.2.2. kintermediates_rhf</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mpi-kpoint-helper">32.10.2.3. mpi_kpoint_helper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../x2c.html">32. x2c &#8212; exact-two-component approach</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../pbc.html">33. pbc &#8212; Periodic boundary conditions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="gto.html">33.1. pbc.gto &#8212; Crystal cell structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ao2mo.html">33.2. pbc.ao2mo &#8212; PBC integral transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scf.html">33.3. pbc.scf &#8212; Mean-field with periodic boundary condition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dft.html">33.4. pbc.dft  &#8212; PBC density functional theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="df.html">33.5. pbc.df &#8212; PBC denisty fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tdscf.html">33.6. pbc.tdscf &#8212; PBC time dependent density functional theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mp.html">33.7. pbc.mp &#8212; PBC perturbation theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci.html">33.8. pbc.ci &#8212; PBC configuration interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc.html">33.9. pbc.cc &#8212; PBC coupled cluster</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">33.10. pbc.mpicc &#8212; PBC coupled cluster for MPI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#examples">33.10.1. Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#program-reference">33.10.2. Program reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#kccsd-rhf">33.10.2.1. kccsd_rhf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kintermediates-rhf">33.10.2.2. kintermediates_rhf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mpi-kpoint-helper">33.10.2.3. mpi_kpoint_helper</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="tools.html">32.11. pbc.tools &#8212; PBC tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mix_mol.html">32.12. Mixing PBC and molecular modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="prop.html">32.13. pbc.prop &#8212; PBC property</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gw.html">32.14. pbc.gw &#8212; GW with PBC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">33.11. pbc.tools &#8212; PBC tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mix_mol.html">33.12. Mixing PBC and molecular modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop.html">33.13. pbc.prop &#8212; PBC property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gw.html">33.14. pbc.gw &#8212; GW with PBC</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../qmmm.html">33. qmmm &#8212; QM/MM interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../solvent.html">34. solvent &#8212; Solvent methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">35. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../geomopt.html">36. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../lo.html">37. lo &#8212; Orbital localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tools.html">38. tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced.html">39. Miscellaneous</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ccn.html">40. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nao.html">41. nao &#8212; Numerical Atomic Orbitals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../lib.html">42. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qmmm.html">34. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solvent.html">35. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">36. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geomopt.html">37. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lo.html">38. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">39. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced.html">40. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nao.html">42. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lib.html">43. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
 </ul>
 
             
@@ -200,9 +201,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../pbc.html">32. pbc &#8212; Periodic boundary conditions</a> &raquo;</li>
+          <li><a href="../pbc.html">33. pbc &#8212; Periodic boundary conditions</a> &raquo;</li>
         
-      <li>32.10. pbc.mpicc &#8212; PBC coupled cluster for MPI</li>
+      <li>33.10. pbc.mpicc &#8212; PBC coupled cluster for MPI</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -222,22 +223,22 @@
            <div itemprop="articleBody">
             
   <div class="section" id="pbc-mpicc-pbc-coupled-cluster-for-mpi">
-<span id="pbc-mpicc"></span><h1>32.10. pbc.mpicc &#8212; PBC coupled cluster for MPI<a class="headerlink" href="#pbc-mpicc-pbc-coupled-cluster-for-mpi" title="Permalink to this headline">¶</a></h1>
+<span id="pbc-mpicc"></span><h1>33.10. pbc.mpicc &#8212; PBC coupled cluster for MPI<a class="headerlink" href="#pbc-mpicc-pbc-coupled-cluster-for-mpi" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="examples">
-<h2>32.10.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2>33.10.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples
 <code class="file docutils literal"><span class="pre">examples/pbc/25-k_points_mpi_ccsd.py</span></code></p>
 </div>
 <div class="section" id="program-reference">
-<h2>32.10.2. Program reference<a class="headerlink" href="#program-reference" title="Permalink to this headline">¶</a></h2>
+<h2>33.10.2. Program reference<a class="headerlink" href="#program-reference" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="kccsd-rhf">
-<h3>32.10.2.1. kccsd_rhf<a class="headerlink" href="#kccsd-rhf" title="Permalink to this headline">¶</a></h3>
+<h3>33.10.2.1. kccsd_rhf<a class="headerlink" href="#kccsd-rhf" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="kintermediates-rhf">
-<h3>32.10.2.2. kintermediates_rhf<a class="headerlink" href="#kintermediates-rhf" title="Permalink to this headline">¶</a></h3>
+<h3>33.10.2.2. kintermediates_rhf<a class="headerlink" href="#kintermediates-rhf" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="mpi-kpoint-helper">
-<h3>32.10.2.3. mpi_kpoint_helper<a class="headerlink" href="#mpi-kpoint-helper" title="Permalink to this headline">¶</a></h3>
+<h3>33.10.2.3. mpi_kpoint_helper<a class="headerlink" href="#mpi-kpoint-helper" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 </div>
@@ -252,10 +253,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tools.html" class="btn btn-neutral float-right" title="32.11. pbc.tools — PBC tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="tools.html" class="btn btn-neutral float-right" title="33.11. pbc.tools — PBC tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cc.html" class="btn btn-neutral" title="32.9. pbc.cc — PBC coupled cluster" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cc.html" class="btn btn-neutral" title="33.9. pbc.cc — PBC coupled cluster" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

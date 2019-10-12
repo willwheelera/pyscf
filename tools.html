@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>38. tools &mdash; PySCF 1.7.0 documentation</title>
+  <title>39. tools &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -33,8 +33,8 @@
 
   
     <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
-        <link rel="next" title="39. Miscellaneous" href="advanced.html"/>
-        <link rel="prev" title="37. lo — Orbital localization" href="lo.html"/> 
+        <link rel="next" title="40. Miscellaneous" href="advanced.html"/>
+        <link rel="prev" title="38. lo — Orbital localization" href="lo.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -119,24 +119,34 @@
 <li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">29. fciqmcscf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mrpt.html">30. mrpt &#8212; Multi-reference perturbation theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pbc.html">32. pbc &#8212; Periodic boundary conditions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="qmmm.html">33. qmmm &#8212; QM/MM interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="solvent.html">34. solvent &#8212; Solvent methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">35. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="geomopt.html">36. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lo.html">37. lo &#8212; Orbital localization</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">38. tools</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tools.fcidump">38.1. FCIDUMP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tools.molden">38.2. Molden</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tools.wfn_format">38.3. GAMESS WFN</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tools.cubegen">38.4. Cubegen</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tools.dump_mat">38.5. Print Matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="x2c.html">32. x2c &#8212; exact-two-component approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc.html">33. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qmmm.html">34. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solvent.html">35. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">36. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geomopt.html">37. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lo.html">38. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">39. tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">39.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tools">39.2. Program reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tools.fcidump">39.3. FCIDUMP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tools.molden">39.4. Molden</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tools.wfn_format">39.5. GAMESS WFN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tools.cubegen">39.6. Cubegen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tools.dump_mat">39.7. Print Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tools.chgcar">39.8. VASP CHGCAR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#molpro-to-pyscf">39.9. Molpro to PySCF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tools.chkfile_util">39.10. chkfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tools.mo_mapping">39.11. MO mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#augmented-hessian-newton-raphson">39.12. Augmented Hessian Newton-Raphson</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tools.ring">39.13. ring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tools.c60struct">39.14. c60struct</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">39. Miscellaneous</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ccn.html">40. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nao.html">41. nao &#8212; Numerical Atomic Orbitals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lib.html">42. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">40. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nao.html">42. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.html">43. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
 </ul>
 
             
@@ -181,7 +191,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>38. tools</li>
+      <li>39. tools</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -200,10 +210,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-pyscf.tools">
-<span id="tools"></span><h1>38. tools<a class="headerlink" href="#module-pyscf.tools" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="tools">
+<h1>39. tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="examples">
+<h2>39.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Relevant examples
+<code class="file docutils literal"><span class="pre">examples/tools/01-fcidump.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/tools/02-molden.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/tools/03-print_mo_and_dm.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/tools/04-analyze_local_orbitals.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/tools/05-cubegen.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/tools/06-chgcar.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/tools/11-davidson_eigh.py</span></code></p>
+</div>
+<div class="section" id="module-pyscf.tools">
+<span id="program-reference"></span><h2>39.2. Program reference<a class="headerlink" href="#module-pyscf.tools" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="module-pyscf.tools.fcidump">
-<span id="fcidump"></span><h2>38.1. FCIDUMP<a class="headerlink" href="#module-pyscf.tools.fcidump" title="Permalink to this headline">¶</a></h2>
+<span id="fcidump"></span><h2>39.3. FCIDUMP<a class="headerlink" href="#module-pyscf.tools.fcidump" title="Permalink to this headline">¶</a></h2>
 <p>FCIDUMP functions (write, read) for real Hamiltonian</p>
 <dl class="function">
 <dt id="pyscf.tools.fcidump.from_chkfile">
@@ -242,7 +266,7 @@ parameters with keys:  H1, H2, ECORE, NORB, NELEC, MS, ORBSYM, ISYM</p>
 
 </div>
 <div class="section" id="module-pyscf.tools.molden">
-<span id="molden"></span><h2>38.2. Molden<a class="headerlink" href="#module-pyscf.tools.molden" title="Permalink to this headline">¶</a></h2>
+<span id="molden"></span><h2>39.4. Molden<a class="headerlink" href="#module-pyscf.tools.molden" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pyscf.tools.molden.from_mo">
 <code class="descclassname">pyscf.tools.molden.</code><code class="descname">from_mo</code><span class="sig-paren">(</span><em>mol</em>, <em>filename</em>, <em>mo_coeff</em>, <em>spin='Alpha'</em>, <em>symm=None</em>, <em>ene=None</em>, <em>occ=None</em>, <em>ignore_h=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tools/molden.html#from_mo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tools.molden.from_mo" title="Permalink to this definition">¶</a></dt>
@@ -290,11 +314,11 @@ tool will complain about the orbital normalization error.</p>
 
 </div>
 <div class="section" id="module-pyscf.tools.wfn_format">
-<span id="gamess-wfn"></span><h2>38.3. GAMESS WFN<a class="headerlink" href="#module-pyscf.tools.wfn_format" title="Permalink to this headline">¶</a></h2>
+<span id="gamess-wfn"></span><h2>39.5. GAMESS WFN<a class="headerlink" href="#module-pyscf.tools.wfn_format" title="Permalink to this headline">¶</a></h2>
 <p>GAMESS WFN File format</p>
 </div>
 <div class="section" id="module-pyscf.tools.cubegen">
-<span id="cubegen"></span><h2>38.4. Cubegen<a class="headerlink" href="#module-pyscf.tools.cubegen" title="Permalink to this headline">¶</a></h2>
+<span id="cubegen"></span><h2>39.6. Cubegen<a class="headerlink" href="#module-pyscf.tools.cubegen" title="Permalink to this headline">¶</a></h2>
 <p>Gaussian cube file format.  Reference:
 <a class="reference external" href="http://paulbourke.net/dataformats/cube/">http://paulbourke.net/dataformats/cube/</a>
 <a class="reference external" href="http://gaussian.com/cubegen/">http://gaussian.com/cubegen/</a></p>
@@ -439,7 +463,7 @@ size.</dd>
 
 </div>
 <div class="section" id="module-pyscf.tools.dump_mat">
-<span id="print-matrix"></span><h2>38.5. Print Matrix<a class="headerlink" href="#module-pyscf.tools.dump_mat" title="Permalink to this headline">¶</a></h2>
+<span id="print-matrix"></span><h2>39.7. Print Matrix<a class="headerlink" href="#module-pyscf.tools.dump_mat" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pyscf.tools.dump_mat.dump_mo">
 <code class="descclassname">pyscf.tools.dump_mat.</code><code class="descname">dump_mo</code><span class="sig-paren">(</span><em>mol</em>, <em>c</em>, <em>label=None</em>, <em>ncol=5</em>, <em>digits=5</em>, <em>start=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tools/dump_mat.html#dump_mo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tools.dump_mat.dump_mo" title="Permalink to this definition">¶</a></dt>
@@ -589,6 +613,234 @@ mol.stdout if mol is an object initialized from <code class="xref py py-class do
 </dd></dl>
 
 </div>
+<div class="section" id="module-pyscf.tools.chgcar">
+<span id="vasp-chgcar"></span><h2>39.8. VASP CHGCAR<a class="headerlink" href="#module-pyscf.tools.chgcar" title="Permalink to this headline">¶</a></h2>
+<p>Vasp CHGCAR file format</p>
+<p>See also
+<a class="reference external" href="https://cms.mpi.univie.ac.at/vasp/vasp/CHGCAR_file.html">https://cms.mpi.univie.ac.at/vasp/vasp/CHGCAR_file.html</a></p>
+<dl class="class">
+<dt id="pyscf.tools.chgcar.CHGCAR">
+<em class="property">class </em><code class="descclassname">pyscf.tools.chgcar.</code><code class="descname">CHGCAR</code><span class="sig-paren">(</span><em>cell</em>, <em>nx=60</em>, <em>ny=60</em>, <em>nz=60</em>, <em>resolution=None</em>, <em>margin=3.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tools/chgcar.html#CHGCAR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tools.chgcar.CHGCAR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read-write of the Vasp CHGCAR files</p>
+<dl class="method">
+<dt id="pyscf.tools.chgcar.CHGCAR.get_coords">
+<code class="descname">get_coords</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tools/chgcar.html#CHGCAR.get_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tools.chgcar.CHGCAR.get_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Result: set of coordinates to compute a field which is to be stored
+in the file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyscf.tools.chgcar.CHGCAR.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>field</em>, <em>fname</em>, <em>comment=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tools/chgcar.html#CHGCAR.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tools.chgcar.CHGCAR.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Result: .vasp file with the field in the file fname.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tools.chgcar.density">
+<code class="descclassname">pyscf.tools.chgcar.</code><code class="descname">density</code><span class="sig-paren">(</span><em>cell</em>, <em>outfile</em>, <em>dm</em>, <em>nx=60</em>, <em>ny=60</em>, <em>nz=60</em>, <em>resolution=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tools/chgcar.html#density"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tools.chgcar.density" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates electron density and write out in CHGCAR format.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>cell</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">Mole or Cell object</span><dd>Mole or pbc Cell. If Mole object is given, the program will guess
+a cubic lattice for the molecule.</dd>
+<dt>outfile</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>Name of Cube file to be written.</dd>
+<dt>dm</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>Density matrix of molecule.</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>nx</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of grid point divisions in x direction.
+Note this is function of the molecule&#8217;s size; a larger molecule
+will have a coarser representation than a smaller one for the
+same value.</dd>
+<dt>ny</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of grid point divisions in y direction.</dd>
+<dt>nz</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of grid point divisions in z direction.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>No return value. This function outputs a VASP chgcarlike file
+(with phase if desired)...it can be opened in VESTA or VMD or
+many other softwares</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># generates the first MO from the list of mo_coefficents </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf.pbc</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf.tools</span> <span class="k">import</span> <span class="n">chgcar</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cell</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; H 0 0 1&#39;</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">chgcar</span><span class="o">.</span><span class="n">density</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="s1">&#39;h2.CHGCAR&#39;</span><span class="p">,</span> <span class="n">mf</span><span class="o">.</span><span class="n">make_rdm1</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tools.chgcar.orbital">
+<code class="descclassname">pyscf.tools.chgcar.</code><code class="descname">orbital</code><span class="sig-paren">(</span><em>cell</em>, <em>outfile</em>, <em>coeff</em>, <em>nx=60</em>, <em>ny=60</em>, <em>nz=60</em>, <em>resolution=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tools/chgcar.html#orbital"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tools.chgcar.orbital" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate orbital value on real space grid and write out in
+CHGCAR format.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>cell</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">Mole or Cell object</span><dd>Mole or pbc Cell. If Mole object is given, the program will guess
+a cubic lattice for the molecule.</dd>
+<dt>outfile</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>Name of Cube file to be written.</dd>
+<dt>dm</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span><dd>Density matrix of molecule.</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>nx</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of grid point divisions in x direction.
+Note this is function of the molecule&#8217;s size; a larger molecule
+will have a coarser representation than a smaller one for the
+same value.</dd>
+<dt>ny</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of grid point divisions in y direction.</dd>
+<dt>nz</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of grid point divisions in z direction.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>No return value. This function outputs a VASP chgcarlike file
+(with phase if desired)...it can be opened in VESTA or VMD or
+many other softwares</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># generates the first MO from the list of mo_coefficents </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf.pbc</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf.tools</span> <span class="k">import</span> <span class="n">chgcar</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cell</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; H 0 0 1&#39;</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">chgcar</span><span class="o">.</span><span class="n">orbital</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="s1">&#39;h2_mo1.CHGCAR&#39;</span><span class="p">,</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_coeff</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="molpro-to-pyscf">
+<h2>39.9. Molpro to PySCF<a class="headerlink" href="#molpro-to-pyscf" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pyscf.tools.chkfile_util">
+<span id="chkfile"></span><h2>39.10. chkfile<a class="headerlink" href="#module-pyscf.tools.chkfile_util" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyscf.tools.chkfile_util.dump_mo">
+<code class="descclassname">pyscf.tools.chkfile_util.</code><code class="descname">dump_mo</code><span class="sig-paren">(</span><em>filename</em>, <em>key='scf'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tools/chkfile_util.html#dump_mo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tools.chkfile_util.dump_mo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read scf/mcscf information from chkfile, then dump the orbital
+coefficients.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tools.chkfile_util.molden">
+<code class="descclassname">pyscf.tools.chkfile_util.</code><code class="descname">molden</code><span class="sig-paren">(</span><em>filename</em>, <em>key='scf'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tools/chkfile_util.html#molden"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tools.chkfile_util.molden" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read scf/mcscf information from chkfile, then convert the scf/mcscf
+orbitals to molden format.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tools.chkfile_util.mulliken">
+<code class="descclassname">pyscf.tools.chkfile_util.</code><code class="descname">mulliken</code><span class="sig-paren">(</span><em>filename</em>, <em>key='scf'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tools/chkfile_util.html#mulliken"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tools.chkfile_util.mulliken" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reading scf/mcscf information from chkfile, then do Mulliken population
+analysis for the density matrix</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyscf.tools.mo_mapping">
+<span id="mo-mapping"></span><h2>39.11. MO mapping<a class="headerlink" href="#module-pyscf.tools.mo_mapping" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyscf.tools.mo_mapping.mo_1to1map">
+<code class="descclassname">pyscf.tools.mo_mapping.</code><code class="descname">mo_1to1map</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tools/mo_mapping.html#mo_1to1map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tools.mo_mapping.mo_1to1map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given &lt;i|j&gt;, search for the 1-to-1 mapping between i and j.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>a list [j-close-to-i for i in &lt;bra|]</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tools.mo_mapping.mo_comps">
+<code class="descclassname">pyscf.tools.mo_mapping.</code><code class="descname">mo_comps</code><span class="sig-paren">(</span><em>aolabels_or_baslst</em>, <em>mol</em>, <em>mo_coeff</em>, <em>cart=False</em>, <em>orth_method='meta_lowdin'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tools/mo_mapping.html#mo_comps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tools.mo_mapping.mo_comps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given AO(s), show how the AO(s) are distributed in MOs.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>aolabels_or_baslst</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">filter function or AO labels or AO index</span><dd>If it&#8217;s a function,  the AO indices are the items for which the
+function return value is true.</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>cart</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>whether the orbital coefficients are based on cartesian basis.</dd>
+<dt>orth_method</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>The localization method to generated orthogonal AO upon which the AO
+contribution are computed.  It can be one of &#8216;meta_lowdin&#8217;,
+&#8216;lowdin&#8217; or &#8216;nao&#8217;.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>A list of float to indicate the total contributions (normalized to 1) of
+localized AOs</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf.tools</span> <span class="k">import</span> <span class="n">mo_mapping</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;6-31g&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">comp</span> <span class="o">=</span> <span class="n">mo_mapping</span><span class="o">.</span><span class="n">mo_comps</span><span class="p">(</span><span class="s1">&#39;F 2s&#39;</span><span class="p">,</span> <span class="n">mol</span><span class="p">,</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_coeff</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MO-id    F-2s components&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">comp</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%-3d</span><span class="s1">      </span><span class="si">%.10f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span>
+<span class="go">MO-id    components</span>
+<span class="go">0        0.0000066344</span>
+<span class="go">1        0.8796915532</span>
+<span class="go">2        0.0590259826</span>
+<span class="go">3        0.0000000000</span>
+<span class="go">4        0.0000000000</span>
+<span class="go">5        0.0435028851</span>
+<span class="go">6        0.0155889103</span>
+<span class="go">7        0.0000000000</span>
+<span class="go">8        0.0000000000</span>
+<span class="go">9        0.0000822361</span>
+<span class="go">10       0.0021017982</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tools.mo_mapping.mo_map">
+<code class="descclassname">pyscf.tools.mo_mapping.</code><code class="descname">mo_map</code><span class="sig-paren">(</span><em>mol1</em>, <em>mo1</em>, <em>mol2</em>, <em>mo2</em>, <em>base=0</em>, <em>tol=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tools/mo_mapping.html#mo_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tools.mo_mapping.mo_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given two orbitals, based on their overlap &lt;i|j&gt;, search all
+orbital-pairs which have significant overlap.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>Two lists.  First list is the orbital-pair indices, second is the
+overlap value.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="augmented-hessian-newton-raphson">
+<h2>39.12. Augmented Hessian Newton-Raphson<a class="headerlink" href="#augmented-hessian-newton-raphson" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pyscf.tools.ring">
+<span id="ring"></span><h2>39.13. ring<a class="headerlink" href="#module-pyscf.tools.ring" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pyscf.tools.c60struct">
+<span id="c60struct"></span><h2>39.14. c60struct<a class="headerlink" href="#module-pyscf.tools.c60struct" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
 
@@ -601,10 +853,10 @@ mol.stdout if mol is an object initialized from <code class="xref py py-class do
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="advanced.html" class="btn btn-neutral float-right" title="39. Miscellaneous" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="advanced.html" class="btn btn-neutral float-right" title="40. Miscellaneous" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="lo.html" class="btn btn-neutral" title="37. lo — Orbital localization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="lo.html" class="btn btn-neutral" title="38. lo — Orbital localization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

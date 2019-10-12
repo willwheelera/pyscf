@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>36. geomopt — Geometry optimization &mdash; PySCF 1.7.0 documentation</title>
+  <title>37. geomopt — Geometry optimization &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -33,8 +33,8 @@
 
   
     <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
-        <link rel="next" title="37. lo — Orbital localization" href="lo.html"/>
-        <link rel="prev" title="35. semiempirical — Semiempirical methods" href="semiempirical.html"/> 
+        <link rel="next" title="38. lo — Orbital localization" href="lo.html"/>
+        <link rel="prev" title="36. semiempirical — Semiempirical methods" href="semiempirical.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -119,26 +119,27 @@
 <li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">29. fciqmcscf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mrpt.html">30. mrpt &#8212; Multi-reference perturbation theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pbc.html">32. pbc &#8212; Periodic boundary conditions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="qmmm.html">33. qmmm &#8212; QM/MM interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="solvent.html">34. solvent &#8212; Solvent methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">35. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">36. geomopt &#8212; Geometry optimization</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#examples">36.1. Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.geomopt">36.2. Program reference</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pyberny">36.2.1. pyberny</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#geometric">36.2.2. geomeTRIC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.geomopt.addons">36.2.3. addons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="x2c.html">32. x2c &#8212; exact-two-component approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc.html">33. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qmmm.html">34. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solvent.html">35. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">36. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">37. geomopt &#8212; Geometry optimization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">37.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.geomopt">37.2. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyberny">37.2.1. pyberny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geometric">37.2.2. geomeTRIC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.geomopt.addons">37.2.3. addons</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="lo.html">37. lo &#8212; Orbital localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tools.html">38. tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">39. Miscellaneous</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ccn.html">40. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nao.html">41. nao &#8212; Numerical Atomic Orbitals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lib.html">42. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lo.html">38. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">39. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">40. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nao.html">42. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.html">43. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
 </ul>
 
             
@@ -183,7 +184,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>36. geomopt &#8212; Geometry optimization</li>
+      <li>37. geomopt &#8212; Geometry optimization</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -203,11 +204,11 @@
            <div itemprop="articleBody">
             
   <div class="section" id="geomopt-geometry-optimization">
-<h1>36. geomopt &#8212; Geometry optimization<a class="headerlink" href="#geomopt-geometry-optimization" title="Permalink to this headline">¶</a></h1>
+<h1>37. geomopt &#8212; Geometry optimization<a class="headerlink" href="#geomopt-geometry-optimization" title="Permalink to this headline">¶</a></h1>
 <p>The <code class="xref py py-mod docutils literal"><span class="pre">geomopt</span></code> module implements geometry optimization via
 interfaces to geomeTRIC (<a class="reference external" href="https://github.com/leeping/geomeTRIC">https://github.com/leeping/geomeTRIC</a>) and PyBerny (<a class="reference external" href="https://github.com/azag0/pyberny">https://github.com/azag0/pyberny</a>).</p>
 <div class="section" id="examples">
-<h2>36.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2>37.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples
 <code class="file docutils literal"><span class="pre">examples/geomopt/01-geomeTRIC.py</span></code>
 <code class="file docutils literal"><span class="pre">examples/geomopt/01-pyberny.py</span></code>
@@ -219,9 +220,9 @@ interfaces to geomeTRIC (<a class="reference external" href="https://github.com/
 <code class="file docutils literal"><span class="pre">examples/geomopt/13-ccsd_t.py</span></code></p>
 </div>
 <div class="section" id="module-pyscf.geomopt">
-<span id="program-reference"></span><h2>36.2. Program reference<a class="headerlink" href="#module-pyscf.geomopt" title="Permalink to this headline">¶</a></h2>
+<span id="program-reference"></span><h2>37.2. Program reference<a class="headerlink" href="#module-pyscf.geomopt" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="pyberny">
-<h3>36.2.1. pyberny<a class="headerlink" href="#pyberny" title="Permalink to this headline">¶</a></h3>
+<h3>37.2.1. pyberny<a class="headerlink" href="#pyberny" title="Permalink to this headline">¶</a></h3>
 <span class="target" id="module-pyscf.geomopt.berny_solver"></span><p>Interface to geometry optimizer pyberny <a class="reference external" href="https://github.com/azag0/pyberny">https://github.com/azag0/pyberny</a></p>
 <dl class="class">
 <dt id="pyscf.geomopt.berny_solver.GeometryOptimizer">
@@ -254,10 +255,10 @@ below:</p>
 
 </div>
 <div class="section" id="geometric">
-<h3>36.2.2. geomeTRIC<a class="headerlink" href="#geometric" title="Permalink to this headline">¶</a></h3>
+<h3>37.2.2. geomeTRIC<a class="headerlink" href="#geometric" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="module-pyscf.geomopt.addons">
-<span id="addons"></span><h3>36.2.3. addons<a class="headerlink" href="#module-pyscf.geomopt.addons" title="Permalink to this headline">¶</a></h3>
+<span id="addons"></span><h3>37.2.3. addons<a class="headerlink" href="#module-pyscf.geomopt.addons" title="Permalink to this headline">¶</a></h3>
 <p>Helper functions for geometry optimizer</p>
 <dl class="function">
 <dt id="pyscf.geomopt.addons.as_pyscf_method">
@@ -306,10 +307,10 @@ geometry.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="lo.html" class="btn btn-neutral float-right" title="37. lo — Orbital localization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="lo.html" class="btn btn-neutral float-right" title="38. lo — Orbital localization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="semiempirical.html" class="btn btn-neutral" title="35. semiempirical — Semiempirical methods" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="semiempirical.html" class="btn btn-neutral" title="36. semiempirical — Semiempirical methods" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

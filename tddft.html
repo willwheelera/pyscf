@@ -106,8 +106,11 @@
 <li class="toctree-l1"><a class="reference internal" href="soscf.html">16. soscf &#8212; Second order Hartree-Fock solver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sgx.html">17. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">18. tddft &#8212; Time dependent density functional theory</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tdscf.rhf">18.1. TDHF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tdscf.rks">18.2. TDDFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">18.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tdscf">18.2. Program reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tdscf.rhf">18.3. TDHF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tdscf.rks">18.4. TDDFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tdscf.common_slow">18.5. TDHF_slow</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mp.html">19. mp &#8212; MP2</a></li>
@@ -123,17 +126,18 @@
 <li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">29. fciqmcscf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mrpt.html">30. mrpt &#8212; Multi-reference perturbation theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pbc.html">32. pbc &#8212; Periodic boundary conditions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="qmmm.html">33. qmmm &#8212; QM/MM interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="solvent.html">34. solvent &#8212; Solvent methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">35. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="geomopt.html">36. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lo.html">37. lo &#8212; Orbital localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tools.html">38. tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">39. Miscellaneous</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ccn.html">40. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nao.html">41. nao &#8212; Numerical Atomic Orbitals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lib.html">42. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="x2c.html">32. x2c &#8212; exact-two-component approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc.html">33. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qmmm.html">34. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solvent.html">35. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">36. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geomopt.html">37. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lo.html">38. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">39. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">40. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nao.html">42. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.html">43. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
 </ul>
 
             
@@ -197,10 +201,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-pyscf.tdscf">
-<span id="tddft-time-dependent-density-functional-theory"></span><h1>18. tddft &#8212; Time dependent density functional theory<a class="headerlink" href="#module-pyscf.tdscf" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="tddft-time-dependent-density-functional-theory">
+<h1>18. tddft &#8212; Time dependent density functional theory<a class="headerlink" href="#tddft-time-dependent-density-functional-theory" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="examples">
+<h2>18.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Relevant examples
+<code class="file docutils literal"><span class="pre">examples/tddft/00-simple_tddft.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/tddft/01-nto_analysis.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/tddft/21-matrix_A_B.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/tddft/22-density.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/tddft/30-change_xc_grids.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/tddft/31-energy_transfer_coupling_matrix.py</span></code></p>
+</div>
+<div class="section" id="module-pyscf.tdscf">
+<span id="program-reference"></span><h2>18.2. Program reference<a class="headerlink" href="#module-pyscf.tdscf" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="module-pyscf.tdscf.rhf">
-<span id="tdhf"></span><h2>18.1. TDHF<a class="headerlink" href="#module-pyscf.tdscf.rhf" title="Permalink to this headline">¶</a></h2>
+<span id="tdhf"></span><h2>18.3. TDHF<a class="headerlink" href="#module-pyscf.tdscf.rhf" title="Permalink to this headline">¶</a></h2>
 <dl class="attribute">
 <dt id="pyscf.tdscf.rhf.CIS">
 <code class="descclassname">pyscf.tdscf.rhf.</code><code class="descname">CIS</code><a class="headerlink" href="#pyscf.tdscf.rhf.CIS" title="Permalink to this definition">¶</a></dt>
@@ -577,9 +594,92 @@ NTOs.</dd>
 <dd><p>Transition quadrupole moments in the velocity gauge (imaginary part only)</p>
 </dd></dl>
 
+<span class="target" id="module-pyscf.tdscf.uhf"></span><dl class="function">
+<dt id="pyscf.tdscf.uhf.gen_tda_hop">
+<code class="descclassname">pyscf.tdscf.uhf.</code><code class="descname">gen_tda_hop</code><span class="sig-paren">(</span><em>mf</em>, <em>fock_ao=None</em>, <em>wfnsym=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.tdscf.uhf.gen_tda_hop" title="Permalink to this definition">¶</a></dt>
+<dd><p>(A+B)x</p>
+<dl class="docutils">
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>wfnsym</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or str</span><dd>Point group symmetry irrep symbol or ID for excited CIS wavefunction.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.uhf.gen_tda_operation">
+<code class="descclassname">pyscf.tdscf.uhf.</code><code class="descname">gen_tda_operation</code><span class="sig-paren">(</span><em>mf</em>, <em>fock_ao=None</em>, <em>wfnsym=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/uhf.html#gen_tda_operation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.uhf.gen_tda_operation" title="Permalink to this definition">¶</a></dt>
+<dd><p>(A+B)x</p>
+<dl class="docutils">
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>wfnsym</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or str</span><dd>Point group symmetry irrep symbol or ID for excited CIS wavefunction.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.uhf.gen_tdhf_operation">
+<code class="descclassname">pyscf.tdscf.uhf.</code><code class="descname">gen_tdhf_operation</code><span class="sig-paren">(</span><em>mf</em>, <em>fock_ao=None</em>, <em>singlet=True</em>, <em>wfnsym=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/uhf.html#gen_tdhf_operation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.uhf.gen_tdhf_operation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate function to compute</p>
+<p>[ A  B][X]
+[-B -A][Y]</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.uhf.get_ab">
+<code class="descclassname">pyscf.tdscf.uhf.</code><code class="descname">get_ab</code><span class="sig-paren">(</span><em>mf</em>, <em>mo_energy=None</em>, <em>mo_coeff=None</em>, <em>mo_occ=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/uhf.html#get_ab"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.uhf.get_ab" title="Permalink to this definition">¶</a></dt>
+<dd><p>A and B matrices for TDDFT response function.</p>
+<p>A[i,a,j,b] = delta_{ab}delta_{ij}(E_a - E_i) + (ia||bj)
+B[i,a,j,b] = (ia||jb)</p>
+<p>Spin symmetry is considered in the returned A, B lists.  List A has three
+items: (A_aaaa, A_aabb, A_bbbb). A_bbaa = A_aabb.transpose(2,3,0,1).
+B has three items: (B_aaaa, B_aabb, B_bbbb).
+B_bbaa = B_aabb.transpose(2,3,0,1).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.uhf.get_nto">
+<code class="descclassname">pyscf.tdscf.uhf.</code><code class="descname">get_nto</code><span class="sig-paren">(</span><em>tdobj</em>, <em>state=1</em>, <em>threshold=0.3</em>, <em>verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/uhf.html#get_nto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.uhf.get_nto" title="Permalink to this definition">¶</a></dt>
+<dd><p>Natural transition orbital analysis.</p>
+<p>The natural transition density matrix between ground state and excited
+state <span class="math">\(Tia = \langle \Psi_{ex} | i a^\dagger | \Psi_0 \rangle\)</span> can
+be transformed to diagonal form through SVD
+<span class="math">\(T = O \sqrt{\lambda} V^\dagger\)</span>. O and V are occupied and virtual
+natural transition orbitals. The diagonal elements <span class="math">\(\lambda\)</span> are the
+weights of the occupied-virtual orbital pair in the excitation.</p>
+<p>Ref: Martin, R. L., JCP, 118, 4775-4777</p>
+<p>Note in the TDHF/TDDFT calculations, the excitation part (X) is
+interpreted as the CIS coefficients and normalized to 1. The de-excitation
+part (Y) is ignored.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>state</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Excited state ID.  state = 1 means the first excited state.
+If state &lt; 0, state ID is counted from the last excited state.</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>threshold</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Above which the NTO coefficients will be printed in the output.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>A list (weights, NTOs).  NTOs are natural orbitals represented in AO
+basis. The first N_occ NTOs are occupied NTOs and the rest are virtual
+NTOs.</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="module-pyscf.tdscf.rks">
-<span id="tddft"></span><h2>18.2. TDDFT<a class="headerlink" href="#module-pyscf.tdscf.rks" title="Permalink to this headline">¶</a></h2>
+<span id="tddft"></span><h2>18.4. TDDFT<a class="headerlink" href="#module-pyscf.tdscf.rks" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyscf.tdscf.rks.TDDFTNoHybrid">
 <em class="property">class </em><code class="descclassname">pyscf.tdscf.rks.</code><code class="descname">TDDFTNoHybrid</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/rks.html#TDDFTNoHybrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.rks.TDDFTNoHybrid" title="Permalink to this definition">¶</a></dt>
@@ -596,6 +696,363 @@ NTOs.</dd>
 <dt id="pyscf.tdscf.rks.tddft">
 <code class="descclassname">pyscf.tdscf.rks.</code><code class="descname">tddft</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/rks.html#tddft"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.rks.tddft" title="Permalink to this definition">¶</a></dt>
 <dd><p>Driver to create TDDFT or TDDFTNoHybrid object</p>
+</dd></dl>
+
+<span class="target" id="module-pyscf.tdscf.uks"></span><dl class="class">
+<dt id="pyscf.tdscf.uks.TDDFTNoHybrid">
+<em class="property">class </em><code class="descclassname">pyscf.tdscf.uks.</code><code class="descname">TDDFTNoHybrid</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/uks.html#TDDFTNoHybrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.uks.TDDFTNoHybrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solve (A-B)(A+B)(X+Y) = (X+Y)w^2</p>
+<dl class="method">
+<dt id="pyscf.tdscf.uks.TDDFTNoHybrid.kernel">
+<code class="descname">kernel</code><span class="sig-paren">(</span><em>x0=None</em>, <em>nstates=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/uks.html#TDDFTNoHybrid.kernel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.uks.TDDFTNoHybrid.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>TDDFT diagonalization solver</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.uks.tddft">
+<code class="descclassname">pyscf.tdscf.uks.</code><code class="descname">tddft</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/uks.html#tddft"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.uks.tddft" title="Permalink to this definition">¶</a></dt>
+<dd><p>Driver to create TDDFT or TDDFTNoHybrid object</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyscf.tdscf.common_slow">
+<span id="tdhf-slow"></span><h2>18.5. TDHF_slow<a class="headerlink" href="#module-pyscf.tdscf.common_slow" title="Permalink to this headline">¶</a></h2>
+<p>This and other <cite>_slow</cite> modules implement the time-dependent procedure. The primary performance drawback is
+that, unlike other &#8216;fast&#8217; routines with an implicit construction of the eigenvalue problem, these modules construct
+TDHF matrices explicitly. As a result, regular <cite>numpy.linalg.eig</cite> can be used to retrieve TDHF roots in a reliable
+fashion without any issues related to the Davidson procedure.</p>
+<p>This is a helper module defining basic interfaces.</p>
+<dl class="function">
+<dt id="pyscf.tdscf.common_slow.ab2full">
+<code class="descclassname">pyscf.tdscf.common_slow.</code><code class="descname">ab2full</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/common_slow.html#ab2full"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.common_slow.ab2full" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms A and B TD matrices into a full matrix.
+Args:</p>
+<blockquote>
+<div>a (numpy.ndarray): TD A-matrix;
+b (numpy.ndarray): TD B-matrix;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>The full TD matrix.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.common_slow.ab2mkk">
+<code class="descclassname">pyscf.tdscf.common_slow.</code><code class="descname">ab2mkk</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>tolerance=1e-12</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/common_slow.html#ab2mkk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.common_slow.ab2mkk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms A and B TD matrices into MK and K matrices.
+Args:</p>
+<blockquote>
+<div>a (numpy.ndarray): TD A-matrix;
+b (numpy.ndarray): TD B-matrix;
+tolerance (float): a tolerance for checking whether the input matrices are real;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>MK and K submatrices.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.common_slow.eig">
+<code class="descclassname">pyscf.tdscf.common_slow.</code><code class="descname">eig</code><span class="sig-paren">(</span><em>m</em>, <em>driver=None</em>, <em>nroots=None</em>, <em>half=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/common_slow.html#eig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.common_slow.eig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Eigenvalue problem solver.
+Args:</p>
+<blockquote>
+<div>m (numpy.ndarray): the matrix to diagonalize;
+driver (str): one of the drivers;
+nroots (int): the number of roots ot calculate (ignored for <cite>driver</cite> == &#8216;eig&#8217;);
+half (bool): if True, implies spectrum symmetry and takes only a half of eigenvalues;</div></blockquote>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.common_slow.format_frozen_k">
+<code class="descclassname">pyscf.tdscf.common_slow.</code><code class="descname">format_frozen_k</code><span class="sig-paren">(</span><em>frozen</em>, <em>nmo</em>, <em>nk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/common_slow.html#format_frozen_k"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.common_slow.format_frozen_k" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the argument into a mask array of bools where False values correspond to frozen orbitals for each k-point.
+Args:</p>
+<blockquote>
+<div>frozen (int, Iterable): the number of frozen valence orbitals or the list of frozen orbitals for all k-points or
+multiple lists of frozen orbitals for each k-point;
+nmo (int): the total number of molecular orbitals;
+nk (int): the total number of k-points;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>The mask array.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.common_slow.format_frozen_mol">
+<code class="descclassname">pyscf.tdscf.common_slow.</code><code class="descname">format_frozen_mol</code><span class="sig-paren">(</span><em>frozen</em>, <em>nmo</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/common_slow.html#format_frozen_mol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.common_slow.format_frozen_mol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the argument into a mask array of bools where False values correspond to frozen molecular orbitals.
+Args:</p>
+<blockquote>
+<div>frozen (int, Iterable): the number of frozen valence orbitals or the list of frozen orbitals;
+nmo (int): the total number of molecular orbitals;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>The mask array.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.common_slow.format_mask">
+<code class="descclassname">pyscf.tdscf.common_slow.</code><code class="descname">format_mask</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/common_slow.html#format_mask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.common_slow.format_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats a mask into a readable string.
+Args:</p>
+<blockquote>
+<div>x (ndarray): an array with the mask;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>A readable string with the mask.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.common_slow.full2ab">
+<code class="descclassname">pyscf.tdscf.common_slow.</code><code class="descname">full2ab</code><span class="sig-paren">(</span><em>full</em>, <em>tolerance=1e-12</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/common_slow.html#full2ab"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.common_slow.full2ab" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms a full TD matrix into A and B parts.
+Args:</p>
+<blockquote>
+<div>full (numpy.ndarray): the full TD matrix;
+tolerance (float): a tolerance for checking whether the full matrix is in the ABBA-form;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>A and B submatrices.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.common_slow.full2mkk">
+<code class="descclassname">pyscf.tdscf.common_slow.</code><code class="descname">full2mkk</code><span class="sig-paren">(</span><em>full</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/common_slow.html#full2mkk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.common_slow.full2mkk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms a full TD matrix into MK and K parts.
+Args:</p>
+<blockquote>
+<div>full (numpy.ndarray): the full TD matrix;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>MK and K submatrices.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.common_slow.k_nmo">
+<code class="descclassname">pyscf.tdscf.common_slow.</code><code class="descname">k_nmo</code><span class="sig-paren">(</span><em>model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/common_slow.html#k_nmo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.common_slow.k_nmo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves number of AOs per k-point.
+Args:</p>
+<blockquote>
+<div>model (RHF): the model;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>Numbers of AOs in the model.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.common_slow.k_nocc">
+<code class="descclassname">pyscf.tdscf.common_slow.</code><code class="descname">k_nocc</code><span class="sig-paren">(</span><em>model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/common_slow.html#k_nocc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.common_slow.k_nocc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves occupation numbers.
+Args:</p>
+<blockquote>
+<div>model (RHF): the model;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>Numbers of occupied orbitals in the model.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.common_slow.kernel">
+<code class="descclassname">pyscf.tdscf.common_slow.</code><code class="descname">kernel</code><span class="sig-paren">(</span><em>eri</em>, <em>driver=None</em>, <em>fast=True</em>, <em>nroots=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/common_slow.html#kernel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.common_slow.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates eigenstates and eigenvalues of the TDHF problem.
+Args:</p>
+<blockquote>
+<div>eri (TDDFTMatrixBlocks): ERI;
+driver (str): one of the eigenvalue problem drivers;
+fast (bool): whether to run diagonalization on smaller matrixes;
+nroots (int): the number of roots to calculate;
+<a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs: arguments to <cite>eri.tdhf_matrix</cite>;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>Positive eigenvalues and eigenvectors.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.common_slow.mkk2ab">
+<code class="descclassname">pyscf.tdscf.common_slow.</code><code class="descname">mkk2ab</code><span class="sig-paren">(</span><em>mk</em>, <em>k</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/common_slow.html#mkk2ab"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.common_slow.mkk2ab" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms MK and M TD matrices into A and B matrices.
+Args:</p>
+<blockquote>
+<div>mk (numpy.ndarray): TD MK-matrix;
+k (numpy.ndarray): TD K-matrix;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>A and B submatrices.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.common_slow.mkk2full">
+<code class="descclassname">pyscf.tdscf.common_slow.</code><code class="descname">mkk2full</code><span class="sig-paren">(</span><em>mk</em>, <em>k</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/common_slow.html#mkk2full"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.common_slow.mkk2full" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms MK and M TD matrices into a full TD matrix.
+Args:</p>
+<blockquote>
+<div>mk (numpy.ndarray): TD MK-matrix;
+k (numpy.ndarray): TD K-matrix;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>The full TD matrix.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.common_slow.mknj2i">
+<code class="descclassname">pyscf.tdscf.common_slow.</code><code class="descname">mknj2i</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/common_slow.html#mknj2i"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.common_slow.mknj2i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms &#8220;mknj&#8221; notation into tensor index order for the ERI.
+Args:</p>
+<blockquote>
+<div>item (str): an arbitrary transpose of &#8220;mknj&#8221; letters;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>4 indexes.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.common_slow.msize">
+<code class="descclassname">pyscf.tdscf.common_slow.</code><code class="descname">msize</code><span class="sig-paren">(</span><em>m</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/common_slow.html#msize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.common_slow.msize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether the matrix is square and returns its size.
+Args:</p>
+<blockquote>
+<div>m (numpy.ndarray): the matrix to measure;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>An integer with the size.</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-pyscf.tdscf.rhf_slow"></span><p>This and other <cite>_slow</cite> modules implement the time-dependent Hartree-Fock procedure. The primary performance drawback is
+that, unlike other &#8216;fast&#8217; routines with an implicit construction of the eigenvalue problem, these modules construct
+TDHF matrices explicitly via an AO-MO transformation, i.e. with a O(N^5) complexity scaling. As a result, regular
+<cite>numpy.linalg.eig</cite> can be used to retrieve TDHF roots in a reliable fashion without any issues related to the Davidson
+procedure. Several variants of TDHF are available:</p>
+<blockquote>
+<div><ul class="simple">
+<li>(this module) <cite>pyscf.tdscf.rhf_slow</cite>: the molecular implementation;</li>
+<li><cite>pyscf.pbc.tdscf.rhf_slow</cite>: PBC (periodic boundary condition) implementation for RHF objects of <cite>pyscf.pbc.scf</cite>
+modules;</li>
+<li><cite>pyscf.pbc.tdscf.krhf_slow_supercell</cite>: PBC implementation for KRHF objects of <cite>pyscf.pbc.scf</cite> modules. Works with
+an arbitrary number of k-points but has a overhead due to an effective construction of a supercell.</li>
+<li><cite>pyscf.pbc.tdscf.krhf_slow_gamma</cite>: A Gamma-point calculation resembling the original <cite>pyscf.pbc.tdscf.krhf</cite>
+module. Despite its name, it accepts KRHF objects with an arbitrary number of k-points but finds only few TDHF roots
+corresponding to collective oscillations without momentum transfer;</li>
+<li><cite>pyscf.pbc.tdscf.krhf_slow</cite>: PBC implementation for KRHF objects of <cite>pyscf.pbc.scf</cite> modules. Works with
+an arbitrary number of k-points and employs k-point conservation (diagonalizes matrix blocks separately).</li>
+</ul>
+</div></blockquote>
+<dl class="function">
+<dt id="pyscf.tdscf.rhf_slow.vector_to_amplitudes">
+<code class="descclassname">pyscf.tdscf.rhf_slow.</code><code class="descname">vector_to_amplitudes</code><span class="sig-paren">(</span><em>vectors</em>, <em>nocc</em>, <em>nmo</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/rhf_slow.html#vector_to_amplitudes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.rhf_slow.vector_to_amplitudes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms (reshapes) and normalizes vectors into amplitudes.
+Args:</p>
+<blockquote>
+<div>vectors (numpy.ndarray): raw eigenvectors to transform;
+nocc (int): number of occupied orbitals;
+nmo (int): the total number of orbitals;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>Amplitudes with the following shape: (# of roots, 2 (x or y), # of occupied orbitals, # of virtual orbitals).</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-pyscf.tdscf.proxy"></span><p>This and other <cite>proxy</cite> modules implement the time-dependent mean-field procedure using the existing pyscf
+implementations as a black box. The main purpose of these modules is to overcome the existing limitations in pyscf
+(i.e. real-only orbitals, davidson diagonalizer, incomplete Bloch space, etc). The primary performance drawback is that,
+unlike the original pyscf routines with an implicit construction of the eigenvalue problem, these modules construct TD
+matrices explicitly by proxying to pyscf density response routines with a O(N^4) complexity scaling. As a result,
+regular <cite>numpy.linalg.eig</cite> can be used to retrieve TD roots. Several variants of proxy-TD are available:</p>
+<blockquote>
+<div><ul class="simple">
+<li>(this module) <cite>pyscf.tdscf.proxy</cite>: the molecular implementation;</li>
+<li><cite>pyscf.pbc.tdscf.proxy</cite>: PBC (periodic boundary condition) Gamma-point-only implementation;</li>
+<li><cite>pyscf.pbc.tdscf.kproxy_supercell</cite>: PBC implementation constructing supercells. Works with an arbitrary number of
+k-points but has an overhead due to ignoring the momentum conservation law. In addition, works only with
+time reversal invariant (TRI) models: i.e. the k-point grid has to be aligned and contain at least one TRI momentum.</li>
+<li><cite>pyscf.pbc.tdscf.kproxy</cite>: same as the above but respect the momentum conservation and, thus, diagonlizes smaller
+matrices (the performance gain is the total number of k-points in the model).</li>
+</ul>
+</div></blockquote>
+<dl class="function">
+<dt id="pyscf.tdscf.proxy.mk_make_canonic">
+<code class="descclassname">pyscf.tdscf.proxy.</code><code class="descname">mk_make_canonic</code><span class="sig-paren">(</span><em>m</em>, <em>o</em>, <em>v</em>, <em>return_ov=False</em>, <em>space_ov=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/proxy.html#mk_make_canonic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.proxy.mk_make_canonic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes the output of pyscf TDDFT matrix (MK form) to be canonic.
+Args:</p>
+<blockquote>
+<div>m (ndarray): the TDDFT matrix;
+o (ndarray): occupied orbital energies;
+v (ndarray): virtual orbital energies;
+return_ov (bool): if True, returns the K-matrix as well;
+space_ov (ndarray): an optional ov space;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>The rotated matrix as well as an optional K-matrix.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.proxy.molecular_response">
+<code class="descclassname">pyscf.tdscf.proxy.</code><code class="descname">molecular_response</code><span class="sig-paren">(</span><em>vind</em>, <em>space</em>, <em>nocc</em>, <em>nmo</em>, <em>double</em>, <em>log_dest</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/proxy.html#molecular_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.proxy.molecular_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves a raw response matrix.
+Args:</p>
+<blockquote>
+<div>vind (Callable): a pyscf matvec routine;
+space (ndarray): the active orbital space mask: either the same mask for both rows and columns (1D array) or
+separate orbital masks for rows and columns (2D array);
+nocc (int): the number of occupied orbitals (frozen and active);
+nmo (int): the total number of orbitals;
+double (bool): set to True if <cite>vind</cite> returns the double-sized (i.e. full) matrix;
+log_dest (object): pyscf logging;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>The TD matrix.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.proxy.molecular_response_ov">
+<code class="descclassname">pyscf.tdscf.proxy.</code><code class="descname">molecular_response_ov</code><span class="sig-paren">(</span><em>vind</em>, <em>space_ov</em>, <em>nocc</em>, <em>nmo</em>, <em>double</em>, <em>log_dest</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/proxy.html#molecular_response_ov"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.proxy.molecular_response_ov" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves a raw response matrix.
+Args:</p>
+<blockquote>
+<div>vind (Callable): a pyscf matvec routine;
+space_ov (ndarray): the active <cite>ov</cite> space mask: either the same mask for both rows and columns (1D array) or
+separate <cite>ov</cite> masks for rows and columns (2D array);
+nocc (int): the number of occupied orbitals (frozen and active);
+nmo (int): the total number of orbitals;
+double (bool): set to True if <cite>vind</cite> returns the double-sized (i.e. full) matrix;
+log_dest (object): pyscf logging;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>The TD matrix.</dd>
+<dt>Note:</dt>
+<dd>The runtime scales with the size of the column mask <cite>space_ov[1]</cite> but not the row mask <cite>space_ov[0]</cite>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.tdscf.proxy.orb2ov">
+<code class="descclassname">pyscf.tdscf.proxy.</code><code class="descname">orb2ov</code><span class="sig-paren">(</span><em>space</em>, <em>nocc</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/proxy.html#orb2ov"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.proxy.orb2ov" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts orbital active space specification into ov-pairs space spec.
+Args:</p>
+<blockquote>
+<div>space (ndarray): the obital space;
+nocc (int): the number of occupied orbitals;</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>The ov space specification.</dd>
+</dl>
 </dd></dl>
 
 </div>

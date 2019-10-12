@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>32. pbc — Periodic boundary conditions &mdash; PySCF 1.7.0 documentation</title>
+  <title>33. pbc — Periodic boundary conditions &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -33,8 +33,8 @@
 
   
     <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
-        <link rel="next" title="32.1. pbc.gto — Crystal cell structure" href="pbc/gto.html"/>
-        <link rel="prev" title="31. icmpspt — Internal-contracted MPS perturbation method" href="icmpspt.html"/> 
+        <link rel="next" title="33.1. pbc.gto — Crystal cell structure" href="pbc/gto.html"/>
+        <link rel="prev" title="32. x2c — exact-two-component approach" href="x2c.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -119,33 +119,34 @@
 <li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">29. fciqmcscf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mrpt.html">30. mrpt &#8212; Multi-reference perturbation theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">32. pbc &#8212; Periodic boundary conditions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pbc/gto.html">32.1. pbc.gto &#8212; Crystal cell structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/ao2mo.html">32.2. pbc.ao2mo &#8212; PBC integral transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/scf.html">32.3. pbc.scf &#8212; Mean-field with periodic boundary condition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/dft.html">32.4. pbc.dft  &#8212; PBC density functional theory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/df.html">32.5. pbc.df &#8212; PBC denisty fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/tdscf.html">32.6. pbc.tdscf &#8212; PBC time dependent density functional theory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/mp.html">32.7. pbc.mp &#8212; PBC perturbation theory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/ci.html">32.8. pbc.ci &#8212; PBC configuration interaction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/cc.html">32.9. pbc.cc &#8212; PBC coupled cluster</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/mpicc.html">32.10. pbc.mpicc &#8212; PBC coupled cluster for MPI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/tools.html">32.11. pbc.tools &#8212; PBC tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/mix_mol.html">32.12. Mixing PBC and molecular modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/prop.html">32.13. pbc.prop &#8212; PBC property</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/gw.html">32.14. pbc.gw &#8212; GW with PBC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="x2c.html">32. x2c &#8212; exact-two-component approach</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">33. pbc &#8212; Periodic boundary conditions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pbc/gto.html">33.1. pbc.gto &#8212; Crystal cell structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/ao2mo.html">33.2. pbc.ao2mo &#8212; PBC integral transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/scf.html">33.3. pbc.scf &#8212; Mean-field with periodic boundary condition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/dft.html">33.4. pbc.dft  &#8212; PBC density functional theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/df.html">33.5. pbc.df &#8212; PBC denisty fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/tdscf.html">33.6. pbc.tdscf &#8212; PBC time dependent density functional theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/mp.html">33.7. pbc.mp &#8212; PBC perturbation theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/ci.html">33.8. pbc.ci &#8212; PBC configuration interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/cc.html">33.9. pbc.cc &#8212; PBC coupled cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/mpicc.html">33.10. pbc.mpicc &#8212; PBC coupled cluster for MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/tools.html">33.11. pbc.tools &#8212; PBC tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/mix_mol.html">33.12. Mixing PBC and molecular modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/prop.html">33.13. pbc.prop &#8212; PBC property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/gw.html">33.14. pbc.gw &#8212; GW with PBC</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="qmmm.html">33. qmmm &#8212; QM/MM interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="solvent.html">34. solvent &#8212; Solvent methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">35. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="geomopt.html">36. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lo.html">37. lo &#8212; Orbital localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tools.html">38. tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">39. Miscellaneous</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ccn.html">40. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nao.html">41. nao &#8212; Numerical Atomic Orbitals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lib.html">42. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qmmm.html">34. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solvent.html">35. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">36. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geomopt.html">37. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lo.html">38. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">39. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">40. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nao.html">42. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.html">43. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
 </ul>
 
             
@@ -190,7 +191,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>32. pbc &#8212; Periodic boundary conditions</li>
+      <li>33. pbc &#8212; Periodic boundary conditions</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -210,7 +211,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="pbc-periodic-boundary-conditions">
-<span id="pbc"></span><h1>32. pbc &#8212; Periodic boundary conditions<a class="headerlink" href="#pbc-periodic-boundary-conditions" title="Permalink to this headline">¶</a></h1>
+<span id="pbc"></span><h1>33. pbc &#8212; Periodic boundary conditions<a class="headerlink" href="#pbc-periodic-boundary-conditions" title="Permalink to this headline">¶</a></h1>
 <p>The <code class="xref py py-mod docutils literal"><span class="pre">pbc</span></code> module provides electronic structure implementations with periodic boundary
 conditions based on periodic Gaussian basis functions. The PBC implementation supports
 both all-electron and pseudopotential descriptions.</p>
@@ -236,180 +237,180 @@ explicitly enforce translational symmetry through k-point sampling.</p>
 <p>The list of modules described in this chapter is:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="pbc/gto.html">32.1. pbc.gto &#8212; Crystal cell structure</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pbc/gto.html#cell-class">32.1.1. <code class="docutils literal"><span class="pre">Cell</span></code> class</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="pbc/gto.html#attributes-and-methods">32.1.1.1. Attributes and methods</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/gto.html#connection-to-mole-class">32.1.1.2. Connection to <code class="docutils literal"><span class="pre">Mole</span></code> class</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/gto.html#serialization">32.1.1.3. Serialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc/gto.html">33.1. pbc.gto &#8212; Crystal cell structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pbc/gto.html#cell-class">33.1.1. <code class="docutils literal"><span class="pre">Cell</span></code> class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pbc/gto.html#attributes-and-methods">33.1.1.1. Attributes and methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/gto.html#connection-to-mole-class">33.1.1.2. Connection to <code class="docutils literal"><span class="pre">Mole</span></code> class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/gto.html#serialization">33.1.1.3. Serialization</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/gto.html#basis-set">32.1.2. Basis set</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/gto.html#pseudo-potential">32.1.3. Pseudo potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/gto.html#basis-set">33.1.2. Basis set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/gto.html#pseudo-potential">33.1.3. Pseudo potential</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pbc/ao2mo.html">32.2. pbc.ao2mo &#8212; PBC integral transformation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pbc/ao2mo.html#examples">32.2.1. Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/ao2mo.html#program-reference">32.2.2. Program reference</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="pbc/ao2mo.html#eris">32.2.2.1. eris</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="pbc/scf.html">32.3. pbc.scf &#8212; Mean-field with periodic boundary condition</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pbc/scf.html#gamma-point-and-single-k-point-calculation">32.3.1. Gamma point and single k-point calculation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="pbc/scf.html#mixing-with-molecular-program-for-post-hf-methods">32.3.1.1. Mixing with molecular program for post-HF methods</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/scf.html#k-point-sampling">32.3.2. k-point sampling</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="pbc/scf.html#newton-solver">32.3.2.1. Newton solver</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/scf.html#smearing">32.3.2.2. Smearing</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/scf.html#exchange-divergence-treatment">32.3.3. Exchange divergence treatment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/scf.html#with-df-for-density-fitting">32.3.4. <code class="docutils literal"><span class="pre">with_df</span></code> for density fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/scf.html#stability-analysis">32.3.5. Stability analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/scf.html#module-pyscf.pbc.scf.hf">32.3.6. Program reference</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="pbc/dft.html">32.4. pbc.dft  &#8212; PBC density functional theory</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pbc/dft.html#examples">32.4.1. Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/dft.html#program-reference">32.4.2. Program reference</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#rks">32.4.2.1. rks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#roks">32.4.2.2. roks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#uks">32.4.2.3. uks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#cdft">32.4.2.4. cdft</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#krks">32.4.2.5. krks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#kroks">32.4.2.6. kroks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#kuks">32.4.2.7. kuks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#numint">32.4.2.8. numint</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#gen-grid">32.4.2.9. gen_grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#multigrid">32.4.2.10. multigrid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc/ao2mo.html">33.2. pbc.ao2mo &#8212; PBC integral transformation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pbc/ao2mo.html#examples">33.2.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/ao2mo.html#program-reference">33.2.2. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pbc/ao2mo.html#eris">33.2.2.1. eris</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pbc/df.html">32.5. pbc.df &#8212; PBC denisty fitting</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pbc/df.html#introduction">32.5.1. Introduction</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#fftdf-fft-based-density-fitting">32.5.1.1. FFTDF &#8212; FFT-based density fitting</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="pbc/df.html#nuclear-type-integrals">32.5.1.1.1. Nuclear type integrals</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pbc/df.html#hartree-fock-coulomb-and-exchange">32.5.1.1.2. Hartree-Fock Coulomb and exchange</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pbc/df.html#index-eri-tensor-and-integral-transformation">32.5.1.1.3. 4-index ERI tensor and integral transformation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pbc/df.html#kinetic-energy-cutoff">32.5.1.1.4. Kinetic energy cutoff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc/scf.html">33.3. pbc.scf &#8212; Mean-field with periodic boundary condition</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pbc/scf.html#gamma-point-and-single-k-point-calculation">33.3.1. Gamma point and single k-point calculation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pbc/scf.html#mixing-with-molecular-program-for-post-hf-methods">33.3.1.1. Mixing with molecular program for post-HF methods</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#aftdf-aft-based-density-fitting">32.5.1.2. AFTDF &#8212; AFT-based density fitting</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="pbc/df.html#id1">32.5.1.2.1. Kinetic energy cutoff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/scf.html#k-point-sampling">33.3.2. k-point sampling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pbc/scf.html#newton-solver">33.3.2.1. Newton solver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/scf.html#smearing">33.3.2.2. Smearing</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#gdf-gaussian-density-fitting">32.5.1.3. GDF &#8212; Gaussian density fitting</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="pbc/df.html#auxiliary-gaussian-basis">32.5.1.3.1. Auxiliary Gaussian basis</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pbc/df.html#id2">32.5.1.3.2. Kinetic energy cutoff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/scf.html#exchange-divergence-treatment">33.3.3. Exchange divergence treatment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/scf.html#with-df-for-density-fitting">33.3.4. <code class="docutils literal"><span class="pre">with_df</span></code> for density fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/scf.html#stability-analysis">33.3.5. Stability analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/scf.html#module-pyscf.pbc.scf.hf">33.3.6. Program reference</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#mdf-mixed-density-fitting">32.5.1.4. MDF &#8212; mixed density fitting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#all-electron-calculation">32.5.1.5. All-electron calculation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#low-dimension-system">32.5.1.6. Low-dimension system</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/df.html#interface-to-molecular-df-post-hf-methods">32.5.2. Interface to molecular DF-post-HF methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/df.html#examples">32.5.3. Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/df.html#program-reference">32.5.4. Program reference</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#fftdf-class">32.5.4.1. FFTDF class</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#module-pyscf.pbc.df.fft_jk">32.5.4.2. FFTDF helper functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#aftdf-class">32.5.4.3. AFTDF class</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#module-pyscf.pbc.df.aft_jk">32.5.4.4. AFTDF helper functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#gdf-class">32.5.4.5. GDF class</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#module-pyscf.pbc.df.df_jk">32.5.4.6. GDF helper functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#mdf-class">32.5.4.7. MDF class</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#module-pyscf.pbc.df.mdf_jk">32.5.4.8. MDF helper functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc/dft.html">33.4. pbc.dft  &#8212; PBC density functional theory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pbc/dft.html#examples">33.4.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/dft.html#program-reference">33.4.2. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#rks">33.4.2.1. rks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#roks">33.4.2.2. roks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#uks">33.4.2.3. uks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#cdft">33.4.2.4. cdft</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#krks">33.4.2.5. krks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#kroks">33.4.2.6. kroks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#kuks">33.4.2.7. kuks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#numint">33.4.2.8. numint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#gen-grid">33.4.2.9. gen_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/dft.html#multigrid">33.4.2.10. multigrid</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pbc/tdscf.html">32.6. pbc.tdscf &#8212; PBC time dependent density functional theory</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pbc/tdscf.html#examples">32.6.1. Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/tdscf.html#program-reference">32.6.2. Program reference</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#rhf">32.6.2.1. rhf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#rhf-slow">32.6.2.2. rhf_slow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#rks">32.6.2.3. rks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#uhf">32.6.2.4. uhf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#uks">32.6.2.5. uks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#krhf">32.6.2.6. krhf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#krhf-slow">32.6.2.7. krhf_slow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#krhf-slow-gamma">32.6.2.8. krhf_slow_gamma</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#krhf-slow-supercell">32.6.2.9. krhf_slow_supercell</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#krks">32.6.2.10. krks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#kuhf">32.6.2.11. kuhf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#kuks">32.6.2.12. kuks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#proxy">32.6.2.13. proxy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#kproxy">32.6.2.14. kproxy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#kproxy-supercell">32.6.2.15. kproxy_supercell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc/df.html">33.5. pbc.df &#8212; PBC denisty fitting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pbc/df.html#introduction">33.5.1. Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#fftdf-fft-based-density-fitting">33.5.1.1. FFTDF &#8212; FFT-based density fitting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pbc/df.html#nuclear-type-integrals">33.5.1.1.1. Nuclear type integrals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pbc/df.html#hartree-fock-coulomb-and-exchange">33.5.1.1.2. Hartree-Fock Coulomb and exchange</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pbc/df.html#index-eri-tensor-and-integral-transformation">33.5.1.1.3. 4-index ERI tensor and integral transformation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pbc/df.html#kinetic-energy-cutoff">33.5.1.1.4. Kinetic energy cutoff</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#aftdf-aft-based-density-fitting">33.5.1.2. AFTDF &#8212; AFT-based density fitting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pbc/df.html#id1">33.5.1.2.1. Kinetic energy cutoff</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#gdf-gaussian-density-fitting">33.5.1.3. GDF &#8212; Gaussian density fitting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pbc/df.html#auxiliary-gaussian-basis">33.5.1.3.1. Auxiliary Gaussian basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pbc/df.html#id2">33.5.1.3.2. Kinetic energy cutoff</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#mdf-mixed-density-fitting">33.5.1.4. MDF &#8212; mixed density fitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#all-electron-calculation">33.5.1.5. All-electron calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#low-dimension-system">33.5.1.6. Low-dimension system</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/df.html#interface-to-molecular-df-post-hf-methods">33.5.2. Interface to molecular DF-post-HF methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/df.html#examples">33.5.3. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/df.html#program-reference">33.5.4. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#fftdf-class">33.5.4.1. FFTDF class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#module-pyscf.pbc.df.fft_jk">33.5.4.2. FFTDF helper functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#aftdf-class">33.5.4.3. AFTDF class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#module-pyscf.pbc.df.aft_jk">33.5.4.4. AFTDF helper functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#gdf-class">33.5.4.5. GDF class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#module-pyscf.pbc.df.df_jk">33.5.4.6. GDF helper functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#mdf-class">33.5.4.7. MDF class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/df.html#module-pyscf.pbc.df.mdf_jk">33.5.4.8. MDF helper functions</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pbc/mp.html">32.7. pbc.mp &#8212; PBC perturbation theory</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pbc/mp.html#program-reference">32.7.1. Program reference</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="pbc/mp.html#mp2">32.7.1.1. mp2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/mp.html#kmp2">32.7.1.2. kmp2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/mp.html#kump2">32.7.1.3. kump2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc/tdscf.html">33.6. pbc.tdscf &#8212; PBC time dependent density functional theory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pbc/tdscf.html#examples">33.6.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/tdscf.html#program-reference">33.6.2. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#rhf">33.6.2.1. rhf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#rhf-slow">33.6.2.2. rhf_slow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#rks">33.6.2.3. rks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#uhf">33.6.2.4. uhf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#uks">33.6.2.5. uks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#krhf">33.6.2.6. krhf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#krhf-slow">33.6.2.7. krhf_slow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#krhf-slow-gamma">33.6.2.8. krhf_slow_gamma</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#krhf-slow-supercell">33.6.2.9. krhf_slow_supercell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#krks">33.6.2.10. krks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#kuhf">33.6.2.11. kuhf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#kuks">33.6.2.12. kuks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#proxy">33.6.2.13. proxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#kproxy">33.6.2.14. kproxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/tdscf.html#kproxy-supercell">33.6.2.15. kproxy_supercell</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pbc/ci.html">32.8. pbc.ci &#8212; PBC configuration interaction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pbc/ci.html#program-reference">32.8.1. Program reference</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="pbc/ci.html#cisd">32.8.1.1. cisd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc/mp.html">33.7. pbc.mp &#8212; PBC perturbation theory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pbc/mp.html#program-reference">33.7.1. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pbc/mp.html#mp2">33.7.1.1. mp2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/mp.html#kmp2">33.7.1.2. kmp2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/mp.html#kump2">33.7.1.3. kump2</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pbc/cc.html">32.9. pbc.cc &#8212; PBC coupled cluster</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pbc/cc.html#examples">32.9.1. Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/cc.html#program-reference">32.9.2. Program reference</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#ccsd">32.9.2.1. ccsd</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kccsd">32.9.2.2. kccsd</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kccsd-rhf">32.9.2.3. kccsd_rhf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kccsd-uhf">32.9.2.4. kccsd_uhf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kccsd-t">32.9.2.5. kccsd_t</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kccsd-t-rhf">32.9.2.6. kccsd_t_rhf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kccsd-t-rhf-slow">32.9.2.7. kccsd_t_rhf_slow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kintermediates">32.9.2.8. kintermediates</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kintermediates-rhf">32.9.2.9. kintermediates_rhf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kintermediates-uhf">32.9.2.10. kintermediates_uhf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#eom-kccsd-ghf">32.9.2.11. eom_kccsd_ghf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#eom-kccsd-rhf">32.9.2.12. eom_kccsd_rhf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#eom-kccsd-rhf-ip">32.9.2.13. eom_kccsd_rhf_ip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#eom-kccsd-rhf-ea">32.9.2.14. eom_kccsd_rhf_ea</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc/ci.html">33.8. pbc.ci &#8212; PBC configuration interaction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pbc/ci.html#program-reference">33.8.1. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pbc/ci.html#cisd">33.8.1.1. cisd</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pbc/mpicc.html">32.10. pbc.mpicc &#8212; PBC coupled cluster for MPI</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pbc/mpicc.html#examples">32.10.1. Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pbc/mpicc.html#program-reference">32.10.2. Program reference</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="pbc/mpicc.html#kccsd-rhf">32.10.2.1. kccsd_rhf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/mpicc.html#kintermediates-rhf">32.10.2.2. kintermediates_rhf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pbc/mpicc.html#mpi-kpoint-helper">32.10.2.3. mpi_kpoint_helper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc/cc.html">33.9. pbc.cc &#8212; PBC coupled cluster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pbc/cc.html#examples">33.9.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/cc.html#program-reference">33.9.2. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#ccsd">33.9.2.1. ccsd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kccsd">33.9.2.2. kccsd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kccsd-rhf">33.9.2.3. kccsd_rhf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kccsd-uhf">33.9.2.4. kccsd_uhf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kccsd-t">33.9.2.5. kccsd_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kccsd-t-rhf">33.9.2.6. kccsd_t_rhf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kccsd-t-rhf-slow">33.9.2.7. kccsd_t_rhf_slow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kintermediates">33.9.2.8. kintermediates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kintermediates-rhf">33.9.2.9. kintermediates_rhf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#kintermediates-uhf">33.9.2.10. kintermediates_uhf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#eom-kccsd-ghf">33.9.2.11. eom_kccsd_ghf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#eom-kccsd-rhf">33.9.2.12. eom_kccsd_rhf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#eom-kccsd-rhf-ip">33.9.2.13. eom_kccsd_rhf_ip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/cc.html#eom-kccsd-rhf-ea">33.9.2.14. eom_kccsd_rhf_ea</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pbc/tools.html">32.11. pbc.tools &#8212; PBC tools</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pbc/tools.html#interface-to-ase">32.11.1. Interface to ASE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc/mpicc.html">33.10. pbc.mpicc &#8212; PBC coupled cluster for MPI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pbc/mpicc.html#examples">33.10.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbc/mpicc.html#program-reference">33.10.2. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pbc/mpicc.html#kccsd-rhf">33.10.2.1. kccsd_rhf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/mpicc.html#kintermediates-rhf">33.10.2.2. kintermediates_rhf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbc/mpicc.html#mpi-kpoint-helper">33.10.2.3. mpi_kpoint_helper</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pbc/mix_mol.html">32.12. Mixing PBC and molecular modules</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pbc/mix_mol.html#examples">32.12.1. Examples</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pbc/prop.html">32.13. pbc.prop &#8212; PBC property</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pbc/prop.html#module-pyscf.pbc.prop.efg.rhf">32.13.1. Electric field gradients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc/tools.html">33.11. pbc.tools &#8212; PBC tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pbc/tools.html#interface-to-ase">33.11.1. Interface to ASE</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pbc/gw.html">32.14. pbc.gw &#8212; GW with PBC</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pbc/gw.html#program-reference">32.14.1. Program reference</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="pbc/gw.html#module-pyscf.pbc.gw.kgw_slow">32.14.1.1. G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc/mix_mol.html">33.12. Mixing PBC and molecular modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pbc/mix_mol.html#examples">33.12.1. Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pbc/prop.html">33.13. pbc.prop &#8212; PBC property</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pbc/prop.html#module-pyscf.pbc.prop.efg.rhf">33.13.1. Electric field gradients</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pbc/gw.html">33.14. pbc.gw &#8212; GW with PBC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pbc/gw.html#program-reference">33.14.1. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pbc/gw.html#module-pyscf.pbc.gw.kgw_slow">33.14.1.1. G0W0</a></li>
 </ul>
 </li>
 </ul>
@@ -428,10 +429,10 @@ explicitly enforce translational symmetry through k-point sampling.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="pbc/gto.html" class="btn btn-neutral float-right" title="32.1. pbc.gto — Crystal cell structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pbc/gto.html" class="btn btn-neutral float-right" title="33.1. pbc.gto — Crystal cell structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="icmpspt.html" class="btn btn-neutral" title="31. icmpspt — Internal-contracted MPS perturbation method" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="x2c.html" class="btn btn-neutral" title="32. x2c — exact-two-component approach" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
