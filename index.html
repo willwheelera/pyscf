@@ -124,7 +124,7 @@
 <li class="toctree-l1"><a class="reference internal" href="solvent.html">35. solvent &#8212; Solvent methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="semiempirical.html">36. semiempirical &#8212; Semiempirical methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geomopt.html">37. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lo.html">38. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lo.html">38. lo &#8212; Orbital localization and analysis tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tools.html">39. tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced.html">40. Miscellaneous</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
@@ -208,7 +208,7 @@ resources (perhaps sacrificing efficiency to reduce I/O);</li>
 </ul>
 <p>In addition to the core libraries, PySCF supports a rich
 ecosystem of plugins and external modules that, for example, provide
-MPI versions of some routines, additional quantum chemistry methods and analysis, interface with quantum computing toolkits etc. See :ref:&#8217;.._installing_plugin:&#8217;.</p>
+MPI versions of some routines, additional quantum chemistry methods and analysis, interface with quantum computing toolkits etc. See :ref:&#8217;.. _installing_plugin:&#8217;.</p>
 <div class="section" id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
@@ -277,11 +277,12 @@ MPI versions of some routines, additional quantum chemistry methods and analysis
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="scf.html">11. scf &#8212; Mean-field methods</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="scf.html#stability-analysis">11.1. Stability analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scf.html#addons">11.2. Addons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scf.html#caching-two-electron-integrals">11.3. Caching two-electron integrals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scf.html#customizing-hamiltonian">11.4. Customizing Hamiltonian</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scf.html#module-pyscf.scf">11.5. Program reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scf.html#examples">11.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scf.html#stability-analysis">11.2. Stability analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scf.html#addons">11.3. Addons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scf.html#caching-two-electron-integrals">11.4. Caching two-electron integrals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scf.html#customizing-hamiltonian">11.5. Customizing Hamiltonian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scf.html#module-pyscf.scf">11.6. Program reference</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="dft.html">12. dft &#8212; Density functional theory</a><ul>
@@ -310,7 +311,8 @@ MPI versions of some routines, additional quantum chemistry methods and analysis
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sgx.html">17. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="sgx.html#module-pyscf.sgx">17.1. Program reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sgx.html#examples">17.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sgx.html#module-pyscf.sgx">17.2. Program reference</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tddft.html">18. tddft &#8212; Time dependent density functional theory</a><ul>
@@ -404,7 +406,10 @@ MPI versions of some routines, additional quantum chemistry methods and analysis
 <li class="toctree-l2"><a class="reference internal" href="pbc/gw.html">33.14. pbc.gw &#8212; GW with PBC</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="qmmm.html">34. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qmmm.html">34. qmmm &#8212; QM/MM interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="qmmm.html#examples">34.1. Examples</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="solvent.html">35. solvent &#8212; Solvent methods</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="solvent.html#examples">35.1. Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solvent.html#module-pyscf.solvent">35.2. Program reference</a></li>
@@ -419,7 +424,7 @@ MPI versions of some routines, additional quantum chemistry methods and analysis
 <li class="toctree-l2"><a class="reference internal" href="geomopt.html#module-pyscf.geomopt">37.2. Program reference</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="lo.html">38. lo &#8212; Orbital localization</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="lo.html">38. lo &#8212; Orbital localization and analysis tools</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="lo.html#examples">38.1. Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lo.html#module-pyscf.lo">38.2. Program reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lo.html#module-pyscf.lo.boys">38.3. Foster-Boys, Edmiston-Ruedenberg, Pipek-Mezey localization</a></li>

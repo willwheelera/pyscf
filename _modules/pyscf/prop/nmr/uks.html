@@ -124,7 +124,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../solvent.html">35. solvent &#8212; Solvent methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../semiempirical.html">36. semiempirical &#8212; Semiempirical methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../geomopt.html">37. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../lo.html">38. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../lo.html">38. lo &#8212; Orbital localization and analysis tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../tools.html">39. tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../advanced.html">40. Miscellaneous</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
@@ -294,7 +294,7 @@
 
     <span class="k">return</span> <span class="n">vmat</span> <span class="o">-</span> <span class="n">vmat</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">get_fock</span><span class="p">(</span><span class="n">nmrobj</span><span class="p">,</span> <span class="n">dm0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gauge_orig</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="get_fock"><a class="viewcode-back" href="../../../../prop/nmr.html#pyscf.prop.gtensor.uks.get_fock">[docs]</a><span class="k">def</span> <span class="nf">get_fock</span><span class="p">(</span><span class="n">nmrobj</span><span class="p">,</span> <span class="n">dm0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gauge_orig</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;First order Fock matrix wrt external magnetic field&#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="n">dm0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">dm0</span> <span class="o">=</span> <span class="n">nmrobj</span><span class="o">.</span><span class="n">_scf</span><span class="o">.</span><span class="n">make_rdm1</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">gauge_orig</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">gauge_orig</span> <span class="o">=</span> <span class="n">nmrobj</span><span class="o">.</span><span class="n">gauge_orig</span>
@@ -339,7 +339,7 @@
             <span class="n">h1</span> <span class="o">=</span> <span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="n">h1</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">nmrobj</span><span class="o">.</span><span class="n">chkfile</span><span class="p">:</span>
         <span class="n">lib</span><span class="o">.</span><span class="n">chkfile</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">nmrobj</span><span class="o">.</span><span class="n">chkfile</span><span class="p">,</span> <span class="s1">&#39;nmr/h1&#39;</span><span class="p">,</span> <span class="n">h1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">h1</span>
+    <span class="k">return</span> <span class="n">h1</span></div>
 
 <span class="k">def</span> <span class="nf">solve_mo1</span><span class="p">(</span><span class="n">nmrobj</span><span class="p">,</span> <span class="n">mo_energy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mo_coeff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mo_occ</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
               <span class="n">h1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">s1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">with_cphf</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>

@@ -121,11 +121,14 @@
 <li class="toctree-l1"><a class="reference internal" href="icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
 <li class="toctree-l1"><a class="reference internal" href="x2c.html">32. x2c &#8212; exact-two-component approach</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pbc.html">33. pbc &#8212; Periodic boundary conditions</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">34. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">34. qmmm &#8212; QM/MM interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">34.1. Examples</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="solvent.html">35. solvent &#8212; Solvent methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="semiempirical.html">36. semiempirical &#8212; Semiempirical methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geomopt.html">37. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lo.html">38. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lo.html">38. lo &#8212; Orbital localization and analysis tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tools.html">39. tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced.html">40. Miscellaneous</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
@@ -194,9 +197,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-pyscf.qmmm.itrf">
-<span id="qmmm-qm-mm-interface"></span><h1>34. qmmm &#8212; QM/MM interface<a class="headerlink" href="#module-pyscf.qmmm.itrf" title="Permalink to this headline">¶</a></h1>
-<p>QM part interface</p>
+  <div class="section" id="qmmm-qm-mm-interface">
+<h1>34. qmmm &#8212; QM/MM interface<a class="headerlink" href="#qmmm-qm-mm-interface" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="examples">
+<h2>34.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Relevant examples
+<code class="file docutils literal"><span class="pre">examples/qmmm/00-hf.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/qmmm/01-dft.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/qmmm/02-mcscf.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/qmmm/03-ccsd.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/qmmm/04-cisd.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/qmmm/05-mp2.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/qmmm/06-tddft.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/qmmm/10-x2c.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/qmmm/11-newton.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/qmmm/11-soscf.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/qmmm/20-grad.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/qmmm/21-geom_opt.py</span></code></p>
+<span class="target" id="module-pyscf.qmmm.itrf"></span><p>QM part interface</p>
 <dl class="function">
 <dt id="pyscf.qmmm.itrf.add_mm_charges">
 <code class="descclassname">pyscf.qmmm.itrf.</code><code class="descname">add_mm_charges</code><span class="sig-paren">(</span><em>scf_method</em>, <em>coords</em>, <em>charges</em>, <em>unit=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.qmmm.itrf.add_mm_charges" title="Permalink to this definition">¶</a></dt>
@@ -317,6 +335,9 @@ it affects all post-HF calculations eg MP2, CCSD, MCSCF etc</dd>
 </div>
 </dd></dl>
 
+<p>The <code class="xref py py-mod docutils literal"><span class="pre">qmmm</span></code> module implements a generic interface for use with MM
+programs.</p>
+</div>
 </div>
 
 
