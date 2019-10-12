@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ssc — &mdash; PySCF 1.7.0 documentation</title>
+  <title>44.11. ssc — &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,9 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="../index.html"/> 
+    <link rel="top" title="PySCF 1.7.0 documentation" href="../index.html"/>
+        <link rel="up" title="44. prop — Molecular properties" href="../prop.html"/>
+        <link rel="prev" title="44.10. polarizability —" href="polarizability.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -85,51 +87,75 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">1. An overview of PySCF</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">2. Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../version.html">2. Version history</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">3. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gto.html">4. gto &#8212; Molecular structure and GTO basis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../lib.html">5. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../scf.html">6. scf &#8212; Mean-field methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ao2mo.html">7. ao2mo &#8212; Integral transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mcscf.html">8. mcscf &#8212; Multi-configurational self-consistent field</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../fci.html">9. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-rule.html">4. Code standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../benchmark.html">5. Benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">6. Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gto.html">7. gto &#8212; Molecular structure and GTO basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ao2mo.html">8. ao2mo &#8212; Integral transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../df.html">9. df &#8212; Density fitting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../symm.html">10. symm &#8211; Point group symmetry and spin symmetry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../df.html">11. df &#8212; Density fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scf.html">11. scf &#8212; Mean-field methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../dft.html">12. dft &#8212; Density functional theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tddft.html">13. tddft &#8212; Time dependent density functional theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cc.html">14. cc &#8212; Coupled cluster</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ci.html">15. ci &#8212; Configuration interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dmrgscf.html">16. dmrgscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../fciqmcscf.html">17. fciqmcscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tools.html">18. tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../grad.html">19. grad &#8212; Analytical nuclear gradients</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hessian.html">20. hessian &#8212; Analytical nuclear Hessian</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../pbc.html">21. pbc &#8212; Periodic boundary conditions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nao.html">22. nao &#8212; Numerical Atomic Orbitals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../lo.html">23. lo &#8212; Orbital localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced.html">24. Miscellaneous</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../qmmm.html">25. qmmm &#8212; QM/MM interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mrpt.html">26. mrpt &#8212; Multi-reference perturbation theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../benchmark.html">27. Benchmark</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../code-rule.html">28. Code standard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../version.html">29. Version history</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gw.html">30. gw &#8212; Molecular G0W0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mp.html">34. mp &#8212; MP2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ccn.html">37. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cornell_shci.html">38. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dftd3.html">39. dftd3 &#8212; DFT plus Dispersion Correction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dmrgscf.html">16. dmrgscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../doci.html">40. doci &#8212; Doubly occupied configuration interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../geomopt.html">41. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../solvent.html">42. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dftd3.html">13. dftd3 &#8212; DFT plus Dispersion Correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../grad.html">14. grad &#8212; Analytical nuclear gradients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hessian.html">15. hessian &#8212; Analytical nuclear Hessian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../soscf.html">16. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sgx.html">17. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tddft.html">18. tddft &#8212; Time dependent density functional theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mp.html">19. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ci.html">20. ci &#8212; Configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doci.html">21. doci &#8212; Doubly occupied configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cc.html">22. cc &#8212; Coupled cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gw.html">23. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fci.html">24. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hci.html">25. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cornell_shci.html">26. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mcscf.html">27. mcscf &#8212; Multi-configurational self-consistent field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dmrgscf.html">28. dmrgscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fciqmcscf.html">29. fciqmcscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mrpt.html">30. mrpt &#8212; Multi-reference perturbation theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../x2c.html">32. x2c &#8212; exact-two-component approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pbc.html">33. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qmmm.html">34. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solvent.html">35. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../semiempirical.html">36. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geomopt.html">37. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lo.html">38. lo &#8212; Orbital localization and analysis tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">39. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced.html">40. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nao.html">42. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lib.html">43. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../prop.html">44. prop &#8212; Molecular properties</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="efg.html">44.1. efg &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gtensor.html">44.2. gtensor &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magnetizability.html">44.3. magnetizability  &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nsr.html">44.4. nsr &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rotational_gtensor.html">44.5. rotational_gtensor &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zfs.html">44.6. zfs &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freq.html">44.7. freq &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hfc.html">44.8. hfc &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nmr.html">44.9. nmr &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="polarizability.html">44.10. polarizability &#8212;</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">44.11. ssc &#8212;</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#examples">44.11.1. Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.prop.ssc">44.11.2. Program reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.ssc.dhf">44.11.2.1. dhf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.ssc.rhf">44.11.2.2. rhf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.ssc.rks">44.11.2.3. rks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.ssc.uhf">44.11.2.4. uhf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.ssc.uks">44.11.2.5. uks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -174,7 +200,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>ssc &#8212;</li>
+          <li><a href="../prop.html">44. prop &#8212; Molecular properties</a> &raquo;</li>
+        
+      <li>44.11. ssc &#8212;</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -194,16 +222,16 @@
            <div itemprop="articleBody">
             
   <div class="section" id="ssc">
-<h1>ssc &#8212;<a class="headerlink" href="#ssc" title="Permalink to this headline">¶</a></h1>
+<h1>44.11. ssc &#8212;<a class="headerlink" href="#ssc" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2>44.11.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples
 <code class="file docutils literal"><span class="pre">examples/prop/05-ssc.py</span></code></p>
 </div>
 <div class="section" id="module-pyscf.prop.ssc">
-<span id="program-reference"></span><h2>Program reference<a class="headerlink" href="#module-pyscf.prop.ssc" title="Permalink to this headline">¶</a></h2>
+<span id="program-reference"></span><h2>44.11.2. Program reference<a class="headerlink" href="#module-pyscf.prop.ssc" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="module-pyscf.prop.ssc.dhf">
-<span id="dhf"></span><h3>dhf<a class="headerlink" href="#module-pyscf.prop.ssc.dhf" title="Permalink to this headline">¶</a></h3>
+<span id="dhf"></span><h3>44.11.2.1. dhf<a class="headerlink" href="#module-pyscf.prop.ssc.dhf" title="Permalink to this headline">¶</a></h3>
 <p>4-component Dirac-Hartree-Fock spin-spin coupling (SSC) constants</p>
 <dl class="function">
 <dt id="pyscf.prop.ssc.dhf.make_dia">
@@ -219,7 +247,7 @@
 
 </div>
 <div class="section" id="module-pyscf.prop.ssc.rhf">
-<span id="rhf"></span><h3>rhf<a class="headerlink" href="#module-pyscf.prop.ssc.rhf" title="Permalink to this headline">¶</a></h3>
+<span id="rhf"></span><h3>44.11.2.2. rhf<a class="headerlink" href="#module-pyscf.prop.ssc.rhf" title="Permalink to this headline">¶</a></h3>
 <p>Non-relativistic RHF spin-spin coupling (SSC) constants</p>
 <p>Ref.
 Chem. Rev., 99, 293
@@ -264,11 +292,11 @@ Ref. JCP, 73, 5718</p>
 
 </div>
 <div class="section" id="module-pyscf.prop.ssc.rks">
-<span id="rks"></span><h3>rks<a class="headerlink" href="#module-pyscf.prop.ssc.rks" title="Permalink to this headline">¶</a></h3>
+<span id="rks"></span><h3>44.11.2.3. rks<a class="headerlink" href="#module-pyscf.prop.ssc.rks" title="Permalink to this headline">¶</a></h3>
 <p>Non-relativistic RKS spin-spin coupling (SSC) constants</p>
 </div>
 <div class="section" id="module-pyscf.prop.ssc.uhf">
-<span id="uhf"></span><h3>uhf<a class="headerlink" href="#module-pyscf.prop.ssc.uhf" title="Permalink to this headline">¶</a></h3>
+<span id="uhf"></span><h3>44.11.2.4. uhf<a class="headerlink" href="#module-pyscf.prop.ssc.uhf" title="Permalink to this headline">¶</a></h3>
 <p>Non-relativistic UHF spin-spin coupling (SSC) constants</p>
 <dl class="function">
 <dt id="pyscf.prop.ssc.uhf.gen_vind">
@@ -302,7 +330,7 @@ Ref. JCP, 73, 5718</p>
 
 </div>
 <div class="section" id="module-pyscf.prop.ssc.uks">
-<span id="uks"></span><h3>uks<a class="headerlink" href="#module-pyscf.prop.ssc.uks" title="Permalink to this headline">¶</a></h3>
+<span id="uks"></span><h3>44.11.2.5. uks<a class="headerlink" href="#module-pyscf.prop.ssc.uks" title="Permalink to this headline">¶</a></h3>
 <p>Non-relativistic UKS spin-spin coupling (SSC) constants
 (In testing)</p>
 </div>
@@ -316,6 +344,13 @@ Ref. JCP, 73, 5718</p>
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="polarizability.html" class="btn btn-neutral" title="44.10. polarizability —" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

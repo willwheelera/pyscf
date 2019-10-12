@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gtensor — &mdash; PySCF 1.7.0 documentation</title>
+  <title>44.2. gtensor — &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="../index.html"/> 
+    <link rel="top" title="PySCF 1.7.0 documentation" href="../index.html"/>
+        <link rel="up" title="44. prop — Molecular properties" href="../prop.html"/>
+        <link rel="next" title="44.3. magnetizability —" href="magnetizability.html"/>
+        <link rel="prev" title="44.1. efg —" href="efg.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -85,7 +88,7 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">1. An overview of PySCF</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../version.html">2. Version history</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">3. Installation</a></li>
@@ -129,6 +132,29 @@
 <li class="toctree-l1"><a class="reference internal" href="../ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nao.html">42. nao &#8212; Numerical Atomic Orbitals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lib.html">43. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../prop.html">44. prop &#8212; Molecular properties</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="efg.html">44.1. efg &#8212;</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">44.2. gtensor &#8212;</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#examples">44.2.1. Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.prop.gtensor">44.2.2. Program reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.gtensor.dhf">44.2.2.1. dhf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.gtensor.uhf">44.2.2.2. uhf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.gtensor.uks">44.2.2.3. uks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="magnetizability.html">44.3. magnetizability  &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nsr.html">44.4. nsr &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rotational_gtensor.html">44.5. rotational_gtensor &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zfs.html">44.6. zfs &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freq.html">44.7. freq &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hfc.html">44.8. hfc &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nmr.html">44.9. nmr &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="polarizability.html">44.10. polarizability &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ssc.html">44.11. ssc &#8212;</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -173,7 +199,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>gtensor &#8212;</li>
+          <li><a href="../prop.html">44. prop &#8212; Molecular properties</a> &raquo;</li>
+        
+      <li>44.2. gtensor &#8212;</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -193,23 +221,23 @@
            <div itemprop="articleBody">
             
   <div class="section" id="gtensor">
-<h1>gtensor &#8212;<a class="headerlink" href="#gtensor" title="Permalink to this headline">¶</a></h1>
+<h1>44.2. gtensor &#8212;<a class="headerlink" href="#gtensor" title="Permalink to this headline">¶</a></h1>
 <p>The <code class="xref py py-mod docutils literal"><span class="pre">gtensor</span></code> module computes electronic g tensors for
 mean-field wavefunctions.</p>
 <div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2>44.2.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples
 <code class="file docutils literal"><span class="pre">examples/prop/02-g_tensor.py</span></code></p>
 </div>
 <div class="section" id="module-pyscf.prop.gtensor">
-<span id="program-reference"></span><h2>Program reference<a class="headerlink" href="#module-pyscf.prop.gtensor" title="Permalink to this headline">¶</a></h2>
+<span id="program-reference"></span><h2>44.2.2. Program reference<a class="headerlink" href="#module-pyscf.prop.gtensor" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="module-pyscf.prop.gtensor.dhf">
-<span id="dhf"></span><h3>dhf<a class="headerlink" href="#module-pyscf.prop.gtensor.dhf" title="Permalink to this headline">¶</a></h3>
+<span id="dhf"></span><h3>44.2.2.1. dhf<a class="headerlink" href="#module-pyscf.prop.gtensor.dhf" title="Permalink to this headline">¶</a></h3>
 <p>Dirac Hartree-Fock g-tensor (In testing)</p>
 <p>Refs: TCA, 129, 715</p>
 </div>
 <div class="section" id="module-pyscf.prop.gtensor.uhf">
-<span id="uhf"></span><h3>uhf<a class="headerlink" href="#module-pyscf.prop.gtensor.uhf" title="Permalink to this headline">¶</a></h3>
+<span id="uhf"></span><h3>44.2.2.2. uhf<a class="headerlink" href="#module-pyscf.prop.gtensor.uhf" title="Permalink to this headline">¶</a></h3>
 <p>Non-relativistic unrestricted Hartree-Fock g-tensor</p>
 <dl class="docutils">
 <dt>Refs:</dt>
@@ -307,7 +335,7 @@ The new orientations are the eigenvector of G matrix (G=g.gT)</p>
 
 </div>
 <div class="section" id="module-pyscf.prop.gtensor.uks">
-<span id="uks"></span><h3>uks<a class="headerlink" href="#module-pyscf.prop.gtensor.uks" title="Permalink to this headline">¶</a></h3>
+<span id="uks"></span><h3>44.2.2.3. uks<a class="headerlink" href="#module-pyscf.prop.gtensor.uks" title="Permalink to this headline">¶</a></h3>
 <p>Non-relativistic unrestricted Kohn-Sham g-tensor
 (In testing)</p>
 <dl class="docutils">
@@ -339,6 +367,15 @@ JCP, 119, 10489</dd>
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="magnetizability.html" class="btn btn-neutral float-right" title="44.3. magnetizability —" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="efg.html" class="btn btn-neutral" title="44.1. efg —" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

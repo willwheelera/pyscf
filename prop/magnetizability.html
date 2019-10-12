@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>magnetizability — &mdash; PySCF 1.7.0 documentation</title>
+  <title>44.3. magnetizability — &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="PySCF 1.7.0 documentation" href="../index.html"/> 
+    <link rel="top" title="PySCF 1.7.0 documentation" href="../index.html"/>
+        <link rel="up" title="44. prop — Molecular properties" href="../prop.html"/>
+        <link rel="next" title="44.4. nsr —" href="nsr.html"/>
+        <link rel="prev" title="44.2. gtensor —" href="gtensor.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -85,7 +88,7 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">1. An overview of PySCF</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../version.html">2. Version history</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">3. Installation</a></li>
@@ -129,6 +132,30 @@
 <li class="toctree-l1"><a class="reference internal" href="../ccn.html">41. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nao.html">42. nao &#8212; Numerical Atomic Orbitals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lib.html">43. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../prop.html">44. prop &#8212; Molecular properties</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="efg.html">44.1. efg &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gtensor.html">44.2. gtensor &#8212;</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">44.3. magnetizability  &#8212;</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#examples">44.3.1. Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.prop.magnetizability">44.3.2. Program reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.magnetizability.rhf">44.3.2.1. rhf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.magnetizability.rks">44.3.2.2. rks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.magnetizability.uhf">44.3.2.3. uhf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pyscf.prop.magnetizability.uks">44.3.2.4. uks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nsr.html">44.4. nsr &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rotational_gtensor.html">44.5. rotational_gtensor &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zfs.html">44.6. zfs &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freq.html">44.7. freq &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hfc.html">44.8. hfc &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nmr.html">44.9. nmr &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="polarizability.html">44.10. polarizability &#8212;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ssc.html">44.11. ssc &#8212;</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -173,7 +200,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>magnetizability  &#8212;</li>
+          <li><a href="../prop.html">44. prop &#8212; Molecular properties</a> &raquo;</li>
+        
+      <li>44.3. magnetizability  &#8212;</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -193,17 +222,17 @@
            <div itemprop="articleBody">
             
   <div class="section" id="magnetizability">
-<h1>magnetizability  &#8212;<a class="headerlink" href="#magnetizability" title="Permalink to this headline">¶</a></h1>
+<h1>44.3. magnetizability  &#8212;<a class="headerlink" href="#magnetizability" title="Permalink to this headline">¶</a></h1>
 <p>The <code class="xref py py-mod docutils literal"><span class="pre">magnetizability</span></code> module implements magetizabilities
 for mean-field wavefunctions.</p>
 <div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2>44.3.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>No example</p>
 </div>
 <div class="section" id="module-pyscf.prop.magnetizability">
-<span id="program-reference"></span><h2>Program reference<a class="headerlink" href="#module-pyscf.prop.magnetizability" title="Permalink to this headline">¶</a></h2>
+<span id="program-reference"></span><h2>44.3.2. Program reference<a class="headerlink" href="#module-pyscf.prop.magnetizability" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="module-pyscf.prop.magnetizability.rhf">
-<span id="rhf"></span><h3>rhf<a class="headerlink" href="#module-pyscf.prop.magnetizability.rhf" title="Permalink to this headline">¶</a></h3>
+<span id="rhf"></span><h3>44.3.2.1. rhf<a class="headerlink" href="#module-pyscf.prop.magnetizability.rhf" title="Permalink to this headline">¶</a></h3>
 <p>Non-relativistic magnetizability tensor for RHF
 (In testing)</p>
 <p>Refs:
@@ -241,14 +270,14 @@ given function is used to compute induced potential</dd>
 
 </div>
 <div class="section" id="module-pyscf.prop.magnetizability.rks">
-<span id="rks"></span><h3>rks<a class="headerlink" href="#module-pyscf.prop.magnetizability.rks" title="Permalink to this headline">¶</a></h3>
+<span id="rks"></span><h3>44.3.2.2. rks<a class="headerlink" href="#module-pyscf.prop.magnetizability.rks" title="Permalink to this headline">¶</a></h3>
 <p>Non-relativistic magnetizability tensor for DFT</p>
 <p>Refs:
 [1] R. Cammi, J. Chem. Phys., 109, 3185 (1998)
 [2] Todd A. Keith, Chem. Phys., 213, 123 (1996)</p>
 </div>
 <div class="section" id="module-pyscf.prop.magnetizability.uhf">
-<span id="uhf"></span><h3>uhf<a class="headerlink" href="#module-pyscf.prop.magnetizability.uhf" title="Permalink to this headline">¶</a></h3>
+<span id="uhf"></span><h3>44.3.2.3. uhf<a class="headerlink" href="#module-pyscf.prop.magnetizability.uhf" title="Permalink to this headline">¶</a></h3>
 <p>Non-relativistic magnetizability tensor for UHF
 (In testing)</p>
 <p>Refs:
@@ -278,7 +307,7 @@ given function is used to compute induced potential</dd>
 
 </div>
 <div class="section" id="module-pyscf.prop.magnetizability.uks">
-<span id="uks"></span><h3>uks<a class="headerlink" href="#module-pyscf.prop.magnetizability.uks" title="Permalink to this headline">¶</a></h3>
+<span id="uks"></span><h3>44.3.2.4. uks<a class="headerlink" href="#module-pyscf.prop.magnetizability.uks" title="Permalink to this headline">¶</a></h3>
 <p>Non-relativistic magnetizability tensor for UKS
 (In testing)</p>
 <p>Refs:
@@ -295,6 +324,15 @@ given function is used to compute induced potential</dd>
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="nsr.html" class="btn btn-neutral float-right" title="44.4. nsr —" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gtensor.html" class="btn btn-neutral" title="44.2. gtensor —" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
