@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>42. solvent — Solvent methods &mdash; PySCF 1.7.0 documentation</title>
+  <title>34. solvent — Solvent methods &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -33,7 +33,8 @@
 
   
     <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
-        <link rel="prev" title="41. geomopt — Geometry optimization" href="geomopt.html"/> 
+        <link rel="next" title="35. semiempirical — Semiempirical methods" href="semiempirical.html"/>
+        <link rel="prev" title="33. qmmm — QM/MM interface" href="qmmm.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -88,57 +89,55 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">1. An overview of PySCF</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">2. Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">2. Version history</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">3. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gto.html">4. gto &#8212; Molecular structure and GTO basis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lib.html">5. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scf.html">6. scf &#8212; Mean-field methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ao2mo.html">7. ao2mo &#8212; Integral transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mcscf.html">8. mcscf &#8212; Multi-configurational self-consistent field</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fci.html">9. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-rule.html">4. Code standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmark.html">5. Benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">6. Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gto.html">7. gto &#8212; Molecular structure and GTO basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ao2mo.html">8. ao2mo &#8212; Integral transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="df.html">9. df &#8212; Density fitting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="symm.html">10. symm &#8211; Point group symmetry and spin symmetry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="df.html">11. df &#8212; Density fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scf.html">11. scf &#8212; Mean-field methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dft.html">12. dft &#8212; Density functional theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tddft.html">13. tddft &#8212; Time dependent density functional theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cc.html">14. cc &#8212; Coupled cluster</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ci.html">15. ci &#8212; Configuration interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">17. fciqmcscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tools.html">18. tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="grad.html">19. grad &#8212; Analytical nuclear gradients</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hessian.html">20. hessian &#8212; Analytical nuclear Hessian</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pbc.html">21. pbc &#8212; Periodic boundary conditions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nao.html">22. nao &#8212; Numerical Atomic Orbitals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lo.html">23. lo &#8212; Orbital localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">24. Miscellaneous</a></li>
-<li class="toctree-l1"><a class="reference internal" href="qmmm.html">25. qmmm &#8212; QM/MM interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mrpt.html">26. mrpt &#8212; Multi-reference perturbation theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
-<li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ccn.html">37. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cornell_shci.html">38. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dftd3.html">39. dftd3 &#8212; DFT plus Dispersion Correction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doci.html">40. doci &#8212; Doubly occupied configuration interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="geomopt.html">41. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">42. solvent &#8212; Solvent methods</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#examples">42.1. Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.solvent">42.2. Program reference</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.solvent.ddpcm">42.2.1. domain decomposition PCM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.solvent.ddcosmo">42.2.2. domain decomposition COSMO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dftd3.html">13. dftd3 &#8212; DFT plus Dispersion Correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grad.html">14. grad &#8212; Analytical nuclear gradients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hessian.html">15. hessian &#8212; Analytical nuclear Hessian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">16. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sgx.html">17. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tddft.html">18. tddft &#8212; Time dependent density functional theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">19. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ci.html">20. ci &#8212; Configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doci.html">21. doci &#8212; Doubly occupied configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cc.html">22. cc &#8212; Coupled cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">23. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fci.html">24. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hci.html">25. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cornell_shci.html">26. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcscf.html">27. mcscf &#8212; Multi-configurational self-consistent field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">28. dmrgscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">29. fciqmcscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mrpt.html">30. mrpt &#8212; Multi-reference perturbation theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc.html">32. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qmmm.html">33. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">34. solvent &#8212; Solvent methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">34.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.solvent">34.2. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.solvent.ddpcm">34.2.1. domain decomposition PCM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.solvent.ddcosmo">34.2.2. domain decomposition COSMO</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">35. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geomopt.html">36. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lo.html">37. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">38. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">39. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ccn.html">40. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nao.html">41. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.html">42. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
 </ul>
 
             
@@ -183,7 +182,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>42. solvent &#8212; Solvent methods</li>
+      <li>34. solvent &#8212; Solvent methods</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -202,10 +201,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="solvent-solvent-methods">
-<h1>42. solvent &#8212; Solvent methods<a class="headerlink" href="#solvent-solvent-methods" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-solvent">
+<span id="solvent-solvent-methods"></span><h1>34. solvent &#8212; Solvent methods<a class="headerlink" href="#module-solvent" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="examples">
-<h2>42.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2>34.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples
 <code class="file docutils literal"><span class="pre">examples/solvent/00-scf_with_ddcosmo.py</span></code>
 <code class="file docutils literal"><span class="pre">examples/solvent/01-casscf_with_ddcosmo.py</span></code>
@@ -214,9 +213,9 @@
 <code class="file docutils literal"><span class="pre">examples/solvent/20-state_specific_casci.py</span></code></p>
 </div>
 <div class="section" id="module-pyscf.solvent">
-<span id="program-reference"></span><h2>42.2. Program reference<a class="headerlink" href="#module-pyscf.solvent" title="Permalink to this headline">¶</a></h2>
+<span id="program-reference"></span><h2>34.2. Program reference<a class="headerlink" href="#module-pyscf.solvent" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="module-pyscf.solvent.ddpcm">
-<span id="domain-decomposition-pcm"></span><h3>42.2.1. domain decomposition PCM<a class="headerlink" href="#module-pyscf.solvent.ddpcm" title="Permalink to this headline">¶</a></h3>
+<span id="domain-decomposition-pcm"></span><h3>34.2.1. domain decomposition PCM<a class="headerlink" href="#module-pyscf.solvent.ddpcm" title="Permalink to this headline">¶</a></h3>
 <p>domain decomposition PCM (In testing)</p>
 <p>See also
 JCP, 144, 054101
@@ -230,7 +229,7 @@ Es = 1/2 f(eps) int rho(r) W(r) dr</p>
 
 </div>
 <div class="section" id="module-pyscf.solvent.ddcosmo">
-<span id="domain-decomposition-cosmo"></span><h3>42.2.2. domain decomposition COSMO<a class="headerlink" href="#module-pyscf.solvent.ddcosmo" title="Permalink to this headline">¶</a></h3>
+<span id="domain-decomposition-cosmo"></span><h3>34.2.2. domain decomposition COSMO<a class="headerlink" href="#module-pyscf.solvent.ddcosmo" title="Permalink to this headline">¶</a></h3>
 <p>domain decomposition COSMO</p>
 <p>See also the code on github</p>
 <p><a class="reference external" href="https://github.com/filippolipparini/ddPCM">https://github.com/filippolipparini/ddPCM</a></p>
@@ -529,8 +528,10 @@ J. Chem. Phys., 141, 184108 (2014)
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="semiempirical.html" class="btn btn-neutral float-right" title="35. semiempirical — Semiempirical methods" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="geomopt.html" class="btn btn-neutral" title="41. geomopt — Geometry optimization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="qmmm.html" class="btn btn-neutral" title="33. qmmm — QM/MM interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

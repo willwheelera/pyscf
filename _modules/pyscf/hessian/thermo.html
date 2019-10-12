@@ -1,0 +1,637 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyscf.hessian.thermo &mdash; PySCF 1.7.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="PySCF 1.7.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> PySCF
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">1. An overview of PySCF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../version.html">2. Version history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">3. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code-rule.html">4. Code standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../benchmark.html">5. Benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">6. Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gto.html">7. gto &#8212; Molecular structure and GTO basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ao2mo.html">8. ao2mo &#8212; Integral transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../df.html">9. df &#8212; Density fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../symm.html">10. symm &#8211; Point group symmetry and spin symmetry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scf.html">11. scf &#8212; Mean-field methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dft.html">12. dft &#8212; Density functional theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dftd3.html">13. dftd3 &#8212; DFT plus Dispersion Correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../grad.html">14. grad &#8212; Analytical nuclear gradients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hessian.html">15. hessian &#8212; Analytical nuclear Hessian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../soscf.html">16. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sgx.html">17. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tddft.html">18. tddft &#8212; Time dependent density functional theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mp.html">19. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ci.html">20. ci &#8212; Configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doci.html">21. doci &#8212; Doubly occupied configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cc.html">22. cc &#8212; Coupled cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gw.html">23. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fci.html">24. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hci.html">25. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cornell_shci.html">26. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mcscf.html">27. mcscf &#8212; Multi-configurational self-consistent field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dmrgscf.html">28. dmrgscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fciqmcscf.html">29. fciqmcscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mrpt.html">30. mrpt &#8212; Multi-reference perturbation theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pbc.html">32. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qmmm.html">33. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../solvent.html">34. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../semiempirical.html">35. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../geomopt.html">36. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lo.html">37. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tools.html">38. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../advanced.html">39. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ccn.html">40. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nao.html">41. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lib.html">42. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PySCF</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyscf.hessian.thermo</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyscf.hessian.thermo</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1">#</span>
+<span class="c1"># This code was copied from the data generation program of Tencent Alchemy</span>
+<span class="c1"># project (https://github.com/tencent-alchemy).</span>
+<span class="c1">#</span>
+<span class="c1"># </span>
+<span class="c1"># #</span>
+<span class="c1"># # Copyright 2019 Tencent America LLC. All Rights Reserved.</span>
+<span class="c1"># #</span>
+<span class="c1"># # Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># # you may not use this file except in compliance with the License.</span>
+<span class="c1"># # You may obtain a copy of the License at</span>
+<span class="c1"># #</span>
+<span class="c1"># #     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1"># #</span>
+<span class="c1"># # Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># # distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># # See the License for the specific language governing permissions and</span>
+<span class="c1"># # limitations under the License.</span>
+<span class="c1"># #</span>
+<span class="c1"># # Author: Qiming Sun &lt;osirpt.sun@gmail.com&gt;</span>
+<span class="c1"># #</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Thermochemistry analysis.</span>
+
+<span class="sd">Ref:</span>
+<span class="sd">    psi4/psi4/driver/qcdb/vib.py</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">reduce</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">lib</span>
+<span class="kn">from</span> <span class="nn">pyscf.data</span> <span class="k">import</span> <span class="n">nist</span>
+
+<span class="n">LINDEP_THRESHOLD</span> <span class="o">=</span> <span class="mf">1e-7</span>
+
+
+<div class="viewcode-block" id="harmonic_analysis"><a class="viewcode-back" href="../../../hessian.html#pyscf.hessian.thermo.harmonic_analysis">[docs]</a><span class="k">def</span> <span class="nf">harmonic_analysis</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">hess</span><span class="p">,</span> <span class="n">exclude_trans</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude_rot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                      <span class="n">imaginary_freq</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Each column is one mode</span>
+<span class="sd">    </span>
+<span class="sd">    imaginary_freq (boolean): save imaginary_freq as complex number (if True)</span>
+<span class="sd">    or negative real number (if False)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">atom_coords</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">atom_coords</span><span class="p">()</span>
+    <span class="n">mass</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">atom_mass_list</span><span class="p">(</span><span class="n">isotope_avg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">mass_center</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;z,zx-&gt;x&#39;</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">atom_coords</span><span class="p">)</span> <span class="o">/</span> <span class="n">mass</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">atom_coords</span> <span class="o">=</span> <span class="n">atom_coords</span> <span class="o">-</span> <span class="n">mass_center</span>
+    <span class="n">natm</span> <span class="o">=</span> <span class="n">atom_coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">mass_hess</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;pqxy,p,q-&gt;pqxy&#39;</span><span class="p">,</span> <span class="n">hess</span><span class="p">,</span> <span class="n">mass</span><span class="o">**-.</span><span class="mi">5</span><span class="p">,</span> <span class="n">mass</span><span class="o">**-.</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">mass_hess</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">natm</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span><span class="n">natm</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="n">TR</span> <span class="o">=</span> <span class="n">_get_TR</span><span class="p">(</span><span class="n">mass</span><span class="p">,</span> <span class="n">atom_coords</span><span class="p">)</span>
+    <span class="n">TRspace</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">exclude_trans</span><span class="p">:</span>
+        <span class="n">TRspace</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TR</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">exclude_rot</span><span class="p">:</span>
+        <span class="n">TRspace</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TR</span><span class="p">[</span><span class="mi">3</span><span class="p">:])</span>
+
+    <span class="k">if</span> <span class="n">TRspace</span><span class="p">:</span>
+        <span class="n">TRspace</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">TRspace</span><span class="p">)</span>
+        <span class="n">q</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span><span class="n">TRspace</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">P</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">natm</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="n">q</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+        <span class="n">bvec</span> <span class="o">=</span> <span class="n">v</span><span class="p">[:,</span><span class="n">w</span> <span class="o">&gt;</span> <span class="n">LINDEP_THRESHOLD</span><span class="p">]</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">,</span> <span class="p">(</span><span class="n">bvec</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">bvec</span><span class="p">))</span>
+        <span class="n">force_const_au</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="n">bvec</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">force_const_au</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+
+    <span class="n">freq_au</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">scimath</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">force_const_au</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;freq_error&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">freq_au</span><span class="o">.</span><span class="n">imag</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">imaginary_freq</span> <span class="ow">and</span> <span class="n">numpy</span><span class="o">.</span><span class="n">iscomplexobj</span><span class="p">(</span><span class="n">freq_au</span><span class="p">):</span>
+        <span class="c1"># save imaginary frequency as negative frequency</span>
+        <span class="n">freq_au</span> <span class="o">=</span> <span class="n">freq_au</span><span class="o">.</span><span class="n">real</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><span class="n">freq_au</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span>
+
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;freq_au&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">freq_au</span>
+    <span class="n">au2hz</span> <span class="o">=</span> <span class="p">(</span><span class="n">nist</span><span class="o">.</span><span class="n">HARTREE2J</span> <span class="o">/</span> <span class="p">(</span><span class="n">nist</span><span class="o">.</span><span class="n">ATOMIC_MASS</span> <span class="o">*</span> <span class="n">nist</span><span class="o">.</span><span class="n">BOHR_SI</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">**.</span><span class="mi">5</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;freq_wavenumber&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">freq_wn</span> <span class="o">=</span> <span class="n">freq_au</span> <span class="o">*</span> <span class="n">au2hz</span> <span class="o">/</span> <span class="n">nist</span><span class="o">.</span><span class="n">LIGHT_SPEED_SI</span> <span class="o">*</span> <span class="mf">1e-2</span>
+
+    <span class="n">norm_mode</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;z,zri-&gt;izr&#39;</span><span class="p">,</span> <span class="n">mass</span><span class="o">**-.</span><span class="mi">5</span><span class="p">,</span> <span class="n">mode</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">natm</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;norm_mode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm_mode</span>
+    <span class="n">reduced_mass</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;izr,izr-&gt;i&#39;</span><span class="p">,</span> <span class="n">norm_mode</span><span class="p">,</span> <span class="n">norm_mode</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;reduced_mass&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reduced_mass</span>
+
+    <span class="c1"># https://en.wikipedia.org/wiki/Vibrational_temperature</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;vib_temperature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">freq_au</span> <span class="o">*</span> <span class="n">au2hz</span> <span class="o">*</span> <span class="n">nist</span><span class="o">.</span><span class="n">PLANCK</span> <span class="o">/</span> <span class="n">nist</span><span class="o">.</span><span class="n">BOLTZMANN</span>
+
+    <span class="c1"># force constants</span>
+    <span class="n">dyne</span> <span class="o">=</span> <span class="mf">1e-2</span> <span class="o">*</span> <span class="n">nist</span><span class="o">.</span><span class="n">HARTREE2J</span> <span class="o">/</span> <span class="n">nist</span><span class="o">.</span><span class="n">BOHR_SI</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;force_const_au&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">force_const_au</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;force_const_dyne&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reduced_mass</span> <span class="o">*</span> <span class="n">force_const_au</span> <span class="o">*</span> <span class="n">dyne</span>  <span class="c1">#cm^-1/a0^2</span>
+
+    <span class="c1">#TODO: IR intensity</span>
+    <span class="k">return</span> <span class="n">results</span></div>
+
+<div class="viewcode-block" id="rotation_const"><a class="viewcode-back" href="../../../hessian.html#pyscf.hessian.thermo.rotation_const">[docs]</a><span class="k">def</span> <span class="nf">rotation_const</span><span class="p">(</span><span class="n">mass</span><span class="p">,</span> <span class="n">atom_coords</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;GHz&#39;</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Rotational constants to characterize rotational spectra</span>
+
+<span class="sd">    Kwargs:</span>
+<span class="sd">        unit (string) : One of GHz, wavenumber</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">mass_center</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;z,zr-&gt;r&#39;</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">atom_coords</span><span class="p">)</span> <span class="o">/</span> <span class="n">mass</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">atom_coords</span> <span class="o">-</span> <span class="n">mass_center</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;z,zr,zs-&gt;rs&#39;</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">im</span><span class="o">.</span><span class="n">trace</span><span class="p">()</span> <span class="o">-</span> <span class="n">im</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="n">im</span><span class="p">))</span>
+
+    <span class="n">unit_im</span> <span class="o">=</span> <span class="n">nist</span><span class="o">.</span><span class="n">ATOMIC_MASS</span> <span class="o">*</span> <span class="p">(</span><span class="n">nist</span><span class="o">.</span><span class="n">BOHR_SI</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">unit_hz</span> <span class="o">=</span> <span class="n">nist</span><span class="o">.</span><span class="n">HBAR</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">unit_im</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">numpy</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">unit</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;ghz&#39;</span><span class="p">:</span>
+            <span class="n">e</span> <span class="o">=</span> <span class="n">unit_hz</span> <span class="o">/</span> <span class="n">e</span> <span class="o">*</span> <span class="mf">1e-9</span>
+        <span class="k">elif</span> <span class="n">unit</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;wavenumber&#39;</span><span class="p">:</span>
+            <span class="n">e</span> <span class="o">=</span> <span class="n">unit_hz</span> <span class="o">/</span> <span class="n">e</span> <span class="o">/</span> <span class="n">nist</span><span class="o">.</span><span class="n">LIGHT_SPEED_SI</span> <span class="o">*</span> <span class="mf">1e-2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Unsupported unit &#39;</span> <span class="o">+</span> <span class="n">unit</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">e</span></div>
+
+
+<span class="k">def</span> <span class="nf">thermo</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mf">298.15</span><span class="p">,</span> <span class="n">pressure</span><span class="o">=</span><span class="mi">101325</span><span class="p">):</span>
+    <span class="n">mol</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">mol</span>
+    <span class="n">atom_coords</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">atom_coords</span><span class="p">()</span>
+    <span class="n">mass</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">atom_mass_list</span><span class="p">(</span><span class="n">isotope_avg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">mass_center</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;z,zx-&gt;x&#39;</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">atom_coords</span><span class="p">)</span> <span class="o">/</span> <span class="n">mass</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">atom_coords</span> <span class="o">=</span> <span class="n">atom_coords</span> <span class="o">-</span> <span class="n">mass_center</span>
+    <span class="n">natm</span> <span class="o">=</span> <span class="n">atom_coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">kB</span> <span class="o">=</span> <span class="n">nist</span><span class="o">.</span><span class="n">BOLTZMANN</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">nist</span><span class="o">.</span><span class="n">PLANCK</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">nist</span><span class="o">.</span><span class="n">LIGHT_SPEED_SI</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="p">(</span><span class="n">kB</span> <span class="o">*</span> <span class="n">temperature</span><span class="p">)</span>
+    <span class="n">R_Eh</span> <span class="o">=</span> <span class="n">kB</span><span class="o">*</span><span class="n">nist</span><span class="o">.</span><span class="n">AVOGADRO</span> <span class="o">/</span> <span class="p">(</span><span class="n">nist</span><span class="o">.</span><span class="n">HARTREE2J</span> <span class="o">*</span> <span class="n">nist</span><span class="o">.</span><span class="n">AVOGADRO</span><span class="p">)</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;pressure&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">pressure</span><span class="p">,</span> <span class="s1">&#39;Pa&#39;</span><span class="p">)</span>
+
+    <span class="n">E0</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">e_tot</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;E0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">E0</span><span class="p">,</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Electronic part</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;S_elec&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">R_Eh</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">multiplicity</span><span class="p">),</span> <span class="s1">&#39;Eh/K&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Cv_elec&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Cp_elec&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Eh/K&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;E_elec&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;H_elec&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">E0</span><span class="p">,</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Translational part. See also https://cccbdb.nist.gov/thermo.asp for the</span>
+    <span class="c1"># partition function q_trans</span>
+    <span class="n">mass_tot</span> <span class="o">=</span> <span class="n">mass</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="n">nist</span><span class="o">.</span><span class="n">ATOMIC_MASS</span>
+    <span class="n">q_trans</span> <span class="o">=</span> <span class="p">((</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">mass_tot</span> <span class="o">*</span> <span class="n">kB</span> <span class="o">*</span> <span class="n">temperature</span> <span class="o">/</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">1.5</span>
+               <span class="o">*</span> <span class="n">kB</span> <span class="o">*</span> <span class="n">temperature</span> <span class="o">/</span> <span class="n">pressure</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;S_trans&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">R_Eh</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.5</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">q_trans</span><span class="p">)),</span> <span class="s1">&#39;Eh/K&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Cv_trans&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">R_Eh</span><span class="p">,</span> <span class="s1">&#39;Eh/K&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Cp_trans&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.5</span> <span class="o">*</span> <span class="n">R_Eh</span><span class="p">,</span> <span class="s1">&#39;Eh/K&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;E_trans&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">R_Eh</span> <span class="o">*</span> <span class="n">temperature</span><span class="p">,</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;H_trans&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.5</span> <span class="o">*</span> <span class="n">R_Eh</span> <span class="o">*</span> <span class="n">temperature</span><span class="p">,</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Rotational part</span>
+    <span class="n">rot_const</span> <span class="o">=</span> <span class="n">rotation_const</span><span class="p">(</span><span class="n">mass</span><span class="p">,</span> <span class="n">atom_coords</span><span class="p">,</span> <span class="s1">&#39;GHz&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;rot_const&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">rot_const</span><span class="p">,</span> <span class="s1">&#39;GHz&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">rot_const</span> <span class="o">&gt;</span> <span class="mf">1e8</span><span class="p">):</span>
+        <span class="n">rotor_type</span> <span class="o">=</span> <span class="s1">&#39;ATOM&#39;</span>
+    <span class="k">elif</span> <span class="n">rot_const</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">1e8</span> <span class="ow">and</span> <span class="p">(</span><span class="n">rot_const</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">rot_const</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">1e-3</span><span class="p">):</span>
+        <span class="n">rotor_type</span> <span class="o">=</span> <span class="s1">&#39;LINEAR&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rotor_type</span> <span class="o">=</span> <span class="s1">&#39;REGULAR&#39;</span>
+
+    <span class="n">sym_number</span> <span class="o">=</span> <span class="n">rotational_symmetry_number</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;sym_number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">sym_number</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="c1"># partition function q_rot (https://cccbdb.nist.gov/thermo.asp)</span>
+    <span class="k">if</span> <span class="n">rotor_type</span> <span class="o">==</span> <span class="s1">&#39;ATOM&#39;</span><span class="p">:</span>
+        <span class="n">results</span><span class="p">[</span><span class="s1">&#39;S_rot&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Eh/K&#39;</span><span class="p">)</span>
+        <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Cv_rot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Cp_rot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Eh/K&#39;</span><span class="p">)</span>
+        <span class="n">results</span><span class="p">[</span><span class="s1">&#39;E_rot&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;H_rot&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">rotor_type</span> <span class="o">==</span> <span class="s1">&#39;LINEAR&#39;</span><span class="p">:</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">rot_const</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e9</span>
+        <span class="n">q_rot</span> <span class="o">=</span> <span class="n">kB</span> <span class="o">*</span> <span class="n">temperature</span> <span class="o">/</span> <span class="p">(</span><span class="n">sym_number</span> <span class="o">*</span> <span class="n">h</span> <span class="o">*</span> <span class="n">B</span><span class="p">)</span>
+        <span class="n">results</span><span class="p">[</span><span class="s1">&#39;S_rot&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">R_Eh</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">q_rot</span><span class="p">)),</span> <span class="s1">&#39;Eh/K&#39;</span><span class="p">)</span>
+        <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Cv_rot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Cp_rot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">R_Eh</span><span class="p">,</span> <span class="s1">&#39;Eh/K&#39;</span><span class="p">)</span>
+        <span class="n">results</span><span class="p">[</span><span class="s1">&#39;E_rot&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;H_rot&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">R_Eh</span> <span class="o">*</span> <span class="n">temperature</span><span class="p">,</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ABC</span> <span class="o">=</span> <span class="n">rot_const</span> <span class="o">*</span> <span class="mf">1e9</span>
+        <span class="n">q_rot</span> <span class="o">=</span> <span class="p">((</span><span class="n">kB</span><span class="o">*</span><span class="n">temperature</span><span class="o">/</span><span class="n">h</span><span class="p">)</span><span class="o">**</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">**.</span><span class="mi">5</span>
+                 <span class="o">/</span> <span class="p">(</span><span class="n">sym_number</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">ABC</span><span class="p">)</span><span class="o">**.</span><span class="mi">5</span><span class="p">))</span>
+        <span class="n">results</span><span class="p">[</span><span class="s1">&#39;S_rot&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">R_Eh</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.5</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">q_rot</span><span class="p">)),</span> <span class="s1">&#39;Eh/K&#39;</span><span class="p">)</span>
+        <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Cv_rot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Cp_rot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">R_Eh</span><span class="p">,</span> <span class="s1">&#39;Eh/K&#39;</span><span class="p">)</span>
+        <span class="n">results</span><span class="p">[</span><span class="s1">&#39;E_rot&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;H_rot&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">R_Eh</span> <span class="o">*</span> <span class="n">temperature</span><span class="p">,</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Vibrational part.</span>
+    <span class="n">au2hz</span> <span class="o">=</span> <span class="p">(</span><span class="n">nist</span><span class="o">.</span><span class="n">HARTREE2J</span> <span class="o">/</span> <span class="p">(</span><span class="n">nist</span><span class="o">.</span><span class="n">ATOMIC_MASS</span> <span class="o">*</span> <span class="n">nist</span><span class="o">.</span><span class="n">BOHR_SI</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">**.</span><span class="mi">5</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">freq</span><span class="o">.</span><span class="n">real</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">vib_temperature</span> <span class="o">=</span> <span class="n">freq</span><span class="o">.</span><span class="n">real</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="n">au2hz</span> <span class="o">*</span> <span class="n">h</span> <span class="o">/</span> <span class="n">kB</span>
+    <span class="n">rt</span> <span class="o">=</span> <span class="n">reduced_temperature</span> <span class="o">=</span> <span class="n">vib_temperature</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="mf">1e-14</span><span class="p">,</span> <span class="n">temperature</span><span class="p">)</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">rt</span><span class="p">)</span>
+
+    <span class="n">ZPE</span> <span class="o">=</span> <span class="n">R_Eh</span> <span class="o">*</span> <span class="o">.</span><span class="mi">5</span> <span class="o">*</span> <span class="n">vib_temperature</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;ZPE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">ZPE</span><span class="p">,</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)</span>
+
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;S_vib&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">R_Eh</span> <span class="o">*</span> <span class="p">(</span><span class="n">rt</span><span class="o">*</span><span class="n">e</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">e</span><span class="p">)</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">e</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="s1">&#39;Eh/K&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Cv_vib&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Cp_vib&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">R_Eh</span> <span class="o">*</span> <span class="p">(</span><span class="n">e</span> <span class="o">*</span> <span class="n">rt</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">e</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="s1">&#39;Eh/K&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;E_vib&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;H_vib&#39;</span> <span class="p">]</span> <span class="o">=</span> \
+            <span class="p">(</span><span class="n">ZPE</span> <span class="o">+</span> <span class="n">R_Eh</span> <span class="o">*</span> <span class="n">temperature</span> <span class="o">*</span> <span class="p">(</span><span class="n">rt</span> <span class="o">*</span> <span class="n">e</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">e</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)</span>
+
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;G_elec&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;H_elec&#39;</span> <span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">temperature</span> <span class="o">*</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;S_elec&#39;</span> <span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;G_trans&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;H_trans&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">temperature</span> <span class="o">*</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;S_trans&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;G_rot&#39;</span>  <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;H_rot&#39;</span>  <span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">temperature</span> <span class="o">*</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;S_rot&#39;</span>  <span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;G_vib&#39;</span>  <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;H_vib&#39;</span>  <span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">temperature</span> <span class="o">*</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;S_vib&#39;</span>  <span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_sum</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;elec&#39;</span><span class="p">,</span> <span class="s1">&#39;trans&#39;</span><span class="p">,</span> <span class="s1">&#39;rot&#39;</span><span class="p">,</span> <span class="s1">&#39;vib&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">f</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="n">key</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,))[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;S_tot&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">_sum</span><span class="p">(</span><span class="s1">&#39;S&#39;</span> <span class="p">),</span> <span class="s1">&#39;Eh/K&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Cv_tot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">_sum</span><span class="p">(</span><span class="s1">&#39;Cv&#39;</span><span class="p">),</span> <span class="s1">&#39;Eh/K&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Cp_tot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">_sum</span><span class="p">(</span><span class="s1">&#39;Cp&#39;</span><span class="p">),</span> <span class="s1">&#39;Eh/K&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;E_0K&#39;</span> <span class="p">]</span>  <span class="o">=</span> <span class="p">(</span><span class="n">E0</span> <span class="o">+</span> <span class="n">ZPE</span><span class="p">,</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;E_tot&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">_sum</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">),</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;H_tot&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">_sum</span><span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">),</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;G_tot&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">_sum</span><span class="p">(</span><span class="s1">&#39;G&#39;</span><span class="p">),</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">results</span>
+
+
+<span class="k">def</span> <span class="nf">_get_TR</span><span class="p">(</span><span class="n">mass</span><span class="p">,</span> <span class="n">coords</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Translational mode and rotational mode&#39;&#39;&#39;</span>
+    <span class="n">mass_center</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;z,zx-&gt;x&#39;</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">coords</span><span class="p">)</span> <span class="o">/</span> <span class="n">mass</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="n">coords</span> <span class="o">-</span> <span class="n">mass_center</span>
+    <span class="n">natm</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">massp</span> <span class="o">=</span> <span class="n">mass</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">natm</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="o">.</span><span class="mi">5</span>
+    <span class="n">ex</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">repeat</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">natm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ey</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">repeat</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">natm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ez</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">repeat</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">natm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># translational mode</span>
+    <span class="n">Tx</span> <span class="o">=</span> <span class="n">ex</span> <span class="o">*</span> <span class="n">massp</span>
+    <span class="n">Ty</span> <span class="o">=</span> <span class="n">ey</span> <span class="o">*</span> <span class="n">massp</span>
+    <span class="n">Tz</span> <span class="o">=</span> <span class="n">ez</span> <span class="o">*</span> <span class="n">massp</span>
+
+    <span class="c1"># rotational mode</span>
+    <span class="n">Rx</span> <span class="o">=</span> <span class="n">massp</span> <span class="o">*</span> <span class="p">(</span><span class="n">ey</span> <span class="o">*</span> <span class="n">coords</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">ez</span> <span class="o">*</span> <span class="n">coords</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">Ry</span> <span class="o">=</span> <span class="n">massp</span> <span class="o">*</span> <span class="p">(</span><span class="n">ez</span> <span class="o">*</span> <span class="n">coords</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">ex</span> <span class="o">*</span> <span class="n">coords</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
+    <span class="n">Rz</span> <span class="o">=</span> <span class="n">massp</span> <span class="o">*</span> <span class="p">(</span><span class="n">ex</span> <span class="o">*</span> <span class="n">coords</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">ey</span> <span class="o">*</span> <span class="n">coords</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">Tx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">Ty</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">Tz</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+            <span class="n">Rx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">Ry</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">Rz</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+
+<div class="viewcode-block" id="rotational_symmetry_number"><a class="viewcode-back" href="../../../hessian.html#pyscf.hessian.thermo.rotational_symmetry_number">[docs]</a><span class="k">def</span> <span class="nf">rotational_symmetry_number</span><span class="p">(</span><span class="n">mol</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Number of unique orientations of the rigid molecule that only</span>
+<span class="sd">    interchange identical atoms.</span>
+
+<span class="sd">    Source http://cccbdb.nist.gov/thermo.asp (search &quot;symmetry number&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">symm</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">symm</span><span class="o">.</span><span class="n">detect_symm</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">_atom</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">group</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;SO3&#39;</span><span class="p">,</span> <span class="s1">&#39;C1&#39;</span><span class="p">,</span> <span class="s1">&#39;Ci&#39;</span><span class="p">,</span> <span class="s1">&#39;Cs&#39;</span><span class="p">,</span> <span class="s1">&#39;Coov&#39;</span><span class="p">]:</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">group</span> <span class="o">==</span> <span class="s1">&#39;Dooh&#39;</span><span class="p">:</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">elif</span> <span class="n">group</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;Td&#39;</span><span class="p">]:</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="mi">12</span>
+    <span class="k">elif</span> <span class="n">group</span> <span class="o">==</span> <span class="s1">&#39;Oh&#39;</span><span class="p">:</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="mi">24</span>
+    <span class="k">elif</span> <span class="n">group</span> <span class="o">==</span> <span class="s1">&#39;Ih&#39;</span><span class="p">:</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="mi">60</span>
+    <span class="k">elif</span> <span class="n">group</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="c1"># &#39;Cn&#39;, &#39;Cnv&#39;, &#39;Cnh&#39;</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">group</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()]))</span>
+    <span class="k">elif</span> <span class="n">group</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="c1"># &#39;Dn&#39;, &#39;Dnd&#39;, &#39;Dnh&#39;</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">group</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()]))</span>
+    <span class="k">elif</span> <span class="n">group</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;S&#39;</span><span class="p">:</span> <span class="c1"># &#39;Sn&#39;</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">group</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()]))</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;symmetry group: &quot;</span> <span class="o">+</span> <span class="n">group</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sigma</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">dump_thermo</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+    <span class="n">dump</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span>
+    <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;temperature </span><span class="si">%.4f</span><span class="s1"> [</span><span class="si">%s</span><span class="s1">]</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">])</span>
+    <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;pressure </span><span class="si">%.2f</span><span class="s1"> [</span><span class="si">%s</span><span class="s1">]</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;pressure&#39;</span><span class="p">])</span>
+    <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;Rotational constants [</span><span class="si">%s</span><span class="s1">] </span><span class="si">%.5f</span><span class="s1"> </span><span class="si">%.5f</span><span class="s1"> </span><span class="si">%.5f</span><span class="se">\n</span><span class="s1">&#39;</span>
+         <span class="o">%</span> <span class="p">((</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;rot_const&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],)</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;rot_const&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])))</span>
+    <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;Symmetry number </span><span class="si">%d</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;sym_number&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;Zero-point energy (ZPE) </span><span class="si">%.5f</span><span class="s1"> [Eh]   </span><span class="si">%.3f</span><span class="s1"> [J/mol]</span><span class="se">\n</span><span class="s1">&#39;</span>
+         <span class="o">%</span> <span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;ZPE&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;ZPE&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">nist</span><span class="o">.</span><span class="n">HARTREE2J</span> <span class="o">*</span> <span class="n">nist</span><span class="o">.</span><span class="n">AVOGADRO</span><span class="p">))</span>
+
+    <span class="n">keys</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;tot&#39;</span><span class="p">,</span> <span class="s1">&#39;elec&#39;</span><span class="p">,</span> <span class="s1">&#39;trans&#39;</span><span class="p">,</span> <span class="s1">&#39;rot&#39;</span><span class="p">,</span> <span class="s1">&#39;vib&#39;</span><span class="p">)</span>
+    <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;                    </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%10s</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">unit</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;Eh&#39;</span> <span class="ow">in</span> <span class="n">unit</span><span class="p">:</span>
+            <span class="n">conv</span> <span class="o">=</span> <span class="n">nist</span><span class="o">.</span><span class="n">HARTREE2J</span> <span class="o">*</span> <span class="n">nist</span><span class="o">.</span><span class="n">AVOGADRO</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">conv</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%10.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">f</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="n">key</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,))[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">conv</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="n">tot</span><span class="p">,</span> <span class="n">unit</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">f</span><span class="o">+</span><span class="s1">&#39;_tot&#39;</span><span class="p">]</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">unit</span><span class="p">)</span>
+        <span class="n">unit</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Eh&#39;</span><span class="p">,</span> <span class="s1">&#39;J/mol&#39;</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> [</span><span class="si">%s</span><span class="s1">]&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">unit</span><span class="p">)</span>
+        <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%-20s</span><span class="s1"> </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">msg</span><span class="p">))</span>
+    <span class="n">write</span><span class="p">(</span><span class="s1">&#39;Entropy&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span><span class="p">)</span>
+    <span class="n">write</span><span class="p">(</span><span class="s1">&#39;Cv&#39;</span><span class="p">,</span> <span class="s1">&#39;Cv&#39;</span><span class="p">)</span>
+    <span class="n">write</span><span class="p">(</span><span class="s1">&#39;Cp&#39;</span><span class="p">,</span> <span class="s1">&#39;Cp&#39;</span><span class="p">)</span>
+
+    <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%-28s</span><span class="s1">               </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span>
+         <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;Internal energy [J/mol]&#39;</span><span class="p">,</span> <span class="n">convert</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="n">keys</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)))</span>
+    <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%-22s</span><span class="s1"> </span><span class="si">%.5f</span><span class="s1">  </span><span class="si">%.5f</span><span class="se">\n</span><span class="s1">&#39;</span>
+         <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;Internal energy [Eh]&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;E_tot&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;E0&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%-28s</span><span class="s1">               </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span>
+         <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;Enthalpy [J/mol]&#39;</span><span class="p">,</span> <span class="n">convert</span><span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">keys</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)))</span>
+    <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%-22s</span><span class="s1"> </span><span class="si">%.5f</span><span class="se">\n</span><span class="s1">&#39;</span>
+         <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;Entropy [Eh]&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;H_tot&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%-28s</span><span class="s1">               </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span>
+         <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;Gibbs free energy [J/mol]&#39;</span><span class="p">,</span> <span class="n">convert</span><span class="p">(</span><span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="n">keys</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="s1">&#39;Eh&#39;</span><span class="p">)))</span>
+    <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%-22s</span><span class="s1"> </span><span class="si">%.5f</span><span class="se">\n</span><span class="s1">&#39;</span>
+         <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;Gibbs free energy [Eh]&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;G_tot&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="k">def</span> <span class="nf">dump_normal_mode</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+    <span class="n">dump</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span>
+    <span class="n">freq_wn</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;freq_wavenumber&#39;</span><span class="p">]</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">freq_wn</span><span class="o">.</span><span class="n">real</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">freq_wn</span> <span class="o">=</span> <span class="n">freq_wn</span><span class="o">.</span><span class="n">real</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">nfreq</span> <span class="o">=</span> <span class="n">freq_wn</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="n">r_mass</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;reduced_mass&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">force</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;force_const_dyne&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">vib_t</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;vib_temperature&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;norm_mode&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">symbols</span> <span class="o">=</span> <span class="p">[</span><span class="n">mol</span><span class="o">.</span><span class="n">atom_symbol</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">natm</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">inline</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">col0</span><span class="p">,</span> <span class="n">col1</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%20.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">col0</span><span class="p">,</span> <span class="n">col1</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">mode_inline</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col0</span><span class="p">,</span> <span class="n">col1</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;  &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%6.2f%6.2f%6.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mode</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">row</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">mode</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">row</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">mode</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">row</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+                       <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">col0</span><span class="p">,</span> <span class="n">col1</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">col0</span><span class="p">,</span> <span class="n">col1</span> <span class="ow">in</span> <span class="n">lib</span><span class="o">.</span><span class="n">prange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nfreq</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
+        <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;Mode              </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%20d</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">col0</span><span class="p">,</span><span class="n">col1</span><span class="p">)))</span>
+        <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;Irrep</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;Freq [cm^-1]          </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">inline</span><span class="p">(</span><span class="n">freq_wn</span><span class="p">,</span> <span class="n">col0</span><span class="p">,</span> <span class="n">col1</span><span class="p">))</span>
+        <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;Reduced mass [au]     </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">inline</span><span class="p">(</span><span class="n">r_mass</span><span class="p">,</span> <span class="n">col0</span><span class="p">,</span> <span class="n">col1</span><span class="p">))</span>
+        <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;Force const [Dyne/A]  </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">inline</span><span class="p">(</span><span class="n">force</span><span class="p">,</span> <span class="n">col0</span><span class="p">,</span> <span class="n">col1</span><span class="p">))</span>
+        <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;Char temp [K]         </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">inline</span><span class="p">(</span><span class="n">vib_t</span><span class="p">,</span> <span class="n">col0</span><span class="p">,</span> <span class="n">col1</span><span class="p">))</span>
+        <span class="c1">#dump(&#39;IR\n&#39;)</span>
+        <span class="c1">#dump(&#39;Raman\n&#39;)</span>
+        <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;Normal mode            </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;       x     y     z&#39;</span><span class="o">*</span><span class="p">(</span><span class="n">col1</span><span class="o">-</span><span class="n">col0</span><span class="p">)))</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">at</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">symbols</span><span class="p">):</span>
+            <span class="n">dump</span><span class="p">(</span><span class="s1">&#39;    </span><span class="si">%4d%4s</span><span class="s1">               </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">at</span><span class="p">,</span> <span class="n">mode_inline</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">col0</span><span class="p">,</span> <span class="n">col1</span><span class="p">)))</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span>
+    <span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">hessian</span>
+    <span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;O 0 0 0; H 0 .757 .587; H 0 -.757 .587&#39;</span><span class="p">)</span>
+
+    <span class="n">mass</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">atom_mass_list</span><span class="p">(</span><span class="n">isotope_avg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">atom_coords</span><span class="p">()</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rotation_const</span><span class="p">(</span><span class="n">mass</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="s1">&#39;GHz&#39;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rotation_const</span><span class="p">(</span><span class="n">mass</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="s1">&#39;GHz&#39;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rotation_const</span><span class="p">(</span><span class="n">mass</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="s1">&#39;GHz&#39;</span><span class="p">))</span>
+
+    <span class="n">mf</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="s1">&#39;HF&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="n">hess</span> <span class="o">=</span> <span class="n">hessian</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">harmonic_analysis</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">hess</span><span class="p">)</span>
+    <span class="n">dump_normal_mode</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="n">thermo</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;freq_au&#39;</span><span class="p">],</span> <span class="mf">298.15</span><span class="p">,</span> <span class="mi">101325</span><span class="p">)</span>
+    <span class="n">dump_thermo</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
+
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015-, Qiming Sun &lt;osirpt.sun@gmail.com&gt;.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.7.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

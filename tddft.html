@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>13. tddft — Time dependent density functional theory &mdash; PySCF 1.7.0 documentation</title>
+  <title>18. tddft — Time dependent density functional theory &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -33,8 +33,8 @@
 
   
     <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
-        <link rel="next" title="14. cc — Coupled cluster" href="cc.html"/>
-        <link rel="prev" title="12. dft — Density functional theory" href="dft.html"/> 
+        <link rel="next" title="19. mp — MP2" href="mp.html"/>
+        <link rel="prev" title="17. sgx — Pseudo-spectral methods (COSX, PS, SN-K)" href="sgx.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -89,53 +89,51 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">1. An overview of PySCF</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">2. Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">2. Version history</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">3. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gto.html">4. gto &#8212; Molecular structure and GTO basis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lib.html">5. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scf.html">6. scf &#8212; Mean-field methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ao2mo.html">7. ao2mo &#8212; Integral transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mcscf.html">8. mcscf &#8212; Multi-configurational self-consistent field</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fci.html">9. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-rule.html">4. Code standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmark.html">5. Benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">6. Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gto.html">7. gto &#8212; Molecular structure and GTO basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ao2mo.html">8. ao2mo &#8212; Integral transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="df.html">9. df &#8212; Density fitting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="symm.html">10. symm &#8211; Point group symmetry and spin symmetry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="df.html">11. df &#8212; Density fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scf.html">11. scf &#8212; Mean-field methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dft.html">12. dft &#8212; Density functional theory</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">13. tddft &#8212; Time dependent density functional theory</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tdscf.rhf">13.1. TDHF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tdscf.rks">13.2. TDDFT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dftd3.html">13. dftd3 &#8212; DFT plus Dispersion Correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grad.html">14. grad &#8212; Analytical nuclear gradients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hessian.html">15. hessian &#8212; Analytical nuclear Hessian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">16. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sgx.html">17. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">18. tddft &#8212; Time dependent density functional theory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tdscf.rhf">18.1. TDHF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.tdscf.rks">18.2. TDDFT</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cc.html">14. cc &#8212; Coupled cluster</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ci.html">15. ci &#8212; Configuration interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">17. fciqmcscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tools.html">18. tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="grad.html">19. grad &#8212; Analytical nuclear gradients</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hessian.html">20. hessian &#8212; Analytical nuclear Hessian</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pbc.html">21. pbc &#8212; Periodic boundary conditions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nao.html">22. nao &#8212; Numerical Atomic Orbitals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lo.html">23. lo &#8212; Orbital localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">24. Miscellaneous</a></li>
-<li class="toctree-l1"><a class="reference internal" href="qmmm.html">25. qmmm &#8212; QM/MM interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mrpt.html">26. mrpt &#8212; Multi-reference perturbation theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
-<li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ccn.html">37. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cornell_shci.html">38. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dftd3.html">39. dftd3 &#8212; DFT plus Dispersion Correction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doci.html">40. doci &#8212; Doubly occupied configuration interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="geomopt.html">41. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="solvent.html">42. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">19. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ci.html">20. ci &#8212; Configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doci.html">21. doci &#8212; Doubly occupied configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cc.html">22. cc &#8212; Coupled cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">23. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fci.html">24. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hci.html">25. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cornell_shci.html">26. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcscf.html">27. mcscf &#8212; Multi-configurational self-consistent field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">28. dmrgscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">29. fciqmcscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mrpt.html">30. mrpt &#8212; Multi-reference perturbation theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc.html">32. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qmmm.html">33. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solvent.html">34. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">35. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geomopt.html">36. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lo.html">37. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">38. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">39. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ccn.html">40. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nao.html">41. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.html">42. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
 </ul>
 
             
@@ -180,7 +178,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>13. tddft &#8212; Time dependent density functional theory</li>
+      <li>18. tddft &#8212; Time dependent density functional theory</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -200,9 +198,9 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-pyscf.tdscf">
-<span id="tddft-time-dependent-density-functional-theory"></span><h1>13. tddft &#8212; Time dependent density functional theory<a class="headerlink" href="#module-pyscf.tdscf" title="Permalink to this headline">¶</a></h1>
+<span id="tddft-time-dependent-density-functional-theory"></span><h1>18. tddft &#8212; Time dependent density functional theory<a class="headerlink" href="#module-pyscf.tdscf" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-pyscf.tdscf.rhf">
-<span id="tdhf"></span><h2>13.1. TDHF<a class="headerlink" href="#module-pyscf.tdscf.rhf" title="Permalink to this headline">¶</a></h2>
+<span id="tdhf"></span><h2>18.1. TDHF<a class="headerlink" href="#module-pyscf.tdscf.rhf" title="Permalink to this headline">¶</a></h2>
 <dl class="attribute">
 <dt id="pyscf.tdscf.rhf.CIS">
 <code class="descclassname">pyscf.tdscf.rhf.</code><code class="descname">CIS</code><a class="headerlink" href="#pyscf.tdscf.rhf.CIS" title="Permalink to this definition">¶</a></dt>
@@ -581,7 +579,7 @@ NTOs.</dd>
 
 </div>
 <div class="section" id="module-pyscf.tdscf.rks">
-<span id="tddft"></span><h2>13.2. TDDFT<a class="headerlink" href="#module-pyscf.tdscf.rks" title="Permalink to this headline">¶</a></h2>
+<span id="tddft"></span><h2>18.2. TDDFT<a class="headerlink" href="#module-pyscf.tdscf.rks" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyscf.tdscf.rks.TDDFTNoHybrid">
 <em class="property">class </em><code class="descclassname">pyscf.tdscf.rks.</code><code class="descname">TDDFTNoHybrid</code><span class="sig-paren">(</span><em>mf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/tdscf/rks.html#TDDFTNoHybrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.tdscf.rks.TDDFTNoHybrid" title="Permalink to this definition">¶</a></dt>
@@ -613,10 +611,10 @@ NTOs.</dd>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cc.html" class="btn btn-neutral float-right" title="14. cc — Coupled cluster" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="mp.html" class="btn btn-neutral float-right" title="19. mp — MP2" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="dft.html" class="btn btn-neutral" title="12. dft — Density functional theory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="sgx.html" class="btn btn-neutral" title="17. sgx — Pseudo-spectral methods (COSX, PS, SN-K)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

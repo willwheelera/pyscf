@@ -33,8 +33,8 @@
 
   
     <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
-        <link rel="next" title="11. df — Density fitting" href="df.html"/>
-        <link rel="prev" title="9. fci — Full configuration interaction" href="fci.html"/> 
+        <link rel="next" title="11. scf — Mean-field methods" href="scf.html"/>
+        <link rel="prev" title="9. df — Density fitting" href="df.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -89,59 +89,61 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">1. An overview of PySCF</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">2. Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">2. Version history</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">3. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gto.html">4. gto &#8212; Molecular structure and GTO basis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lib.html">5. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scf.html">6. scf &#8212; Mean-field methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ao2mo.html">7. ao2mo &#8212; Integral transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mcscf.html">8. mcscf &#8212; Multi-configurational self-consistent field</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fci.html">9. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-rule.html">4. Code standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmark.html">5. Benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">6. Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gto.html">7. gto &#8212; Molecular structure and GTO basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ao2mo.html">8. ao2mo &#8212; Integral transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="df.html">9. df &#8212; Density fitting</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">10. symm &#8211; Point group symmetry and spin symmetry</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#enabling-symmetry-in-other-module">10.1. Enabling symmetry in other module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#program-reference">10.1.1. Program reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">10.1.1. Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#program-reference">10.1.2. Program reference</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pyscf.symm.geom">10.2. geom</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.symm.basis">10.3. basis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#symmtry-adapted-basis">10.3. Symmtry adapted basis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pyscf.symm.addons">10.4. addons</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pyscf.symm.cg">10.5. Clebsch Gordon coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parameters">10.6. Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spherical-harmonics">10.7. Spherical harmonics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wigner-rotation-dmatrix">10.8. Wigner rotation Dmatrix</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="df.html">11. df &#8212; Density fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scf.html">11. scf &#8212; Mean-field methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dft.html">12. dft &#8212; Density functional theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tddft.html">13. tddft &#8212; Time dependent density functional theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cc.html">14. cc &#8212; Coupled cluster</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ci.html">15. ci &#8212; Configuration interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">17. fciqmcscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tools.html">18. tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="grad.html">19. grad &#8212; Analytical nuclear gradients</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hessian.html">20. hessian &#8212; Analytical nuclear Hessian</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pbc.html">21. pbc &#8212; Periodic boundary conditions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nao.html">22. nao &#8212; Numerical Atomic Orbitals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lo.html">23. lo &#8212; Orbital localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">24. Miscellaneous</a></li>
-<li class="toctree-l1"><a class="reference internal" href="qmmm.html">25. qmmm &#8212; QM/MM interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mrpt.html">26. mrpt &#8212; Multi-reference perturbation theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
-<li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ccn.html">37. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cornell_shci.html">38. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dftd3.html">39. dftd3 &#8212; DFT plus Dispersion Correction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doci.html">40. doci &#8212; Doubly occupied configuration interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="geomopt.html">41. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="solvent.html">42. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dftd3.html">13. dftd3 &#8212; DFT plus Dispersion Correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grad.html">14. grad &#8212; Analytical nuclear gradients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hessian.html">15. hessian &#8212; Analytical nuclear Hessian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">16. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sgx.html">17. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tddft.html">18. tddft &#8212; Time dependent density functional theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">19. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ci.html">20. ci &#8212; Configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doci.html">21. doci &#8212; Doubly occupied configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cc.html">22. cc &#8212; Coupled cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">23. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fci.html">24. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hci.html">25. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cornell_shci.html">26. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcscf.html">27. mcscf &#8212; Multi-configurational self-consistent field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">28. dmrgscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">29. fciqmcscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mrpt.html">30. mrpt &#8212; Multi-reference perturbation theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc.html">32. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qmmm.html">33. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solvent.html">34. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">35. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geomopt.html">36. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lo.html">37. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">38. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">39. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ccn.html">40. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nao.html">41. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib.html">42. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
 </ul>
 
             
@@ -841,8 +843,16 @@ right symmetry.</p>
 <p>Point group symmetry are not supported in CCSD, MP2.</p>
 </li>
 </ul>
+<div class="section" id="examples">
+<h3>10.1.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<p>Relevant examples
+<code class="file docutils literal"><span class="pre">examples/symm/30-guess_symmetry.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/symm/31-symmetrize_space.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/symm/32-symmetrize_natural_orbital.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/symm/33-lz_adaption.py</span></code></p>
+</div>
 <div class="section" id="program-reference">
-<h3>10.1.1. Program reference<a class="headerlink" href="#program-reference" title="Permalink to this headline">¶</a></h3>
+<h3>10.1.2. Program reference<a class="headerlink" href="#program-reference" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="module-pyscf.symm.geom">
@@ -874,9 +884,9 @@ new(x,y,z) = R * old(x,y,z)</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-pyscf.symm.basis">
-<span id="basis"></span><h2>10.3. basis<a class="headerlink" href="#module-pyscf.symm.basis" title="Permalink to this headline">¶</a></h2>
-<p>Generate symmetry adapted basis</p>
+<div class="section" id="symmtry-adapted-basis">
+<h2>10.3. Symmtry adapted basis<a class="headerlink" href="#symmtry-adapted-basis" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-pyscf.symm.basis"></span><p>Generate symmetry adapted basis</p>
 <dl class="function">
 <dt id="pyscf.symm.basis.linearmole_symm_descent">
 <code class="descclassname">pyscf.symm.basis.</code><code class="descname">linearmole_symm_descent</code><span class="sig-paren">(</span><em>gpname</em>, <em>irrepid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/symm/basis.html#linearmole_symm_descent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.symm.basis.linearmole_symm_descent" title="Permalink to this definition">¶</a></dt>
@@ -1081,6 +1091,149 @@ projects out non-symmetric components for each orbital.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="parameters">
+<h2>10.6. Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-pyscf.symm.param"></span></div>
+<div class="section" id="spherical-harmonics">
+<h2>10.7. Spherical harmonics<a class="headerlink" href="#spherical-harmonics" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-pyscf.symm.sph"></span><p>Spherical harmonics</p>
+<dl class="function">
+<dt id="pyscf.symm.sph.cart2spinor">
+<code class="descclassname">pyscf.symm.sph.</code><code class="descname">cart2spinor</code><span class="sig-paren">(</span><em>l</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/symm/sph.html#cart2spinor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.symm.sph.cart2spinor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cartesian to spinor for angular moment l</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.symm.sph.multipoles">
+<code class="descclassname">pyscf.symm.sph.</code><code class="descname">multipoles</code><span class="sig-paren">(</span><em>r</em>, <em>lmax</em>, <em>reorder_dipole=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/symm/sph.html#multipoles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.symm.sph.multipoles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute all multipoles upto lmax</p>
+<p>rad = numpy.linalg.norm(r, axis=1)
+ylms = real_ylm(r/rad.reshape(-1,1), lmax)
+pol = [rad**l*y for l, y in enumerate(ylms)]</p>
+<dl class="docutils">
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt>reorder_p</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>sort dipole to the order (x,y,z)</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.symm.sph.real2spinor_whole">
+<code class="descclassname">pyscf.symm.sph.</code><code class="descname">real2spinor_whole</code><span class="sig-paren">(</span><em>mol</em><span class="sig-paren">)</span><a class="headerlink" href="#pyscf.symm.sph.real2spinor_whole" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transformation matrix that transforms real-spherical GTOs to spinor
+GTOs for all basis functions</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf.symm</span> <span class="k">import</span> <span class="n">sph</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvtz&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ca</span><span class="p">,</span> <span class="n">cb</span> <span class="o">=</span> <span class="n">sph</span><span class="o">.</span><span class="n">sph2spinor_coeff</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s0</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">intor</span><span class="p">(</span><span class="s1">&#39;int1e_ovlp_spinor&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="n">ca</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">intor</span><span class="p">(</span><span class="s1">&#39;int1e_ovlp_sph&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ca</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span><span class="o">+=</span> <span class="n">cb</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">intor</span><span class="p">(</span><span class="s1">&#39;int1e_ovlp_sph&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cb</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">s1</span><span class="o">-</span><span class="n">s0</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mf">6.66133814775e-16</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.symm.sph.real_sph_vec">
+<code class="descclassname">pyscf.symm.sph.</code><code class="descname">real_sph_vec</code><span class="sig-paren">(</span><em>r</em>, <em>lmax</em>, <em>reorder_p=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/symm/sph.html#real_sph_vec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.symm.sph.real_sph_vec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes (all) real spherical harmonics up to the angular momentum lmax</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.symm.sph.sph2spinor_coeff">
+<code class="descclassname">pyscf.symm.sph.</code><code class="descname">sph2spinor_coeff</code><span class="sig-paren">(</span><em>mol</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/symm/sph.html#sph2spinor_coeff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.symm.sph.sph2spinor_coeff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transformation matrix that transforms real-spherical GTOs to spinor
+GTOs for all basis functions</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf.symm</span> <span class="k">import</span> <span class="n">sph</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvtz&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ca</span><span class="p">,</span> <span class="n">cb</span> <span class="o">=</span> <span class="n">sph</span><span class="o">.</span><span class="n">sph2spinor_coeff</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s0</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">intor</span><span class="p">(</span><span class="s1">&#39;int1e_ovlp_spinor&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="n">ca</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">intor</span><span class="p">(</span><span class="s1">&#39;int1e_ovlp_sph&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ca</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span><span class="o">+=</span> <span class="n">cb</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">intor</span><span class="p">(</span><span class="s1">&#39;int1e_ovlp_sph&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cb</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">s1</span><span class="o">-</span><span class="n">s0</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mf">6.66133814775e-16</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.symm.sph.sph_pure2real">
+<code class="descclassname">pyscf.symm.sph.</code><code class="descname">sph_pure2real</code><span class="sig-paren">(</span><em>l</em>, <em>reorder_p=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/symm/sph.html#sph_pure2real"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.symm.sph.sph_pure2real" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transformation matrix: from the pure spherical harmonic functions Y_m to
+the real spherical harmonic functions O_m.</p>
+<blockquote>
+<div>O_m = sum Y_m&#8217; * U(m&#8217;,m)</div></blockquote>
+<p>Y(-1) = 1/sqrt(2){-iO(-1) + O(1)}; Y(1) = 1/sqrt(2){-iO(-1) - O(1)}
+Y(-2) = 1/sqrt(2){-iO(-2) + O(2)}; Y(2) = 1/sqrt(2){iO(-2) + O(2)}
+O(-1) = i/sqrt(2){Y(-1) + Y(1)};   O(1) = 1/sqrt(2){Y(-1) - Y(1)}
+O(-2) = i/sqrt(2){Y(-2) - Y(2)};   O(2) = 1/sqrt(2){Y(-2) + Y(2)}</p>
+<dl class="docutils">
+<dt>Kwargs:</dt>
+<dd>reorder_p (bool): Whether the p functions are in the (x,y,z) order.</dd>
+<dt>Returns:</dt>
+<dd>2D array U_{complex,real}</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.symm.sph.sph_real2pure">
+<code class="descclassname">pyscf.symm.sph.</code><code class="descname">sph_real2pure</code><span class="sig-paren">(</span><em>l</em>, <em>reorder_p=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/symm/sph.html#sph_real2pure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.symm.sph.sph_real2pure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transformation matrix: from real spherical harmonic functions to the pure
+spherical harmonic functions.</p>
+<dl class="docutils">
+<dt>Kwargs:</dt>
+<dd>reorder_p (bool): Whether the real p functions are in the (x,y,z) order.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="wigner-rotation-dmatrix">
+<h2>10.8. Wigner rotation Dmatrix<a class="headerlink" href="#wigner-rotation-dmatrix" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-pyscf.symm.Dmatrix"></span><p>Wigner rotation D-matrix for real spherical harmonics</p>
+<dl class="function">
+<dt id="pyscf.symm.Dmatrix.Dmatrix">
+<code class="descclassname">pyscf.symm.Dmatrix.</code><code class="descname">Dmatrix</code><span class="sig-paren">(</span><em>l</em>, <em>alpha</em>, <em>beta</em>, <em>gamma</em>, <em>reorder_p=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/symm/Dmatrix.html#Dmatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.symm.Dmatrix.Dmatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wigner rotation D-matrix</p>
+<p>D_{mm&#8217;} = &lt;lm|R(alpha,beta,gamma)|lm&#8217;&gt;
+alpha, beta, gamma are Euler angles (in z-y-z convention)</p>
+<dl class="docutils">
+<dt>Kwargs:</dt>
+<dd>reorder_p (bool): Whether to put the p functions in the (x,y,z) order.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.symm.Dmatrix.dmatrix">
+<code class="descclassname">pyscf.symm.Dmatrix.</code><code class="descname">dmatrix</code><span class="sig-paren">(</span><em>l</em>, <em>beta</em>, <em>reorder_p=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/symm/Dmatrix.html#dmatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.symm.Dmatrix.dmatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wigner small-d matrix (in z-y-z convention)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyscf.symm.Dmatrix.get_euler_angles">
+<code class="descclassname">pyscf.symm.Dmatrix.</code><code class="descname">get_euler_angles</code><span class="sig-paren">(</span><em>c1</em>, <em>c2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/symm/Dmatrix.html#get_euler_angles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.symm.Dmatrix.get_euler_angles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the three Euler angles (alpha, beta, gamma in z-y-z convention)
+that rotates coordinates c1 to coordinates c2.</p>
+<p>yp  = numpy.einsum(&#8216;j,kj-&gt;k&#8217;, c1[1], geom.rotation_mat(c1[2], beta))
+tmp = numpy.einsum(&#8216;ij,kj-&gt;ik&#8217;, c1 , geom.rotation_mat(c1[2], alpha))
+tmp = numpy.einsum(&#8216;ij,kj-&gt;ik&#8217;, tmp, geom.rotation_mat(yp   , beta ))
+c2  = numpy.einsum(&#8216;ij,kj-&gt;ik&#8217;, tmp, geom.rotation_mat(c2[2], gamma))</p>
+<p>(For backward compatibility) if c1 and c2 are two points in the real
+space, the Euler angles define the rotation transforms the old coordinates
+to the new coordinates (new_x, new_y, new_z) in which c1 is identical to c2.</p>
+<p>tmp = numpy.einsum(&#8216;j,kj-&gt;k&#8217;, c1 , geom.rotation_mat((0,0,1), gamma))
+tmp = numpy.einsum(&#8216;j,kj-&gt;k&#8217;, tmp, geom.rotation_mat((0,1,0), beta) )
+c2  = numpy.einsum(&#8216;j,kj-&gt;k&#8217;, tmp, geom.rotation_mat((0,0,1), alpha))</p>
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -1093,10 +1246,10 @@ projects out non-symmetric components for each orbital.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="df.html" class="btn btn-neutral float-right" title="11. df — Density fitting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="scf.html" class="btn btn-neutral float-right" title="11. scf — Mean-field methods" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="fci.html" class="btn btn-neutral" title="9. fci — Full configuration interaction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="df.html" class="btn btn-neutral" title="9. df — Density fitting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

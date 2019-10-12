@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5. lib — Helper functions, parameters, and C extensions &mdash; PySCF 1.7.0 documentation</title>
+  <title>42. lib — Helper functions, parameters, and C extensions &mdash; PySCF 1.7.0 documentation</title>
   
 
   
@@ -33,8 +33,7 @@
 
   
     <link rel="top" title="PySCF 1.7.0 documentation" href="index.html"/>
-        <link rel="next" title="6. scf — Mean-field methods" href="scf.html"/>
-        <link rel="prev" title="4. gto — Molecular structure and GTO basis" href="gto.html"/> 
+        <link rel="prev" title="41.4.2.1. nao.examples.qmd_C60 — NAO Examples: QMD C60" href="nao/examples/qmd_C60.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -89,72 +88,70 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">1. An overview of PySCF</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">2. Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">2. Version history</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">3. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gto.html">4. gto &#8212; Molecular structure and GTO basis</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">5. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-lib.parameters">5.1. <code class="docutils literal"><span class="pre">lib.parameters</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#lib-logger">5.2. <code class="docutils literal"><span class="pre">lib.logger</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#logger-object">5.2.1. Logger object</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#module-lib.numpy_helper">5.3. numpy extensions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-lib.linalg_helper">5.4. scipy extensions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#lib-chkfile">5.5. <code class="docutils literal"><span class="pre">lib.chkfile</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-lib.chkfile">5.5.1. Functions to access key/value in chkfile</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#quickly-loading-object-from-chkfile">5.5.2. Quickly loading object from chkfile</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#module-lib.diis">5.6. <code class="docutils literal"><span class="pre">lib.diis</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#other-helper-functions">5.7. Other helper functions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#background-mode">5.7.1. Background mode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#temporary-hdf5-file">5.7.2. Temporary HDF5 file</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#openmp-threads">5.7.3. OpenMP threads</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#capture-stdout">5.7.4. Capture stdout</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#other-helper-functions-in-lib-misc">5.7.5. Other helper functions in <code class="docutils literal"><span class="pre">lib.misc</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="scf.html">6. scf &#8212; Mean-field methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ao2mo.html">7. ao2mo &#8212; Integral transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mcscf.html">8. mcscf &#8212; Multi-configurational self-consistent field</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fci.html">9. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-rule.html">4. Code standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmark.html">5. Benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">6. Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gto.html">7. gto &#8212; Molecular structure and GTO basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ao2mo.html">8. ao2mo &#8212; Integral transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="df.html">9. df &#8212; Density fitting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="symm.html">10. symm &#8211; Point group symmetry and spin symmetry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="df.html">11. df &#8212; Density fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scf.html">11. scf &#8212; Mean-field methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dft.html">12. dft &#8212; Density functional theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tddft.html">13. tddft &#8212; Time dependent density functional theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cc.html">14. cc &#8212; Coupled cluster</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ci.html">15. ci &#8212; Configuration interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">17. fciqmcscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tools.html">18. tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="grad.html">19. grad &#8212; Analytical nuclear gradients</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hessian.html">20. hessian &#8212; Analytical nuclear Hessian</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pbc.html">21. pbc &#8212; Periodic boundary conditions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nao.html">22. nao &#8212; Numerical Atomic Orbitals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lo.html">23. lo &#8212; Orbital localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">24. Miscellaneous</a></li>
-<li class="toctree-l1"><a class="reference internal" href="qmmm.html">25. qmmm &#8212; QM/MM interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mrpt.html">26. mrpt &#8212; Multi-reference perturbation theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="benchmark.html">27. Benchmark</a></li>
-<li class="toctree-l1"><a class="reference internal" href="code-rule.html">28. Code standard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="version.html">29. Version history</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gw.html">30. gw &#8212; Molecular G0W0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hci.html">31. hci &#8212; Interface to Heat-Bath selective CI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sgx.html">32. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mp.html">34. mp &#8212; MP2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ccn.html">37. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cornell_shci.html">38. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dftd3.html">39. dftd3 &#8212; DFT plus Dispersion Correction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doci.html">40. doci &#8212; Doubly occupied configuration interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="geomopt.html">41. geomopt &#8212; Geometry optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="solvent.html">42. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dftd3.html">13. dftd3 &#8212; DFT plus Dispersion Correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grad.html">14. grad &#8212; Analytical nuclear gradients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hessian.html">15. hessian &#8212; Analytical nuclear Hessian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soscf.html">16. soscf &#8212; Second order Hartree-Fock solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sgx.html">17. sgx &#8212; Pseudo-spectral methods (COSX, PS, SN-K)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tddft.html">18. tddft &#8212; Time dependent density functional theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp.html">19. mp &#8212; MP2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ci.html">20. ci &#8212; Configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doci.html">21. doci &#8212; Doubly occupied configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cc.html">22. cc &#8212; Coupled cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gw.html">23. gw &#8212; Molecular G0W0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fci.html">24. fci &#8212; Full configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hci.html">25. hci &#8212; Interface to Heat-Bath selective CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cornell_shci.html">26. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcscf.html">27. mcscf &#8212; Multi-configurational self-consistent field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">28. dmrgscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fciqmcscf.html">29. fciqmcscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mrpt.html">30. mrpt &#8212; Multi-reference perturbation theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="icmpspt.html">31. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pbc.html">32. pbc &#8212; Periodic boundary conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qmmm.html">33. qmmm &#8212; QM/MM interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solvent.html">34. solvent &#8212; Solvent methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semiempirical.html">35. semiempirical &#8212; Semiempirical methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geomopt.html">36. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lo.html">37. lo &#8212; Orbital localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">38. tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">39. Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ccn.html">40. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nao.html">41. nao &#8212; Numerical Atomic Orbitals</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">42. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-lib.parameters">42.1. <code class="docutils literal"><span class="pre">lib.parameters</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lib-logger">42.2. <code class="docutils literal"><span class="pre">lib.logger</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#logger-object">42.2.1. Logger object</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-lib.numpy_helper">42.3. numpy extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-lib.linalg_helper">42.4. scipy extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lib-chkfile">42.5. <code class="docutils literal"><span class="pre">lib.chkfile</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-lib.chkfile">42.5.1. Functions to access key/value in chkfile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#quickly-loading-object-from-chkfile">42.5.2. Quickly loading object from chkfile</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-lib.diis">42.6. <code class="docutils literal"><span class="pre">lib.diis</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-helper-functions">42.7. Other helper functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#background-mode">42.7.1. Background mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#temporary-hdf5-file">42.7.2. Temporary HDF5 file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#openmp-threads">42.7.3. OpenMP threads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#capture-stdout">42.7.4. Capture stdout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-helper-functions-in-lib-misc">42.7.5. Other helper functions in <code class="docutils literal"><span class="pre">lib.misc</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -199,7 +196,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>5. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</li>
+      <li>42. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -219,18 +216,18 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-lib">
-<span id="lib-helper-functions-parameters-and-c-extensions"></span><h1>5. <a class="reference internal" href="#module-lib" title="lib: Helper functions, parameters, and C extensions."><code class="xref py py-mod docutils literal"><span class="pre">lib</span></code></a> &#8212; Helper functions, parameters, and C extensions<a class="headerlink" href="#module-lib" title="Permalink to this headline">¶</a></h1>
+<span id="lib-helper-functions-parameters-and-c-extensions"></span><h1>42. <a class="reference internal" href="#module-lib" title="lib: Helper functions, parameters, and C extensions."><code class="xref py py-mod docutils literal"><span class="pre">lib</span></code></a> &#8212; Helper functions, parameters, and C extensions<a class="headerlink" href="#module-lib" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-lib.parameters">
-<span id="lib-parameters"></span><h2>5.1. <a class="reference internal" href="#module-lib.parameters" title="lib.parameters"><code class="xref py py-mod docutils literal"><span class="pre">lib.parameters</span></code></a><a class="headerlink" href="#module-lib.parameters" title="Permalink to this headline">¶</a></h2>
+<span id="lib-parameters"></span><h2>42.1. <a class="reference internal" href="#module-lib.parameters" title="lib.parameters"><code class="xref py py-mod docutils literal"><span class="pre">lib.parameters</span></code></a><a class="headerlink" href="#module-lib.parameters" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="lib-logger">
-<h2>5.2. <code class="xref py py-mod docutils literal"><span class="pre">lib.logger</span></code><a class="headerlink" href="#lib-logger" title="Permalink to this headline">¶</a></h2>
+<h2>42.2. <code class="xref py py-mod docutils literal"><span class="pre">lib.logger</span></code><a class="headerlink" href="#lib-logger" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="logger-object">
-<h3>5.2.1. Logger object<a class="headerlink" href="#logger-object" title="Permalink to this headline">¶</a></h3>
+<h3>42.2.1. Logger object<a class="headerlink" href="#logger-object" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="module-lib.numpy_helper">
-<span id="numpy-extensions"></span><h2>5.3. numpy extensions<a class="headerlink" href="#module-lib.numpy_helper" title="Permalink to this headline">¶</a></h2>
+<span id="numpy-extensions"></span><h2>42.3. numpy extensions<a class="headerlink" href="#module-lib.numpy_helper" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="lib.numpy_helper.asarray">
 <code class="descclassname">lib.numpy_helper.</code><code class="descname">asarray</code><span class="sig-paren">(</span><em>a</em>, <em>dtype=None</em>, <em>order=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/numpy_helper.html#asarray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.numpy_helper.asarray" title="Permalink to this definition">¶</a></dt>
@@ -508,7 +505,7 @@ complex multiplication algorithm</p>
 
 </div>
 <div class="section" id="module-lib.linalg_helper">
-<span id="scipy-extensions"></span><h2>5.4. scipy extensions<a class="headerlink" href="#module-lib.linalg_helper" title="Permalink to this headline">¶</a></h2>
+<span id="scipy-extensions"></span><h2>42.4. scipy extensions<a class="headerlink" href="#module-lib.linalg_helper" title="Permalink to this headline">¶</a></h2>
 <p>Extension to scipy.linalg module</p>
 <dl class="function">
 <dt id="lib.linalg_helper.cho_solve">
@@ -887,10 +884,10 @@ seig is the eigenvalue vector of the metric s.</dd>
 
 </div>
 <div class="section" id="lib-chkfile">
-<h2>5.5. <a class="reference internal" href="#module-lib.chkfile" title="lib.chkfile"><code class="xref py py-mod docutils literal"><span class="pre">lib.chkfile</span></code></a><a class="headerlink" href="#lib-chkfile" title="Permalink to this headline">¶</a></h2>
+<h2>42.5. <a class="reference internal" href="#module-lib.chkfile" title="lib.chkfile"><code class="xref py py-mod docutils literal"><span class="pre">lib.chkfile</span></code></a><a class="headerlink" href="#lib-chkfile" title="Permalink to this headline">¶</a></h2>
 <p>Chkfile is a HDF5 file.</p>
 <div class="section" id="module-lib.chkfile">
-<span id="functions-to-access-key-value-in-chkfile"></span><h3>5.5.1. Functions to access key/value in chkfile<a class="headerlink" href="#module-lib.chkfile" title="Permalink to this headline">¶</a></h3>
+<span id="functions-to-access-key-value-in-chkfile"></span><h3>42.5.1. Functions to access key/value in chkfile<a class="headerlink" href="#module-lib.chkfile" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="lib.chkfile.load">
 <code class="descclassname">lib.chkfile.</code><code class="descname">load</code><span class="sig-paren">(</span><em>chkfile</em>, <em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/chkfile.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.chkfile.load" title="Permalink to this definition">¶</a></dt>
@@ -968,7 +965,7 @@ The save_mol/load_mol operation can be used a serialization method for Mole obje
 
 </div>
 <div class="section" id="quickly-loading-object-from-chkfile">
-<h3>5.5.2. Quickly loading object from chkfile<a class="headerlink" href="#quickly-loading-object-from-chkfile" title="Permalink to this headline">¶</a></h3>
+<h3>42.5.2. Quickly loading object from chkfile<a class="headerlink" href="#quickly-loading-object-from-chkfile" title="Permalink to this headline">¶</a></h3>
 <p>The results of SCF and MCSCF methods are saved as a Python dictionary in
 the chkfile.  One can fast load the results and update the SCF and MCSCF
 objects using the python built in methods <code class="docutils literal"><span class="pre">.__dict__.update</span></code>, e.g.:</p>
@@ -990,7 +987,7 @@ objects using the python built in methods <code class="docutils literal"><span c
 </div>
 </div>
 <div class="section" id="module-lib.diis">
-<span id="lib-diis"></span><h2>5.6. <a class="reference internal" href="#module-lib.diis" title="lib.diis"><code class="xref py py-mod docutils literal"><span class="pre">lib.diis</span></code></a><a class="headerlink" href="#module-lib.diis" title="Permalink to this headline">¶</a></h2>
+<span id="lib-diis"></span><h2>42.6. <a class="reference internal" href="#module-lib.diis" title="lib.diis"><code class="xref py py-mod docutils literal"><span class="pre">lib.diis</span></code></a><a class="headerlink" href="#module-lib.diis" title="Permalink to this headline">¶</a></h2>
 <p>DIIS</p>
 <dl class="class">
 <dt id="lib.diis.DIIS">
@@ -1085,9 +1082,9 @@ vector to extrapolate the vector.</p>
 
 </div>
 <div class="section" id="other-helper-functions">
-<h2>5.7. Other helper functions<a class="headerlink" href="#other-helper-functions" title="Permalink to this headline">¶</a></h2>
+<h2>42.7. Other helper functions<a class="headerlink" href="#other-helper-functions" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="background-mode">
-<h3>5.7.1. Background mode<a class="headerlink" href="#background-mode" title="Permalink to this headline">¶</a></h3>
+<h3>42.7.1. Background mode<a class="headerlink" href="#background-mode" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="lib.call_in_background">
 <code class="descclassname">lib.</code><code class="descname">call_in_background</code><span class="sig-paren">(</span><em>*fns</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/lib/misc.html#call_in_background"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.call_in_background" title="Permalink to this definition">¶</a></dt>
@@ -1120,7 +1117,7 @@ given functions are executed in background).</p>
 
 </div>
 <div class="section" id="temporary-hdf5-file">
-<h3>5.7.2. Temporary HDF5 file<a class="headerlink" href="#temporary-hdf5-file" title="Permalink to this headline">¶</a></h3>
+<h3>42.7.2. Temporary HDF5 file<a class="headerlink" href="#temporary-hdf5-file" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="lib.H5TmpFile">
 <em class="property">class </em><code class="descclassname">lib.</code><code class="descname">H5TmpFile</code><span class="sig-paren">(</span><em>filename=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/lib/misc.html#H5TmpFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.H5TmpFile" title="Permalink to this definition">¶</a></dt>
@@ -1148,7 +1145,7 @@ specified).</p>
 
 </div>
 <div class="section" id="openmp-threads">
-<h3>5.7.3. OpenMP threads<a class="headerlink" href="#openmp-threads" title="Permalink to this headline">¶</a></h3>
+<h3>42.7.3. OpenMP threads<a class="headerlink" href="#openmp-threads" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="lib.num_threads">
 <code class="descclassname">lib.</code><code class="descname">num_threads</code><span class="sig-paren">(</span><em>n=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/lib/misc.html#num_threads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.num_threads" title="Permalink to this definition">¶</a></dt>
@@ -1195,7 +1192,7 @@ context, the number OpenMP threads will be restored.</p>
 
 </div>
 <div class="section" id="capture-stdout">
-<h3>5.7.4. Capture stdout<a class="headerlink" href="#capture-stdout" title="Permalink to this headline">¶</a></h3>
+<h3>42.7.4. Capture stdout<a class="headerlink" href="#capture-stdout" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="lib.capture_stdout">
 <em class="property">class </em><code class="descclassname">lib.</code><code class="descname">capture_stdout</code><a class="reference internal" href="_modules/pyscf/lib/misc.html#capture_stdout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.capture_stdout" title="Permalink to this definition">¶</a></dt>
@@ -1212,7 +1209,7 @@ context, the number OpenMP threads will be restored.</p>
 
 </div>
 <div class="section" id="other-helper-functions-in-lib-misc">
-<h3>5.7.5. Other helper functions in <a class="reference internal" href="#module-lib.misc" title="lib.misc"><code class="xref py py-mod docutils literal"><span class="pre">lib.misc</span></code></a><a class="headerlink" href="#other-helper-functions-in-lib-misc" title="Permalink to this headline">¶</a></h3>
+<h3>42.7.5. Other helper functions in <a class="reference internal" href="#module-lib.misc" title="lib.misc"><code class="xref py py-mod docutils literal"><span class="pre">lib.misc</span></code></a><a class="headerlink" href="#other-helper-functions-in-lib-misc" title="Permalink to this headline">¶</a></h3>
 <span class="target" id="module-lib.misc"></span><p>Some hacky functions</p>
 <dl class="function">
 <dt id="lib.misc.flatten">
@@ -1240,10 +1237,8 @@ x[0] + x[1] + x[2] + ...</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="scf.html" class="btn btn-neutral float-right" title="6. scf — Mean-field methods" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="gto.html" class="btn btn-neutral" title="4. gto — Molecular structure and GTO basis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="nao/examples/qmd_C60.html" class="btn btn-neutral" title="41.4.2.1. nao.examples.qmd_C60 — NAO Examples: QMD C60" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
