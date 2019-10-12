@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>dftd3 — DFT plus Dispersion Correction &mdash; PySCF 1.5.0 documentation</title>
+  <title>39. dftd3 — DFT plus Dispersion Correction &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,9 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/> 
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+        <link rel="next" title="40. doci — Doubly occupied configuration interaction" href="doci.html"/>
+        <link rel="prev" title="38. cornell_shci — Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)" href="cornell_shci.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,7 +87,7 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">1. An overview of PySCF</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">2. Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">3. Installation</a></li>
@@ -123,6 +125,20 @@
 <li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ccn.html">37. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cornell_shci.html">38. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">39. dftd3 &#8212; DFT plus Dispersion Correction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">39.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.dftd3">39.2. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.dftd3.itrf">39.2.1. itrf</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doci.html">40. doci &#8212; Doubly occupied configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geomopt.html">41. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solvent.html">42. solvent &#8212; Solvent methods</a></li>
 </ul>
 
             
@@ -167,7 +183,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>dftd3 &#8212; DFT plus Dispersion Correction</li>
+      <li>39. dftd3 &#8212; DFT plus Dispersion Correction</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -187,18 +203,18 @@
            <div itemprop="articleBody">
             
   <div class="section" id="dftd3-dft-plus-dispersion-correction">
-<h1>dftd3 &#8212; DFT plus Dispersion Correction<a class="headerlink" href="#dftd3-dft-plus-dispersion-correction" title="Permalink to this headline">¶</a></h1>
+<h1>39. dftd3 &#8212; DFT plus Dispersion Correction<a class="headerlink" href="#dftd3-dft-plus-dispersion-correction" title="Permalink to this headline">¶</a></h1>
 <p>An interface to libdftd3:
 <a class="reference external" href="https://github.com/cuanto/libdftd3">https://github.com/cuanto/libdftd3</a></p>
 <div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2>39.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples
 <code class="file docutils literal"><span class="pre">examples/dftd3/00-hf_with_dftd3.py</span></code></p>
 </div>
 <div class="section" id="module-pyscf.dftd3">
-<span id="program-reference"></span><h2>Program reference<a class="headerlink" href="#module-pyscf.dftd3" title="Permalink to this headline">¶</a></h2>
+<span id="program-reference"></span><h2>39.2. Program reference<a class="headerlink" href="#module-pyscf.dftd3" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="module-pyscf.dftd3.itrf">
-<span id="itrf"></span><h3>itrf<a class="headerlink" href="#module-pyscf.dftd3.itrf" title="Permalink to this headline">¶</a></h3>
+<span id="itrf"></span><h3>39.2.1. itrf<a class="headerlink" href="#module-pyscf.dftd3.itrf" title="Permalink to this headline">¶</a></h3>
 <p>DFT-D3 interface.</p>
 <p>This interface is based on the open source project
 <a class="reference external" href="https://github.com/cuanto/libdftd3">https://github.com/cuanto/libdftd3</a></p>
@@ -262,6 +278,15 @@ post-HF calculations eg MP2, CCSD, MCSCF etc</dd>
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="doci.html" class="btn btn-neutral float-right" title="40. doci — Doubly occupied configuration interaction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cornell_shci.html" class="btn btn-neutral" title="38. cornell_shci — Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

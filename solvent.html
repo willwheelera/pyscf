@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>solvent — Solvent methods &mdash; PySCF 1.5.0 documentation</title>
+  <title>42. solvent — Solvent methods &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,8 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/> 
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+        <link rel="prev" title="41. geomopt — Geometry optimization" href="geomopt.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,7 +86,7 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">1. An overview of PySCF</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">2. Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">3. Installation</a></li>
@@ -123,6 +124,21 @@
 <li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ccn.html">37. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cornell_shci.html">38. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dftd3.html">39. dftd3 &#8212; DFT plus Dispersion Correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doci.html">40. doci &#8212; Doubly occupied configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geomopt.html">41. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">42. solvent &#8212; Solvent methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">42.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.solvent">42.2. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.solvent.ddpcm">42.2.1. domain decomposition PCM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.solvent.ddcosmo">42.2.2. domain decomposition COSMO</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -167,7 +183,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>solvent &#8212; Solvent methods</li>
+      <li>42. solvent &#8212; Solvent methods</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -187,19 +203,20 @@
            <div itemprop="articleBody">
             
   <div class="section" id="solvent-solvent-methods">
-<h1>solvent &#8212; Solvent methods<a class="headerlink" href="#solvent-solvent-methods" title="Permalink to this headline">¶</a></h1>
+<h1>42. solvent &#8212; Solvent methods<a class="headerlink" href="#solvent-solvent-methods" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2>42.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples
 <code class="file docutils literal"><span class="pre">examples/solvent/00-scf_with_ddcosmo.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/solvent/01-casscf_with_ddcosmo.py</span></code>
 <code class="file docutils literal"><span class="pre">examples/solvent/02-casci_with_ddcosmo.py</span></code>
 <code class="file docutils literal"><span class="pre">examples/solvent/03-ccsd_with_ddcosmo.py</span></code>
 <code class="file docutils literal"><span class="pre">examples/solvent/20-state_specific_casci.py</span></code></p>
 </div>
 <div class="section" id="module-pyscf.solvent">
-<span id="program-reference"></span><h2>Program reference<a class="headerlink" href="#module-pyscf.solvent" title="Permalink to this headline">¶</a></h2>
+<span id="program-reference"></span><h2>42.2. Program reference<a class="headerlink" href="#module-pyscf.solvent" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="module-pyscf.solvent.ddpcm">
-<span id="domain-decomposition-pcm"></span><h3>domain decomposition PCM<a class="headerlink" href="#module-pyscf.solvent.ddpcm" title="Permalink to this headline">¶</a></h3>
+<span id="domain-decomposition-pcm"></span><h3>42.2.1. domain decomposition PCM<a class="headerlink" href="#module-pyscf.solvent.ddpcm" title="Permalink to this headline">¶</a></h3>
 <p>domain decomposition PCM (In testing)</p>
 <p>See also
 JCP, 144, 054101
@@ -213,7 +230,7 @@ Es = 1/2 f(eps) int rho(r) W(r) dr</p>
 
 </div>
 <div class="section" id="module-pyscf.solvent.ddcosmo">
-<span id="domain-decomposition-cosmo"></span><h3>domain decomposition COSMO<a class="headerlink" href="#module-pyscf.solvent.ddcosmo" title="Permalink to this headline">¶</a></h3>
+<span id="domain-decomposition-cosmo"></span><h3>42.2.2. domain decomposition COSMO<a class="headerlink" href="#module-pyscf.solvent.ddcosmo" title="Permalink to this headline">¶</a></h3>
 <p>domain decomposition COSMO</p>
 <p>See also the code on github</p>
 <p><a class="reference external" href="https://github.com/filippolipparini/ddPCM">https://github.com/filippolipparini/ddPCM</a></p>
@@ -509,6 +526,13 @@ J. Chem. Phys., 141, 184108 (2014)
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="geomopt.html" class="btn btn-neutral" title="41. geomopt — Geometry optimization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

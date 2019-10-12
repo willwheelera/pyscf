@@ -124,6 +124,13 @@
 <li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ccn.html">37. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cornell_shci.html">38. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dftd3.html">39. dftd3 &#8212; DFT plus Dispersion Correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doci.html">40. doci &#8212; Doubly occupied configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geomopt.html">41. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solvent.html">42. solvent &#8212; Solvent methods</a></li>
 </ul>
 
             
@@ -200,6 +207,9 @@ resources (perhaps sacrificing efficiency to reduce I/O);</li>
 <li>90/10 Python/C (only computational hot spots are written in C);</li>
 <li>90/10 functional/OOP (unless performance critical, functions are pure).</li>
 </ul>
+<p>In addition to the core libraries, PySCF supports a rich
+ecosystem of plugins and external modules that, for example, provide
+MPI versions of some routines, additional quantum chemistry methods and analysis, interface with quantum computing toolkits etc. See :ref:&#8217;.._installing_plugin:&#8217;.</p>
 <div class="section" id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
@@ -417,6 +427,42 @@ resources (perhaps sacrificing efficiency to reduce I/O);</li>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="icmpspt.html#program-reference">36.1. Program reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ccn.html">37. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ccn.html#examples">37.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ccn.html#module-pyscf.ccn">37.2. Program reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cornell_shci.html">38. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cornell_shci.html#examples">38.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cornell_shci.html#program-reference">38.2. Program reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cornell_shci.html#shci">38.3. shci</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dftd3.html">39. dftd3 &#8212; DFT plus Dispersion Correction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dftd3.html#examples">39.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dftd3.html#module-pyscf.dftd3">39.2. Program reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dmrgscf.html#id1">16.1. Block</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dmrgscf.html#id2">16.2. CheMPS2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="doci.html">40. doci &#8212; Doubly occupied configuration interaction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doci.html#examples">40.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doci.html#module-pyscf.doci">40.2. Program reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="geomopt.html">41. geomopt &#8212; Geometry optimization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="geomopt.html#examples">41.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geomopt.html#module-pyscf.geomopt">41.2. Program reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="solvent.html">42. solvent &#8212; Solvent methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="solvent.html#examples">42.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solvent.html#module-pyscf.solvent">42.2. Program reference</a></li>
 </ul>
 </li>
 </ul>

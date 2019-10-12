@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>doci — Doubly occupied configuration interaction &mdash; PySCF 1.5.0 documentation</title>
+  <title>40. doci — Doubly occupied configuration interaction &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,9 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/> 
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+        <link rel="next" title="41. geomopt — Geometry optimization" href="geomopt.html"/>
+        <link rel="prev" title="39. dftd3 — DFT plus Dispersion Correction" href="dftd3.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,7 +87,7 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">1. An overview of PySCF</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">2. Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">3. Installation</a></li>
@@ -123,6 +125,21 @@
 <li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ccn.html">37. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cornell_shci.html">38. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dftd3.html">39. dftd3 &#8212; DFT plus Dispersion Correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">40. doci &#8212; Doubly occupied configuration interaction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">40.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.doci">40.2. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#doci-mcscf">40.2.1. doci_mcscf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#doci-slow">40.2.2. doci_slow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="geomopt.html">41. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solvent.html">42. solvent &#8212; Solvent methods</a></li>
 </ul>
 
             
@@ -167,7 +184,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>doci &#8212; Doubly occupied configuration interaction</li>
+      <li>40. doci &#8212; Doubly occupied configuration interaction</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -187,17 +204,17 @@
            <div itemprop="articleBody">
             
   <div class="section" id="doci-doubly-occupied-configuration-interaction">
-<h1>doci &#8212; Doubly occupied configuration interaction<a class="headerlink" href="#doci-doubly-occupied-configuration-interaction" title="Permalink to this headline">¶</a></h1>
+<h1>40. doci &#8212; Doubly occupied configuration interaction<a class="headerlink" href="#doci-doubly-occupied-configuration-interaction" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2>40.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples
 <code class="file docutils literal"><span class="pre">examples/doci/00-simple_doci_casscf.py</span></code></p>
 </div>
 <div class="section" id="module-pyscf.doci">
-<span id="program-reference"></span><h2>Program reference<a class="headerlink" href="#module-pyscf.doci" title="Permalink to this headline">¶</a></h2>
+<span id="program-reference"></span><h2>40.2. Program reference<a class="headerlink" href="#module-pyscf.doci" title="Permalink to this headline">¶</a></h2>
 <p>DOCI and DOCI based MCSCF</p>
 <div class="section" id="doci-mcscf">
-<h3>doci_mcscf<a class="headerlink" href="#doci-mcscf" title="Permalink to this headline">¶</a></h3>
+<h3>40.2.1. doci_mcscf<a class="headerlink" href="#doci-mcscf" title="Permalink to this headline">¶</a></h3>
 <span class="target" id="module-pyscf.doci.doci_mcscf"></span><dl class="class">
 <dt id="pyscf.doci.doci_mcscf.CASCI">
 <em class="property">class </em><code class="descclassname">pyscf.doci.doci_mcscf.</code><code class="descname">CASCI</code><span class="sig-paren">(</span><em>mf_or_mol</em>, <em>ncas</em>, <em>nelecas</em>, <em>ncore=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/doci/doci_mcscf.html#CASCI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.doci.doci_mcscf.CASCI" title="Permalink to this definition">¶</a></dt>
@@ -212,7 +229,7 @@
 
 </div>
 <div class="section" id="doci-slow">
-<h3>doci_slow<a class="headerlink" href="#doci-slow" title="Permalink to this headline">¶</a></h3>
+<h3>40.2.2. doci_slow<a class="headerlink" href="#doci-slow" title="Permalink to this headline">¶</a></h3>
 <span class="target" id="module-pyscf.doci.doci_slow"></span><p>Doubly occupied configuration interaction (DOCI)</p>
 <dl class="function">
 <dt id="pyscf.doci.doci_slow.contract_2e">
@@ -231,6 +248,15 @@
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="geomopt.html" class="btn btn-neutral float-right" title="41. geomopt — Geometry optimization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dftd3.html" class="btn btn-neutral" title="39. dftd3 — DFT plus Dispersion Correction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

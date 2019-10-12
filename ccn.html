@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ccn — Auto-Generated Coupled-Cluster Equations of Arbitrary Order &mdash; PySCF 1.5.0 documentation</title>
+  <title>37. ccn — Auto-Generated Coupled-Cluster Equations of Arbitrary Order &mdash; PySCF 1.5.0 documentation</title>
   
 
   
@@ -32,7 +32,9 @@
   
 
   
-    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/> 
+    <link rel="top" title="PySCF 1.5.0 documentation" href="index.html"/>
+        <link rel="next" title="38. cornell_shci — Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)" href="cornell_shci.html"/>
+        <link rel="prev" title="36. icmpspt — Internal-contracted MPS perturbation method" href="icmpspt.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,7 +87,7 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">1. An overview of PySCF</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">2. Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">3. Installation</a></li>
@@ -123,6 +125,20 @@
 <li class="toctree-l1"><a class="reference internal" href="semiempirical.html">33. semiempirical &#8212; Semiempirical methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="soscf.html">35. soscf &#8212; Second order Hartree-Fock solver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="icmpspt.html">36. icmpspt &#8212; Internal-contracted MPS perturbation method</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">37. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">37.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.ccn">37.2. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.ccn.cc">37.2.1. itrf</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cornell_shci.html">38. cornell_shci &#8212; Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dftd3.html">39. dftd3 &#8212; DFT plus Dispersion Correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dmrgscf.html">16. dmrgscf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doci.html">40. doci &#8212; Doubly occupied configuration interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geomopt.html">41. geomopt &#8212; Geometry optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solvent.html">42. solvent &#8212; Solvent methods</a></li>
 </ul>
 
             
@@ -167,7 +183,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</li>
+      <li>37. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -187,15 +203,15 @@
            <div itemprop="articleBody">
             
   <div class="section" id="ccn-auto-generated-coupled-cluster-equations-of-arbitrary-order">
-<h1>ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order<a class="headerlink" href="#ccn-auto-generated-coupled-cluster-equations-of-arbitrary-order" title="Permalink to this headline">¶</a></h1>
+<h1>37. ccn &#8212; Auto-Generated Coupled-Cluster Equations of Arbitrary Order<a class="headerlink" href="#ccn-auto-generated-coupled-cluster-equations-of-arbitrary-order" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2>37.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples</p>
 </div>
 <div class="section" id="module-pyscf.ccn">
-<span id="program-reference"></span><h2>Program reference<a class="headerlink" href="#module-pyscf.ccn" title="Permalink to this headline">¶</a></h2>
+<span id="program-reference"></span><h2>37.2. Program reference<a class="headerlink" href="#module-pyscf.ccn" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="module-pyscf.ccn.cc">
-<span id="itrf"></span><h3>itrf<a class="headerlink" href="#module-pyscf.ccn.cc" title="Permalink to this headline">¶</a></h3>
+<span id="itrf"></span><h3>37.2.1. itrf<a class="headerlink" href="#module-pyscf.ccn.cc" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="pyscf.ccn.cc.kernel_ea_d">
 <code class="descclassname">pyscf.ccn.cc.</code><code class="descname">kernel_ea_d</code><span class="sig-paren">(</span><em>cc</em>, <em>t2</em>, <em>nroots=1</em>, <em>tolerance=1e-10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ccn/cc.html#kernel_ea_d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ccn.cc.kernel_ea_d" title="Permalink to this definition">¶</a></dt>
@@ -468,6 +484,15 @@ maxiter (int): the maximal number of iterations;</div></blockquote>
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cornell_shci.html" class="btn btn-neutral float-right" title="38. cornell_shci — Interface to Fast Semistochastic Heat Bath Configuration Interaction (SHCI)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="icmpspt.html" class="btn btn-neutral" title="36. icmpspt — Internal-contracted MPS perturbation method" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
