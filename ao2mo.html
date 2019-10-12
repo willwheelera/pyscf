@@ -95,10 +95,14 @@
 <li class="toctree-l1"><a class="reference internal" href="lib.html">5. <code class="docutils literal"><span class="pre">lib</span></code> &#8212; Helper functions, parameters, and C extensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scf.html">6. scf &#8212; Mean-field methods</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">7. ao2mo &#8212; Integral transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#general-integral-transformation-module">7.1. General Integral transformation module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.ao2mo.incore">7.2. incore</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.ao2mo.outcore">7.3. outcore</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.ao2mo.addons">7.4. addons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">7.1. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyscf.ao2mo">7.2. Program reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#general-integral-transformation-module">7.2.1. General Integral transformation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.ao2mo.incore">7.2.2. incore</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.ao2mo.outcore">7.2.3. outcore</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyscf.ao2mo.addons">7.2.4. addons</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mcscf.html">8. mcscf &#8212; Multi-configurational self-consistent field</a></li>
@@ -186,10 +190,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-pyscf.ao2mo">
-<span id="ao2mo-integral-transformations"></span><h1>7. ao2mo &#8212; Integral transformations<a class="headerlink" href="#module-pyscf.ao2mo" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="ao2mo-integral-transformations">
+<h1>7. ao2mo &#8212; Integral transformations<a class="headerlink" href="#ao2mo-integral-transformations" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="examples">
+<h2>7.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Relevant examples
+<code class="file docutils literal"><span class="pre">examples/ao2mo/00-mo_integrals.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/ao2mo/01-outcore.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/ao2mo/10-diff_orbs_for_ijkl.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/ao2mo/11-ump2.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/ao2mo/20-eri_grad_hess.py</span></code>
+<code class="file docutils literal"><span class="pre">examples/ao2mo/21-spin_orbit_coupling.py</span></code></p>
+</div>
+<div class="section" id="module-pyscf.ao2mo">
+<span id="program-reference"></span><h2>7.2. Program reference<a class="headerlink" href="#module-pyscf.ao2mo" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="general-integral-transformation-module">
-<h2>7.1. General Integral transformation module<a class="headerlink" href="#general-integral-transformation-module" title="Permalink to this headline">¶</a></h2>
+<h3>7.2.1. General Integral transformation module<a class="headerlink" href="#general-integral-transformation-module" title="Permalink to this headline">¶</a></h3>
 <p>Simple usage:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">ao2mo</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; F 0 0 1&#39;</span><span class="p">)</span>
@@ -199,7 +215,7 @@
 </div>
 </div>
 <div class="section" id="module-pyscf.ao2mo.incore">
-<span id="incore"></span><h2>7.2. incore<a class="headerlink" href="#module-pyscf.ao2mo.incore" title="Permalink to this headline">¶</a></h2>
+<span id="incore"></span><h3>7.2.2. incore<a class="headerlink" href="#module-pyscf.ao2mo.incore" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="pyscf.ao2mo.incore.full">
 <code class="descclassname">pyscf.ao2mo.incore.</code><code class="descname">full</code><span class="sig-paren">(</span><em>eri_ao</em>, <em>mo_coeff</em>, <em>verbose=0</em>, <em>compact=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ao2mo/incore.html#full"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ao2mo.incore.full" title="Permalink to this definition">¶</a></dt>
@@ -356,7 +372,7 @@ the kwargs compact.</dd>
 
 </div>
 <div class="section" id="module-pyscf.ao2mo.outcore">
-<span id="outcore"></span><h2>7.3. outcore<a class="headerlink" href="#module-pyscf.ao2mo.outcore" title="Permalink to this headline">¶</a></h2>
+<span id="outcore"></span><h3>7.2.3. outcore<a class="headerlink" href="#module-pyscf.ao2mo.outcore" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="pyscf.ao2mo.outcore.full">
 <code class="descclassname">pyscf.ao2mo.outcore.</code><code class="descname">full</code><span class="sig-paren">(</span><em>mol</em>, <em>mo_coeff</em>, <em>erifile</em>, <em>dataname='eri_mo'</em>, <em>intor='int2e'</em>, <em>aosym='s4'</em>, <em>comp=None</em>, <em>max_memory=2000</em>, <em>ioblk_size=256</em>, <em>verbose=2</em>, <em>compact=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ao2mo/outcore.html#full"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ao2mo.outcore.full" title="Permalink to this definition">¶</a></dt>
@@ -773,7 +789,7 @@ and return the &#8220;plain&#8221; MO integrals</dd>
 
 </div>
 <div class="section" id="module-pyscf.ao2mo.addons">
-<span id="addons"></span><h2>7.4. addons<a class="headerlink" href="#module-pyscf.ao2mo.addons" title="Permalink to this headline">¶</a></h2>
+<span id="addons"></span><h3>7.2.4. addons<a class="headerlink" href="#module-pyscf.ao2mo.addons" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="pyscf.ao2mo.addons.load">
 <em class="property">class </em><code class="descclassname">pyscf.ao2mo.addons.</code><code class="descname">load</code><span class="sig-paren">(</span><em>eri</em>, <em>dataname='eri_mo'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyscf/ao2mo/addons.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyscf.ao2mo.addons.load" title="Permalink to this definition">¶</a></dt>
@@ -844,6 +860,7 @@ while (ij|kl) != (kl|ij) is not required.</p>
 </div>
 </dd></dl>
 
+</div>
 </div>
 </div>
 
