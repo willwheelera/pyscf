@@ -219,6 +219,41 @@
             
   <div class="section" id="mcscf-multi-configurational-self-consistent-field">
 <h1>28. mcscf &#8212; Multi-configurational self-consistent field<a class="headerlink" href="#mcscf-multi-configurational-self-consistent-field" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="xref py py-mod docutils literal"><span class="pre">mcscf</span></code> implements orbital optimization for
+MCSCF and CASSCF. 1-step (combined orbital and wavefunction
+optimization) and 2-step algorithms (alternating orbital and wavefunction
+optimization) are available. Different kinds of active space solvers can
+be used with this module.</p>
+<p>For example, a simple CASCI calculation can be run as:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyscf</span>
+
+<span class="n">mol</span> <span class="o">=</span> <span class="n">pyscf</span><span class="o">.</span><span class="n">M</span><span class="p">(</span>
+    <span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;O 0 0 0; O 0 0 1.2&#39;</span><span class="p">,</span>
+    <span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span>
+    <span class="n">spin</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">myhf</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">RHF</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="c1"># 6 orbitals, 8 electrons</span>
+<span class="n">mycas</span> <span class="o">=</span> <span class="n">myhf</span><span class="o">.</span><span class="n">CASCI</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>and a simple CASSCF can be run as:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyscf</span>
+
+ <span class="n">mol</span> <span class="o">=</span> <span class="n">pyscf</span><span class="o">.</span><span class="n">M</span><span class="p">(</span>
+     <span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;O 0 0 0; O 0 0 1.2&#39;</span><span class="p">,</span>
+     <span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span>
+     <span class="n">spin</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+ <span class="n">myhf</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">RHF</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+ <span class="c1"># 6 orbitals, 8 electrons</span>
+ <span class="n">mycas</span> <span class="o">=</span> <span class="n">myhf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The CASSCF orbital optimization is general and can be combined
+with many different solvers, such as DMRG and selected CI solvers.</p>
 <div class="section" id="examples">
 <h2>28.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples
@@ -431,11 +466,6 @@ inbuilt methods to convert the mo_coeff to natural orbitals.
 2. call .cas_natorb_ method after the calculation to in-place convert the orbitals</dd>
 </dl>
 </div></blockquote>
-<p>The <code class="xref py py-mod docutils literal"><span class="pre">mcscf</span></code> implements orbital optimization for
-MCSCF and CASSCF. 1-step (combined orbital and wavefunction
-optimization) and 2-step algorithms (alternating orbital and wavefunction
-optimization) are available. Different kinds of active space solvers can
-be used with this module.</p>
 </div>
 <div class="section" id="casscf-active-space-solver">
 <h2>28.2. CASSCF active space solver<a class="headerlink" href="#casscf-active-space-solver" title="Permalink to this headline">¶</a></h2>

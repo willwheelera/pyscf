@@ -210,7 +210,13 @@
             
   <div class="section" id="module-ci">
 <span id="ci-configuration-interaction"></span><h1>21. ci &#8212; Configuration interaction<a class="headerlink" href="#module-ci" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference internal" href="#module-ci" title="ci: CI energy and properties"><code class="xref py py-mod docutils literal"><span class="pre">ci</span></code></a> module implements the truncated CI model.</p>
+<p>The <a class="reference internal" href="#module-ci" title="ci: CI energy and properties"><code class="xref py py-mod docutils literal"><span class="pre">ci</span></code></a> module implements the truncated CI model. A simple example for cisd:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyscf</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">pyscf</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;H 0 0 0; F 0 0 1.1&#39;</span><span class="p">,</span><span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;ccpvdz&#39;</span><span class="p">)</span>
+<span class="n">mf</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">HF</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="n">mycc</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">CISD</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
 <div class="section" id="examples">
 <h2>21.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p><code class="file docutils literal"><span class="pre">00-simple_cisd.py</span></code>

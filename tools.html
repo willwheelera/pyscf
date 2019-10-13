@@ -219,6 +219,53 @@
 <p>The <a class="reference internal" href="#module-tools" title="tools"><code class="xref py py-mod docutils literal"><span class="pre">tools</span></code></a> module contains useful tools to dump out integrals,
 orbital densities, cube files, and other things to interface with
 external utilities.</p>
+<dl class="docutils">
+<dt>For example, one can write molecular orbitals in molden format as::</dt>
+<dd><p class="first">from pyscf import gto, scf
+from pyscf import lo
+from pyscf.tools import molden
+mol = gto.M(</p>
+<blockquote>
+<div><blockquote>
+<div>atom = &#8216;&#8217;&#8216;</div></blockquote>
+<p>C  3.2883    3.3891    0.2345
+C  1.9047    3.5333    0.2237
+C  3.8560    2.1213    0.1612
+C  1.0888    2.4099    0.1396
+C  3.0401    0.9977    0.0771
+C  1.6565    1.1421    0.0663
+H  3.9303    4.2734    0.3007
+H  1.4582    4.5312    0.2815
+H  4.9448    2.0077    0.1699
+H  0.0000    2.5234    0.1311
+H  3.4870    0.0000    0.0197
+H  1.0145    0.2578    0.0000</p>
+<blockquote>
+<div><blockquote>
+<div>&#8216;&#8217;&#8216;,</div></blockquote>
+<p>basis = &#8216;cc-pvdz&#8217;,
+symmetry = 1)</p>
+</div></blockquote>
+</div></blockquote>
+<p>mf = scf.RHF(mol)
+mf.kernel()
+with open(&#8216;C6H6mo.molden&#8217;, &#8216;w&#8217;) as f1:</p>
+<blockquote class="last">
+<div>molden.header(mol, f1)
+molden.orbital_coeff(mol, f1, mf.mo_coeff, ene=mf.mo_energy, occ=mf.mo_occ)</div></blockquote>
+</dd>
+<dt>Cube files can be generated as::</dt>
+<dd><p class="first">from pyscf import gto, scf
+from pyscf.tools import cubegen
+mol = gto.M(atom=&#8217;&#8216;&#8217;</p>
+<blockquote>
+<div>O 0.0000000, 0.000000, 0.00000000
+H 0.761561 , 0.478993, 0.00000000
+H -0.761561, 0.478993, 0.00000000&#8217;&#8216;&#8217;, basis=&#8216;6-31g*&#8217;)</div></blockquote>
+<p class="last">mf = scf.RHF(mol).run()
+cubegen.density(mol, &#8216;h2o_den.cube&#8217;, mf.make_rdm1())</p>
+</dd>
+</dl>
 <div class="section" id="examples">
 <h2>40.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples

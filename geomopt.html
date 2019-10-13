@@ -210,7 +210,16 @@
   <div class="section" id="geomopt-geometry-optimization">
 <h1>38. geomopt &#8212; Geometry optimization<a class="headerlink" href="#geomopt-geometry-optimization" title="Permalink to this headline">¶</a></h1>
 <p>The <code class="xref py py-mod docutils literal"><span class="pre">geomopt</span></code> module implements geometry optimization via
-interfaces to geomeTRIC (<a class="reference external" href="https://github.com/leeping/geomeTRIC">https://github.com/leeping/geomeTRIC</a>) and PyBerny (<a class="reference external" href="https://github.com/azag0/pyberny">https://github.com/azag0/pyberny</a>).</p>
+interfaces to geomeTRIC (<a class="reference external" href="https://github.com/leeping/geomeTRIC">https://github.com/leeping/geomeTRIC</a>) and PyBerny (<a class="reference external" href="https://github.com/azag0/pyberny">https://github.com/azag0/pyberny</a>).
+For example, optimize the structure of N2 molecule using PyBerny:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span>
+<span class="kn">from</span> <span class="nn">pyscf.geomopt.berny_solver</span> <span class="k">import</span> <span class="n">optimize</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 1.2&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">)</span>
+<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">mol_eq</span> <span class="o">=</span> <span class="n">optimize</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mol_eq</span><span class="o">.</span><span class="n">atom_coords</span><span class="p">())</span>
+</pre></div>
+</div>
 <div class="section" id="examples">
 <h2>38.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples

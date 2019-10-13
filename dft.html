@@ -205,7 +205,14 @@
             
   <div class="section" id="module-dft">
 <span id="dft-density-functional-theory"></span><h1>12. dft &#8212; Density functional theory<a class="headerlink" href="#module-dft" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference internal" href="#module-dft" title="dft"><code class="xref py py-mod docutils literal"><span class="pre">dft</span></code></a> module implements Kohn-Sham density functional theory. Also see <a class="reference internal" href="scf.html#module-scf" title="scf: restricted and unrestricted, closed shell and open shell Hartree-Fock methods"><code class="xref py py-mod docutils literal"><span class="pre">scf</span></code></a>.</p>
+<p>The <a class="reference internal" href="#module-dft" title="dft"><code class="xref py py-mod docutils literal"><span class="pre">dft</span></code></a> module implements Kohn-Sham density functional theory. Also see <a class="reference internal" href="scf.html#module-scf" title="scf: restricted and unrestricted, closed shell and open shell Hartree-Fock methods"><code class="xref py py-mod docutils literal"><span class="pre">scf</span></code></a>. A minimal example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">dft</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H  0  0  0; F  0.9  0  0&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;sto3g&#39;</span><span class="p">)</span>
+<span class="n">mf</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">mf</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="s1">&#39;lda,vwn&#39;</span>
+<span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+</pre></div>
+</div>
 <div class="section" id="examples">
 <h2>12.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant Examples:

@@ -232,7 +232,7 @@
 <p>This module provides functions to setup the basic information of a PBC calculation.  The
 <code class="xref py py-mod docutils literal"><span class="pre">pyscf.pbc.gto</span></code> module is analogous to the basic molecular <code class="xref py py-mod docutils literal"><span class="pre">pyscf.gto</span></code> module.
 The <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code> class for crystal structure unit cells is defined in this module and is
-analogous to the basic molecular <code class="xref py py-class docutils literal"><span class="pre">Mole</span></code> class.  Among other details, the basis set
+analogous to the basic molecular <code class="xref py py-class docutils literal"><span class="pre">Mole</span></code> class.  Amongst other details, the basis set
 and pseudopotentials are parsed in this module.</p>
 <div class="section" id="cell-class">
 <h2>34.1.1. <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code> class<a class="headerlink" href="#cell-class" title="Permalink to this headline">¶</a></h2>
@@ -241,21 +241,26 @@ and pseudopotentials are parsed in this module.</p>
 functionality as the <code class="xref py py-class docutils literal"><span class="pre">Mole</span></code> object.  For example, one can use the <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code>
 object to access the atomic structure, basis functions, pseudopotentials, and certain
 analytical periodic integrals.</p>
-<p>Similar to the input in a molecular calculation, one first creates a <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code> object.
+<p>Similar to the input of a molecular calculation, one first creates a <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code> object.
 After assigning the crystal parameters, one calls <code class="xref py py-func docutils literal"><span class="pre">build()</span></code> to fully initialize the
 <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code> object.  A shortcut function <code class="xref py py-func docutils literal"><span class="pre">M()</span></code> is available at the module level to
 simplify the input.</p>
 <p>Beyond the basic parameters <code class="xref py py-attr docutils literal"><span class="pre">atom</span></code> and <code class="xref py py-attr docutils literal"><span class="pre">basis</span></code>, one needs to set the unit cell
 lattice vectors <code class="xref py py-attr docutils literal"><span class="pre">a</span></code> (a 3x3 array, where each row is a real-space primitive vector)
-and the numbers of grid points in the FFT-mesh in each positive direction <code class="xref py py-attr docutils literal"><span class="pre">gs</span></code> (a
-length-3 list or 1x3 array); the total number of grid points is 2 <code class="xref py py-attr docutils literal"><span class="pre">gs</span></code> +1.</p>
+and the numbers of grid points in the FFT-mesh in each positive direction <code class="xref py py-attr docutils literal"><span class="pre">mesh</span></code> (a
+length-3 list or 1x3 array).</p>
+<p>In the <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code> class, many parameters are determined automatically according to
+the attribute <code class="xref py py-attr docutils literal"><span class="pre">precision</span></code>, which likewise can be set manually or left to its default
+value (1e-8). The parameters determined by <code class="xref py py-attr docutils literal"><span class="pre">precision</span></code> include <code class="xref py py-attr docutils literal"><span class="pre">ke_cutoff</span></code>,
+<code class="xref py py-attr docutils literal"><span class="pre">mesh</span></code>, <code class="xref py py-attr docutils literal"><span class="pre">rcut</span></code>, <code class="xref py py-attr docutils literal"><span class="pre">ew_cut</span></code> and <code class="xref py py-attr docutils literal"><span class="pre">ew_eta</span></code>. These parameters can also be
+set manually by the user.</p>
 <p>In certain cases, it is convenient to choose the FFT-mesh density based on the kinetic
 energy cutoff.  The <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code> class offers an alternative attribute
 <code class="xref py py-attr docutils literal"><span class="pre">ke_cutoff</span></code> that can be used to set the FFT-mesh.  If <code class="xref py py-attr docutils literal"><span class="pre">ke_cutoff</span></code> is set and
-<code class="xref py py-attr docutils literal"><span class="pre">gs</span></code> is <code class="docutils literal"><span class="pre">None</span></code>, the <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code> initialization function will convert the
+<code class="xref py py-attr docutils literal"><span class="pre">mesh</span></code> is <code class="docutils literal"><span class="pre">None</span></code>, the <code class="xref py py-class docutils literal"><span class="pre">Cell</span></code> initialization function will convert the
 <code class="xref py py-attr docutils literal"><span class="pre">ke_cutoff</span></code> to the equivalent FFT-mesh
 according to the relation <span class="math">\(\mathbf{g} = \frac{\sqrt{2E_{\mathrm{cut}}}}{2\pi}\mathbf{a}^T\)</span>
-and will overwrite the <code class="xref py py-attr docutils literal"><span class="pre">gs</span></code> attribute.</p>
+and will overwrite the <code class="xref py py-attr docutils literal"><span class="pre">mesh</span></code> attribute.</p>
 <p>Many PBC calculations are best performed using pseudopotentials, which are set via
 the <code class="xref py py-attr docutils literal"><span class="pre">pseudo</span></code> attribute.  Pseudopotentials alleviate the need for impractically
 dense FFT-meshes, although they represent a potentially uncontrolled source of error.
@@ -272,9 +277,7 @@ represented with nested Python lists only.</dd>
 <p>Nuclear-nuclear interaction energies are evaluated by means of Ewald summation, which
 depends on three parameters: the truncation radius for real-space lattice sums
 <code class="xref py py-attr docutils literal"><span class="pre">rcut</span></code>, the Gaussian model charge <code class="xref py py-attr docutils literal"><span class="pre">ew_eta</span></code>, and the energy cutoff
-<code class="xref py py-attr docutils literal"><span class="pre">ew_cut</span></code>.  Although they can be set manually, these parameters are by default chosen
-automatically according to the attribute <code class="xref py py-attr docutils literal"><span class="pre">precision</span></code>, which likewise can be set
-manually or left to its default value.</p>
+<code class="xref py py-attr docutils literal"><span class="pre">ew_cut</span></code>.</p>
 <p>Besides the methods and parameters provided by <code class="xref py py-class docutils literal"><span class="pre">Mole</span></code> class (see Chapter
 <a class="reference internal" href="../gto.html#gto"><span class="std std-ref">gto &#8212; Molecular structure and GTO basis</span></a>), there are some parameters frequently used in the code to access the
 information of the crystal.</p>
@@ -295,11 +298,11 @@ and absolute value:</p>
 </div>
 </dd>
 <dt>Gv</dt>
-<dd>The (N x 3) array of plane waves associated to <code class="xref py py-attr docutils literal"><span class="pre">gs</span></code>.  <code class="xref py py-attr docutils literal"><span class="pre">gs</span></code> defines
+<dd>The (N x 3) array of plane waves associated to <code class="xref py py-attr docutils literal"><span class="pre">mesh</span></code>.  <code class="xref py py-attr docutils literal"><span class="pre">mesh</span></code> defines
 the number of FFT grids in each direction.  <code class="xref py py-meth docutils literal"><span class="pre">Cell.Gv()</span></code> or <code class="xref py py-meth docutils literal"><span class="pre">get_Gv()</span></code>
 convert the FFT-mesh to the plane waves.  <code class="docutils literal"><span class="pre">Gv</span></code> are the the plane wave bases
-of 3D-FFT transformation.  Given <code class="docutils literal"><span class="pre">gs</span> <span class="pre">=</span> <span class="pre">[nx,ny,nz]</span></code>, the number of vectors in
-<code class="docutils literal"><span class="pre">Gv</span></code> is <code class="docutils literal"><span class="pre">(2*nx+1)*(2*ny+1)*(2*nz+1)</span></code>.</dd>
+of 3D-FFT transformation.  Given <code class="docutils literal"><span class="pre">mesh</span> <span class="pre">=</span> <span class="pre">[nx,ny,nz]</span></code>, the number of vectors in
+<code class="docutils literal"><span class="pre">Gv</span></code> is <code class="docutils literal"><span class="pre">nx*ny*nz</span></code>.</dd>
 <dt>vol</dt>
 <dd><code class="xref py py-attr docutils literal"><span class="pre">Cell.vol</span></code> gives the volume of the unit cell (in atomic unit).</dd>
 <dt>reciprocal_vectors</dt>

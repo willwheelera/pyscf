@@ -208,7 +208,14 @@
             
   <div class="section" id="doci-doubly-occupied-configuration-interaction">
 <h1>22. doci &#8212; Doubly occupied configuration interaction<a class="headerlink" href="#doci-doubly-occupied-configuration-interaction" title="Permalink to this headline">¶</a></h1>
-<span class="target" id="module-doci"></span><p>The <a class="reference internal" href="#module-doci" title="doci"><code class="xref py py-mod docutils literal"><span class="pre">doci</span></code></a> implements doubly-occupied configuration interaction.</p>
+<span class="target" id="module-doci"></span><p>The <a class="reference internal" href="#module-doci" title="doci"><code class="xref py py-mod docutils literal"><span class="pre">doci</span></code></a> implements doubly-occupied configuration interaction. A minimal example on N2 calculation:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">doci</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;N 0 0 0; N 0 0 2.&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;6-31g&#39;</span><span class="p">)</span>
+<span class="n">mf</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">RHF</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="n">mc</span> <span class="o">=</span> <span class="n">doci</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+<span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+</pre></div>
+</div>
 <div class="section" id="examples">
 <h2>22.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples

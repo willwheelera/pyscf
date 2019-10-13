@@ -210,6 +210,25 @@
             
   <div class="section" id="x2c-exact-two-component-approach">
 <h1>33. x2c &#8212; exact-two-component approach<a class="headerlink" href="#x2c-exact-two-component-approach" title="Permalink to this headline">¶</a></h1>
+<p>An example to apply scalar relativistic effects by decorating the scf object with module <code class="xref py py-mod docutils literal"><span class="pre">x2c</span></code> is shown as following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span>
+<span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">scf</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span>
+    <span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;8  0  0.     0</span>
+<span class="s1">              1  0  -0.757 0.587</span>
+<span class="s1">              1  0  0.757  0.587&#39;&#39;&#39;</span><span class="p">,</span>
+    <span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;ccpvdz&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">x2c</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="n">mol</span><span class="o">.</span><span class="n">spin</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">mol</span><span class="o">.</span><span class="n">charge</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">UKS</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">x2c1e</span><span class="p">()</span>
+<span class="n">energy</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>More examples can be find here:</p>
 <div class="section" id="examples">
 <h2>33.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples

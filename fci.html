@@ -227,7 +227,16 @@ direct_nosym        No            No             No**               Yes</p>
 </ul>
 <p>** Hamiltonian is real but not hermitian, (ij|kl) != (ji|kl) ...</p>
 <p>The <code class="xref py py-mod docutils literal"><span class="pre">fci</span></code> module implements Full Configuration Interaction. Different
-implementations are available for different Hamiltonian and spin symmetries.</p>
+implementations are available for different Hamiltonian and spin symmetries.
+One example for FCI calculation on HF molecule:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span><span class="p">,</span> <span class="n">fci</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">Mole</span><span class="p">(</span><span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;H 0 0 0; F 0 0 1.1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span> <span class="s1">&#39;6-31g&#39;</span><span class="p">,</span> <span class="n">symmetry</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">myhf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">myhf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+<span class="n">cisolver</span> <span class="o">=</span> <span class="n">fci</span><span class="o">.</span><span class="n">FCI</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">myhf</span><span class="o">.</span><span class="n">mo_coeff</span><span class="p">)</span>
+<span class="n">cisolver</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+</pre></div>
+</div>
 <div class="section" id="examples">
 <h2>25.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>For a complete list of FCI examples, see

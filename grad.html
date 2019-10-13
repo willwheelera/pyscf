@@ -230,7 +230,21 @@
             
   <div class="section" id="module-grad">
 <span id="grad-analytical-nuclear-gradients"></span><h1>14. grad &#8212; Analytical nuclear gradients<a class="headerlink" href="#module-grad" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference internal" href="#module-grad" title="grad"><code class="xref py py-mod docutils literal"><span class="pre">grad</span></code></a> module provides gradients for mean-field and correlated methods.</p>
+<p>The <a class="reference internal" href="#module-grad" title="grad"><code class="xref py py-mod docutils literal"><span class="pre">grad</span></code></a> module provides gradients for mean-field and correlated methods.
+For example, the RHF gradient can be computed by:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="k">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span>
+    <span class="n">atom</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span><span class="s1">&#39;O&#39;</span> <span class="p">,</span> <span class="mf">0.</span> <span class="p">,</span> <span class="mf">0.</span>     <span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="s1">&#39;H&#39;</span> <span class="p">,</span> <span class="mf">0.</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.757</span> <span class="p">,</span> <span class="mf">0.587</span><span class="p">],</span>
+        <span class="p">[</span><span class="s1">&#39;H&#39;</span> <span class="p">,</span> <span class="mf">0.</span> <span class="p">,</span>  <span class="mf">0.757</span> <span class="p">,</span> <span class="mf">0.587</span><span class="p">]],</span>
+        <span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;631g&#39;</span><span class="p">)</span>
+<span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">nuc_grad_method</span><span class="p">()</span>
+<span class="n">g</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+</pre></div>
+</div>
 <div class="section" id="examples">
 <h2>14.1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Relevant examples
